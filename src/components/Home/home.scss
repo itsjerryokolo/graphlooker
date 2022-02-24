@@ -1,0 +1,67 @@
+@import "src/utility/theme/dark-theme.scss";
+@import "src/utility/theme/light-theme.scss";
+
+.container {
+  background-color: var(--homeBackground);
+  color: var(--fontColour);
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  text-align: center;
+  padding-top: 3rem;
+  h1 {
+    font-size: 5rem;
+    margin: 9rem 0 3rem 0;
+    font-weight: 400;
+  }
+  .search-box {
+    .search-box-form {
+      display: flex;
+      justify-content: center;
+      max-width: 850px;
+      margin: 2.5rem auto 0;
+      flex-wrap: wrap;
+      .search-input {
+        border: var(--searchBoxBorder);
+        box-sizing: border-box;
+        border-radius: 7px 0 0 7px;
+        padding-left: 1.5rem;
+        width: 75%;
+        outline: none;
+        height: 70px;
+        font-size: 23px;
+        margin-bottom: 1rem;
+      }
+      .search-button {
+        font-weight: 700;
+        font-size: 23px;
+        width: 25%;
+        border-radius: 0 7px 7px 0;
+        background-color: #21d4fd;
+        margin-bottom: 1rem;
+        background: var(--exploreButtonBackground);
+        color: #fff;
+        transition: 0.4s;
+        cursor: pointer;
+        border: none;
+      }
+    }
+  }
+
+  // .subgraph-container{
+  //     //border: red solid 2px;
+  //     margin-top: 3.5rem;
+  //     width: 100%;
+  //     .list-of-subgraph {
+  //        // border: red solid 2px;
+  //         max-height: 500px;
+  //         box-sizing: border-box;
+  //         overflow-y: scroll;
+  //         max-width: 60%;
+  //         margin: 0 auto;
+  //         display: flex;
+  //         justify-content: space-between;
+  //         flex-wrap: wrap;
+  //     }
+  // }
+}

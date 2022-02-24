@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+import React, { useState } from "react";
+import logo from "./logo.svg";
 import {
   BrowserRouter,
   Route,
@@ -7,34 +7,47 @@ import {
   RouteComponentProps,
   Redirect,
 } from "react-router-dom";
-import Home from './components/Home/home';
-import './App.css';
-import Navbar from './components/Navbar/navbar';
+import Home from "./components/Home/home";
+import "./App.css";
+import { useSelector } from "react-redux";
+import { EndpointState, ThemeState } from "./utility/redux/state";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import GraphData from "./components/GraphData/graph-data";
 
 function App() {
-const [theme, setTheme] =useState('dark');
-
-const toggleTheme = () => {
-  (theme === 'light')?setTheme('dark'):setTheme('light');
-}
+  const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
+  const endpoint = useSelector(
+    (state: EndpointState) => state.graphEndpoint.endpoint
+  );
+  console.log("endpoint", endpoint);
+  const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    uri: endpoint,
+  });
 
   return (
-    <div className="App">
+    <>
+      <ApolloProvider client={client}>
+        <div theme-selector={theme} className="App">
           <BrowserRouter>
-          <Navbar theme={theme} toggleTheme ={toggleTheme}></Navbar>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={(props: RouteComponentProps<any>) => (
-              <Home
-              theme={theme}
-              ></Home>
-            )}
-          ></Route>
-        </Switch>
-      </BrowserRouter>
-    </div>
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={(props: RouteComponentProps<any>) => <Home></Home>}
+              ></Route>
+              <Route
+                exact
+                path="/:endpoint/:entity"
+                render={(props: RouteComponentProps<any>) => (
+                  <GraphData></GraphData>
+                )}
+              ></Route>
+            </Switch>
+          </BrowserRouter>
+        </div>
+      </ApolloProvider>
+    </>
   );
 }
 

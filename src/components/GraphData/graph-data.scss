@@ -1,0 +1,71 @@
+.card-container {
+  display: flex;
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+
+    &.toolbar-padding {
+      padding: 0;
+    }
+
+    .menu-container {
+      width: 280px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0;
+      //border: red solid 2px;
+      margin-left: 20px;
+      height: 100%;
+
+      .toggle-drawer-icon {
+        color: var(--drawerIconColour);
+        font-size: 1.8rem;
+        background: var(--drawerToggleIconBackground);
+        border-radius: 2px;
+        box-shadow: #21d4fd 0px 10px 50px;
+
+        cursor: pointer;
+
+        &:hover {
+          box-shadow: #00a1ff 0px 7px 29px 0px;
+        }
+      }
+    }
+    .theme-icon {
+      border: var(--themeIconBorder) solid 0.5px;
+      padding: 7px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+      background-color: var(--themeIconBackground);
+      cursor: pointer;
+      svg {
+        font-size: 1.7rem;
+        color: var(--iconColour);
+      }
+    }
+  }
+  .drawer {
+    background-color: var(--drawerBackground);
+  }
+  .drawer-paper {
+    background-color: var(--drawerBackground);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .toolbar {
+    .menu-container {
+      width: 60px;
+    }
+    .left-header-part {
+      width: calc(100% - 60px);
+    }
+  }
+}

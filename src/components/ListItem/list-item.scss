@@ -1,0 +1,45 @@
+.links {
+  .list-item {
+    &.margin-halfrem {
+      margin: 0.5rem;
+      text-decoration: none;
+
+      &:hover {
+        background-color: rgba(0, 161, 255, 0.2);
+        color: rgb(0, 161, 255) !important;
+        border-radius: 5px;
+        margin: 0.5rem;
+      }
+    }
+    .entity-logo {
+      margin-right: 1rem;
+      color: var(--listIconColour);
+    }
+    .list-item-text {
+      font-size: 16px;
+      text-transform: capitalize;
+      color: var(--listItemColour);
+    }
+  }
+}
+
+.list-item-selected {
+  color: rgb(0, 161, 255);
+  text-decoration: none;
+  .entity-logo {
+    margin-right: 1rem;
+  }
+
+  &.selected-background {
+    color: #00a1ff;
+    text-transform: capitalize;
+    font-weight: 600;
+    background-color: rgba(0, 161, 255, 0.2);
+    border-radius: 5px;
+    margin: 0.5rem;
+
+    &:hover {
+      background-color: rgba(0, 161, 255, 0.2);
+    }
+  }
+}

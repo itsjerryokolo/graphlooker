@@ -1,0 +1,22 @@
+[theme-selector="dark"] {
+  --navbarBackground: #03000c;
+  --navbarBoxShadow: #3d3d3d 0px 2px 5px -1px, #3d3d3d 0px 1px 3px -1px;
+  --fontColour: white;
+  --themeIconBorder: #00a1ff;
+  --themeIconBackground: none;
+  --iconColour: #00a1ff;
+  --cardBorderColour: 2px solid rgba(93, 65, 212, 0.5);
+  --cardBoxShadow: 0 0 16px 0 hsl(0deg 0% 100% / 20%);
+  --searchBoxBorder: none;
+  --homeBackground: #03000c;
+  --exploreButtonBackground: linear-gradient(
+    90deg,
+    #21d4fd,
+    rgba(185, 33, 255, 0.5137254901960784) 99%
+  );
+  --drawerToggleIconBackground: linear-gradient(90deg, #21d4fd 0%, #b721ff 93%);
+  --drawerIconColour: #000;
+  --drawerBackground: #03000c;
+  --listItemColour: white;
+  --listIconColour: white;
+}

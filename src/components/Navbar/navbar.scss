@@ -1,0 +1,31 @@
+@import "src/utility/theme/dark-theme.scss";
+@import "src/utility/theme/light-theme.scss";
+
+.toolbar {
+  background-color: var(--navbarBackground);
+  box-shadow: var(--navbarBoxShadow);
+  &.toolbar-padding {
+    padding: 0;
+  }
+
+  .menu-items {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 3rem;
+    .theme-icon {
+      border: var(--themeIconBorder) solid 0.5px;
+      padding: 7px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      background-color: var(--themeIconBackground);
+      cursor: pointer;
+      svg {
+        font-size: 1.7rem;
+        color: var(--iconColour);
+      }
+    }
+  }
+}
