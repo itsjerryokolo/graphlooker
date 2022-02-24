@@ -28,6 +28,7 @@ import {
   setGraphEntity,
   setGraphEndpoint,
 } from "../../redux/actions/endpoint-action";
+import DataBoard from "../DataBoard/data-board";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -98,6 +99,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
           width: "100%",
           maxWidth: 360,
           bgcolor: "background.paper",
+          backgroundColor: `${theme === "light" ? "white" : "black"}`,
         }}
         component="nav"
         aria-labelledby="nested-list-subheader"
@@ -144,7 +146,6 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
       </AppBar>
       <Box>
         <Drawer
-          className="drawer-paper"
           variant="temporary"
           open={drawerOpen}
           onClose={handleToggleDrawer}
@@ -156,9 +157,8 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-
+              backgroundColor: `${theme === "light" ? "white" : "black"}`,
               color: "white",
-              backgroundColor: "inherit",
               paddingBottom: "8rem",
             },
           }}
@@ -175,7 +175,6 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
           {drawer}
         </Drawer>
         <Drawer
-          className="drawer-paper"
           sx={{
             width: drawerWidth,
             flexShrink: 0,
@@ -184,7 +183,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
               color: "white",
               marginTop: "64px",
               boxSizing: "border-box",
-              backgroundColor: "inherit",
+              backgroundColor: `${theme === "light" ? "white" : "black"}`,
               paddingBottom: "8rem",
               display: { xs: "none", sm: "block" },
             },
@@ -196,6 +195,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
           {drawer}
         </Drawer>
       </Box>
+      <DataBoard drawerOpen={drawerOpen}></DataBoard>
     </div>
   );
 };
