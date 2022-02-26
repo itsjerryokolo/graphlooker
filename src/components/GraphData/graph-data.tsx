@@ -12,10 +12,6 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
-import ExpandMore from "@mui/icons-material/ExpandMore";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useSelector, useDispatch } from "react-redux";
@@ -55,7 +51,6 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
     const entity = match.params.entity;
     dispatch(setGraphEntity(entity));
     dispatch(setGraphEndpoint(endpoint));
-    console.log(endpoint, entity);
   }, [match.params.endpoint, match.params.entity]);
 
   const dispatch = useDispatch();

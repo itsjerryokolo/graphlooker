@@ -1,0 +1,16 @@
+.table-conatiner{
+    max-width: 1120px;
+    max-height: 600px;
+    border: gray solid 1px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: auto;
+    margin: 1rem auto 0;
+    .table-head{
+        background-color: #03000c;
+        .table-heading-text{
+            color: white;
+        }
+    }
+}

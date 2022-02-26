@@ -7,3 +7,7 @@ export interface ListItemProps {
 export interface DataBoardProps {
   drawerOpen: boolean;
 }
+
+export interface GraphDataTableProps {
+  allAttributes: {name:string, type:string}[]
+}
