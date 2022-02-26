@@ -12,9 +12,8 @@ export const getAllEntities = gql`
   }
 `;
 
-export const getAllAttributes = (entity:string) => {
-  return(
-    gql`
+export const getAllAttributes = (entity: string) => {
+  return gql`
         query{
           __type(name:"${entity}"){
             name
@@ -28,38 +27,72 @@ export const getAllAttributes = (entity:string) => {
           }
         }
         }
-    `
-  )     
-}
+    `;
+};
 
-export const getGraphData = (data:{name:string, type:string}[], entity:string) => {
+export const getGraphData = (
+  data: { name: string; type: string }[],
+  entity: string
+) => {
   let queryData = ` `;
-const selectedEntity = entity + 's';
+  const selectedEntity = entity + "s";
   for (let index = 0; index < data.length; ++index) {
     const element = data[index];
-    if(element.name === 'id'){
+    if (element.name === "id") {
       continue;
-    }  
-    if((element.type === "LIST") || ( element.type=== "OBJECT") ||
-    (element.type === "NON_NULL"))
-    {
+    }
+    if (
+      element.type === "LIST" ||
+      element.type === "OBJECT" ||
+      element.type === "NON_NULL"
+    ) {
       queryData = queryData + `${element.name} { id } `;
-    }else{
+    } else {
       queryData = queryData + `${element.name} `;
-    }    
+    }
   }
 
-
-  console.log("query",queryData)
-  return(
-    gql `
+  console.log("query", queryData);
+  return gql`
     query {
       ${selectedEntity}(first:100){
         id      
         ${queryData}
         }
     }
-    `
-  )  
-}
+    `;
+};
 
+export const getGraphDataForID = (
+  data: { name: string; type: string }[],
+  entity: string,
+  filterID: string
+) => {
+  let queryData = ` `;
+  const selectedEntity = entity + "s";
+  for (let index = 0; index < data.length; ++index) {
+    const element = data[index];
+    if (element.name === "id") {
+      continue;
+    }
+    if (
+      element.type === "LIST" ||
+      element.type === "OBJECT" ||
+      element.type === "NON_NULL"
+    ) {
+      queryData = queryData + `${element.name} { id } `;
+    } else {
+      queryData = queryData + `${element.name} `;
+    }
+  }
+
+  console.log("query", queryData);
+  return gql`
+      query {
+        ${selectedEntity}(where:{id:"${filterID}"}){
+          id      
+          ${queryData}
+          }
+      }
+      `;
+};

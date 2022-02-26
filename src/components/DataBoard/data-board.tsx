@@ -9,7 +9,12 @@ import { useSelector } from "react-redux";
 import { DataBoardProps, ListItemProps } from "./../../utility/interface/props";
 import TableChartIcon from "@mui/icons-material/TableChart";
 import { EndpointState, EntityState } from "../../utility/redux/state";
-import { Link, Redirect } from "react-router-dom";
+import {
+  Link,
+  Redirect,
+  RouteComponentProps,
+  withRouter,
+} from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -24,7 +29,6 @@ import { getAllAttributes } from "../../utility/graph/query";
 import GraphDataTable from "../GraphDataTable/graph-data-table";
 
 const drawerWidth = 300;
-
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
@@ -49,22 +53,27 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
     },
   }),
 }));
-const DataBoard: React.FunctionComponent<DataBoardProps> = ({ drawerOpen }) => {
+const DataBoard: React.FunctionComponent<
+  DataBoardProps & RouteComponentProps
+> = ({ drawerOpen }) => {
   const selectedEntity = useSelector(
     (state: EntityState) => state.selectedEntity.entity
   );
   const endpoint = useSelector(
     (state: EndpointState) => state.graphEndpoint.endpoint
   );
-  let allAttributes: {name:string, type:string}[];
+  let allAttributes: { name: string; type: string }[];
   allAttributes = [];
-  const entity =
-    (selectedEntity)?(selectedEntity.charAt(0).toUpperCase() + selectedEntity.slice(1)):'';
+  const entity = selectedEntity
+    ? selectedEntity.charAt(0).toUpperCase() + selectedEntity.slice(1)
+    : "";
 
-    useEffect(()=>{
-      getAttributes();
-    },[])
-  const[getAttributes, { error, loading, data } ]= useLazyQuery(getAllAttributes(entity));
+  useEffect(() => {
+    getAttributes();
+  }, []);
+  const [getAttributes, { error, loading, data }] = useLazyQuery(
+    getAllAttributes(entity)
+  );
   if (loading) {
     console.log("timeout");
     if (error) {
@@ -74,18 +83,25 @@ const DataBoard: React.FunctionComponent<DataBoardProps> = ({ drawerOpen }) => {
       console.log("error", error);
     }
     if (data) {
-    const queryData = data.__type?.fields;
-    if(queryData !== undefined){
-      for (let index = 0; index < queryData.length; ++index) {
-        const element = queryData[index];
-        if((!(element.type?.ofType))||element.type?.ofType?.kind === 'LIST'|| element.type?.ofType?.kind === 'NON_NULL')continue;
-          allAttributes.push({name:element.name, type:element.type?.ofType?.kind});
-        
-      };
-
+      const queryData = data.__type?.fields;
+      if (queryData !== undefined) {
+        for (let index = 0; index < queryData.length; ++index) {
+          const element = queryData[index];
+          if (
+            !element.type?.ofType ||
+            element.type?.ofType?.kind === "LIST" ||
+            element.type?.ofType?.kind === "NON_NULL"
+          )
+            continue;
+          allAttributes.push({
+            name: element.name,
+            type: element.type?.ofType?.kind,
+          });
+        }
+      }
+      console.log(queryData);
     }
-    console.log(queryData);    
-  }}
+  }
 
   return (
     <Main open={drawerOpen}>
@@ -94,11 +110,11 @@ const DataBoard: React.FunctionComponent<DataBoardProps> = ({ drawerOpen }) => {
         id="tab0"
         role="tabpanel"
         aria-labelledby="tab_0"
-      > 
-      <GraphDataTable allAttributes={allAttributes}></GraphDataTable>
+      >
+        <GraphDataTable allAttributes={allAttributes}></GraphDataTable>
       </div>
     </Main>
   );
 };
 
-export default DataBoard;
+export default withRouter(DataBoard);

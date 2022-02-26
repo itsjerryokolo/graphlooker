@@ -8,10 +8,16 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import { GraphDataTableProps } from "./../../utility/interface/props";
 import TableChartIcon from "@mui/icons-material/TableChart";
 import { EndpointState, EntityState } from "../../utility/redux/state";
-import { Link, Redirect } from "react-router-dom";
+import {
+  Link,
+  Redirect,
+  RouteComponentProps,
+  withRouter,
+} from "react-router-dom";
 import { gql, useQuery, useLazyQuery } from "@apollo/client";
 import { useSelector } from "react-redux";
-import { getGraphData } from "../../utility/graph/query";
+import { getGraphData, getGraphDataForID } from "../../utility/graph/query";
+import { useLocation } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -19,22 +25,45 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import queryString from "query-string";
 import "./graph-data-table.scss";
 
-const GraphDataTable: React.FunctionComponent<GraphDataTableProps> = ({
-  allAttributes,
-}) => {
+const GraphDataTable: React.FunctionComponent<
+  GraphDataTableProps & RouteComponentProps<any>
+> = ({ allAttributes, location }) => {
   let selectedEntity: string;
   let rows: any[] = [];
+  const parsed = queryString.parse(location.search);
+  const endpoint = useSelector(
+    (state: EndpointState) => state.graphEndpoint.endpoint
+  );
+  console.log(parsed);
   selectedEntity = useSelector(
     (state: EntityState) => state.selectedEntity.entity
   );
+
+  const getBoardDataAsQuery = () => {
+    if (parsed.id !== undefined) {
+      return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
+    }
+    return getGraphData(allAttributes, selectedEntity);
+  };
   useEffect(() => {
     getBoardData();
   }, []);
 
+  const entityClicked = (entity: string, id: string, type: string) => {
+    if (type === "OBJECT") {
+      console.log(entity, id, type);
+      const URI = encodeURIComponent(endpoint);
+      console.log(`https://localhost:3000/${URI}/${entity}?id=${id}`);
+      const selectedEntity = entity.charAt(0).toLowerCase() + entity.slice(1);
+      window.location.href = `http://localhost:3000/${URI}/${selectedEntity}?id=${id}`;
+    }
+  };
+
   const [getBoardData, { error, loading, data }] = useLazyQuery(
-    getGraphData(allAttributes, selectedEntity)
+    getBoardDataAsQuery()
   );
   if (loading) {
     console.log("time out");
@@ -71,7 +100,32 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps> = ({
             ? rows.map((row) => (
                 <TableRow key={row.id} component="th" scope="row">
                   {allAttributes.map((item) => (
-                    <TableCell>{`${
+                    <TableCell
+                      className={`${
+                        item.type === "OBJECT" ? "entity-object" : ""
+                      }`}
+                      onClick={() =>
+                        entityClicked(
+                          `${
+                            item.type === "OBJECT"
+                              ? row[`${item.name}`] !== undefined
+                                ? row[`${item.name}`].__typename
+                                : ""
+                              : item.name
+                          }`,
+                          `${
+                            item.type === "OBJECT"
+                              ? row[`${item.name}`] !== undefined
+                                ? row[`${item.name}`].id
+                                : ""
+                              : row[`${item.name}`] !== undefined
+                              ? row[`${item.name}`]
+                              : ""
+                          }`,
+                          item.type
+                        )
+                      }
+                    >{`${
                       item.type === "LIST" ||
                       item.type === "OBJECT" ||
                       item.type === "NON_NULL"
@@ -92,4 +146,4 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps> = ({
   );
 };
 
-export default GraphDataTable;
+export default withRouter(GraphDataTable);
