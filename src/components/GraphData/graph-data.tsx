@@ -107,91 +107,99 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
   );
 
   return (
-    <div className="card-container">
-      <AppBar position="fixed">
-        <Toolbar className="toolbar toolbar-padding">
-          <div className="menu-container">
-            <Box
+    <>
+      {loading ? (
+        <div className="loader">
+          <span>Loading...</span>
+        </div>
+      ) : (
+        <div className="card-container">
+          <AppBar position="fixed">
+            <Toolbar className="toolbar toolbar-padding">
+              <div className="menu-container">
+                <Box
+                  sx={{
+                    display: { xs: "none", sm: "block" },
+                  }}
+                >
+                  <img
+                    src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
+                    height="43px"
+                    alt="dapplooker-icon"
+                  ></img>
+                </Box>
+                {drawerOpen ? (
+                  <KeyboardDoubleArrowLeftIcon
+                    className="toggle-drawer-icon"
+                    onClick={handleToggleDrawer}
+                  />
+                ) : (
+                  <KeyboardDoubleArrowRightIcon
+                    className="toggle-drawer-icon"
+                    onClick={handleToggleDrawer}
+                  />
+                )}
+              </div>
+              <div className="theme-icon" onClick={handleToggleTheme}>
+                {theme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+              </div>
+            </Toolbar>
+          </AppBar>
+          <Box>
+            <Drawer
+              variant="temporary"
+              open={drawerOpen}
+              onClose={handleToggleDrawer}
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+              }}
               sx={{
-                display: { xs: "none", sm: "block" },
+                display: { xs: "block", sm: "none" },
+                "& .MuiDrawer-paper": {
+                  boxSizing: "border-box",
+                  width: drawerWidth,
+                  backgroundColor: `${theme === "light" ? "white" : "black"}`,
+                  color: "white",
+                  paddingBottom: "8rem",
+                },
               }}
             >
-              <img
-                src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
-                height="43px"
-                alt="dapplooker-icon"
-              ></img>
-            </Box>
-            {drawerOpen ? (
-              <KeyboardDoubleArrowLeftIcon
-                className="toggle-drawer-icon"
-                onClick={handleToggleDrawer}
-              />
-            ) : (
-              <KeyboardDoubleArrowRightIcon
-                className="toggle-drawer-icon"
-                onClick={handleToggleDrawer}
-              />
-            )}
-          </div>
-          <div className="theme-icon" onClick={handleToggleTheme}>
-            {theme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
-          </div>
-        </Toolbar>
-      </AppBar>
-      <Box>
-        <Drawer
-          variant="temporary"
-          open={drawerOpen}
-          onClose={handleToggleDrawer}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-              backgroundColor: `${theme === "light" ? "white" : "black"}`,
-              color: "white",
-              paddingBottom: "8rem",
-            },
-          }}
-        >
-          <DrawerHeader>
-            <Box>
-              <img
-                src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
-                height="33px"
-                alt="dapplooker-icon"
-              ></img>
-            </Box>
-          </DrawerHeader>
-          {drawer}
-        </Drawer>
-        <Drawer
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              color: "white",
-              marginTop: "64px",
-              boxSizing: "border-box",
-              backgroundColor: `${theme === "light" ? "white" : "black"}`,
-              paddingBottom: "8rem",
-              display: { xs: "none", sm: "block" },
-            },
-          }}
-          variant="persistent"
-          anchor="left"
-          open={drawerOpen}
-        >
-          {drawer}
-        </Drawer>
-      </Box>
-      <DataBoard drawerOpen={drawerOpen}></DataBoard>
-    </div>
+              <DrawerHeader>
+                <Box>
+                  <img
+                    src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
+                    height="33px"
+                    alt="dapplooker-icon"
+                  ></img>
+                </Box>
+              </DrawerHeader>
+              {drawer}
+            </Drawer>
+            <Drawer
+              sx={{
+                width: drawerWidth,
+                flexShrink: 0,
+                "& .MuiDrawer-paper": {
+                  width: drawerWidth,
+                  color: "white",
+                  marginTop: "64px",
+                  boxSizing: "border-box",
+                  backgroundColor: `${theme === "light" ? "white" : "black"}`,
+                  paddingBottom: "8rem",
+                  display: { xs: "none", sm: "block" },
+                },
+              }}
+              variant="persistent"
+              anchor="left"
+              open={drawerOpen}
+            >
+              {drawer}
+            </Drawer>
+          </Box>
+          <DataBoard drawerOpen={drawerOpen}></DataBoard>
+        </div>
+      )}
+    </>
   );
 };
 

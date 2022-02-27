@@ -80,69 +80,77 @@ const GraphDataTable: React.FunctionComponent<
     }
   }
   return (
-    <div className="table-conatiner">
-      <Table aria-label="simple table">
-        <TableHead className="table-head">
-          <TableRow>
-            {allAttributes.map((item) => (
-              <TableCell className="table-heading-text">{`${item.name}${
-                item.type === "LIST" ||
-                item.type === "OBJECT" ||
-                item.type === "NON_NULL"
-                  ? "_id"
-                  : ""
-              }`}</TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.length !== 0
-            ? rows.map((row) => (
-                <TableRow key={row.id} component="th" scope="row">
-                  {allAttributes.map((item) => (
-                    <TableCell
-                      className={`${
-                        item.type === "OBJECT" ? "entity-object" : ""
-                      }`}
-                      onClick={() =>
-                        entityClicked(
-                          `${
-                            item.type === "OBJECT"
-                              ? row[`${item.name}`] !== undefined
-                                ? row[`${item.name}`].__typename
-                                : ""
-                              : item.name
-                          }`,
-                          `${
-                            item.type === "OBJECT"
-                              ? row[`${item.name}`] !== undefined
-                                ? row[`${item.name}`].id
-                                : ""
-                              : row[`${item.name}`] !== undefined
-                              ? row[`${item.name}`]
+    <>
+      {loading ? (
+        <div className="loader">
+          <span>Loading...</span>
+        </div>
+      ) : (
+        <div className="table-conatiner">
+          <Table aria-label="simple table">
+            <TableHead className="table-head">
+              <TableRow>
+                {allAttributes.map((item) => (
+                  <TableCell className="table-heading-text">{`${item.name}${
+                    item.type === "LIST" ||
+                    item.type === "OBJECT" ||
+                    item.type === "NON_NULL"
+                      ? "_id"
+                      : ""
+                  }`}</TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.length !== 0
+                ? rows.map((row) => (
+                    <TableRow key={row.id} component="th" scope="row">
+                      {allAttributes.map((item) => (
+                        <TableCell
+                          className={`${
+                            item.type === "OBJECT" ? "entity-object" : ""
+                          }`}
+                          onClick={() =>
+                            entityClicked(
+                              `${
+                                item.type === "OBJECT"
+                                  ? row[`${item.name}`] !== undefined
+                                    ? row[`${item.name}`].__typename
+                                    : ""
+                                  : item.name
+                              }`,
+                              `${
+                                item.type === "OBJECT"
+                                  ? row[`${item.name}`] !== undefined
+                                    ? row[`${item.name}`].id
+                                    : ""
+                                  : row[`${item.name}`] !== undefined
+                                  ? row[`${item.name}`]
+                                  : ""
+                              }`,
+                              item.type
+                            )
+                          }
+                        >{`${
+                          item.type === "LIST" ||
+                          item.type === "OBJECT" ||
+                          item.type === "NON_NULL"
+                            ? row[`${item.name}`] !== undefined
+                              ? row[`${item.name}`].id
                               : ""
-                          }`,
-                          item.type
-                        )
-                      }
-                    >{`${
-                      item.type === "LIST" ||
-                      item.type === "OBJECT" ||
-                      item.type === "NON_NULL"
-                        ? row[`${item.name}`] !== undefined
-                          ? row[`${item.name}`].id
-                          : ""
-                        : row[`${item.name}`] !== undefined
-                        ? row[`${item.name}`]
-                        : ""
-                    }`}</TableCell>
-                  ))}
-                </TableRow>
-              ))
-            : null}
-        </TableBody>
-      </Table>
-    </div>
+                            : row[`${item.name}`] !== undefined
+                            ? row[`${item.name}`]
+                            : ""
+                        }`}</TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                : null}
+            </TableBody>
+          </Table>
+        </div>
+      )}
+    </>
   );
 };
 
