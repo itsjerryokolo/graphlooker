@@ -33,4 +33,12 @@
       text-decoration: underline;
     }
   }
+  .ether-scan-address {
+    color: #f46b24;
+    font-weight: 600;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

@@ -37,7 +37,6 @@ const GraphDataTable: React.FunctionComponent<
   const endpoint = useSelector(
     (state: EndpointState) => state.graphEndpoint.endpoint
   );
-  console.log(parsed);
   selectedEntity = useSelector(
     (state: EntityState) => state.selectedEntity.entity
   );
@@ -59,6 +58,11 @@ const GraphDataTable: React.FunctionComponent<
       console.log(`https://localhost:3000/${URI}/${entity}?id=${id}`);
       const selectedEntity = entity.charAt(0).toLowerCase() + entity.slice(1);
       window.location.href = `http://localhost:3000/${URI}/${selectedEntity}?id=${id}`;
+    } else if (entity === "id") {
+      window.open(
+        `https://etherscan.io/address/${id}`,
+        "_blank" // <- This is what makes it open in a new window.
+      );
     }
   };
 
@@ -109,7 +113,7 @@ const GraphDataTable: React.FunctionComponent<
                         <TableCell
                           className={`${
                             item.type === "OBJECT" ? "entity-object" : ""
-                          }`}
+                          }${item.name === "id" ? "ether-scan-address" : ""}`}
                           onClick={() =>
                             entityClicked(
                               `${
