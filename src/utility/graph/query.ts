@@ -32,7 +32,8 @@ export const getAllAttributes = (entity: string) => {
 
 export const getGraphData = (
   data: { name: string; type: string }[],
-  entity: string
+  entity: string,
+  count: number
 ) => {
   let queryData = ` `;
   const selectedEntity = entity + "s";
@@ -55,7 +56,7 @@ export const getGraphData = (
   console.log("query", queryData);
   return gql`
     query {
-      ${selectedEntity}(first:100){
+      ${selectedEntity}(first:${count}){
         id      
         ${queryData}
         }

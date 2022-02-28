@@ -47,7 +47,7 @@ const GraphDataTable: React.FunctionComponent<
     if (parsed.id !== undefined) {
       return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
     }
-    return getGraphData(allAttributes, selectedEntity);
+    return getGraphData(allAttributes, selectedEntity, 100);
   };
   useEffect(() => {
     getBoardData();
