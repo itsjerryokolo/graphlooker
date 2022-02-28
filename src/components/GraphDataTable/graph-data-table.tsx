@@ -32,7 +32,7 @@ import "./graph-data-table.scss";
 
 const GraphDataTable: React.FunctionComponent<
   GraphDataTableProps & RouteComponentProps<any>
-> = ({ allAttributes, location }) => {
+> = ({ allAttributes, drawerOpen, location }) => {
   let selectedEntity: string;
   let rows: any[] = [];
   const parsed = queryString.parse(location.search);
@@ -93,7 +93,11 @@ const GraphDataTable: React.FunctionComponent<
         </div>
       ) : (
         <div className="all-graph-data">
-          <div className="table-conatiner">
+          <div
+            className={`table-conatiner ${
+              drawerOpen ? "drawer-open-table-length" : ""
+            }`}
+          >
             <Table aria-label="simple table" className="data-table">
               <TableHead className="table-head">
                 <TableRow>
@@ -156,7 +160,11 @@ const GraphDataTable: React.FunctionComponent<
               </TableBody>
             </Table>
           </div>
-          <div className="next-previous-option">
+          <div
+            className={`next-previous-option ${
+              drawerOpen ? "drawer-open-next-previous-option" : ""
+            }`}
+          >
             <NavigateBeforeIcon className="previous-icon"></NavigateBeforeIcon>
             <NavigateNextIcon></NavigateNextIcon>
           </div>

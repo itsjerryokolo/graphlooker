@@ -114,7 +114,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
         </div>
       ) : (
         <div className="card-container">
-          <AppBar position="fixed">
+          <AppBar position="fixed" className="app-bar">
             <Toolbar className="toolbar toolbar-padding">
               <div className="menu-container">
                 <Box

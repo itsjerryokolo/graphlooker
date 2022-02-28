@@ -111,7 +111,10 @@ const DataBoard: React.FunctionComponent<
         role="tabpanel"
         aria-labelledby="tab_0"
       >
-        <GraphDataTable allAttributes={allAttributes}></GraphDataTable>
+        <GraphDataTable
+          allAttributes={allAttributes}
+          drawerOpen={drawerOpen}
+        ></GraphDataTable>
       </div>
     </Main>
   );

@@ -11,15 +11,18 @@
   }
 }
 .all-graph-data {
+  box-sizing: border-box;
   .table-conatiner {
-    width: 1120px;
-    max-height: 550px;
-    border: gray solid 1px;
+    max-width: calc(100vw - 10px);
+    max-height: 600px;
     border-radius: 5px;
     box-sizing: border-box;
     overflow-x: auto;
     overflow-y: auto;
-    margin: 1rem auto 0;
+    margin: 5px auto 0;
+    &.drawer-open-table-length {
+      max-width: calc(100vw - 310px);
+    }
     .table-head {
       background-color: #03000c;
       .table-heading-text {
@@ -45,11 +48,14 @@
   }
 
   .next-previous-option {
-    width: 1120px;
+    max-width: calc(100vw - 10px);
     margin: 0 auto;
     display: flex;
     justify-content: end;
     box-sizing: border-box;
+    &.drawer-open-next-previous-option {
+      max-width: calc(100vw - 310px);
+    }
     .previous-icon {
       margin-right: 0.5rem;
     }
