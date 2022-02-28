@@ -28,6 +28,7 @@ import Paper from "@mui/material/Paper";
 import queryString from "query-string";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import Tooltip from "@mui/material/Tooltip";
 import "./graph-data-table.scss";
 
 const GraphDataTable: React.FunctionComponent<
@@ -98,11 +99,21 @@ const GraphDataTable: React.FunctionComponent<
               drawerOpen ? "drawer-open-table-length" : ""
             }`}
           >
-            <Table aria-label="simple table" className="data-table">
-              <TableHead className="table-head">
+            <Table
+              stickyHeader
+              aria-label="sticky table"
+              className="data-table"
+            >
+              <TableHead>
                 <TableRow>
                   {allAttributes.map((item) => (
-                    <TableCell className="table-heading-text">{`${item.name}${
+                    <TableCell
+                      sx={{
+                        color: "white",
+                        backgroundColor: "#03000c",
+                        padding: "16px 8px",
+                      }}
+                    >{`${item.name}${
                       item.type === "LIST" ||
                       item.type === "OBJECT" ||
                       item.type === "NON_NULL"
@@ -118,6 +129,7 @@ const GraphDataTable: React.FunctionComponent<
                       <TableRow key={row.id} component="th" scope="row">
                         {allAttributes.map((item) => (
                           <TableCell
+                            sx={{ padding: "8px" }}
                             className={`${
                               item.type === "OBJECT" ? "entity-object" : ""
                             }${item.name === "id" ? "ether-scan-address" : ""}`}
@@ -165,8 +177,13 @@ const GraphDataTable: React.FunctionComponent<
               drawerOpen ? "drawer-open-next-previous-option" : ""
             }`}
           >
-            <NavigateBeforeIcon className="previous-icon"></NavigateBeforeIcon>
-            <NavigateNextIcon></NavigateNextIcon>
+            <Tooltip title="previous">
+              <NavigateBeforeIcon className="previous-icon"></NavigateBeforeIcon>
+            </Tooltip>
+            <span>1</span>
+            <Tooltip title="next">
+              <NavigateNextIcon></NavigateNextIcon>
+            </Tooltip>
           </div>
         </div>
       )}
