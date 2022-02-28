@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -16,7 +16,7 @@ import {
 } from "react-router-dom";
 import { gql, useQuery, useLazyQuery } from "@apollo/client";
 import { useSelector } from "react-redux";
-import { getGraphData, getGraphDataForID } from "../../utility/graph/query";
+import { getGraphData, getGraphDataForID, getSortedGraphData } from "../../utility/graph/query";
 import { useLocation } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -25,11 +25,14 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Menu from "@mui/material/Menu";
+import MenuList from "@mui/material/MenuList";
 import queryString from "query-string";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Tooltip from "@mui/material/Tooltip";
 import "./graph-data-table.scss";
+import { ArrowDropDown, ArrowDropUp } from "@mui/icons-material";
 
 const GraphDataTable: React.FunctionComponent<
   GraphDataTableProps & RouteComponentProps<any>
@@ -44,9 +47,14 @@ const GraphDataTable: React.FunctionComponent<
     (state: EntityState) => state.selectedEntity.entity
   );
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
   const getBoardDataAsQuery = () => {
     if (parsed.id !== undefined) {
       return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
+    }
+    if(parsed.s !== undefined && parsed.c !== undefined){
+      return getSortedGraphData(allAttributes, selectedEntity, `${parsed.s}`, `${parsed.c}`)
     }
     return getGraphData(allAttributes, selectedEntity, 100);
   };
@@ -69,6 +77,14 @@ const GraphDataTable: React.FunctionComponent<
     }
   };
 
+  //Sort Data (Ascending /Descending) when Attribute Clicked
+  const attributeClicked = (s: string, c: string) => {
+      const URI = encodeURIComponent(endpoint);
+      const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
+      console.log(`http://localhost:3000/${URI}/${entity}?s=${s}&&c=${c}`);
+      window.location.href = `http://localhost:3000/${URI}/${entity}?s=${s}&&c=${c}`;
+  };
+
   const [getBoardData, { error, loading, data }] = useLazyQuery(
     getBoardDataAsQuery()
   );
@@ -80,12 +96,13 @@ const GraphDataTable: React.FunctionComponent<
   }
   if (data) {
     let queryData: any[];
-    queryData = data[`${selectedEntity}s`];
+    queryData = data["entity"];
     if (queryData !== undefined) {
       rows = [...queryData];
       console.log(rows);
     }
   }
+
   return (
     <>
       {loading ? (
