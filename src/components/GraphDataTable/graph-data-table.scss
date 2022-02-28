@@ -10,35 +10,57 @@
     margin: auto;
   }
 }
-.table-conatiner {
-  max-width: 1120px;
-  max-height: 600px;
-  border: gray solid 1px;
-  border-radius: 5px;
-  box-sizing: border-box;
-  overflow-x: auto;
-  overflow-y: auto;
-  margin: 1rem auto 0;
-  .table-head {
-    background-color: #03000c;
-    .table-heading-text {
-      color: white;
+.all-graph-data {
+  .table-conatiner {
+    width: 1120px;
+    max-height: 550px;
+    border: gray solid 1px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: auto;
+    margin: 1rem auto 0;
+    .table-head {
+      background-color: #03000c;
+      .table-heading-text {
+        color: white;
+      }
+    }
+    .entity-object {
+      color: #00a1ff;
+      font-weight: 600;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .ether-scan-address {
+      color: #f46b24;
+      font-weight: 600;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
-  .entity-object {
-    color: #00a1ff;
-    font-weight: 600;
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
+
+  .next-previous-option {
+    width: 1120px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: end;
+    box-sizing: border-box;
+    .previous-icon {
+      margin-right: 0.5rem;
     }
-  }
-  .ether-scan-address {
-    color: #f46b24;
-    font-weight: 600;
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
+    svg {
+      width: 50px;
+      color: var(--drawerIconColour);
+      font-size: 1.8rem;
+      background: var(--drawerToggleIconBackground);
+      border-radius: 2px;
+      cursor: pointer;
+      margin: 0.5rem 0;
     }
   }
 }

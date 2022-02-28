@@ -26,6 +26,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import queryString from "query-string";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import "./graph-data-table.scss";
 
 const GraphDataTable: React.FunctionComponent<
@@ -90,68 +92,74 @@ const GraphDataTable: React.FunctionComponent<
           <span>Loading...</span>
         </div>
       ) : (
-        <div className="table-conatiner">
-          <Table aria-label="simple table">
-            <TableHead className="table-head">
-              <TableRow>
-                {allAttributes.map((item) => (
-                  <TableCell className="table-heading-text">{`${item.name}${
-                    item.type === "LIST" ||
-                    item.type === "OBJECT" ||
-                    item.type === "NON_NULL"
-                      ? "_id"
-                      : ""
-                  }`}</TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.length !== 0
-                ? rows.map((row) => (
-                    <TableRow key={row.id} component="th" scope="row">
-                      {allAttributes.map((item) => (
-                        <TableCell
-                          className={`${
-                            item.type === "OBJECT" ? "entity-object" : ""
-                          }${item.name === "id" ? "ether-scan-address" : ""}`}
-                          onClick={() =>
-                            entityClicked(
-                              `${
-                                item.type === "OBJECT"
-                                  ? row[`${item.name}`] !== undefined
-                                    ? row[`${item.name}`].__typename
+        <div className="all-graph-data">
+          <div className="table-conatiner">
+            <Table aria-label="simple table" className="data-table">
+              <TableHead className="table-head">
+                <TableRow>
+                  {allAttributes.map((item) => (
+                    <TableCell className="table-heading-text">{`${item.name}${
+                      item.type === "LIST" ||
+                      item.type === "OBJECT" ||
+                      item.type === "NON_NULL"
+                        ? "_id"
+                        : ""
+                    }`}</TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.length !== 0
+                  ? rows.map((row) => (
+                      <TableRow key={row.id} component="th" scope="row">
+                        {allAttributes.map((item) => (
+                          <TableCell
+                            className={`${
+                              item.type === "OBJECT" ? "entity-object" : ""
+                            }${item.name === "id" ? "ether-scan-address" : ""}`}
+                            onClick={() =>
+                              entityClicked(
+                                `${
+                                  item.type === "OBJECT"
+                                    ? row[`${item.name}`] !== undefined
+                                      ? row[`${item.name}`].__typename
+                                      : ""
+                                    : item.name
+                                }`,
+                                `${
+                                  item.type === "OBJECT"
+                                    ? row[`${item.name}`] !== undefined
+                                      ? row[`${item.name}`].id
+                                      : ""
+                                    : row[`${item.name}`] !== undefined
+                                    ? row[`${item.name}`]
                                     : ""
-                                  : item.name
-                              }`,
-                              `${
-                                item.type === "OBJECT"
-                                  ? row[`${item.name}`] !== undefined
-                                    ? row[`${item.name}`].id
-                                    : ""
-                                  : row[`${item.name}`] !== undefined
-                                  ? row[`${item.name}`]
-                                  : ""
-                              }`,
-                              item.type
-                            )
-                          }
-                        >{`${
-                          item.type === "LIST" ||
-                          item.type === "OBJECT" ||
-                          item.type === "NON_NULL"
-                            ? row[`${item.name}`] !== undefined
-                              ? row[`${item.name}`].id
+                                }`,
+                                item.type
+                              )
+                            }
+                          >{`${
+                            item.type === "LIST" ||
+                            item.type === "OBJECT" ||
+                            item.type === "NON_NULL"
+                              ? row[`${item.name}`] !== undefined
+                                ? row[`${item.name}`].id
+                                : ""
+                              : row[`${item.name}`] !== undefined
+                              ? row[`${item.name}`]
                               : ""
-                            : row[`${item.name}`] !== undefined
-                            ? row[`${item.name}`]
-                            : ""
-                        }`}</TableCell>
-                      ))}
-                    </TableRow>
-                  ))
-                : null}
-            </TableBody>
-          </Table>
+                          }`}</TableCell>
+                        ))}
+                      </TableRow>
+                    ))
+                  : null}
+              </TableBody>
+            </Table>
+          </div>
+          <div className="next-previous-option">
+            <NavigateBeforeIcon className="previous-icon"></NavigateBeforeIcon>
+            <NavigateNextIcon></NavigateNextIcon>
+          </div>
         </div>
       )}
     </>
