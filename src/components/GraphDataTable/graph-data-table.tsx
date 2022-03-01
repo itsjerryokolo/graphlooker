@@ -27,11 +27,16 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Menu from "@mui/material/Menu";
 import MenuList from "@mui/material/MenuList";
+import Button from "@mui/material/Button";
 import queryString from "query-string";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import "./graph-data-table.scss";
-import { ArrowDropDown, ArrowDropUp } from "@mui/icons-material";
+import { ArrowDropDown, ArrowDropUp, KeyboardArrowDown } from "@mui/icons-material";
+import ArrowCircleUpTwoToneIcon from '@mui/icons-material/ArrowCircleUpTwoTone';
+import ArrowCircleDownTwoToneIcon from '@mui/icons-material/ArrowCircleDownTwoTone';
+import ArrowDownwardTwoToneIcon from '@mui/icons-material/ArrowDownwardTwoTone';
+import ArrowUpwardTwoToneIcon from '@mui/icons-material/ArrowUpwardTwoTone';
 
 const GraphDataTable: React.FunctionComponent<
   GraphDataTableProps & RouteComponentProps<any>
@@ -46,13 +51,11 @@ const GraphDataTable: React.FunctionComponent<
     (state: EntityState) => state.selectedEntity.entity
   );
 
-  const [anchorEl, setAnchorEl] = useState(null);
-
   const getBoardDataAsQuery = () => {
     if (parsed.id !== undefined) {
       return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
     }
-    if(parsed.s !== undefined && parsed.c !== undefined){
+    if (parsed.s !== undefined && parsed.c !== undefined) {
       return getSortedGraphData(allAttributes, selectedEntity, `${parsed.s}`, `${parsed.c}`)
     }
     return getGraphData(allAttributes, selectedEntity, 100);
@@ -78,10 +81,10 @@ const GraphDataTable: React.FunctionComponent<
 
   //Sort Data (Ascending /Descending) when Attribute Clicked
   const attributeClicked = (s: string, c: string) => {
-      const URI = encodeURIComponent(endpoint);
-      const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-      console.log(`http://localhost:3000/${URI}/${entity}?s=${s}&&c=${c}`);
-      window.location.href = `http://localhost:3000/${URI}/${entity}?s=${s}&&c=${c}`;
+    const URI = encodeURIComponent(endpoint);
+    const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
+    console.log(`http://localhost:3000/${URI}/${entity}?s=${s}&&c=${c}`);
+    window.location.href = `http://localhost:3000/${URI}/${entity}?s=${s}&&c=${c}`;
   };
 
   const [getBoardData, { error, loading, data }] = useLazyQuery(
@@ -94,12 +97,29 @@ const GraphDataTable: React.FunctionComponent<
     console.log(error);
   }
   if (data) {
+    console.log("Attr:--",allAttributes);
     let queryData: any[];
     queryData = data["entity"];
     if (queryData !== undefined) {
       rows = [...queryData];
       console.log(rows);
     }
+  }
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [attribute, setAttribute] = useState('');
+  const [attributeType, setAttributeType] = useState('');
+  const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const setDataAttri = (attri: string, attriType: string) => {
+    setAttribute(attri);
+    setAttributeType(attriType);
+  }
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
   }
 
   return (
@@ -111,76 +131,114 @@ const GraphDataTable: React.FunctionComponent<
       ) : (
         <div className="all-graph-data">
           <div
-            className={`table-conatiner ${
-              drawerOpen ? "drawer-open-table-length" : ""
-            }`}
+            className={`table-conatiner ${drawerOpen ? "drawer-open-table-length" : ""
+              }`}
           >
             <Table aria-label="simple table" className="data-table">
               <TableHead className="table-head">
                 <TableRow>
                   {allAttributes.map((item) => (
-                    <TableCell className="table-heading-text">{`${item.name}${
-                      item.type === "LIST" ||
-                      item.type === "OBJECT" ||
-                      item.type === "NON_NULL"
-                        ? "_id"
-                        : ""
-                    }`}</TableCell>
+                    <TableCell className="table-heading-text">
+                      <Button
+                        onClick={handleOpenMenu}
+                        onMouseOver={() => setDataAttri(item.name, item.type)}
+                        aria-controls='menu'
+                        endIcon={<KeyboardArrowDown />}
+                        variant="outlined"
+                        sx={{ color: "white", fontWeight: "bold" }}
+                      >
+                        {`${item.name}${item.type === "LIST" ||
+                          item.type === "OBJECT" ||
+                          item.type === "NON_NULL"
+                          ? "_id"
+                          : ""
+                          }`}
+                      </Button>
+
+                      <Menu
+                        sx={{ marginTop: "10px", boxShadow: "none" }}
+                        id="menu" onClose={handleCloseMenu} anchorEl={anchorEl} open={Boolean(anchorEl)}>
+                        {attributeType === "LIST" ||
+                          attributeType === "OBJECT" ||
+                          attributeType === "NON_NULL"
+                          ? ""
+                          :
+                          <MenuList sx={{ padding: "10px", fontWeight: "bold" }}>
+                            <Button variant="outlined" sx={{ padding: "3px" }}>
+                              <ArrowUpwardTwoToneIcon
+                                sx={{ color: "skyblue", padding: "0px", cursor: "pointer" }}
+                                onClick={() => attributeClicked('asc', attribute)}
+                              />
+                            </Button>
+                            <Button variant="outlined" sx={{ padding: "3px" }}>
+                              <ArrowDownwardTwoToneIcon
+                                sx={{ color: "skyblue", padding: "0px", cursor: "pointer" }}
+                                onClick={() => attributeClicked('desc', attribute)}
+                              />
+                            </Button>
+                          </MenuList>
+                        }
+
+                        <MenuList sx={{ padding: "10px",fontSize:"12px",fontWeight: "bold" }}>
+                          DATATYPE:
+                          <Button variant="text" sx={{ padding: "3px",fontWeight:"bold"}}>
+                            {`${attributeType}`}
+                          </Button>
+                        </MenuList>
+                      </Menu>
+
+                    </TableCell>
                   ))}
+
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rows.length !== 0
                   ? rows.map((row) => (
-                      <TableRow key={row.id} component="th" scope="row">
-                        {allAttributes.map((item) => (
-                          <TableCell
-                            className={`${
-                              item.type === "OBJECT" ? "entity-object" : ""
+                    <TableRow key={row.id} component="th" scope="row">
+                      {allAttributes.map((item) => (
+                        <TableCell
+                          className={`${item.type === "OBJECT" ? "entity-object" : ""
                             }${item.name === "id" ? "ether-scan-address" : ""}`}
-                            onClick={() =>
-                              entityClicked(
-                                `${
-                                  item.type === "OBJECT"
-                                    ? row[`${item.name}`] !== undefined
-                                      ? row[`${item.name}`].__typename
-                                      : ""
-                                    : item.name
-                                }`,
-                                `${
-                                  item.type === "OBJECT"
-                                    ? row[`${item.name}`] !== undefined
-                                      ? row[`${item.name}`].id
-                                      : ""
-                                    : row[`${item.name}`] !== undefined
-                                    ? row[`${item.name}`]
-                                    : ""
-                                }`,
-                                item.type
-                              )
-                            }
-                          >{`${
-                            item.type === "LIST" ||
-                            item.type === "OBJECT" ||
-                            item.type === "NON_NULL"
-                              ? row[`${item.name}`] !== undefined
-                                ? row[`${item.name}`].id
-                                : ""
-                              : row[`${item.name}`] !== undefined
-                              ? row[`${item.name}`]
-                              : ""
+                          onClick={() =>
+                            entityClicked(
+                              `${item.type === "OBJECT"
+                                ? row[`${item.name}`] !== undefined
+                                  ? row[`${item.name}`].__typename
+                                  : ""
+                                : item.name
+                              }`,
+                              `${item.type === "OBJECT"
+                                ? row[`${item.name}`] !== undefined
+                                  ? row[`${item.name}`].id
+                                  : ""
+                                : row[`${item.name}`] !== undefined
+                                  ? row[`${item.name}`]
+                                  : ""
+                              }`,
+                              item.type
+                            )
+                          }
+                        >{`${item.type === "LIST" ||
+                          item.type === "OBJECT" ||
+                          item.type === "NON_NULL"
+                          ? row[`${item.name}`] !== undefined
+                            ? row[`${item.name}`].id
+                            : ""
+                          : row[`${item.name}`] !== undefined
+                            ? row[`${item.name}`]
+                            : ""
                           }`}</TableCell>
-                        ))}
-                      </TableRow>
-                    ))
+                      ))}
+                    </TableRow>
+                  ))
                   : null}
               </TableBody>
             </Table>
           </div>
           <div
-            className={`next-previous-option ${
-              drawerOpen ? "drawer-open-next-previous-option" : ""
-            }`}
+            className={`next-previous-option ${drawerOpen ? "drawer-open-next-previous-option" : ""
+              }`}
           >
             <NavigateBeforeIcon className="previous-icon"></NavigateBeforeIcon>
             <NavigateNextIcon></NavigateNextIcon>
