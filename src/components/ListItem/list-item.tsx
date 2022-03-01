@@ -20,14 +20,13 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({ entity }) => {
   const endpoint = useSelector(
     (state: EndpointState) => state.graphEndpoint.endpoint
   );
-  const handleEntityChange = (entity: string) => {};
+  const handleEntityChange = (entity: string) => {
+    const URI = encodeURIComponent(endpoint);
+    window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${entity}`;
+  };
   return (
     <React.Fragment>
-      <Link
-        style={{ textDecoration: "none" }}
-        className="links"
-        to={`/${encodeURIComponent(endpoint)}/${entity}`}
-      >
+      <div style={{ textDecoration: "none" }} className="links">
         <ListItemButton
           className={
             selectedEntity === entity
@@ -45,7 +44,7 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({ entity }) => {
           </div>
         </ListItemButton>
         <Divider sx={{ borderBottomWidth: 0.01 }} color="#00A1FF" />
-      </Link>
+      </div>
     </React.Fragment>
   );
 };

@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import pluralizer from 'pluralize';
+import pluralizer from "pluralize";
 
 export const getAllEntities = gql`
   query {
@@ -35,18 +35,19 @@ export const getAllAttributes = (entity: string) => {
 function makePluralChanges(normalStr: string) {
   let pluralStr = pluralizer(normalStr);
   if (pluralStr == normalStr) {
-    return pluralStr + 's';
+    return pluralStr + "s";
   } else {
-    return (pluralizer(normalStr));
+    return pluralizer(normalStr);
   }
 }
-
 
 export const getGraphData = (
   data: { name: string; type: string }[],
   entity: string,
-  count: number
+  count: number,
+  skip: number
 ) => {
+  console.log("calling me");
   let queryData = ` `;
   const selectedEntity = makePluralChanges(entity);
   for (let index = 0; index < data.length; ++index) {
@@ -68,14 +69,13 @@ export const getGraphData = (
   console.log("query", queryData);
   return gql`
     query {
-      entity: ${selectedEntity}(first:${count}){
+      entity: ${selectedEntity}(first:${count},skip:${skip}){
         id      
         ${queryData}
         }
     }
     `;
 };
-
 
 export const getGraphDataForID = (
   data: { name: string; type: string }[],
@@ -145,5 +145,3 @@ export const getSortedGraphData = (
       }
       `;
 };
-
-

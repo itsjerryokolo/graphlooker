@@ -35,7 +35,7 @@ const Home: React.FunctionComponent<RouteComponentProps> = ({ history }) => {
       const firstEntity = data.__schema.queryType.fields[0].name;
       const url = encodeURIComponent(endpoint);
       dispatch(setGraphEntity(firstEntity));
-      return <Redirect push to={`${url}/${firstEntity}`} />;
+      return <Redirect push to={`explore?uri=${url}&e=${firstEntity}`} />;
     }
   }
 

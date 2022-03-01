@@ -2,7 +2,7 @@ import * as React from "react";
 import "./graph-data.scss";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { getAllEntities } from "../../utility/graph/query";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import { Redirect, RouteComponentProps, withRouter } from "react-router-dom";
 import Toolbar from "@mui/material/Toolbar";
 import MenuIcon from "@mui/icons-material/Menu";
 import { styled } from "@mui/material/styles";
@@ -20,6 +20,7 @@ import { toggleTheme } from "../../redux/actions/theme-action";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import ListItem from "../ListItem/list-item";
+import queryString from "query-string";
 import {
   setGraphEntity,
   setGraphEndpoint,
@@ -44,14 +45,21 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
   match,
+  location,
 }) => {
+  let dataLoading: boolean = true;
+  const parsed = queryString.parse(location.search);
   React.useEffect(() => {
-    const endpointEncoded = match.params.endpoint;
-    const endpoint = decodeURIComponent(endpointEncoded);
-    const entity = match.params.entity;
-    dispatch(setGraphEntity(entity));
-    dispatch(setGraphEndpoint(endpoint));
-  }, [match.params.endpoint, match.params.entity]);
+    if (parsed.uri && parsed.e) {
+      const endpointEncoded = parsed.uri;
+      const endpoint = decodeURIComponent(`${endpointEncoded}`);
+      const entity = parsed.e;
+      dispatch(setGraphEntity(`${entity}`));
+      dispatch(setGraphEndpoint(endpoint));
+      return;
+    }
+    window.location.href = "/";
+  }, []);
 
   const dispatch = useDispatch();
   const [drawerOpen, setDrawerOpen] = React.useState(true);
@@ -83,6 +91,9 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
         }
       }
       allEntities.pop();
+      if (allEntities.length > 0) {
+        dataLoading = false;
+      }
     }
   }
   const drawer = (
@@ -108,7 +119,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
 
   return (
     <>
-      {loading ? (
+      {dataLoading ? (
         <div className="loader">
           <span>Loading...</span>
         </div>
