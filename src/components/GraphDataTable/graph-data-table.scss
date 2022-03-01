@@ -50,9 +50,15 @@
     &.drawer-open-next-previous-option {
       max-width: calc(100vw - 310px);
     }
+    .disable-navigation {
+      border: none;
+      background: #cccccc;
+      color: #666666;
+      cursor: not-allowed;
+    }
     span {
       padding: 2.5px 8px;
-      font-size: 20px;
+      font-size: 18px;
       border: gray solid 1px;
       border-radius: 3px;
       margin: 0.5rem 0.5rem 0;

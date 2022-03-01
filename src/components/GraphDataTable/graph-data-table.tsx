@@ -16,7 +16,11 @@ import {
 } from "react-router-dom";
 import { gql, useQuery, useLazyQuery } from "@apollo/client";
 import { useSelector } from "react-redux";
-import { getGraphData, getGraphDataForID, getSortedGraphData } from "../../utility/graph/query";
+import {
+  getGraphData,
+  getGraphDataForID,
+  getSortedGraphData,
+} from "../../utility/graph/query";
 import { useLocation } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -39,6 +43,9 @@ const GraphDataTable: React.FunctionComponent<
 > = ({ allAttributes, drawerOpen, location }) => {
   let selectedEntity: string;
   let rows: any[] = [];
+  let pageNumber: number = 1;
+  let isNextDisable: boolean = false;
+  let isPrevDisable: boolean = true;
   const parsed = queryString.parse(location.search);
   const endpoint = useSelector(
     (state: EndpointState) => state.graphEndpoint.endpoint
@@ -53,22 +60,56 @@ const GraphDataTable: React.FunctionComponent<
     if (parsed.id !== undefined) {
       return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
     }
-    if(parsed.s !== undefined && parsed.c !== undefined){
-      return getSortedGraphData(allAttributes, selectedEntity, `${parsed.s}`, `${parsed.c}`)
+    if (parsed.s !== undefined && parsed.c !== undefined) {
+      return getSortedGraphData(
+        allAttributes,
+        selectedEntity,
+        `${parsed.s}`,
+        `${parsed.c}`
+      );
     }
-    return getGraphData(allAttributes, selectedEntity, 100);
+    if (parsed.p !== undefined) {
+      const PaginateNumber: string = `${parsed.p}`;
+      pageNumber = parseInt(PaginateNumber);
+      if (pageNumber > 1) {
+        isPrevDisable = false;
+      }
+      const skip = 100 * (pageNumber - 1);
+      return getGraphData(allAttributes, selectedEntity, 100, skip);
+    }
+    return getGraphData(allAttributes, selectedEntity, 100, 0);
   };
   useEffect(() => {
     getBoardData();
   }, []);
 
+  const goToNext = () => {
+    if (isNextDisable) return;
+    const URI = encodeURIComponent(endpoint);
+    window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${selectedEntity}&p=${
+      pageNumber + 1
+    }`;
+  };
+  const goToPrev = () => {
+    if (isPrevDisable) return;
+    const URI = encodeURIComponent(endpoint);
+    if (pageNumber == 2) {
+      return (window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${selectedEntity}`);
+    }
+    window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${selectedEntity}&p=${
+      pageNumber - 1
+    }`;
+  };
+
   const entityClicked = (entity: string, id: string, type: string) => {
     if (type === "OBJECT") {
       console.log(entity, id, type);
       const URI = encodeURIComponent(endpoint);
-      console.log(`https://localhost:3000/${URI}/${entity}?id=${id}`);
+      console.log(
+        `https://localhost:3000/explore?uri=${URI}&e=${entity}&id=${id}`
+      );
       const selectedEntity = entity.charAt(0).toLowerCase() + entity.slice(1);
-      window.location.href = `http://localhost:3000/${URI}/${selectedEntity}?id=${id}`;
+      window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${selectedEntity}&id=${id}`;
     } else if (entity === "id") {
       window.open(
         `https://etherscan.io/address/${id}`,
@@ -79,10 +120,13 @@ const GraphDataTable: React.FunctionComponent<
 
   //Sort Data (Ascending /Descending) when Attribute Clicked
   const attributeClicked = (s: string, c: string) => {
-      const URI = encodeURIComponent(endpoint);
-      const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-      console.log(`http://localhost:3000/${URI}/${entity}?s=${s}&&c=${c}`);
-      window.location.href = `http://localhost:3000/${URI}/${entity}?s=${s}&&c=${c}`;
+    const URI = encodeURIComponent(endpoint);
+    const entity =
+      selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
+    console.log(
+      `http://localhost:3000/explore?uri=${URI}&e=${entity}&s=${s}&c=${c}`
+    );
+    window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${entity}&s=${s}&c=${c}`;
   };
 
   const [getBoardData, { error, loading, data }] = useLazyQuery(
@@ -99,6 +143,9 @@ const GraphDataTable: React.FunctionComponent<
     queryData = data["entity"];
     if (queryData !== undefined) {
       rows = [...queryData];
+      if (rows.length < 100) {
+        isNextDisable = true;
+      }
       console.log(rows);
     }
   }
@@ -189,19 +236,29 @@ const GraphDataTable: React.FunctionComponent<
               </TableBody>
             </Table>
           </div>
-          <div
-            className={`next-previous-option ${
-              drawerOpen ? "drawer-open-next-previous-option" : ""
-            }`}
-          >
-            <Tooltip title="previous">
-              <NavigateBeforeIcon className="previous-icon"></NavigateBeforeIcon>
-            </Tooltip>
-            <span>1</span>
-            <Tooltip title="next">
-              <NavigateNextIcon></NavigateNextIcon>
-            </Tooltip>
-          </div>
+          {parsed.id === undefined ? (
+            <div
+              className={`next-previous-option ${
+                drawerOpen ? "drawer-open-next-previous-option" : ""
+              }`}
+            >
+              <Tooltip title="previous">
+                <NavigateBeforeIcon
+                  onClick={goToPrev}
+                  className={`previous-icon ${
+                    isPrevDisable ? "disable-navigation" : ""
+                  }`}
+                ></NavigateBeforeIcon>
+              </Tooltip>
+              <span>{pageNumber}</span>
+              <Tooltip title="next">
+                <NavigateNextIcon
+                  onClick={goToNext}
+                  className={`${isNextDisable ? "disable-navigation" : ""}`}
+                ></NavigateNextIcon>
+              </Tooltip>
+            </div>
+          ) : null}
         </div>
       )}
     </>
