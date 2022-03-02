@@ -15,7 +15,7 @@ export const setGraphEntity = (entity: string) => {
 };
 
 export const setGraphAttributes = (
-  entity: { name: string; type: string }[]
+  entity: { name: string; type: string; typeName: string }[]
 ) => {
   return {
     type: EndpointActionTypes.SET_ATTRIBUTES,
