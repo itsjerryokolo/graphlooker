@@ -22,6 +22,7 @@ export const getAllAttributes = (entity: string) => {
             name
             type{
               ofType{
+                name
                 kind
               }
             }
@@ -42,7 +43,7 @@ function makePluralChanges(normalStr: string) {
 }
 
 export const getGraphData = (
-  data: { name: string; type: string }[],
+  data: { name: string; type: string, typeName:string }[],
   entity: string,
   count: number,
   skip: number
@@ -78,7 +79,7 @@ export const getGraphData = (
 };
 
 export const getGraphDataForID = (
-  data: { name: string; type: string }[],
+  data: { name: string; type: string, typeName:string }[],
   entity: string,
   filterID: string
 ) => {
@@ -112,7 +113,7 @@ export const getGraphDataForID = (
 };
 
 export const getSortedGraphData = (
-  data: { name: string; type: string }[],
+  data: { name: string; type: string, typeName:string }[],
   entity: string,
   sortType: string,
   attributeName: string

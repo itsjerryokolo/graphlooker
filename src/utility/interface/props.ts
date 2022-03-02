@@ -9,6 +9,6 @@ export interface DataBoardProps {
 }
 
 export interface GraphDataTableProps {
-  allAttributes: { name: string; type: string }[];
+  allAttributes: { name: string; type: string; typeName: string }[];
   drawerOpen: boolean;
 }

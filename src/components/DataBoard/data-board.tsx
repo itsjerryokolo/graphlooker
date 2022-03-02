@@ -62,7 +62,7 @@ const DataBoard: React.FunctionComponent<
   const endpoint = useSelector(
     (state: EndpointState) => state.graphEndpoint.endpoint
   );
-  let allAttributes: { name: string; type: string }[];
+  let allAttributes: { name: string; type: string; typeName:string }[];
   allAttributes = [];
   const entity = selectedEntity
     ? selectedEntity.charAt(0).toUpperCase() + selectedEntity.slice(1)
@@ -96,6 +96,7 @@ const DataBoard: React.FunctionComponent<
           allAttributes.push({
             name: element.name,
             type: element.type?.ofType?.kind,
+            typeName: element.type?.ofType?.name,
           });
         }
       }
