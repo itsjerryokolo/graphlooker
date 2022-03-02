@@ -5,7 +5,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { DataBoardProps, ListItemProps } from "./../../utility/interface/props";
 import TableChartIcon from "@mui/icons-material/TableChart";
 import { EndpointState, EntityState } from "../../utility/redux/state";
@@ -27,6 +27,7 @@ import "./data-board.scss";
 import { gql, useQuery, useLazyQuery } from "@apollo/client";
 import { getAllAttributes } from "../../utility/graph/query";
 import GraphDataTable from "../GraphDataTable/graph-data-table";
+import { setGraphAttributes } from "../../redux/actions/endpoint-action";
 
 const drawerWidth = 300;
 
@@ -62,6 +63,7 @@ const DataBoard: React.FunctionComponent<
   const endpoint = useSelector(
     (state: EndpointState) => state.graphEndpoint.endpoint
   );
+  const dispatch = useDispatch();
   let allAttributes: { name: string; type: string }[];
   allAttributes = [];
   const entity = selectedEntity
@@ -100,6 +102,9 @@ const DataBoard: React.FunctionComponent<
         }
       }
       console.log(queryData);
+      if (allAttributes.length > 0) {
+        dispatch(setGraphAttributes(allAttributes));
+      }
     }
   }
 
@@ -111,10 +116,9 @@ const DataBoard: React.FunctionComponent<
         role="tabpanel"
         aria-labelledby="tab_0"
       >
-        <GraphDataTable
-          allAttributes={allAttributes}
-          drawerOpen={drawerOpen}
-        ></GraphDataTable>
+        {allAttributes.length !== 0 ? (
+          <GraphDataTable drawerOpen={drawerOpen}></GraphDataTable>
+        ) : null}
       </div>
     </Main>
   );
