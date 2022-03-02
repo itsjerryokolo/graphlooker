@@ -232,7 +232,7 @@ const GraphDataTable: React.FunctionComponent<
                       <MenuItem>
                         <button className="button_color">
                           <ArrowUpwardTwoToneIcon
-                            className="dropdown_arrow"
+
                             onClick={() => attributeClicked('asc', attribute)}
                           />
                         </button>

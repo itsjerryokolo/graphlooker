@@ -12,5 +12,5 @@ export interface EntityActionObjectTypes {
 }
 export interface AttributesActionObjectTypes {
   type: string;
-  payload: { name: string; type: string }[];
+  payload: { name: string; type: string; typeName: string }[];
 }

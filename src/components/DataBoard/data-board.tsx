@@ -64,7 +64,7 @@ const DataBoard: React.FunctionComponent<
     (state: EndpointState) => state.graphEndpoint.endpoint
   );
   const dispatch = useDispatch();
-  let allAttributes: { name: string; type: string }[];
+  let allAttributes: { name: string; type: string; typeName: string }[];
   allAttributes = [];
   const entity = selectedEntity
     ? selectedEntity.charAt(0).toUpperCase() + selectedEntity.slice(1)
