@@ -7,7 +7,11 @@ import Collapse from "@mui/material/Collapse";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { GraphDataTableProps } from "./../../utility/interface/props";
 import TableChartIcon from "@mui/icons-material/TableChart";
-import { EndpointState, EntityState } from "../../utility/redux/state";
+import {
+  EndpointState,
+  EntityState,
+  AttributesState,
+} from "../../utility/redux/state";
 import {
   Link,
   Redirect,
@@ -44,7 +48,7 @@ import ArrowUpwardTwoToneIcon from '@mui/icons-material/ArrowUpwardTwoTone';
 
 const GraphDataTable: React.FunctionComponent<
   GraphDataTableProps & RouteComponentProps<any>
-> = ({ allAttributes, drawerOpen, location }) => {
+> = ({ drawerOpen, location }) => {
   let selectedEntity: string;
   let rows: any[] = [];
   let pageNumber: number = 1;
@@ -56,6 +60,9 @@ const GraphDataTable: React.FunctionComponent<
   );
   selectedEntity = useSelector(
     (state: EntityState) => state.selectedEntity.entity
+  );
+  const allAttributes = useSelector(
+    (state: AttributesState) => state.allAttributes.attributes
   );
 
   const getBoardDataAsQuery = () => {

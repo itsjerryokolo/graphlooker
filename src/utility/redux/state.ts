@@ -16,3 +16,9 @@ interface SelectedEntity {
 export interface EntityState {
   selectedEntity: SelectedEntity;
 }
+interface AllAttributes {
+  attributes: { name: string; type: string }[];
+}
+export interface AttributesState {
+  allAttributes: AllAttributes;
+}

@@ -13,3 +13,12 @@ export const setGraphEntity = (entity: string) => {
     payload: entity,
   };
 };
+
+export const setGraphAttributes = (
+  entity: { name: string; type: string }[]
+) => {
+  return {
+    type: EndpointActionTypes.SET_ATTRIBUTES,
+    payload: entity,
+  };
+};
