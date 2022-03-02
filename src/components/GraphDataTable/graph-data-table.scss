@@ -75,13 +75,14 @@
   }
 }
 .button_color{
-  border: 1px solid #03000c;
   background: linear-gradient(90deg, #21d4fd 0%, #b721ff 93%);
+  border-radius: 10%;
+  width: 38px;
+  align-items: center;
+  text-align: center;
 }
 .dropdown_arrow{
   color: #03000c;
-   width: 20px;
-  font-size: 25px; 
   font-weight: bold;
   cursor: pointer;
 }
