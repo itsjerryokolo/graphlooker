@@ -146,7 +146,6 @@ const GraphDataTable: React.FunctionComponent<
     console.log(error);
   }
   if (data) {
-    console.log("Attri:--", allAttributes);
     let queryData: any[];
     queryData = data["entity"];
     if (queryData !== undefined) {
@@ -166,10 +165,10 @@ const GraphDataTable: React.FunctionComponent<
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const setDataAttri = (attri: string, attriType: string, attriTypeName: string) => {
-    setAttribute(attri);
-    setAttributeType(attriType);
-    setAttributeTypeName(attriTypeName);
+  const setAttributeDetails = (attributes: string, attributeType: string, attributeTypeName: string) => {
+    setAttribute(attributes);
+    setAttributeType(attributeType);
+    setAttributeTypeName(attributeTypeName);
   }
   const handleCloseMenu = () => {
     setAnchorEl(null);
@@ -204,7 +203,7 @@ const GraphDataTable: React.FunctionComponent<
                     >
                       <Button
                         onClick={handleOpenMenu}
-                        onMouseOver={() => setDataAttri(item.name, item.type, item.typeName)}
+                        onMouseOver={() => setAttributeDetails(item.name, item.type, item.typeName)}
                         aria-controls='menu'
                         endIcon={<KeyboardArrowDown />}
                         variant="outlined"
