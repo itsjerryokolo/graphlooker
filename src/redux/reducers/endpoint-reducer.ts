@@ -1,6 +1,7 @@
 import {
   EndpointActionObjectTypes,
   EntityActionObjectTypes,
+  AttributesActionObjectTypes,
 } from "../../utility/redux/action-object-type";
 import { EndpointActionTypes } from "../../utility/redux/action-types";
 
@@ -30,6 +31,18 @@ export const entityReducer = (
   switch (type) {
     case EndpointActionTypes.SET_ENTITY:
       return { ...state, entity: payload };
+    default:
+      return state;
+  }
+};
+
+export const attributesReducer = (
+  state = {},
+  { type, payload }: AttributesActionObjectTypes
+) => {
+  switch (type) {
+    case EndpointActionTypes.SET_ATTRIBUTES:
+      return { ...state, attributes: payload };
     default:
       return state;
   }

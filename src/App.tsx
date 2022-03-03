@@ -38,7 +38,7 @@ function App() {
               ></Route>
               <Route
                 exact
-                path="/:endpoint/:entity"
+                path="/explore"
                 render={(props: RouteComponentProps<any>) => (
                   <GraphData></GraphData>
                 )}

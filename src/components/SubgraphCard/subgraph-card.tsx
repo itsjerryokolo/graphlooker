@@ -3,7 +3,7 @@ import "./subgraph-card.scss";
 
 const SubgraphCard: React.FunctionComponent<{}> = (props) => {
   return (
-    <div className="card-container">
+    <div className="card">
       <img
         className="subgraph-logo"
         src="https://cryptologos.cc/logos/uniswap-uni-logo.svg?v=021"

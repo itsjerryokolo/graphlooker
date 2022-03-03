@@ -10,10 +10,12 @@ import {
 import { RouteComponentProps, withRouter, Redirect } from "react-router-dom";
 import "./home.scss";
 import Navbar from "../Navbar/navbar";
+import Constants from "../../utility/constant";
 
 const Home: React.FunctionComponent<RouteComponentProps> = ({ history }) => {
   const [endpoint, setEndpoint] = React.useState("");
   const [errorMessage, setError] = React.useState("");
+  const commonLables = Constants.LABELS.commonLables;
   const { data, error, loading } = useQuery(getAllEntities);
 
   const dispatch = useDispatch();
@@ -35,7 +37,7 @@ const Home: React.FunctionComponent<RouteComponentProps> = ({ history }) => {
       const firstEntity = data.__schema.queryType.fields[0].name;
       const url = encodeURIComponent(endpoint);
       dispatch(setGraphEntity(firstEntity));
-      return <Redirect push to={`${url}/${firstEntity}`} />;
+      return <Redirect push to={`explore?uri=${url}&e=${firstEntity}`} />;
     }
   }
 
@@ -43,7 +45,7 @@ const Home: React.FunctionComponent<RouteComponentProps> = ({ history }) => {
     <>
       <Navbar></Navbar>
       <div className="container">
-        <h1>Subgraph Visualizer</h1>
+        <h1>{commonLables.subgraph_visualizer}</h1>
         <div className="search-box">
           <form className="search-box-form" onSubmit={searchEndpoint}>
             <input

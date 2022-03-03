@@ -2,6 +2,7 @@
 @import "src/utility/theme/light-theme.scss";
 
 .toolbar {
+  width: 100%;
   background-color: var(--navbarBackground);
   box-shadow: var(--navbarBoxShadow);
   &.toolbar-padding {

@@ -2,7 +2,7 @@ import * as React from "react";
 import "./graph-data.scss";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { getAllEntities } from "../../utility/graph/query";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import { Redirect, RouteComponentProps, withRouter } from "react-router-dom";
 import Toolbar from "@mui/material/Toolbar";
 import MenuIcon from "@mui/icons-material/Menu";
 import { styled } from "@mui/material/styles";
@@ -12,10 +12,6 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
-import ExpandMore from "@mui/icons-material/ExpandMore";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useSelector, useDispatch } from "react-redux";
@@ -24,6 +20,7 @@ import { toggleTheme } from "../../redux/actions/theme-action";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import ListItem from "../ListItem/list-item";
+import queryString from "query-string";
 import {
   setGraphEntity,
   setGraphEndpoint,
@@ -48,15 +45,21 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
   match,
+  location,
 }) => {
+  let dataLoading: boolean = true;
+  const parsed = queryString.parse(location.search);
   React.useEffect(() => {
-    const endpointEncoded = match.params.endpoint;
-    const endpoint = decodeURIComponent(endpointEncoded);
-    const entity = match.params.entity;
-    dispatch(setGraphEntity(entity));
-    dispatch(setGraphEndpoint(endpoint));
-    console.log(endpoint, entity);
-  }, [match.params.endpoint, match.params.entity]);
+    if (parsed.uri && parsed.e) {
+      const endpointEncoded = parsed.uri;
+      const endpoint = decodeURIComponent(`${endpointEncoded}`);
+      const entity = parsed.e;
+      dispatch(setGraphEntity(`${entity}`));
+      dispatch(setGraphEndpoint(endpoint));
+      return;
+    }
+    window.location.href = "/";
+  }, []);
 
   const dispatch = useDispatch();
   const [drawerOpen, setDrawerOpen] = React.useState(true);
@@ -88,6 +91,9 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
         }
       }
       allEntities.pop();
+      if (allEntities.length > 0) {
+        dataLoading = false;
+      }
     }
   }
   const drawer = (
@@ -112,91 +118,99 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
   );
 
   return (
-    <div className="card-container">
-      <AppBar position="fixed">
-        <Toolbar className="toolbar toolbar-padding">
-          <div className="menu-container">
-            <Box
+    <>
+      {dataLoading ? (
+        <div className="loader">
+          <span>Loading...</span>
+        </div>
+      ) : (
+        <div className="card-container">
+          <AppBar position="fixed" className="app-bar">
+            <Toolbar className="toolbar toolbar-padding">
+              <div className="menu-container">
+                <Box
+                  sx={{
+                    display: { xs: "none", sm: "block" },
+                  }}
+                >
+                  <img
+                    src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
+                    height="43px"
+                    alt="dapplooker-icon"
+                  ></img>
+                </Box>
+                {drawerOpen ? (
+                  <KeyboardDoubleArrowLeftIcon
+                    className="toggle-drawer-icon"
+                    onClick={handleToggleDrawer}
+                  />
+                ) : (
+                  <KeyboardDoubleArrowRightIcon
+                    className="toggle-drawer-icon"
+                    onClick={handleToggleDrawer}
+                  />
+                )}
+              </div>
+              <div className="theme-icon" onClick={handleToggleTheme}>
+                {theme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+              </div>
+            </Toolbar>
+          </AppBar>
+          <Box>
+            <Drawer
+              variant="temporary"
+              open={drawerOpen}
+              onClose={handleToggleDrawer}
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+              }}
               sx={{
-                display: { xs: "none", sm: "block" },
+                display: { xs: "block", sm: "none" },
+                "& .MuiDrawer-paper": {
+                  boxSizing: "border-box",
+                  width: drawerWidth,
+                  backgroundColor: `${theme === "light" ? "white" : "black"}`,
+                  color: "white",
+                  paddingBottom: "8rem",
+                },
               }}
             >
-              <img
-                src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
-                height="43px"
-                alt="dapplooker-icon"
-              ></img>
-            </Box>
-            {drawerOpen ? (
-              <KeyboardDoubleArrowLeftIcon
-                className="toggle-drawer-icon"
-                onClick={handleToggleDrawer}
-              />
-            ) : (
-              <KeyboardDoubleArrowRightIcon
-                className="toggle-drawer-icon"
-                onClick={handleToggleDrawer}
-              />
-            )}
-          </div>
-          <div className="theme-icon" onClick={handleToggleTheme}>
-            {theme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
-          </div>
-        </Toolbar>
-      </AppBar>
-      <Box>
-        <Drawer
-          variant="temporary"
-          open={drawerOpen}
-          onClose={handleToggleDrawer}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-              backgroundColor: `${theme === "light" ? "white" : "black"}`,
-              color: "white",
-              paddingBottom: "8rem",
-            },
-          }}
-        >
-          <DrawerHeader>
-            <Box>
-              <img
-                src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
-                height="33px"
-                alt="dapplooker-icon"
-              ></img>
-            </Box>
-          </DrawerHeader>
-          {drawer}
-        </Drawer>
-        <Drawer
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              color: "white",
-              marginTop: "64px",
-              boxSizing: "border-box",
-              backgroundColor: `${theme === "light" ? "white" : "black"}`,
-              paddingBottom: "8rem",
-              display: { xs: "none", sm: "block" },
-            },
-          }}
-          variant="persistent"
-          anchor="left"
-          open={drawerOpen}
-        >
-          {drawer}
-        </Drawer>
-      </Box>
-      <DataBoard drawerOpen={drawerOpen}></DataBoard>
-    </div>
+              <DrawerHeader>
+                <Box>
+                  <img
+                    src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
+                    height="33px"
+                    alt="dapplooker-icon"
+                  ></img>
+                </Box>
+              </DrawerHeader>
+              {drawer}
+            </Drawer>
+            <Drawer
+              sx={{
+                width: drawerWidth,
+                flexShrink: 0,
+                "& .MuiDrawer-paper": {
+                  width: drawerWidth,
+                  color: "white",
+                  marginTop: "64px",
+                  boxSizing: "border-box",
+                  backgroundColor: `${theme === "light" ? "white" : "black"}`,
+                  paddingBottom: "8rem",
+                  display: { xs: "none", sm: "block" },
+                },
+              }}
+              variant="persistent"
+              anchor="left"
+              open={drawerOpen}
+            >
+              {drawer}
+            </Drawer>
+          </Box>
+          <DataBoard drawerOpen={drawerOpen}></DataBoard>
+        </div>
+      )}
+    </>
   );
 };
 
