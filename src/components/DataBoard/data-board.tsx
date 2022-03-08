@@ -1,30 +1,14 @@
 import React, { useEffect } from "react";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
-import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useSelector, useDispatch } from "react-redux";
-import { DataBoardProps, ListItemProps } from "./../../utility/interface/props";
-import TableChartIcon from "@mui/icons-material/TableChart";
-import { EndpointState, EntityState } from "../../utility/redux/state";
+import { DataBoardProps } from "./../../utility/interface/props";
+import { EntityState } from "../../utility/redux/state";
 import {
-  Link,
-  Redirect,
   RouteComponentProps,
   withRouter,
 } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import "./data-board.scss";
-import { gql, useQuery, useLazyQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { getAllAttributes } from "../../utility/graph/query";
 import GraphDataTable from "../GraphDataTable/graph-data-table";
 import { setGraphAttributes } from "../../redux/actions/endpoint-action";
@@ -60,9 +44,6 @@ const DataBoard: React.FunctionComponent<
   const selectedEntity = useSelector(
     (state: EntityState) => state.selectedEntity.entity
   );
-  const endpoint = useSelector(
-    (state: EndpointState) => state.graphEndpoint.endpoint
-  );
   const dispatch = useDispatch();
   let allAttributes: { name: string; type: string; typeName: string }[];
   allAttributes = [];
@@ -72,6 +53,7 @@ const DataBoard: React.FunctionComponent<
 
   useEffect(() => {
     getAttributes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const [getAttributes, { error, loading, data }] = useLazyQuery(
     getAllAttributes(entity)

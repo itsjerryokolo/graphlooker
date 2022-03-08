@@ -23,12 +23,17 @@ const FilterMenu: React.FunctionComponent<
         const intFilter = Constants.INT_TYPE_MENU.intFilter;
         const stringFilter = Constants.STRING_TYPE_MENU.stringFilter;
 
-        const [selectMenu, setSelectMenu] = React.useState('Is Empty');
-        const [timeMenu, setTimeMenu] = React.useState('2');
+        const [selectMenu, setSelectMenu] = React.useState('Equal to'); //For Number
+        const [selectStringMenu, setSelectStringMenu] = React.useState('Is'); //For String
+        const [timeMenu, setTimeMenu] = React.useState('2'); //For Timestamp
+
         const handleChange = (event: SelectChangeEvent) => {
             setSelectMenu(event.target.value as string);
         };
-        const handleTimeChange = (event: SelectChangeEvent) => {
+        const handleChangeString = (event: SelectChangeEvent) => {
+            setSelectStringMenu(event.target.value as string);
+        };
+        const handleChangeTime = (event: SelectChangeEvent) => {
             setTimeMenu(event.target.value as string);
         };
 
@@ -68,7 +73,7 @@ const FilterMenu: React.FunctionComponent<
                             <input type="number" style={{ width: "40px", padding: "10px", margin: "0 10px 0 10px", border: "10%" }} />
                             <Select
                                 value={timeMenu}
-                                onChange={handleTimeChange}
+                                onChange={handleChangeTime}
                                 displayEmpty
                                 inputProps={{ 'aria-label': 'Without label' }}
                                 sx={{ width: "120px", height: "40px" }}
@@ -111,7 +116,7 @@ const FilterMenu: React.FunctionComponent<
                                 </Select>
                             </MenuItem>
                             <MenuItem>
-                            {selectMenu === "Is Empty" ||
+                                {selectMenu === "Is Empty" ||
                                     selectMenu === "Not Empty"
                                     ?
                                     ""
@@ -140,8 +145,8 @@ const FilterMenu: React.FunctionComponent<
                         <>
                             <MenuItem>
                                 <Select
-                                    value={selectMenu}
-                                    onChange={handleChange}
+                                    value={selectStringMenu}
+                                    onChange={handleChangeString}
                                     displayEmpty
                                     inputProps={{ 'aria-label': 'Without label' }}
                                     sx={{ width: "360px", height: "40px" }}
@@ -155,8 +160,8 @@ const FilterMenu: React.FunctionComponent<
                                 </Select>
                             </MenuItem>
                             <MenuItem>
-                                {selectMenu === "Is Empty" ||
-                                    selectMenu === "Not Empty"
+                                {selectStringMenu === "Is Empty" ||
+                                    selectStringMenu === "Not Empty"
                                     ?
                                     ""
                                     :

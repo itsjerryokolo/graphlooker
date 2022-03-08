@@ -147,6 +147,8 @@ export const getSortedGraphData = (
       `;
 };
 
+
+//Query for Filter Menu
 export const getStringFilterGraphData = (
   data: { name: string; type: string, typeName: string }[],
   entity: string,
@@ -156,8 +158,7 @@ export const getStringFilterGraphData = (
 ) => {
   let queryData = ` `;
   const selectedEntity = makePluralChanges(entity);
-  let col = attributeName.concat(filterOption);
-  console.log("colQ:-", col);
+  let columnName = attributeName.concat(filterOption);
   for (let index = 0; index < data.length; ++index) {
     const element = data[index];
     if (element.name === "id") {
@@ -174,16 +175,17 @@ export const getStringFilterGraphData = (
     }
   }
 
-  if(userInputValue === ''){
+  if (userInputValue === '') {
 
     userInputValue = 'null';
-  }else{
-    userInputValue = '"'+userInputValue+ '"';
+  } else {
+    userInputValue = '"' + userInputValue + '"';
   }
+
   console.log("query", queryData);
   console.log(`
   query {
-    entity: ${selectedEntity}(where: {${col} :${userInputValue}}){
+    entity: ${selectedEntity}(where: {${columnName} :${userInputValue}}){
       id      
       ${queryData}
       }
@@ -191,7 +193,7 @@ export const getStringFilterGraphData = (
   `)
   return gql`
       query {
-        entity: ${selectedEntity}(where: {${col} :${userInputValue}}){
+        entity: ${selectedEntity}(where: {${columnName} :${userInputValue}}){
           id      
           ${queryData}
           }

@@ -54,7 +54,7 @@ const PrimaryMenu: React.FunctionComponent<
                                 onClick={() => attributeClicked('asc', attributeName)}
                             />
                         </button>
-                        <button className="sort_btn_color mx-2">
+                        <button className="sort_btn_color">
                             <ArrowDownwardTwoToneIcon
                                 className="dropdown_arrow"
                                 onClick={() => attributeClicked('desc', attributeName)}
@@ -63,11 +63,6 @@ const PrimaryMenu: React.FunctionComponent<
                     </MenuItem>
                 }
                 <MenuItem>
-                    <h5 className='ml-2 p-2'>
-                        Datatype: <span className='fw-bold datatype'>{`${attributeDataType}`}</span>
-                    </h5>
-                </MenuItem>
-                <MenuItem>
                     <Button aria-controls='filter_menu'
                         variant="text"
                         onClick={handleFilterOpen}
@@ -75,7 +70,7 @@ const PrimaryMenu: React.FunctionComponent<
                     >
                         <FilterListIcon color="primary"
                             className="filter_button" />
-                        <span className='fw-bold'>Filter by this column</span>
+                        <span className='datatype'>Filter by this column</span>
                     </Button>
                 </MenuItem>
 

@@ -43,7 +43,7 @@ const Home: React.FunctionComponent<RouteComponentProps> = ({ history }) => {
   return (
     <>
       <Navbar></Navbar>
-      <div className="container-fluid">
+      <div className="container">
         <h1>{commonLables.subgraph_visualizer}</h1>
         <div className="search-box">
           <form className="search-box-form" onSubmit={searchEndpoint}>
