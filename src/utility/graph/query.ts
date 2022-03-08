@@ -35,7 +35,7 @@ export const getAllAttributes = (entity: string) => {
 //Function to make of entities plural
 function makePluralChanges(normalStr: string) {
   let pluralStr = pluralizer(normalStr);
-  if (pluralStr == normalStr) {
+  if (pluralStr === normalStr) {
     return pluralStr + "s";
   } else {
     return pluralizer(normalStr);
@@ -43,7 +43,7 @@ function makePluralChanges(normalStr: string) {
 }
 
 export const getGraphData = (
-  data: { name: string; type: string, typeName:string }[],
+  data: { name: string; type: string, typeName: string }[],
   entity: string,
   count: number,
   skip: number
@@ -79,7 +79,7 @@ export const getGraphData = (
 };
 
 export const getGraphDataForID = (
-  data: { name: string; type: string, typeName:string }[],
+  data: { name: string; type: string, typeName: string }[],
   entity: string,
   filterID: string
 ) => {
@@ -113,7 +113,7 @@ export const getGraphDataForID = (
 };
 
 export const getSortedGraphData = (
-  data: { name: string; type: string, typeName:string }[],
+  data: { name: string; type: string, typeName: string }[],
   entity: string,
   sortType: string,
   attributeName: string
@@ -146,3 +146,57 @@ export const getSortedGraphData = (
       }
       `;
 };
+
+export const getStringFilterGraphData = (
+  data: { name: string; type: string, typeName: string }[],
+  entity: string,
+  filterOption: string,
+  attributeName: string,
+  userInputValue: string,
+) => {
+  let queryData = ` `;
+  const selectedEntity = makePluralChanges(entity);
+  let col = attributeName.concat(filterOption);
+  console.log("colQ:-", col);
+  for (let index = 0; index < data.length; ++index) {
+    const element = data[index];
+    if (element.name === "id") {
+      continue;
+    }
+    if (
+      element.type === "LIST" ||
+      element.type === "OBJECT" ||
+      element.type === "NON_NULL"
+    ) {
+      queryData = queryData + `${element.name} { id } `;
+    } else {
+      queryData = queryData + `${element.name} `;
+    }
+  }
+
+  if(userInputValue === ''){
+
+    userInputValue = 'null';
+  }else{
+    userInputValue = '"'+userInputValue+ '"';
+  }
+  console.log("query", queryData);
+  console.log(`
+  query {
+    entity: ${selectedEntity}(where: {${col} :${userInputValue}}){
+      id      
+      ${queryData}
+      }
+  }
+  `)
+  return gql`
+      query {
+        entity: ${selectedEntity}(where: {${col} :${userInputValue}}){
+          id      
+          ${queryData}
+          }
+      }
+      `;
+};
+
+

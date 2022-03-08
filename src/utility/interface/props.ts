@@ -11,3 +11,13 @@ export interface DataBoardProps {
 export interface GraphDataTableProps {
   drawerOpen: boolean;
 }
+export interface FilterMenuProps {
+  attributeName: string;
+  attributeDataType: string;
+}
+export interface PrimaryMenuProps {
+  attributeName: string;
+  attributeType: string;
+  attributeDataType: string;
+}
+

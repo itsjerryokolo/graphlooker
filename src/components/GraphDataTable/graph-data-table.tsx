@@ -1,50 +1,35 @@
 import React, { useEffect, useState } from "react";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
-import ExpandMore from "@mui/icons-material/ExpandMore";
 import { GraphDataTableProps } from "./../../utility/interface/props";
-import TableChartIcon from "@mui/icons-material/TableChart";
 import {
   EndpointState,
   EntityState,
   AttributesState,
 } from "../../utility/redux/state";
 import {
-  Link,
-  Redirect,
   RouteComponentProps,
   withRouter,
 } from "react-router-dom";
-import { gql, useQuery, useLazyQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { useSelector } from "react-redux";
 import {
   getGraphData,
   getGraphDataForID,
   getSortedGraphData,
+  getStringFilterGraphData,
 } from "../../utility/graph/query";
-import { useLocation } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import queryString from "query-string";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Tooltip from "@mui/material/Tooltip";
-import TextField from "@mui/material/TextField";
 import "./graph-data-table.scss";
-import { ArrowDropDown, ArrowDropUp, KeyboardArrowDown } from "@mui/icons-material";
-import { Button } from "@mui/material";
-import ArrowDownwardTwoToneIcon from '@mui/icons-material/ArrowDownwardTwoTone';
-import ArrowUpwardTwoToneIcon from '@mui/icons-material/ArrowUpwardTwoTone';
+import { KeyboardArrowDown } from "@mui/icons-material";
+import { Button, Menu, TableHead } from "@mui/material";
+import moment from "moment";
+import PrimaryMenu from "../PrimaryMenu/primary-menu";
 
 const GraphDataTable: React.FunctionComponent<
   GraphDataTableProps & RouteComponentProps<any>
@@ -77,6 +62,10 @@ const GraphDataTable: React.FunctionComponent<
         `${parsed.c}`
       );
     }
+    if (parsed.f !== undefined && parsed.c !== undefined && parsed.i !== undefined) {
+      return getStringFilterGraphData(allAttributes, selectedEntity,
+        `${parsed.f}`, `${parsed.c}`, `${parsed.i}`)
+    }
     if (parsed.p !== undefined) {
       const PaginateNumber: string = `${parsed.p}`;
       pageNumber = parseInt(PaginateNumber);
@@ -90,6 +79,7 @@ const GraphDataTable: React.FunctionComponent<
   };
   useEffect(() => {
     getBoardData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const goToNext = () => {
@@ -101,7 +91,7 @@ const GraphDataTable: React.FunctionComponent<
   const goToPrev = () => {
     if (isPrevDisable) return;
     const URI = encodeURIComponent(endpoint);
-    if (pageNumber == 2) {
+    if (pageNumber === 2) {
       return (window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${selectedEntity}`);
     }
     window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${selectedEntity}&p=${pageNumber - 1
@@ -123,17 +113,6 @@ const GraphDataTable: React.FunctionComponent<
         "_blank" // <- This is what makes it open in a new window.
       );
     }
-  };
-
-  //Sort Data (Ascending /Descending) when Attribute Clicked
-  const attributeClicked = (s: string, c: string) => {
-    const URI = encodeURIComponent(endpoint);
-    const entity =
-      selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    console.log(
-      `http://localhost:3000/explore?uri=${URI}&e=${entity}&s=${s}&c=${c}`
-    );
-    window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${entity}&s=${s}&c=${c}`;
   };
 
   const [getBoardData, { error, loading, data }] = useLazyQuery(
@@ -161,14 +140,14 @@ const GraphDataTable: React.FunctionComponent<
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [attribute, setAttribute] = useState('');
   const [attributeType, setAttributeType] = useState('');
-  const [attributeTypeName, setAttributeTypeName] = useState('');
+  const [attributeDataType, setAttributeDataType] = useState('');
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const setAttributeDetails = (attributes: string, attributeType: string, attributeTypeName: string) => {
+  const setAttributeDetails = (attributes: string, attributeType: string, attributeDataType: string) => {
     setAttribute(attributes);
     setAttributeType(attributeType);
-    setAttributeTypeName(attributeTypeName);
+    setAttributeDataType(attributeDataType);
   }
   const handleCloseMenu = () => {
     setAnchorEl(null);
@@ -223,33 +202,7 @@ const GraphDataTable: React.FunctionComponent<
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
                   >
-                    {attributeType === "LIST" ||
-                      attributeType === "OBJECT" ||
-                      attributeType === "NON_NULL"
-                      ? ""
-                      :
-                      <MenuItem>
-                        <button className="button_color">
-                          <ArrowUpwardTwoToneIcon
-
-                            onClick={() => attributeClicked('asc', attribute)}
-                          />
-                        </button>
-                        <button style={{ marginLeft: "5px" }} className="button_color">
-                          <ArrowDownwardTwoToneIcon
-                            className="dropdown_arrow"
-                            onClick={() => attributeClicked('desc', attribute)}
-                          />
-                        </button>
-                      </MenuItem>
-                    }
-                    <MenuItem sx={{ fontWeight: "bold" }}>
-                      DATATYPE:
-                      <Button variant="text" size="large" sx={{ padding: "3px", fontWeight: "bold" }}>
-                        {`${attributeTypeName}`}
-                      </Button>
-                    </MenuItem>
-
+                    <PrimaryMenu attributeName={attribute} attributeType={attributeType} attributeDataType={attributeDataType} />
                   </Menu>
 
                 </TableRow>
@@ -288,14 +241,24 @@ const GraphDataTable: React.FunctionComponent<
                           ? row[`${item.name}`] !== undefined
                             ? row[`${item.name}`].id
                             : ""
-                          : row[`${item.name}`] !== undefined
-                            ? row[`${item.name}`]
-                            : ""
+                          :
+                          `${item.name}` === "createdAtTimestamp" ||
+                            `${item.name}` === "timestamp" ||
+                            `${item.name}` === "updatedAtTimestamp"
+                            ? row[`${item.name}`] !== undefined
+                              ? moment(new Date((row[`${item.name}`]) * 1000)).format('MMMM D, YYYY, h:mmA')
+                              : ""
+                            :
+                            row[`${item.name}`] !== undefined
+                              ? row[`${item.name}`]
+                              : ""
                           }`}</TableCell>
                       ))}
                     </TableRow>
                   ))
-                  : null}
+                  :
+                  <p>No Records Found</p>
+                }
               </TableBody>
             </Table>
           </div>
