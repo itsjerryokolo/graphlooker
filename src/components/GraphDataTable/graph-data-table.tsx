@@ -172,8 +172,8 @@ const GraphDataTable: React.FunctionComponent<
             >
               <TableHead>
                 <TableRow>
-                  {allAttributes.map((item) => (
-                    <TableCell
+                  {allAttributes.map((item, i) => (
+                    <TableCell key={i}
                       sx={{
                         color: "white",
                         backgroundColor: "#03000c",
@@ -197,22 +197,14 @@ const GraphDataTable: React.FunctionComponent<
                       </Button>
                     </TableCell>
                   ))}
-                  <Menu id="menu"
-                    onClose={handleCloseMenu}
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                  >
-                    <PrimaryMenu attributeName={attribute} attributeType={attributeType} attributeDataType={attributeDataType} />
-                  </Menu>
-
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rows.length !== 0
-                  ? rows.map((row) => (
-                    <TableRow key={row.id} component="th" scope="row">
-                      {allAttributes.map((item) => (
-                        <TableCell
+                  ? rows.map((row, i) => (
+                    <TableRow key={i}>
+                      {allAttributes.map((item, key) => (
+                        <TableCell key={key}
                           sx={{ padding: "8px" }}
                           className={`${item.type === "OBJECT" ? "entity-object" : ""
                             }${item.name === "id" ? "ether-scan-address" : ""}`}
@@ -257,10 +249,23 @@ const GraphDataTable: React.FunctionComponent<
                     </TableRow>
                   ))
                   :
-                  <p>No Records Found</p>
+                  <TableRow>
+                    <TableCell>
+                      No Records Found
+                    </TableCell>
+                  </TableRow>
                 }
               </TableBody>
             </Table>
+
+            <Menu id="menu"
+              onClose={handleCloseMenu}
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+            >
+              <PrimaryMenu attributeName={attribute} attributeType={attributeType} attributeDataType={attributeDataType} />
+            </Menu>
+
           </div>
           {parsed.id === undefined ? (
             <div
