@@ -8,12 +8,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ThemeState } from './../../utility/redux/state';
 import './navbar.scss';
 import { toggleTheme } from '../../redux/actions/theme-action';
+import Constants from '../../utility/constant';
 
 const Navbar: React.FunctionComponent<{}> = (props) => {
   const dispatch = useDispatch();
+  const label = Constants.LABELS.commonLables;
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
   const handleToggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
+    const newTheme = theme === label.LIGHT ? label.DARK : label.LIGHT;
     dispatch(toggleTheme(newTheme));
   };
 
@@ -22,7 +24,7 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
       <AppBar position="static">
         <Toolbar className="toolbar toolbar-padding">
           <div className="menu-items">
-            {theme === 'light' ? (
+            {theme === label.LIGHT ? (
               <img
                 src="https://dapplooker.s3.amazonaws.com/assets/img/Dapplooker_light_theme_logo.png"
                 height="47px"
@@ -36,7 +38,7 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
               ></img>
             )}
             <div className="theme-icon" onClick={handleToggleTheme}>
-              {theme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+              {theme === label.LIGHT ? <DarkModeIcon /> : <LightModeIcon />}
             </div>
           </div>
         </Toolbar>

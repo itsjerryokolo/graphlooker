@@ -42,6 +42,10 @@ export default class Constants {
       LOADING: 'Loading...',
       NO_RECORD: 'No Records Found',
       EXPLORE: 'Explore',
+      LIGHT: 'light',
+      WHITE: 'white',
+      BLACK: 'black',
+      DARK: 'dark',
     },
   };
 

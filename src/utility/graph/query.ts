@@ -1,5 +1,8 @@
 import { gql } from '@apollo/client';
 import pluralizer from 'pluralize';
+import Constants from '../constant';
+
+const label = Constants.FILTERLABELS.dataTypeLabels;
 
 export const getAllEntities = gql`
   query {
@@ -55,7 +58,11 @@ export const getGraphData = (
     if (element.name === 'id') {
       continue;
     }
-    if (element.type === 'LIST' || element.type === 'OBJECT' || element.type === 'NON_NULL') {
+    if (
+      element.type === label.LIST ||
+      element.type === label.OBJECT ||
+      element.type === label.NON_NULL
+    ) {
       queryData = queryData + `${element.name} { id } `;
     } else {
       queryData = queryData + `${element.name} `;
@@ -84,7 +91,11 @@ export const getGraphDataForID = (
     if (element.name === 'id') {
       continue;
     }
-    if (element.type === 'LIST' || element.type === 'OBJECT' || element.type === 'NON_NULL') {
+    if (
+      element.type === label.LIST ||
+      element.type === label.OBJECT ||
+      element.type === label.NON_NULL
+    ) {
       queryData = queryData + `${element.name} { id } `;
     } else {
       queryData = queryData + `${element.name} `;
@@ -114,7 +125,11 @@ export const getSortedGraphData = (
     if (element.name === 'id') {
       continue;
     }
-    if (element.type === 'LIST' || element.type === 'OBJECT' || element.type === 'NON_NULL') {
+    if (
+      element.type === label.LIST ||
+      element.type === label.OBJECT ||
+      element.type === label.NON_NULL
+    ) {
       queryData = queryData + `${element.name} { id } `;
     } else {
       queryData = queryData + `${element.name} `;
@@ -147,7 +162,11 @@ export const getStringFilterGraphData = (
     if (element.name === 'id') {
       continue;
     }
-    if (element.type === 'LIST' || element.type === 'OBJECT' || element.type === 'NON_NULL') {
+    if (
+      element.type === label.LIST ||
+      element.type === label.OBJECT ||
+      element.type === label.NON_NULL
+    ) {
       queryData = queryData + `${element.name} { id } `;
     } else {
       queryData = queryData + `${element.name} `;

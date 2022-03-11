@@ -55,11 +55,12 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ match, l
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const label = Constants.LABELS.commonLables;
   const dispatch = useDispatch();
   const [drawerOpen, setDrawerOpen] = React.useState(true);
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
   const handleToggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
+    const newTheme = theme === label.LIGHT ? label.DARK : label.LIGHT;
     dispatch(toggleTheme(newTheme));
   };
   const handleToggleDrawer = () => {
@@ -92,12 +93,12 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ match, l
     <div>
       <Divider sx={{ borderBottomWidth: 0.01 }} color="#00A1FF" />
       <List
-        className="drawer"
+        className="list-drawer"
         sx={{
           width: '100%',
           maxWidth: 360,
           bgcolor: 'background.paper',
-          backgroundColor: `${theme === 'light' ? 'white' : 'black'}`,
+          backgroundColor: `${theme === label.LIGHT ? label.WHITE : label.BLACK}`,
         }}
         component="nav"
         aria-labelledby="nested-list-subheader"
@@ -108,8 +109,6 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ match, l
       </List>
     </div>
   );
-
-  const label = Constants.LABELS.commonLables;
 
   return (
     <>
@@ -146,7 +145,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ match, l
                 )}
               </div>
               <div className="theme-icon" onClick={handleToggleTheme}>
-                {theme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+                {theme === label.LIGHT ? <DarkModeIcon /> : <LightModeIcon />}
               </div>
             </Toolbar>
           </AppBar>
@@ -158,12 +157,13 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ match, l
               ModalProps={{
                 keepMounted: true, // Better open performance on mobile.
               }}
+              className="drawer-first"
               sx={{
                 display: { xs: 'block', sm: 'none' },
                 '& .MuiDrawer-paper': {
                   boxSizing: 'border-box',
                   width: drawerWidth,
-                  backgroundColor: `${theme === 'light' ? 'white' : 'black'}`,
+                  backgroundColor: `${theme === label.LIGHT ? label.WHITE : label.BLACK}`,
                   color: 'white',
                   paddingBottom: '8rem',
                 },
@@ -181,15 +181,14 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ match, l
               {drawer}
             </Drawer>
             <Drawer
+              className="drawer-two"
               sx={{
-                width: drawerWidth,
-                flexShrink: 0,
                 '& .MuiDrawer-paper': {
                   width: drawerWidth,
                   color: 'white',
                   marginTop: '64px',
                   boxSizing: 'border-box',
-                  backgroundColor: `${theme === 'light' ? 'white' : 'black'}`,
+                  backgroundColor: `${theme === label.LIGHT ? label.WHITE : label.BLACK}`,
                   paddingBottom: '8rem',
                   display: { xs: 'none', sm: 'block' },
                 },
