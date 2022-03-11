@@ -1,5 +1,5 @@
-import * as React from "react";
-import "./subgraph-card.scss";
+import * as React from 'react';
+import './subgraph-card.scss';
 
 const SubgraphCard: React.FunctionComponent<{}> = (props) => {
   return (

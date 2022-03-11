@@ -1,0 +1,52 @@
+.sort-btn {
+  background: linear-gradient(90deg, #21d4fd 0%, #b721ff 93%);
+  border-radius: 10%;
+  border: none;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  display: flex;
+  margin-left: 6px;
+
+  .dropdown-arrow {
+    color: #03000c;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+.filter-menu-button {
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'Inconsolata', 'Montserrat', sans-serif;
+  text-transform: none;
+  border: none;
+  outline-style: none;
+  border-radius: 5px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  &:hover {
+    background-color: #1976d2;
+    color: white;
+    .filter-list-icon {
+      color: white;
+    }
+    .filter-by-col-label {
+      color: white;
+    }
+  }
+
+  .filter-list-icon {
+    padding-right: 5px;
+    font-size: 19px;
+  }
+  .filter-by-col-label {
+    color: black;
+    font-weight: bold;
+    position: relative;
+    bottom: 4px;
+  }
+}

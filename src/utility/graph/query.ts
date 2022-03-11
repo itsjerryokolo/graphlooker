@@ -1,5 +1,8 @@
-import { gql } from "@apollo/client";
-import pluralizer from "pluralize";
+import { gql } from '@apollo/client';
+import pluralizer from 'pluralize';
+import Constants from '../constant';
+
+const label = Constants.FILTERLABELS.dataTypeLabels;
 
 export const getAllEntities = gql`
   query {
@@ -35,31 +38,30 @@ export const getAllAttributes = (entity: string) => {
 //Function to make of entities plural
 function makePluralChanges(normalStr: string) {
   let pluralStr = pluralizer(normalStr);
-  if (pluralStr == normalStr) {
-    return pluralStr + "s";
+  if (pluralStr === normalStr) {
+    return pluralStr + 's';
   } else {
     return pluralizer(normalStr);
   }
 }
 
 export const getGraphData = (
-  data: { name: string; type: string, typeName:string }[],
+  data: { name: string; type: string; typeName: string }[],
   entity: string,
   count: number,
   skip: number
 ) => {
-  console.log("calling me");
   let queryData = ` `;
   const selectedEntity = makePluralChanges(entity);
   for (let index = 0; index < data.length; ++index) {
     const element = data[index];
-    if (element.name === "id") {
+    if (element.name === 'id') {
       continue;
     }
     if (
-      element.type === "LIST" ||
-      element.type === "OBJECT" ||
-      element.type === "NON_NULL"
+      element.type === label.LIST ||
+      element.type === label.OBJECT ||
+      element.type === label.NON_NULL
     ) {
       queryData = queryData + `${element.name} { id } `;
     } else {
@@ -67,7 +69,6 @@ export const getGraphData = (
     }
   }
 
-  console.log("query", queryData);
   return gql`
     query {
       entity: ${selectedEntity}(first:${count},skip:${skip}){
@@ -79,7 +80,7 @@ export const getGraphData = (
 };
 
 export const getGraphDataForID = (
-  data: { name: string; type: string, typeName:string }[],
+  data: { name: string; type: string; typeName: string }[],
   entity: string,
   filterID: string
 ) => {
@@ -87,13 +88,13 @@ export const getGraphDataForID = (
   const selectedEntity = makePluralChanges(entity);
   for (let index = 0; index < data.length; ++index) {
     const element = data[index];
-    if (element.name === "id") {
+    if (element.name === 'id') {
       continue;
     }
     if (
-      element.type === "LIST" ||
-      element.type === "OBJECT" ||
-      element.type === "NON_NULL"
+      element.type === label.LIST ||
+      element.type === label.OBJECT ||
+      element.type === label.NON_NULL
     ) {
       queryData = queryData + `${element.name} { id } `;
     } else {
@@ -101,7 +102,6 @@ export const getGraphDataForID = (
     }
   }
 
-  console.log("query", queryData);
   return gql`
       query {
         entity: ${selectedEntity}(where:{id:"${filterID}"}){
@@ -113,7 +113,7 @@ export const getGraphDataForID = (
 };
 
 export const getSortedGraphData = (
-  data: { name: string; type: string, typeName:string }[],
+  data: { name: string; type: string; typeName: string }[],
   entity: string,
   sortType: string,
   attributeName: string
@@ -122,13 +122,13 @@ export const getSortedGraphData = (
   const selectedEntity = makePluralChanges(entity);
   for (let index = 0; index < data.length; ++index) {
     const element = data[index];
-    if (element.name === "id") {
+    if (element.name === 'id') {
       continue;
     }
     if (
-      element.type === "LIST" ||
-      element.type === "OBJECT" ||
-      element.type === "NON_NULL"
+      element.type === label.LIST ||
+      element.type === label.OBJECT ||
+      element.type === label.NON_NULL
     ) {
       queryData = queryData + `${element.name} { id } `;
     } else {
@@ -136,10 +136,52 @@ export const getSortedGraphData = (
     }
   }
 
-  console.log("query", queryData);
   return gql`
       query {
         entity: ${selectedEntity}(first:100, orderBy: ${attributeName}, orderDirection: ${sortType} ){
+          id      
+          ${queryData}
+          }
+      }
+      `;
+};
+
+//Query for Filter Menu
+export const getStringFilterGraphData = (
+  data: { name: string; type: string; typeName: string }[],
+  entity: string,
+  filterOption: string,
+  attributeName: string,
+  userInputValue: string
+) => {
+  let queryData = ` `;
+  const selectedEntity = makePluralChanges(entity);
+  let columnName = attributeName.concat(filterOption);
+  for (let index = 0; index < data.length; ++index) {
+    const element = data[index];
+    if (element.name === 'id') {
+      continue;
+    }
+    if (
+      element.type === label.LIST ||
+      element.type === label.OBJECT ||
+      element.type === label.NON_NULL
+    ) {
+      queryData = queryData + `${element.name} { id } `;
+    } else {
+      queryData = queryData + `${element.name} `;
+    }
+  }
+
+  if (userInputValue === '') {
+    userInputValue = 'null';
+  } else {
+    userInputValue = '"' + userInputValue + '"';
+  }
+
+  return gql`
+      query {
+        entity: ${selectedEntity}(first:100, where: {${columnName} :${userInputValue}}){
           id      
           ${queryData}
           }
