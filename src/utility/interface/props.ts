@@ -20,4 +20,12 @@ export interface PrimaryMenuProps {
   attributeType: string;
   attributeDataType: string;
 }
-
+export interface StringFilterMenuProps {
+  attributeName: string;
+}
+export interface NumberFilterMenuProps {
+  attributeName: string;
+}
+export interface TimeFilterMenuProps {
+  attributeName: string;
+}

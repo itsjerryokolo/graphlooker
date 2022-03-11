@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const timestamp = () => {
-  return (
-    <div>timestamp</div>
-  )
-}
+  return <div>timestamp</div>;
+};
 
-export default timestamp
+export default timestamp;

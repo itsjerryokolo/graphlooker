@@ -1,28 +1,24 @@
-import React from "react";
-import Divider from "@mui/material/Divider";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import { useSelector } from "react-redux";
-import "./list-item.scss";
-import { ListItemProps } from "./../../utility/interface/props";
-import TableChartIcon from "@mui/icons-material/TableChart";
-import { EndpointState, EntityState } from "../../utility/redux/state";
+import React from 'react';
+import Divider from '@mui/material/Divider';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import { useSelector } from 'react-redux';
+import './list-item.scss';
+import { ListItemProps } from './../../utility/interface/props';
+import TableChartIcon from '@mui/icons-material/TableChart';
+import { EndpointState, EntityState } from '../../utility/redux/state';
 
 const ListItem: React.FunctionComponent<ListItemProps> = ({ entity }) => {
   let selectedEntity: string;
-  selectedEntity = useSelector(
-    (state: EntityState) => state.selectedEntity.entity
-  );
-  const endpoint = useSelector(
-    (state: EndpointState) => state.graphEndpoint.endpoint
-  );
+  selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
+  const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
   const handleEntityChange = (entity: string) => {
     const URI = encodeURIComponent(endpoint);
     window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${entity}`;
   };
   return (
     <React.Fragment>
-      <div style={{ textDecoration: "none" }} className="links">
+      <div style={{ textDecoration: 'none' }} className="links">
         <ListItemButton
           className={
             selectedEntity === entity
@@ -32,10 +28,7 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({ entity }) => {
           onClick={() => handleEntityChange(entity)}
         >
           <TableChartIcon className="entity-logo"></TableChartIcon>
-          <div
-            style={{ display: "flex", alignItems: "center" }}
-            className="entity-name"
-          >
+          <div style={{ display: 'flex', alignItems: 'center' }} className="entity-name">
             <ListItemText className="list-item-text" primary={entity} />
           </div>
         </ListItemButton>

@@ -24,19 +24,49 @@
       max-width: calc(100vw - 310px);
     }
     .entity-object {
+      padding: 8px;
       color: #0000ee;
       font-weight: 600;
       cursor: pointer;
       &:hover {
         text-decoration: underline;
+        background-color: rgba(80, 158, 227, 0.1);
+        border-radius: 10px;
+        box-shadow: inset 5px 10px 8px rgba(25, 101, 168, 0.1);
       }
     }
     .ether-scan-address {
+      padding: 8px;
       color: #0000ee;
       font-weight: 600;
       cursor: pointer;
       &:hover {
         text-decoration: underline;
+        background-color: rgba(80, 158, 227, 0.1);
+        border-radius: 10px;
+        box-shadow: inset 5px 10px 8px rgba(25, 101, 168, 0.1);
+      }
+    }
+    .entity_number {
+      padding: 8px;
+      color: black;
+      font-weight: 400;
+      font-family: 'Inconsolata', 'Montserrat', sans-serif;
+      font-size: 14.5px;
+      &:hover {
+        background-color: rgba(80, 158, 227, 0.1);
+        border-radius: 10px;
+        box-shadow: inset 5px 10px 8px rgba(25, 101, 168, 0.1);
+      }
+    }
+    .table-head-cell {
+      color: #fff;
+      background-color: #03000c;
+      padding: 16px 8px;
+
+      .table-column-btn {
+        color: white;
+        font-weight: bold;
       }
     }
   }

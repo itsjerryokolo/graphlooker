@@ -1,20 +1,17 @@
-import * as React from "react";
-import ErrorMessage from "../ErrorMessage/error-message";
-import { useQuery } from "@apollo/client";
-import { useDispatch } from "react-redux";
-import { getAllEntities } from "../../utility/graph/query";
-import {
-  setGraphEndpoint,
-  setGraphEntity,
-} from "../../redux/actions/endpoint-action";
-import { RouteComponentProps, withRouter, Redirect } from "react-router-dom";
-import "./home.scss";
-import Navbar from "../Navbar/navbar";
-import Constants from "../../utility/constant";
+import * as React from 'react';
+import ErrorMessage from '../ErrorMessage/error-message';
+import { useQuery } from '@apollo/client';
+import { useDispatch } from 'react-redux';
+import { getAllEntities } from '../../utility/graph/query';
+import { setGraphEndpoint, setGraphEntity } from '../../redux/actions/endpoint-action';
+import { RouteComponentProps, withRouter, Redirect } from 'react-router-dom';
+import './home.scss';
+import Navbar from '../Navbar/navbar';
+import Constants from '../../utility/constant';
 
 const Home: React.FunctionComponent<RouteComponentProps> = ({ history }) => {
-  const [endpoint, setEndpoint] = React.useState("");
   const commonLables = Constants.LABELS.commonLables;
+  const [endpoint, setEndpoint] = React.useState(commonLables.EMPTY);
   const { data, error, loading } = useQuery(getAllEntities);
 
   const dispatch = useDispatch();
@@ -25,12 +22,10 @@ const Home: React.FunctionComponent<RouteComponentProps> = ({ history }) => {
   };
 
   if (loading) {
-    console.log("timeout");
     if (error) {
     }
   } else {
     if (error) {
-      console.log("error", error);
     }
     if (data) {
       const firstEntity = data.__schema.queryType.fields[0].name;
@@ -57,7 +52,7 @@ const Home: React.FunctionComponent<RouteComponentProps> = ({ history }) => {
               onChange={(e) => setEndpoint(e.target.value)}
             ></input>
             <button className="search-button" type="submit">
-              Explore
+              {commonLables.EXPLORE}
             </button>
             {error && <ErrorMessage message={error.message}></ErrorMessage>}
           </form>

@@ -1,50 +1,45 @@
-import * as React from "react";
-import "./graph-data.scss";
-import { useQuery } from "@apollo/client";
-import { getAllEntities } from "../../utility/graph/query";
-import { RouteComponentProps, withRouter } from "react-router-dom";
-import Toolbar from "@mui/material/Toolbar";
-import { styled } from "@mui/material/styles";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { useSelector, useDispatch } from "react-redux";
-import { ThemeState } from "./../../utility/redux/state";
-import { toggleTheme } from "../../redux/actions/theme-action";
-import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import ListItem from "../ListItem/list-item";
-import queryString from "query-string";
-import {
-  setGraphEntity,
-  setGraphEndpoint,
-} from "../../redux/actions/endpoint-action";
-import DataBoard from "../DataBoard/data-board";
+import * as React from 'react';
+import './graph-data.scss';
+import { useQuery } from '@apollo/client';
+import { getAllEntities } from '../../utility/graph/query';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import Toolbar from '@mui/material/Toolbar';
+import { styled } from '@mui/material/styles';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import { useSelector, useDispatch } from 'react-redux';
+import { ThemeState } from './../../utility/redux/state';
+import { toggleTheme } from '../../redux/actions/theme-action';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import ListItem from '../ListItem/list-item';
+import queryString from 'query-string';
+import { setGraphEntity, setGraphEndpoint } from '../../redux/actions/endpoint-action';
+import DataBoard from '../DataBoard/data-board';
+import Constants from '../../utility/constant';
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
+  shouldForwardProp: (prop) => prop !== 'open',
 })<MuiAppBarProps>(({ theme }) => ({
-  height: "60px",
-  backgroundColor: "#03000C",
-  boxShadow: "none",
+  height: '60px',
+  backgroundColor: '#03000C',
+  boxShadow: 'none',
 }));
 const drawerWidth = 300;
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: "2.2rem 1rem",
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: '2.2rem 1rem',
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
-const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
-  match,
-  location,
-}) => {
+const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ match, location }) => {
   let dataLoading: boolean = true;
   const parsed = queryString.parse(location.search);
   React.useEffect(() => {
@@ -56,7 +51,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
       dispatch(setGraphEndpoint(endpoint));
       return;
     }
-    window.location.href = "/";
+    window.location.href = '/';
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -64,7 +59,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
   const [drawerOpen, setDrawerOpen] = React.useState(true);
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
   const handleToggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
+    const newTheme = theme === 'light' ? 'dark' : 'light';
     dispatch(toggleTheme(newTheme));
   };
   const handleToggleDrawer = () => {
@@ -74,12 +69,10 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
   let allEntities: string[];
   allEntities = [];
   if (loading) {
-    console.log("timeout");
     if (error) {
     }
   } else {
     if (error) {
-      console.log("error", error);
     }
     if (data) {
       const queryData = data.__schema.queryType.fields;
@@ -101,10 +94,10 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
       <List
         className="drawer"
         sx={{
-          width: "100%",
+          width: '100%',
           maxWidth: 360,
-          bgcolor: "background.paper",
-          backgroundColor: `${theme === "light" ? "white" : "black"}`,
+          bgcolor: 'background.paper',
+          backgroundColor: `${theme === 'light' ? 'white' : 'black'}`,
         }}
         component="nav"
         aria-labelledby="nested-list-subheader"
@@ -116,11 +109,13 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
     </div>
   );
 
+  const label = Constants.LABELS.commonLables;
+
   return (
     <>
       {dataLoading ? (
         <div className="loader">
-          <span>Loading...</span>
+          <span>{label.LOADING}</span>
         </div>
       ) : (
         <div className="card-container">
@@ -129,7 +124,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
               <div className="menu-container">
                 <Box
                   sx={{
-                    display: { xs: "none", sm: "block" },
+                    display: { xs: 'none', sm: 'block' },
                   }}
                 >
                   <img
@@ -151,7 +146,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
                 )}
               </div>
               <div className="theme-icon" onClick={handleToggleTheme}>
-                {theme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+                {theme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
               </div>
             </Toolbar>
           </AppBar>
@@ -164,13 +159,13 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
                 keepMounted: true, // Better open performance on mobile.
               }}
               sx={{
-                display: { xs: "block", sm: "none" },
-                "& .MuiDrawer-paper": {
-                  boxSizing: "border-box",
+                display: { xs: 'block', sm: 'none' },
+                '& .MuiDrawer-paper': {
+                  boxSizing: 'border-box',
                   width: drawerWidth,
-                  backgroundColor: `${theme === "light" ? "white" : "black"}`,
-                  color: "white",
-                  paddingBottom: "8rem",
+                  backgroundColor: `${theme === 'light' ? 'white' : 'black'}`,
+                  color: 'white',
+                  paddingBottom: '8rem',
                 },
               }}
             >
@@ -189,14 +184,14 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({
               sx={{
                 width: drawerWidth,
                 flexShrink: 0,
-                "& .MuiDrawer-paper": {
+                '& .MuiDrawer-paper': {
                   width: drawerWidth,
-                  color: "white",
-                  marginTop: "64px",
-                  boxSizing: "border-box",
-                  backgroundColor: `${theme === "light" ? "white" : "black"}`,
-                  paddingBottom: "8rem",
-                  display: { xs: "none", sm: "block" },
+                  color: 'white',
+                  marginTop: '64px',
+                  boxSizing: 'border-box',
+                  backgroundColor: `${theme === 'light' ? 'white' : 'black'}`,
+                  paddingBottom: '8rem',
+                  display: { xs: 'none', sm: 'block' },
                 },
               }}
               variant="persistent"
