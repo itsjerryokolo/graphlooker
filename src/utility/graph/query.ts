@@ -53,6 +53,8 @@ export const getGraphData = (
 ) => {
   let queryData = ` `;
   const selectedEntity = makePluralChanges(entity);
+  let orderByColumnName = 'id';
+
   for (let index = 0; index < data.length; ++index) {
     const element = data[index];
     if (element.name === 'id') {
@@ -69,9 +71,37 @@ export const getGraphData = (
     }
   }
 
+  for (let index = 0; index < data.length; ++index) {
+    const element = data[index];
+    if (
+      element.name === 'timestamp' ||
+      element.name === 'createdAt' ||
+      element.name === 'updatedAt' ||
+      element.name === 'createdAtTimestamp' ||
+      element.name === 'updatedAtTimestamp' ||
+      element.name === 'blockNumber' ||
+      element.name === 'accrualBlockNumber' ||
+      element.name === 'blockTimestamp' ||
+      element.name === 'blockTime' ||
+      element.name === 'block' ||
+      element.name === 'mintedAtTimestamp' ||
+      element.name === 'initTimestamp' ||
+      element.name === 'dayStartTimestamp' ||
+      element.name === 'preparedTimestamp' ||
+      element.name === 'hourStartTimestamp'
+    ) {
+      orderByColumnName = element.name;
+      console.log(orderByColumnName);
+      break;
+    } else if (element.typeName === 'Int') {
+      orderByColumnName = element.name;
+      console.log(orderByColumnName);
+    }
+  }
+
   return gql`
     query {
-      entity: ${selectedEntity}(first:${count},skip:${skip}){
+      entity: ${selectedEntity}(first:${count},skip:${skip}, orderBy:${orderByColumnName}, orderDirection: desc){
         id      
         ${queryData}
         }
