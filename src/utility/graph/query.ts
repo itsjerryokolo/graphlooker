@@ -46,7 +46,7 @@ function makePluralChanges(normalStr: string) {
 }
 
 export const getGraphData = (
-  data: { name: string; type: string; typeName: string }[],
+  columnNames: { name: string; type: string; typeName: string }[],
   entity: string,
   count: number,
   skip: number
@@ -54,9 +54,8 @@ export const getGraphData = (
   let queryData = ` `;
   const selectedEntity = makePluralChanges(entity);
   let orderByColumnName = 'id';
-
-  for (let index = 0; index < data.length; ++index) {
-    const element = data[index];
+  for (let index = 0; index < columnNames.length; ++index) {
+    const element = columnNames[index];
     if (element.name === 'id') {
       continue;
     }
@@ -71,33 +70,7 @@ export const getGraphData = (
     }
   }
 
-  for (let index = 0; index < data.length; ++index) {
-    const element = data[index];
-    if (
-      element.name === 'timestamp' ||
-      element.name === 'createdAt' ||
-      element.name === 'updatedAt' ||
-      element.name === 'createdAtTimestamp' ||
-      element.name === 'updatedAtTimestamp' ||
-      element.name === 'blockNumber' ||
-      element.name === 'accrualBlockNumber' ||
-      element.name === 'blockTimestamp' ||
-      element.name === 'blockTime' ||
-      element.name === 'block' ||
-      element.name === 'mintedAtTimestamp' ||
-      element.name === 'initTimestamp' ||
-      element.name === 'dayStartTimestamp' ||
-      element.name === 'preparedTimestamp' ||
-      element.name === 'hourStartTimestamp'
-    ) {
-      orderByColumnName = element.name;
-      console.log(orderByColumnName);
-      break;
-    } else if (element.typeName === 'Int') {
-      orderByColumnName = element.name;
-      console.log(orderByColumnName);
-    }
-  }
+  orderByColumnName = getColumnNameForOptimizeQuery(columnNames);
 
   return gql`
     query {
@@ -110,14 +83,14 @@ export const getGraphData = (
 };
 
 export const getGraphDataForID = (
-  data: { name: string; type: string; typeName: string }[],
+  columnNames: { name: string; type: string; typeName: string }[],
   entity: string,
   filterID: string
 ) => {
   let queryData = ` `;
   const selectedEntity = makePluralChanges(entity);
-  for (let index = 0; index < data.length; ++index) {
-    const element = data[index];
+  for (let index = 0; index < columnNames.length; ++index) {
+    const element = columnNames[index];
     if (element.name === 'id') {
       continue;
     }
@@ -143,15 +116,15 @@ export const getGraphDataForID = (
 };
 
 export const getSortedGraphData = (
-  data: { name: string; type: string; typeName: string }[],
+  columnNames: { name: string; type: string; typeName: string }[],
   entity: string,
   sortType: string,
   attributeName: string
 ) => {
   let queryData = ` `;
   const selectedEntity = makePluralChanges(entity);
-  for (let index = 0; index < data.length; ++index) {
-    const element = data[index];
+  for (let index = 0; index < columnNames.length; ++index) {
+    const element = columnNames[index];
     if (element.name === 'id') {
       continue;
     }
@@ -178,7 +151,7 @@ export const getSortedGraphData = (
 
 //Query for Filter Menu
 export const getStringFilterGraphData = (
-  data: { name: string; type: string; typeName: string }[],
+  columnNames: { name: string; type: string; typeName: string }[],
   entity: string,
   filterOption: string,
   attributeName: string,
@@ -186,9 +159,10 @@ export const getStringFilterGraphData = (
 ) => {
   let queryData = ` `;
   const selectedEntity = makePluralChanges(entity);
-  let columnName = attributeName.concat(filterOption);
-  for (let index = 0; index < data.length; ++index) {
-    const element = data[index];
+  attributeName = attributeName.concat(filterOption);
+  let orderByColumnName = 'id';
+  for (let index = 0; index < columnNames.length; ++index) {
+    const element = columnNames[index];
     if (element.name === 'id') {
       continue;
     }
@@ -209,12 +183,67 @@ export const getStringFilterGraphData = (
     userInputValue = '"' + userInputValue + '"';
   }
 
+  orderByColumnName = getColumnNameForOptimizeQuery(columnNames);
+
   return gql`
       query {
-        entity: ${selectedEntity}(first:100, where: {${columnName} :${userInputValue}}){
+        entity: ${selectedEntity}(first:100,orderBy:${orderByColumnName}, orderDirection: desc,where: {${attributeName} :${userInputValue}}){
           id      
           ${queryData}
           }
       }
       `;
+};
+
+const getColumnNameForOptimizeQuery = (columnNames: any) => {
+  let columnName = 'id';
+  for (let index = 0; index < columnNames.length; ++index) {
+    const element = columnNames[index].name;
+    if (element.includes('date')) {
+      columnName = element;
+      break;
+    } else if (element.includes('timestamp')) {
+      columnName = element;
+      break;
+    } else if (element.includes('createdAt')) {
+      columnName = element;
+      break;
+    } else if (element.includes('updatedAt')) {
+      columnName = element;
+      break;
+    } else if (element.includes('blockNumber')) {
+      columnName = element;
+      break;
+    } else if (element.includes('accrualBlockNumber')) {
+      columnName = element;
+      break;
+    } else if (element.includes('blockTimestamp')) {
+      columnName = element;
+      break;
+    } else if (element.includes('blockTime')) {
+      columnName = element;
+      break;
+    } else if (element.includes('block')) {
+      columnName = element;
+      break;
+    } else if (element.includes('mintedAtTimestamp')) {
+      columnName = element;
+      break;
+    } else if (element.includes('initTimestamp')) {
+      columnName = element;
+      break;
+    } else if (element.includes('dayStartTimestamp')) {
+      columnName = element;
+      break;
+    } else if (element.includes('preparedTimestamp')) {
+      columnName = element;
+      break;
+    } else if (element.includes('hourStartTimestamp')) {
+      columnName = element;
+      break;
+    } else {
+      columnName = 'id';
+    }
+  }
+  return columnName;
 };
