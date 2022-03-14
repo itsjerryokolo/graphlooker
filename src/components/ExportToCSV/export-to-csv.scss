@@ -1,0 +1,18 @@
+.btn-exportcsv {
+  text-decoration: none;
+  cursor: pointer;
+  z-index: 999;
+  padding: 7px;
+  padding: auto;
+  background: var(--drawerToggleIconBackground);
+  border: none;
+  border-radius: 5px;
+
+  position: absolute;
+  left: 24em;
+
+  .csvlink {
+    text-decoration: none;
+    color: inherit;
+  }
+}

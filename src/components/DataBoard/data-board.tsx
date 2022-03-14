@@ -8,7 +8,7 @@ import './data-board.scss';
 import { useLazyQuery } from '@apollo/client';
 import { getAllAttributes } from '../../utility/graph/query';
 import GraphDataTable from '../GraphDataTable/graph-data-table';
-import { setGraphAttributes } from '../../redux/actions/endpoint-action';
+import { setGraphAttributes, setGraphQuery } from '../../redux/actions/endpoint-action';
 import Constants from '../../utility/constant';
 
 const drawerWidth = 300;
@@ -81,6 +81,22 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
       }
       if (allAttributes.length > 0) {
         dispatch(setGraphAttributes(allAttributes));
+
+        let myGlobalQuery: string = ` `;
+
+        for (let item of allAttributes) {
+          // myGlobalQuery += item.name
+
+          if (item.name === 'id') {
+            continue;
+          }
+          if (item.type === 'LIST' || item.type === 'OBJECT' || item.type === 'NON_NULL') {
+            myGlobalQuery = myGlobalQuery + `${item.name} { id } `;
+          } else {
+            myGlobalQuery = myGlobalQuery + `${item.name} `;
+          }
+        }
+        dispatch(setGraphQuery(myGlobalQuery));
       }
     }
   }

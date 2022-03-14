@@ -188,3 +188,45 @@ export const getStringFilterGraphData = (
       }
       `;
 };
+
+// Query based on last ID (export to csv)
+
+export const getCsvDataQuery = (
+  queryData: string,
+  entity: any,
+  count: number,
+  whereId: any,
+) => {
+  const selectedEntity = makePluralChanges(entity);
+
+  return gql`
+    query {
+      entity: ${selectedEntity}(first:${count},where: {id_gt:"${whereId}"}){
+        id      
+        ${queryData}
+        }
+    }
+    `;
+};
+
+// Query based on last ID and asc, desc (export to csv)
+
+export const getSortedCsvDataQuery = (
+  queryData: string,
+  entity: any,
+  count: number,
+  sortType: string,
+  attributeName: string,
+  whereId: any,
+) => {
+  const selectedEntity = makePluralChanges(entity);
+
+  return gql`
+    query {
+      entity: ${selectedEntity}(first:${count}, orderBy: ${attributeName}, orderDirection: ${sortType}, where: {id_gt:"${whereId}" }){
+        id      
+        ${queryData}
+        }
+    }
+    `;
+};

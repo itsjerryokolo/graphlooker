@@ -3,6 +3,7 @@ import {
   attributesReducer,
   endpointReducer,
   entityReducer,
+  queryReducer,
 } from "./endpoint-reducer";
 import { themeReducer } from "./theme-reducer";
 
@@ -11,4 +12,5 @@ export const reducers = combineReducers({
   graphEndpoint: endpointReducer,
   selectedEntity: entityReducer,
   allAttributes: attributesReducer,
+  queryState: queryReducer
 });

@@ -22,6 +22,7 @@ import queryString from 'query-string';
 import { setGraphEntity, setGraphEndpoint } from '../../redux/actions/endpoint-action';
 import DataBoard from '../DataBoard/data-board';
 import Constants from '../../utility/constant';
+import ExportToCSV from '../ExportToCSV/export-to-csv';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -144,6 +145,9 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ match, l
                   />
                 )}
               </div>
+
+              <ExportToCSV />
+
               <div className="theme-icon" onClick={handleToggleTheme}>
                 {theme === label.LIGHT ? <DarkModeIcon /> : <LightModeIcon />}
               </div>
