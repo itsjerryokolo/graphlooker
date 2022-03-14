@@ -20,7 +20,7 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import Tooltip from '@mui/material/Tooltip';
 import './graph-data-table.scss';
 import { KeyboardArrowDown } from '@mui/icons-material';
-import { Button, Menu, TableHead } from '@mui/material';
+import { Button, CircularProgress, Menu, TableHead } from '@mui/material';
 import moment from 'moment';
 import PrimaryMenu from '../PrimaryMenu/primary-menu';
 import Constants from '../../utility/constant';
@@ -147,7 +147,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     <>
       {loading ? (
         <div className="loader">
-          <span>{label.LOADING}</span>
+          <CircularProgress size={80} thickness={4} />
         </div>
       ) : (
         <div className="all-graph-data">
@@ -227,7 +227,8 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                               : label.EMPTY
                             : `${item.name}` === columnLabel.CREATED_AT_TIMESTAMP ||
                               `${item.name}` === columnLabel.TIMESTAMP ||
-                              `${item.name}` === columnLabel.UPDATED_AT_TIMESTAMP
+                              `${item.name}` === columnLabel.UPDATED_AT_TIMESTAMP ||
+                              `${item.name}` === columnLabel.DATE
                             ? row[`${item.name}`] !== undefined
                               ? moment(new Date(row[`${item.name}`] * 1000)).format(
                                   'MMMM D, YYYY, h:mmA'

@@ -22,6 +22,7 @@ import queryString from 'query-string';
 import { setGraphEntity, setGraphEndpoint } from '../../redux/actions/endpoint-action';
 import DataBoard from '../DataBoard/data-board';
 import Constants from '../../utility/constant';
+import { CircularProgress } from '@mui/material';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -114,7 +115,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ match, l
     <>
       {dataLoading ? (
         <div className="loader">
-          <span>{label.LOADING}</span>
+          <CircularProgress size={80} thickness={4} />
         </div>
       ) : (
         <div className="card-container">

@@ -68,7 +68,6 @@ export const getGraphData = (
       queryData = queryData + `${element.name} `;
     }
   }
-
   return gql`
     query {
       entity: ${selectedEntity}(first:${count},skip:${skip}){

@@ -9,6 +9,8 @@ import { ThemeState } from './../../utility/redux/state';
 import './navbar.scss';
 import { toggleTheme } from '../../redux/actions/theme-action';
 import Constants from '../../utility/constant';
+import { Link } from 'react-router-dom';
+import { Image } from '@mui/icons-material';
 
 const Navbar: React.FunctionComponent<{}> = (props) => {
   const dispatch = useDispatch();
@@ -25,17 +27,31 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
         <Toolbar className="toolbar toolbar-padding">
           <div className="menu-items">
             {theme === label.LIGHT ? (
-              <img
-                src="https://dapplooker.s3.amazonaws.com/assets/img/Dapplooker_light_theme_logo.png"
-                height="47px"
-                alt="dapplooker-icon"
-              ></img>
+              // <a href="http://localhost:3000/" target="_blank" rel="noreferrer">
+              //   <img
+              //     src="https://dapplooker.s3.amazonaws.com/assets/img/Dapplooker_light_theme_logo.png"
+              //     height="47px"
+              //     alt="dapplooker-icon"
+              //   ></img>
+              // </a>
+              <></>
             ) : (
-              <img
-                src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
-                height="43px"
-                alt="dapplooker-icon"
-              ></img>
+              // <a href="http://localhost:3000/" target="_blank" rel="noreferrer">
+              //   <img
+              //     src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
+              //     height="43px"
+              //     alt="dapplooker-icon"
+              //   ></img>
+              // </a>
+              // <Link to="/">
+              //   <img
+              //     src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
+              //     height="43px"
+              //     alt="dapplooker-icon"
+              //   ></img>
+              // </Link>
+              // <Link to="/">Hekko skjdfk</Link>
+              <></>
             )}
             <div className="theme-icon" onClick={handleToggleTheme}>
               {theme === label.LIGHT ? <DarkModeIcon /> : <LightModeIcon />}

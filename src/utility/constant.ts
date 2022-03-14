@@ -18,6 +18,7 @@ export default class Constants {
       CREATED_AT_TIMESTAMP: 'createdAtTimestamp',
       UPDATED_AT_TIMESTAMP: 'updatedAtTimestamp',
       TIMESTAMP: 'timestamp',
+      DATE: 'date',
     },
     filterOptionLabels: {
       IS_EMPTY: 'Is Empty',
