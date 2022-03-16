@@ -1,4 +1,4 @@
-import { Button, Menu, MenuItem } from '@mui/material';
+import { Menu, MenuItem } from '@mui/material';
 import React, { useState } from 'react';
 import './primary-menu.scss';
 import { PrimaryMenuProps } from '../../utility/interface/props';

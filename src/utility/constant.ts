@@ -47,6 +47,7 @@ export default class Constants {
       WHITE: 'white',
       BLACK: 'black',
       DARK: 'dark',
+      INVALID: 'Invalid ID',
     },
   };
 

@@ -1,25 +1,16 @@
-import React, { useState } from "react";
-import logo from "./logo.svg";
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-  RouteComponentProps,
-  Redirect,
-} from "react-router-dom";
-import Home from "./components/Home/home";
-import "./App.css";
-import { useSelector } from "react-redux";
-import { EndpointState, ThemeState } from "./utility/redux/state";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-import GraphData from "./components/GraphData/graph-data";
+import React from 'react';
+import { BrowserRouter, Route, Switch, RouteComponentProps } from 'react-router-dom';
+import Home from './components/Home/home';
+import './App.css';
+import { useSelector } from 'react-redux';
+import { EndpointState, ThemeState } from './utility/redux/state';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import GraphData from './components/GraphData/graph-data';
 
 function App() {
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
-  const endpoint = useSelector(
-    (state: EndpointState) => state.graphEndpoint.endpoint
-  );
-  console.log("endpoint", endpoint);
+  const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
+  console.log('endpoint', endpoint);
   const client = new ApolloClient({
     cache: new InMemoryCache(),
     uri: endpoint,
@@ -39,9 +30,7 @@ function App() {
               <Route
                 exact
                 path="/explore"
-                render={(props: RouteComponentProps<any>) => (
-                  <GraphData></GraphData>
-                )}
+                render={(props: RouteComponentProps<any>) => <GraphData></GraphData>}
               ></Route>
             </Switch>
           </BrowserRouter>

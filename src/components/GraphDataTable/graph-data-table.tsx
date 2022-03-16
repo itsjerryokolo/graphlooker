@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GraphDataTableProps } from './../../utility/interface/props';
-import { EndpointState, EntityState, AttributesState } from '../../utility/redux/state';
+import { EndpointState, EntityState, AttributesState, ThemeState } from '../../utility/redux/state';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
 import { useSelector } from 'react-redux';
@@ -20,10 +20,13 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import Tooltip from '@mui/material/Tooltip';
 import './graph-data-table.scss';
 import { KeyboardArrowDown } from '@mui/icons-material';
-import { Button, CircularProgress, Menu, TableHead } from '@mui/material';
+import { Alert, Button, Menu, Snackbar, TableHead } from '@mui/material';
 import moment from 'moment';
 import PrimaryMenu from '../PrimaryMenu/primary-menu';
 import Constants from '../../utility/constant';
+import humanizeString from 'humanize-string';
+import Loader from '../Loader/loader';
+import { ethers } from 'ethers';
 
 const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteComponentProps<any>> = ({
   drawerOpen,
@@ -38,6 +41,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   const allAttributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
+  const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
 
   const label = Constants.LABELS.commonLables;
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
@@ -94,15 +98,25 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   };
 
   const entityClicked = (entity: string, id: string, type: string) => {
+    let verifyAddress = ethers.utils.isAddress(id);
+    const re = /[0-9A-Fa-f]{6}/g; // 0x + 64 bytes
+
     if (type === dataTypeLabel.OBJECT) {
       const URI = encodeURIComponent(endpoint);
       const selectedEntity = entity.charAt(0).toLowerCase() + entity.slice(1);
       window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${selectedEntity}&id=${id}`;
-    } else if (entity === 'id') {
+    } else if (entity === 'id' && verifyAddress) {
       window.open(
         `https://etherscan.io/address/${id}`,
         '_blank' // <- This is what makes it open in a new window.
       );
+    } else if (id && id.length === 66 && re.test(id)) {
+      window.open(
+        `https://etherscan.io/tx/${id}`,
+        '_blank' // <- This is what makes it open in a new window.
+      );
+    } else {
+      setOpen(true);
     }
   };
 
@@ -143,12 +157,15 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     setAnchorEl(null);
   };
 
+  const [open, setOpen] = useState(false);
+  const handleCloseToast = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       {loading ? (
-        <div className="loader">
-          <CircularProgress size={80} thickness={4} />
-        </div>
+        <Loader />
       ) : (
         <div className="all-graph-data">
           <div
@@ -158,7 +175,12 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
               <TableHead>
                 <TableRow>
                   {allAttributes.map((item, i) => (
-                    <TableCell key={i} className="table-head-cell">
+                    <TableCell
+                      key={i}
+                      className={`${
+                        theme === label.LIGHT ? 'table-head-cell-light' : 'table-head-cell'
+                      }`}
+                    >
                       <Button
                         onClick={handleOpenMenu}
                         onMouseOver={() => setAttributeDetails(item.name, item.type, item.typeName)}
@@ -167,87 +189,86 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                         variant="outlined"
                         className="table-column-btn"
                       >
-                        {`${item.name}${
-                          item.type === dataTypeLabel.LIST ||
-                          item.type === dataTypeLabel.OBJECT ||
-                          item.type === dataTypeLabel.NON_NULL
-                            ? '_id'
-                            : label.EMPTY
-                        }`}
+                        {` ${humanizeString(item.name)}`}
                       </Button>
                     </TableCell>
                   ))}
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.length !== 0 ? (
-                  rows.map((row, i) => (
-                    <TableRow key={i}>
-                      {allAttributes.map((item, key) => (
-                        <TableCell
-                          key={key}
-                          className={`${
-                            item.type === dataTypeLabel.OBJECT ? 'entity-object' : label.EMPTY
-                          }${item.name === 'id' ? 'ether-scan-address' : label.EMPTY}
-                            ${
-                              item.typeName === dataTypeLabel.STRING ||
-                              item.typeName === dataTypeLabel.BIGINT ||
-                              item.typeName === dataTypeLabel.BIGDECIMAL ||
-                              item.typeName === dataTypeLabel.INT
+                {rows.length !== 0
+                  ? rows.map((row, i) => (
+                      <TableRow className="tabledata-row" key={i}>
+                        {allAttributes.map((item, key) => (
+                          <TableCell
+                            key={key}
+                            className={`${
+                              item.type === dataTypeLabel.OBJECT
+                                ? 'entity-object'
+                                : item.name === 'id'
+                                ? 'ether-scan-address'
+                                : item.typeName === dataTypeLabel.STRING ||
+                                  item.typeName === dataTypeLabel.BIGINT ||
+                                  item.typeName === dataTypeLabel.BIGDECIMAL ||
+                                  item.typeName === dataTypeLabel.INT
                                 ? 'entity_number'
-                                : label.EMPTY
+                                : 'entity_number'
                             }`}
-                          onClick={() =>
-                            entityClicked(
-                              `${
-                                item.type === dataTypeLabel.OBJECT
-                                  ? row[`${item.name}`] !== undefined
-                                    ? row[`${item.name}`].__typename
+                            onClick={() =>
+                              entityClicked(
+                                `${
+                                  item.type === dataTypeLabel.OBJECT
+                                    ? row[`${item.name}`] !== undefined
+                                      ? row[`${item.name}`].__typename
+                                      : label.EMPTY
+                                    : item.name
+                                }`,
+                                `${
+                                  item.type === dataTypeLabel.OBJECT
+                                    ? row[`${item.name}`] !== undefined
+                                      ? row[`${item.name}`].id
+                                      : label.EMPTY
+                                    : row[`${item.name}`] !== undefined
+                                    ? row[`${item.name}`]
                                     : label.EMPTY
-                                  : item.name
-                              }`,
-                              `${
-                                item.type === dataTypeLabel.OBJECT
-                                  ? row[`${item.name}`] !== undefined
-                                    ? row[`${item.name}`].id
-                                    : label.EMPTY
-                                  : row[`${item.name}`] !== undefined
-                                  ? row[`${item.name}`]
-                                  : label.EMPTY
-                              }`,
-                              item.type
-                            )
-                          }
-                        >{`${
-                          item.type === dataTypeLabel.LIST ||
-                          item.type === dataTypeLabel.OBJECT ||
-                          item.type === dataTypeLabel.NON_NULL
-                            ? row[`${item.name}`] !== undefined
-                              ? row[`${item.name}`].id
+                                }`,
+                                item.type
+                              )
+                            }
+                          >{`${
+                            item.type === dataTypeLabel.LIST ||
+                            item.type === dataTypeLabel.OBJECT ||
+                            item.type === dataTypeLabel.NON_NULL
+                              ? row[`${item.name}`] !== undefined
+                                ? row[`${item.name}`].id
+                                : label.EMPTY
+                              : `${item.name}` === columnLabel.CREATED_AT_TIMESTAMP ||
+                                `${item.name}` === columnLabel.TIMESTAMP ||
+                                `${item.name}` === columnLabel.UPDATED_AT_TIMESTAMP ||
+                                `${item.name}` === columnLabel.DATE
+                              ? row[`${item.name}`] !== undefined
+                                ? moment(new Date(row[`${item.name}`] * 1000)).format(
+                                    'MMMM D, YYYY, h:mmA'
+                                  )
+                                : label.EMPTY
+                              : row[`${item.name}`] !== undefined
+                              ? row[`${item.name}`]
                               : label.EMPTY
-                            : `${item.name}` === columnLabel.CREATED_AT_TIMESTAMP ||
-                              `${item.name}` === columnLabel.TIMESTAMP ||
-                              `${item.name}` === columnLabel.UPDATED_AT_TIMESTAMP ||
-                              `${item.name}` === columnLabel.DATE
-                            ? row[`${item.name}`] !== undefined
-                              ? moment(new Date(row[`${item.name}`] * 1000)).format(
-                                  'MMMM D, YYYY, h:mmA'
-                                )
-                              : label.EMPTY
-                            : row[`${item.name}`] !== undefined
-                            ? row[`${item.name}`]
-                            : label.EMPTY
-                        }`}</TableCell>
-                      ))}
-                    </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell>{label.NO_RECORD}</TableCell>
-                  </TableRow>
-                )}
+                          }`}</TableCell>
+                        ))}
+                      </TableRow>
+                    ))
+                  : label.EMPTY}
               </TableBody>
             </Table>
+
+            {rows.length > 0 ? (
+              label.EMPTY
+            ) : (
+              <div>
+                <img className="no-record-found" src="/images/no-record-found.png" alt="" />
+              </div>
+            )}
 
             <Menu id="menu" onClose={handleCloseMenu} anchorEl={anchorEl} open={Boolean(anchorEl)}>
               <PrimaryMenu
@@ -256,24 +277,34 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                 attributeDataType={attributeDataType}
               />
             </Menu>
+            <Snackbar
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+              open={open}
+              autoHideDuration={3000}
+              onClose={handleCloseToast}
+            >
+              <Alert onClose={handleCloseToast} severity="error" sx={{ width: '100%' }}>
+                {label.INVALID}
+              </Alert>
+            </Snackbar>
           </div>
-          {parsed.id === undefined ? (
+          {parsed.id === undefined && rows.length > 0 ? (
             <div
               className={`next-previous-option ${
-                drawerOpen ? 'drawer-open-next-previous-option' : ''
+                drawerOpen ? 'drawer-open-next-previous-option' : label.EMPTY
               }`}
             >
               <Tooltip title="previous">
                 <NavigateBeforeIcon
                   onClick={goToPrev}
-                  className={`previous-icon ${isPrevDisable ? 'disable-navigation' : ''}`}
+                  className={`previous-icon ${isPrevDisable ? 'disable-navigation' : label.EMPTY}`}
                 ></NavigateBeforeIcon>
               </Tooltip>
               <span>{pageNumber}</span>
               <Tooltip title="next">
                 <NavigateNextIcon
                   onClick={goToNext}
-                  className={`${isNextDisable ? 'disable-navigation' : ''}`}
+                  className={`${isNextDisable ? 'disable-navigation' : label.EMPTY}`}
                 ></NavigateNextIcon>
               </Tooltip>
             </div>

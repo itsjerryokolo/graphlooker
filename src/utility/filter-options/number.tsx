@@ -8,7 +8,7 @@ export const filterNumberIs = (
   const URI = encodeURIComponent(endpoint);
   const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
   console.log(
-    `http://localhost:3000/explore?uri=${URI}&e=${entity}&f=${selectedOption}&c=${columnName}&i=${numberInputValue}`
+    `http://localhost:3000/explore?uri=${URI}&e=${entity}&f=${selectedOption}&i=${numberInputValue}&c=${columnName}`
   );
-  window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${entity}&f=${selectedOption}&c=${columnName}&i=${numberInputValue}`;
+  window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${entity}&f=${selectedOption}&i=${numberInputValue}&c=${columnName}`;
 };

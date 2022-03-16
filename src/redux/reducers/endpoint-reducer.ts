@@ -2,15 +2,11 @@ import {
   EndpointActionObjectTypes,
   EntityActionObjectTypes,
   AttributesActionObjectTypes,
-} from "../../utility/redux/action-object-type";
-import { EndpointActionTypes } from "../../utility/redux/action-types";
+} from '../../utility/redux/action-object-type';
+import { EndpointActionTypes } from '../../utility/redux/action-types';
 
 const ENDPOINT_INITIAL_STATE = {
-  endpoint: "",
-};
-
-const ENTITY_INITIAL_STATE = {
-  entity: "",
+  endpoint: '',
 };
 
 export const endpointReducer = (
@@ -24,10 +20,7 @@ export const endpointReducer = (
       return state;
   }
 };
-export const entityReducer = (
-  state = {},
-  { type, payload }: EntityActionObjectTypes
-) => {
+export const entityReducer = (state = {}, { type, payload }: EntityActionObjectTypes) => {
   switch (type) {
     case EndpointActionTypes.SET_ENTITY:
       return { ...state, entity: payload };
@@ -36,10 +29,7 @@ export const entityReducer = (
   }
 };
 
-export const attributesReducer = (
-  state = {},
-  { type, payload }: AttributesActionObjectTypes
-) => {
+export const attributesReducer = (state = {}, { type, payload }: AttributesActionObjectTypes) => {
   switch (type) {
     case EndpointActionTypes.SET_ATTRIBUTES:
       return { ...state, attributes: payload };

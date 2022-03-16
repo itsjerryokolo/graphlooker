@@ -3,6 +3,7 @@ export default class Utility {
     let columnName = 'id';
     for (let index = 0; index < columnNames.length; ++index) {
       const element = columnNames[index].name;
+      const datatype = columnNames[index].typeName;
       if (element.includes('date')) {
         columnName = element;
         break;
@@ -45,8 +46,8 @@ export default class Utility {
       } else if (element.includes('hourStartTimestamp')) {
         columnName = element;
         break;
-      } else {
-        columnName = 'id';
+      } else if (datatype === 'Int') {
+        columnName = element;
       }
     }
     return columnName;
