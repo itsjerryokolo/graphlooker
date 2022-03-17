@@ -44,6 +44,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
 
   const label = Constants.LABELS.commonLables;
+  const urlLabels = Constants.LABELS.commonUrls;
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
   const columnLabel = Constants.FILTERLABELS.columnNameLabels;
 
@@ -82,7 +83,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const goToNext = () => {
     if (isNextDisable) return;
     const URI = encodeURIComponent(endpoint);
-    window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${selectedEntity}&p=${
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&p=${
       pageNumber + 1
     }`;
   };
@@ -90,9 +91,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     if (isPrevDisable) return;
     const URI = encodeURIComponent(endpoint);
     if (pageNumber === 2) {
-      return (window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${selectedEntity}`);
+      return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}`);
     }
-    window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${selectedEntity}&p=${
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&p=${
       pageNumber - 1
     }`;
   };
@@ -104,15 +105,15 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     if (type === dataTypeLabel.OBJECT) {
       const URI = encodeURIComponent(endpoint);
       const selectedEntity = entity.charAt(0).toLowerCase() + entity.slice(1);
-      window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${selectedEntity}&id=${id}`;
+      window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&id=${id}`;
     } else if (entity === 'id' && verifyAddress) {
       window.open(
-        `https://etherscan.io/address/${id}`,
+        `${urlLabels.ADDRESS_URL}${id}`,
         '_blank' // <- This is what makes it open in a new window.
       );
     } else if (id && id.length === 66 && re.test(id)) {
       window.open(
-        `https://etherscan.io/tx/${id}`,
+        `${urlLabels.TNX_URL}${id}`,
         '_blank' // <- This is what makes it open in a new window.
       );
     } else {

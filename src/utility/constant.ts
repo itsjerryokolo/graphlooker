@@ -40,7 +40,7 @@ export default class Constants {
       UPDATE_BY_FILTER: 'Update by Filter',
       SEARCH_BY_USER: 'Search by User',
       SEARCH_BY_NUMBER: 'Search by Number',
-      LOADING: 'Loading...',
+      LOADING: 'DOING SCIENCE',
       NO_RECORD: 'No Records Found',
       EXPLORE: 'Explore',
       LIGHT: 'light',
@@ -48,6 +48,12 @@ export default class Constants {
       BLACK: 'black',
       DARK: 'dark',
       INVALID: 'Invalid ID',
+      INCLUDE_TODAY: 'Include today',
+    },
+    commonUrls: {
+      BASE_URL: 'http://localhost:3000/explore?',
+      ADDRESS_URL: 'https://etherscan.io/address/',
+      TNX_URL: 'https://etherscan.io/tx/',
     },
   };
 
