@@ -1,15 +1,3 @@
-.loader {
-  width: 100%;
-  height: 100vh;
-  background-color: #03000c;
-  display: flex;
-  span {
-    font-size: 2rem;
-    color: #00a1ff;
-    font-weight: bold;
-    margin: auto;
-  }
-}
 .all-graph-data {
   box-sizing: border-box;
   .table-conatiner {
@@ -23,41 +11,39 @@
     &.drawer-open-table-length {
       max-width: calc(100vw - 310px);
     }
-    .entity-object {
-      padding: 8px;
-      color: #0000ee;
-      font-weight: 600;
-      cursor: pointer;
+    .tabledata-row {
       &:hover {
-        text-decoration: underline;
-        background-color: rgba(80, 158, 227, 0.1);
-        border-radius: 10px;
-        box-shadow: inset 5px 10px 8px rgba(25, 101, 168, 0.1);
+        background-color: #e2e2e2;
       }
+    }
+    .entity-object {
+      color: #00a2ff;
+      font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+      font-weight: 400;
+      cursor: pointer;
+      font-size: 14px;
+      // &:hover {
+      //   text-decoration: underline;
+      // }
     }
     .ether-scan-address {
-      padding: 8px;
-      color: #0000ee;
-      font-weight: 600;
+      color: #00a2ff;
+      font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+      font-weight: 400;
       cursor: pointer;
-      &:hover {
-        text-decoration: underline;
-        background-color: rgba(80, 158, 227, 0.1);
-        border-radius: 10px;
-        box-shadow: inset 5px 10px 8px rgba(25, 101, 168, 0.1);
-      }
+      font-size: 14px;
+      // &:hover {
+      //   text-decoration: underline;
+      // }
     }
     .entity_number {
-      padding: 8px;
-      color: black;
+      font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
       font-weight: 400;
-      font-family: 'Inconsolata', 'Montserrat', sans-serif;
-      font-size: 14.5px;
-      &:hover {
-        background-color: rgba(80, 158, 227, 0.1);
-        border-radius: 10px;
-        box-shadow: inset 5px 10px 8px rgba(25, 101, 168, 0.1);
-      }
+      cursor: pointer;
+      font-size: 14px;
+      // &:hover {
+      //   border-radius: 10px;
+      // }
     }
     .table-head-cell {
       color: #fff;
@@ -67,6 +53,35 @@
       .table-column-btn {
         color: white;
         font-weight: bold;
+        width: max-content;
+      }
+    }
+    .table-head-cell-light {
+      color: #fff;
+      background-color: rgb(30, 136, 229);
+      padding: 16px 8px;
+
+      .table-column-btn {
+        border: 1px solid white;
+        color: white;
+        font-weight: bold;
+        width: max-content;
+      }
+    }
+    .no-record-found {
+      display: block;
+      width: 225px;
+      margin: 50px auto;
+      img {
+        width: 200px;
+        height: 200px;
+        margin: 0;
+      }
+
+      span {
+        font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+        font-weight: 500;
+        font-size: 20px;
       }
     }
   }

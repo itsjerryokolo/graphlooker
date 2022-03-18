@@ -7,14 +7,16 @@ import './list-item.scss';
 import { ListItemProps } from './../../utility/interface/props';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import { EndpointState, EntityState } from '../../utility/redux/state';
+import Constants from '../../utility/constant';
 
 const ListItem: React.FunctionComponent<ListItemProps> = ({ entity }) => {
   let selectedEntity: string;
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
+  const urlLabels = Constants.LABELS.commonUrls;
   const handleEntityChange = (entity: string) => {
     const URI = encodeURIComponent(endpoint);
-    window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${entity}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}`;
   };
   return (
     <React.Fragment>

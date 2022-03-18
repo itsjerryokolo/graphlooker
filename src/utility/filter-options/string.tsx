@@ -1,3 +1,6 @@
+import Constants from '../constant';
+
+const urlLabels = Constants.LABELS.commonUrls;
 export const filterStringIs = (
   endpoint: string,
   selectedEntity: string,
@@ -7,8 +10,5 @@ export const filterStringIs = (
 ) => {
   const URI = encodeURIComponent(endpoint);
   const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-  console.log(
-    `http://localhost:3000/explore?uri=${URI}&e=${entity}&f=${selectedOption}&c=${columnName}&i=${stringInputValue}`
-  );
-  window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${entity}&f=${selectedOption}&c=${columnName}&i=${stringInputValue}`;
+  window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&f=${selectedOption}&i=${stringInputValue}&c=${columnName}`;
 };
