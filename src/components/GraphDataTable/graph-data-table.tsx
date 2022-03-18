@@ -266,8 +266,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
             {rows.length > 0 ? (
               label.EMPTY
             ) : (
-              <div>
-                <img className="no-record-found" src="/images/no-record-found.png" alt="" />
+              <div className="no-record-found">
+                <img className="no-record-found" src="/images/no_record_found.gif" alt="" />
+                <span>Oops!! No Record Found.</span>
               </div>
             )}
 

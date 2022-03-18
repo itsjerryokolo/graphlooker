@@ -40,7 +40,7 @@ export default class Constants {
       UPDATE_BY_FILTER: 'Update by Filter',
       SEARCH_BY_USER: 'Search by User',
       SEARCH_BY_NUMBER: 'Search by Number',
-      LOADING: 'DOING SCIENCE',
+      LOADING: `Don't worry - a few bits tried to escape, but we caught them.`,
       NO_RECORD: 'No Records Found',
       EXPLORE: 'Explore',
       LIGHT: 'light',

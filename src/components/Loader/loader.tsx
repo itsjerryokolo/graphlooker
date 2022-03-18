@@ -8,7 +8,7 @@ const Loader = () => {
   return (
     <>
       <div className="loader">
-        <CircularProgress className="circular-loader" size={80} thickness={4} />
+        <CircularProgress className="circular-loader" size={40} thickness={2} />
         <Typography variant="h5" component="h5" className="loader-text">
           {label.LOADING}
         </Typography>

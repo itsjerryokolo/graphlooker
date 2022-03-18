@@ -1,15 +1,3 @@
-.loader {
-  width: 100%;
-  height: 100vh;
-  background-color: #03000c;
-  display: flex;
-  span {
-    font-size: 2rem;
-    color: #00a1ff;
-    font-weight: bold;
-    margin: auto;
-  }
-}
 .all-graph-data {
   box-sizing: border-box;
   .table-conatiner {
@@ -29,32 +17,33 @@
       }
     }
     .entity-object {
-      padding: 8px;
-      color: #0000ee;
-      font-weight: 600;
+      color: #00a2ff;
+      font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+      font-weight: 400;
       cursor: pointer;
-      &:hover {
-        text-decoration: underline;
-      }
+      font-size: 14px;
+      // &:hover {
+      //   text-decoration: underline;
+      // }
     }
     .ether-scan-address {
-      padding: 8px;
-      color: #0000ee;
-      font-weight: 600;
+      color: #00a2ff;
+      font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+      font-weight: 400;
       cursor: pointer;
-      &:hover {
-        text-decoration: underline;
-      }
+      font-size: 14px;
+      // &:hover {
+      //   text-decoration: underline;
+      // }
     }
     .entity_number {
-      padding: 8px;
-      color: black;
+      font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
       font-weight: 400;
-      font-family: 'Inconsolata', 'Montserrat', sans-serif;
-      font-size: 14.5px;
-      &:hover {
-        border-radius: 10px;
-      }
+      cursor: pointer;
+      font-size: 14px;
+      // &:hover {
+      //   border-radius: 10px;
+      // }
     }
     .table-head-cell {
       color: #fff;
@@ -80,8 +69,20 @@
       }
     }
     .no-record-found {
-      width: 100%;
-      height: 620px;
+      display: block;
+      width: 225px;
+      margin: 50px auto;
+      img {
+        width: 200px;
+        height: 200px;
+        margin: 0;
+      }
+
+      span {
+        font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+      }
     }
   }
 
