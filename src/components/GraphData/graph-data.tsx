@@ -2,7 +2,7 @@ import * as React from 'react';
 import './graph-data.scss';
 import { useQuery } from '@apollo/client';
 import { getAllEntities } from '../../utility/graph/query';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import { styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -22,7 +22,8 @@ import queryString from 'query-string';
 import { setGraphEntity, setGraphEndpoint } from '../../redux/actions/endpoint-action';
 import DataBoard from '../DataBoard/data-board';
 import Constants from '../../utility/constant';
-import ExportToCSV from '../ExportToCSV/export-to-csv';
+import ExportButton from '../ExportToCSV/ExportButton';
+import Loader from '../Loader/loader';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -114,9 +115,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ match, l
   return (
     <>
       {dataLoading ? (
-        <div className="loader">
-          <span>{label.LOADING}</span>
-        </div>
+        <Loader />
       ) : (
         <div className="card-container">
           <AppBar position="fixed" className="app-bar">
@@ -127,11 +126,13 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ match, l
                     display: { xs: 'none', sm: 'block' },
                   }}
                 >
-                  <img
-                    src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
-                    height="43px"
-                    alt="dapplooker-icon"
-                  ></img>
+                  <Link to="/">
+                    <img
+                      src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
+                      height="43px"
+                      alt="dapplooker-icon"
+                    ></img>
+                  </Link>
                 </Box>
                 {drawerOpen ? (
                   <KeyboardDoubleArrowLeftIcon
@@ -146,7 +147,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ match, l
                 )}
               </div>
 
-              <ExportToCSV />
+              <ExportButton />
 
               <div className="theme-icon" onClick={handleToggleTheme}>
                 {theme === label.LIGHT ? <DarkModeIcon /> : <LightModeIcon />}
@@ -175,11 +176,13 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ match, l
             >
               <DrawerHeader>
                 <Box>
-                  <img
-                    src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
-                    height="33px"
-                    alt="dapplooker-icon"
-                  ></img>
+                  <Link to="/">
+                    <img
+                      src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
+                      height="33px"
+                      alt="dapplooker-icon"
+                    ></img>
+                  </Link>
                 </Box>
               </DrawerHeader>
               {drawer}

@@ -18,6 +18,7 @@ export default class Constants {
       CREATED_AT_TIMESTAMP: 'createdAtTimestamp',
       UPDATED_AT_TIMESTAMP: 'updatedAtTimestamp',
       TIMESTAMP: 'timestamp',
+      DATE: 'date',
     },
     filterOptionLabels: {
       IS_EMPTY: 'Is Empty',
@@ -39,13 +40,20 @@ export default class Constants {
       UPDATE_BY_FILTER: 'Update by Filter',
       SEARCH_BY_USER: 'Search by User',
       SEARCH_BY_NUMBER: 'Search by Number',
-      LOADING: 'Loading...',
+      LOADING: `Don't worry - a few bits tried to escape, but we caught them.`,
       NO_RECORD: 'No Records Found',
       EXPLORE: 'Explore',
       LIGHT: 'light',
       WHITE: 'white',
       BLACK: 'black',
       DARK: 'dark',
+      INVALID: 'Invalid ID',
+      INCLUDE_TODAY: 'Include today',
+    },
+    commonUrls: {
+      BASE_URL: 'http://localhost:3000/explore?',
+      ADDRESS_URL: 'https://etherscan.io/address/',
+      TNX_URL: 'https://etherscan.io/tx/',
     },
   };
 
@@ -97,4 +105,7 @@ export default class Constants {
       { menuItem: 'Not Empty', menuValue: '_not' },
     ],
   };
+  public static NUMBERS = {
+    csvData : 10000
+  }
 }

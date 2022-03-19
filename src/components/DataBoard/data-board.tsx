@@ -10,6 +10,8 @@ import { getAllAttributes } from '../../utility/graph/query';
 import GraphDataTable from '../GraphDataTable/graph-data-table';
 import { setGraphAttributes, setGraphQuery } from '../../redux/actions/endpoint-action';
 import Constants from '../../utility/constant';
+import queryString from 'query-string';
+import ExportToCsv from '../ExportToCSV/export-to-csv';
 
 const drawerWidth = 300;
 
@@ -49,6 +51,8 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
   const entity = selectedEntity
     ? selectedEntity.charAt(0).toUpperCase() + selectedEntity.slice(1)
     : label.EMPTY;
+
+  const parsed = queryString.parse(window.location.search);
 
   useEffect(() => {
     getAttributes();
@@ -102,13 +106,16 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
   }
 
   return (
-    <Main open={drawerOpen}>
-      <div className="tab-pane" id="tab0" role="tabpanel" aria-labelledby="tab_0">
-        {allAttributes.length !== 0 ? (
-          <GraphDataTable drawerOpen={drawerOpen}></GraphDataTable>
-        ) : null}
-      </div>
-    </Main>
+    <>
+      <div>{parsed.v !== undefined ? <ExportToCsv /> : null}</div>
+      <Main open={drawerOpen}>
+        <div className="tab-pane" id="tab0" role="tabpanel" aria-labelledby="tab_0">
+          {allAttributes.length !== 0 ? (
+            <GraphDataTable drawerOpen={drawerOpen}></GraphDataTable>
+          ) : null}
+        </div>
+      </Main>
+    </>
   );
 };
 

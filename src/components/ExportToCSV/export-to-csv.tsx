@@ -4,21 +4,26 @@ import {
   getCsvDataQuery,
   getGraphDataForID,
   getSortedCsvDataQuery,
-  getStringFilterGraphData,
+  getStringFilterCsvData,
 } from '../../utility/graph/query';
 import { useApolloClient } from '@apollo/client';
 import { useSelector } from 'react-redux';
 import { AttributesState, EntityState, QueryDataState } from '../../utility/redux/state';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import './export-to-csv.scss';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
+import Constants from '../../utility/constant';
+import turkeyDownloading from '../../utility/gifs/turkey_downloading.gif';
+import { Modal } from '@mui/material';
+import DangerousIcon from '@mui/icons-material/Dangerous';
 
 const ExportToCSV: React.FunctionComponent<any> = () => {
   const [entityId, setEntityId] = useState<any[]>([]);
   const [sortedDataState, setSortedDataState] = useState<any[]>([]);
-  const [clickRef, setClickRef] = useState<any>(false);
+  const [clickRef, setClickRef] = useState<any>(null);
   const CSV_LINK_REF = useRef<any>(null);
+  const [open, setOpen] = React.useState(true);
+
   const client = useApolloClient();
 
   const parsed = queryString.parse(window.location.search);
@@ -27,8 +32,6 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
 
   const regex: any = new RegExp(/^(?:[1-9][0-9]{3}|[1-9][0-9]{2}|[1-9][0-9]|[1-9])$/gm);
 
-  console.log(parsed);
-
   //<--------------- All use Selectors --------------->
 
   let selectedEntity: string = useSelector((state: EntityState) => state.selectedEntity.entity);
@@ -36,6 +39,15 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   const queryDataGlobalState = useSelector((state: QueryDataState) => state.queryState.query);
 
   const allAttributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
+  console.log(selectedEntity, queryDataGlobalState, allAttributes);
+
+  useEffect(() => {
+    console.log('asdadsa');
+    console.log(selectedEntity, queryDataGlobalState, allAttributes);
+    if (selectedEntity && queryDataGlobalState && allAttributes) {
+      ExportClickHandler();
+    }
+  }, [selectedEntity, queryDataGlobalState, allAttributes]);
 
   //<------- functionality for dynamic query ------->
 
@@ -43,6 +55,19 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     if (parsed.id !== undefined) {
       return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
     }
+
+    if (parsed.f !== undefined && parsed.c !== undefined && parsed.i !== undefined) {
+      return getStringFilterCsvData(
+        queryDataGlobalState,
+        allAttributes,
+        selectedEntity,
+        `${parsed.f}`,
+        `${parsed.c}`,
+        `${parsed.i}`,
+        entityId.length > 0 ? entityId[entityId.length - 1] : ''
+      );
+    }
+
     if (parsed.s !== undefined && parsed.c !== undefined) {
       return getSortedCsvDataQuery(
         queryDataGlobalState,
@@ -53,20 +78,9 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
         entityId.length > 0 ? entityId[entityId.length - 1] : ''
       );
     }
-    if (parsed.i !== undefined && parsed.f === undefined) {
-      return getGraphDataForID(allAttributes, selectedEntity, `${parsed.i}`);
-    }
-    if (parsed.f !== undefined && parsed.c !== undefined && parsed.i !== undefined) {
-      return getStringFilterGraphData(
-        allAttributes,
-        selectedEntity,
-        `${parsed.f}`,
-        `${parsed.c}`,
-        `${parsed.i}`
-      );
-    }
 
     return getCsvDataQuery(
+      allAttributes,
       queryDataGlobalState,
       selectedEntity,
       1000,
@@ -74,18 +88,10 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     );
   }
 
-  //<--------------- Click Handler --------------->
+  //<--------------- Export Handler --------------->
 
-  // const ExportClickHandler = useCallback(async () => {
   const ExportClickHandler = async () => {
-    try {
-      console.log('tried');
-      window.open(`/download`);
-    } catch (err) {
-      console.log(err);
-    }
-
-    console.log('Click handler in action');
+    console.log('Exporting data ... ');
 
     const { data } = await client.query({
       query: getCsvDataResursively(),
@@ -95,8 +101,9 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     entityData = data['entity'];
     rows = [...entityData];
 
-    let sortedData = rows.map((itm) => {
-      const { __typename, ...sortedRows } = itm;
+    let sortedData = rows.map((item) => {
+      const { __typename, ...sortedRows } = item;
+
       return sortedRows;
     });
 
@@ -106,12 +113,11 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
 
     setClickRef(true);
   };
-  //}, [entityId.length]);
 
   useEffect(() => {
     if (
       entityId.length > 0 &&
-      sortedDataState.length < 10000 &&
+      sortedDataState.length < Constants.NUMBERS.csvData &&
       regex.test(sortedDataState.length / 1000)
     ) {
       ExportClickHandler();
@@ -135,23 +141,44 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
 
   return (
     <>
-      <button
-        // target="_blank"
-        onClick={ExportClickHandler}
-        className="btn-exportcsv"
-      >
-        <FileDownloadIcon></FileDownloadIcon>
-      </button>
-
       <CSVLink
         data={sortedDataState || []}
         filename={fileName}
         className="csvlink"
         ref={CSV_LINK_REF}
         asyncOnClick={true}
-        target="_blank"
-        // {...(sortedDataState ? "Loading csv..." : "Download me")}
       />
+
+      <Modal open={open}>
+        <div className="modal-wrapper">
+          <h2 className="download-heading">
+            {clickRef === false
+              ? 'Download Completed !!!'
+              : 'Your downloading will start in a bit ...'}
+          </h2>
+
+          {clickRef === false ? (
+            <div className="completed-icon">
+              <iframe
+                title="completed-icon"
+                src="https://giphy.com/embed/CaS9NNso512WJ4po0t"
+                frameBorder="0"
+              ></iframe>
+            </div>
+          ) : (
+            <figure className="download-state">
+              <img src={turkeyDownloading} alt="Downloading..." width={80} height={80} />
+              <figcaption>The bits are breeding</figcaption>
+            </figure>
+          )}
+
+          <h3>{`${sortedDataState.length} bits arrived.`}</h3>
+
+          <div className="do-not-close">
+            <DangerousIcon /> <span>Do not close this tab.</span>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { Button, Menu, MenuItem } from '@mui/material';
+import { Menu, MenuItem } from '@mui/material';
 import React, { useState } from 'react';
 import './primary-menu.scss';
 import { PrimaryMenuProps } from '../../utility/interface/props';
@@ -16,6 +16,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps> = ({
   attributeDataType,
 }) => {
   const label = Constants.LABELS.commonLables;
+  const urlLabels = Constants.LABELS.commonUrls;
   const filterLabels = Constants.FILTERLABELS.dataTypeLabels;
 
   let selectedEntity: string;
@@ -26,8 +27,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps> = ({
   const attributeClicked = (s: string, c: string) => {
     const URI = encodeURIComponent(endpoint);
     const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    console.log(`http://localhost:3000/explore?uri=${URI}&e=${entity}&s=${s}&c=${c}`);
-    window.location.href = `http://localhost:3000/explore?uri=${URI}&e=${entity}&s=${s}&c=${c}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&s=${s}&c=${c}`;
   };
 
   const [anchorFiterEl, setAnchorFiterEl] = useState<null | HTMLElement>(null);
