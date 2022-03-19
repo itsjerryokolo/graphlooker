@@ -27,23 +27,35 @@
   transform: translate(-50%, -50%);
   width: 50%;
   height: 50%;
-  background: linear-gradient(to right, #7f53ac 0, #657ced 100%);
-  // border: 1px solid brown;
-
-  .download-heading {
+  background: white;
+  border-radius: 10px;
+  .modal-container {
+    width: 500px;
+    margin: 10px auto;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
     text-align: center;
-  }
+    font-size: 16px;
+    .download-heading {
+      font-size: 28px;
+      text-transform: uppercase;
+    }
+    .records-msg {
+      b {
+        color: #00a1ff;
+      }
+    }
 
-  .download-state {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .do-not-close {
-    color: rgb(153, 19, 19);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .warning-container {
+      display: inline-flex;
+      font-weight: 500;
+      margin-left: 0;
+      img {
+        position: relative;
+        bottom: 20px;
+      }
+      .msg {
+        color: red;
+      }
+    }
   }
 }

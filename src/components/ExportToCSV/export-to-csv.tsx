@@ -13,15 +13,14 @@ import './export-to-csv.scss';
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import Constants from '../../utility/constant';
-import turkeyDownloading from '../../utility/gifs/turkey_downloading.gif';
 import { Modal } from '@mui/material';
-import DangerousIcon from '@mui/icons-material/Dangerous';
 
 const ExportToCSV: React.FunctionComponent<any> = () => {
   const [entityId, setEntityId] = useState<any[]>([]);
   const [sortedDataState, setSortedDataState] = useState<any[]>([]);
   const [clickRef, setClickRef] = useState<any>(null);
   const CSV_LINK_REF = useRef<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [open, setOpen] = React.useState(true);
 
   const client = useApolloClient();
@@ -151,31 +150,46 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
 
       <Modal open={open}>
         <div className="modal-wrapper">
-          <h2 className="download-heading">
-            {clickRef === false
-              ? 'Download Completed !!!'
-              : 'Your downloading will start in a bit ...'}
-          </h2>
+          <div className="modal-container">
+            <h2 className="download-heading">
+              {clickRef === false
+                ? 'Your Download Started, You can close the tab !!'
+                : 'Your downloading will start soon.'}
+            </h2>
 
-          {clickRef === false ? (
-            <div className="completed-icon">
-              <iframe
-                title="completed-icon"
-                src="https://giphy.com/embed/CaS9NNso512WJ4po0t"
-                frameBorder="0"
-              ></iframe>
-            </div>
-          ) : (
-            <figure className="download-state">
-              <img src={turkeyDownloading} alt="Downloading..." width={80} height={80} />
-              <figcaption>The bits are breeding</figcaption>
+            {clickRef === false ? (
+              <figure className="download-state">
+                <img
+                  src="/images/firework-outline.gif"
+                  alt="Downloading..."
+                  width={150}
+                  height={150}
+                />
+                {/* <figcaption>The bits are breeding</figcaption> */}
+              </figure>
+            ) : (
+              <figure className="download-state">
+                <img
+                  src="/images/document-outline.gif"
+                  alt="Downloading..."
+                  width={150}
+                  height={150}
+                />
+                {/* <figcaption>The bits are breeding</figcaption> */}
+              </figure>
+            )}
+
+            <h3 className="records-msg">
+              At least you're not on hold...<b> {sortedDataState.length} RECORDS UPDATED.</b>
+              {/* //Your Download started */}
+            </h3>
+
+            <figure className="warning-container">
+              <img src="/images/error-outline.gif" alt="Downloading..." width={60} height={60} />
+              <figcaption className="msg">
+                IF YOU WISH TO STOP DOWNLODING, CLOSE THE TAB{' '}
+              </figcaption>
             </figure>
-          )}
-
-          <h3>{`${sortedDataState.length} bits arrived.`}</h3>
-
-          <div className="do-not-close">
-            <DangerousIcon /> <span>Do not close this tab.</span>
           </div>
         </div>
       </Modal>

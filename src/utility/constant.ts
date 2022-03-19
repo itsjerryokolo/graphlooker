@@ -106,6 +106,6 @@ export default class Constants {
     ],
   };
   public static NUMBERS = {
-    csvData : 10000
-  }
+    csvData: 10000,
+  };
 }
