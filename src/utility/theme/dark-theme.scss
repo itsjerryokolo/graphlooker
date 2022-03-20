@@ -1,4 +1,4 @@
-[theme-selector="dark"] {
+[theme-selector='dark'] {
   --navbarBackground: #03000c;
   --navbarBoxShadow: #3d3d3d 0px 2px 5px -1px, #3d3d3d 0px 1px 3px -1px;
   --fontColour: white;
@@ -19,4 +19,6 @@
   --drawerBackground: #03000c;
   --listItemColour: white;
   --listIconColour: white;
+  --loaderBackground: #000;
+  --loaderTextColor: #fff;
 }

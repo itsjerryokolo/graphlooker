@@ -6,8 +6,15 @@ import { EndpointState, EntityState } from '../../utility/redux/state';
 import { StringFilterMenuProps } from '../../utility/interface/props';
 import Constants from '../../utility/constant';
 import './number-filter-menu.scss';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import queryString from 'query-string';
 
-const NumberFilterMenu: React.FunctionComponent<StringFilterMenuProps> = ({ attributeName }) => {
+const NumberFilterMenu: React.FunctionComponent<
+  StringFilterMenuProps & RouteComponentProps<any>
+> = ({ attributeName, location }) => {
+  const parsed = queryString.parse(location.search);
+  const theme = parsed.th;
+
   const label = Constants.LABELS.commonLables;
   const filterOptionLabel = Constants.FILTERLABELS.filterOptionLabels;
 
@@ -66,7 +73,14 @@ const NumberFilterMenu: React.FunctionComponent<StringFilterMenuProps> = ({ attr
           variant="contained"
           className="update-filter-btn"
           onClick={() =>
-            filterNumberIs(endpoint, selectedEntity, attributeName, optionSelected, numberValue)
+            filterNumberIs(
+              endpoint,
+              selectedEntity,
+              attributeName,
+              optionSelected,
+              numberValue,
+              theme
+            )
           }
         >
           {label.UPDATE_BY_FILTER}
@@ -76,4 +90,4 @@ const NumberFilterMenu: React.FunctionComponent<StringFilterMenuProps> = ({ attr
   );
 };
 
-export default NumberFilterMenu;
+export default withRouter(NumberFilterMenu);

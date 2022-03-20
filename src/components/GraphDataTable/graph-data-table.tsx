@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { GraphDataTableProps } from './../../utility/interface/props';
-import { EndpointState, EntityState, AttributesState, ThemeState } from '../../utility/redux/state';
+import {
+  EndpointState,
+  EntityState,
+  AttributesState,
+  LoadingState,
+} from '../../utility/redux/state';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getGraphData,
   getGraphDataForID,
@@ -25,8 +30,8 @@ import moment from 'moment';
 import PrimaryMenu from '../PrimaryMenu/primary-menu';
 import Constants from '../../utility/constant';
 import humanizeString from 'humanize-string';
-import Loader from '../Loader/loader';
 import { ethers } from 'ethers';
+import { setDataLoading } from '../../redux/actions/loading-action';
 
 const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteComponentProps<any>> = ({
   drawerOpen,
@@ -41,7 +46,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   const allAttributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
-  const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
+  const theme = parsed.th;
+  let loadingScreen = useSelector((state: LoadingState) => state.dataLoading.loading);
+  const dispatch = useDispatch();
 
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
@@ -83,7 +90,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const goToNext = () => {
     if (isNextDisable) return;
     const URI = encodeURIComponent(endpoint);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&p=${
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&p=${
       pageNumber + 1
     }`;
   };
@@ -91,9 +98,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     if (isPrevDisable) return;
     const URI = encodeURIComponent(endpoint);
     if (pageNumber === 2) {
-      return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}`);
+      return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}`);
     }
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&p=${
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&p=${
       pageNumber - 1
     }`;
   };
@@ -105,19 +112,24 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     if (type === dataTypeLabel.OBJECT) {
       const URI = encodeURIComponent(endpoint);
       const selectedEntity = entity.charAt(0).toLowerCase() + entity.slice(1);
-      window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&id=${id}`;
-    } else if (entity === 'id' && verifyAddress) {
-      window.open(
-        `${urlLabels.ADDRESS_URL}${id}`,
-        '_blank' // <- This is what makes it open in a new window.
-      );
-    } else if (id && id.length === 66 && re.test(id)) {
-      window.open(
-        `${urlLabels.TNX_URL}${id}`,
-        '_blank' // <- This is what makes it open in a new window.
-      );
-    } else {
-      setOpen(true);
+      window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&id=${id}`;
+    }
+    console.log(entity, verifyAddress);
+    if (id.length > 20) {
+      if (entity === 'id' && verifyAddress) {
+        console.log('Coming..', verifyAddress);
+        window.open(
+          `${urlLabels.ADDRESS_URL}${id}`,
+          '_blank' // <- This is what makes it open in a new window.
+        );
+      } else if (id && id.length === 66 && re.test(id)) {
+        window.open(
+          `${urlLabels.TNX_URL}${id}`,
+          '_blank' // <- This is what makes it open in a new window.
+        );
+      } else {
+        setOpen(true);
+      }
     }
   };
 
@@ -135,6 +147,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         isNextDisable = true;
       }
     }
+    dispatch(setDataLoading(false));
   }
 
   //Open/Close Filter DropDown Menu Functions
@@ -162,20 +175,16 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const handleCloseToast = () => {
     setOpen(false);
   };
-
+  console.log('GET LOADING-----', loadingScreen);
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
-        <div className="all-graph-data">
-          <div
-            className={`table-conatiner ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`}
-          >
-            <Table stickyHeader aria-label="sticky table" className="data-table">
-              <TableHead>
-                <TableRow>
-                  {allAttributes.map((item, i) => (
+      <div className="all-graph-data">
+        <div className={`table-conatiner ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`}>
+          <Table stickyHeader aria-label="sticky table" className="data-table">
+            <TableHead>
+              <TableRow>
+                {data &&
+                  allAttributes.map((item, i) => (
                     <TableCell
                       key={i}
                       className={`${
@@ -194,125 +203,107 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                       </Button>
                     </TableCell>
                   ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.length !== 0
-                  ? rows.map((row, i) => (
-                      <TableRow className="tabledata-row" key={i}>
-                        {allAttributes.map((item, key) => (
-                          <TableCell
-                            key={key}
-                            className={`${
-                              item.type === dataTypeLabel.OBJECT
-                                ? 'entity-object'
-                                : item.name === 'id'
-                                ? 'ether-scan-address'
-                                : item.typeName === dataTypeLabel.STRING ||
-                                  item.typeName === dataTypeLabel.BIGINT ||
-                                  item.typeName === dataTypeLabel.BIGDECIMAL ||
-                                  item.typeName === dataTypeLabel.INT
-                                ? 'entity_number'
-                                : 'entity_number'
-                            }`}
-                            onClick={() =>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.length !== 0
+                ? rows.map((row, i) => (
+                    <TableRow className="tabledata-row" key={i}>
+                      {allAttributes.map((item, key) => (
+                        <TableCell
+                          key={key}
+                          className={`${
+                            item.type === dataTypeLabel.OBJECT || item.name === 'id'
+                              ? 'tablerow-data-css address-data-css'
+                              : 'tablerow-data-css'
+                          }`}
+                          onClick={() => {
+                            if (item.type === dataTypeLabel.OBJECT) {
                               entityClicked(
-                                `${
-                                  item.type === dataTypeLabel.OBJECT
-                                    ? row[`${item.name}`] !== undefined
-                                      ? row[`${item.name}`].__typename
-                                      : label.EMPTY
-                                    : item.name
-                                }`,
-                                `${
-                                  item.type === dataTypeLabel.OBJECT
-                                    ? row[`${item.name}`] !== undefined
-                                      ? row[`${item.name}`].id
-                                      : label.EMPTY
-                                    : row[`${item.name}`] !== undefined
-                                    ? row[`${item.name}`]
-                                    : label.EMPTY
-                                }`,
+                                row[`${item.name}`].__typename,
+                                row[`${item.name}`].id,
                                 item.type
-                              )
+                              );
+                            } else if (item.name === 'id') {
+                              entityClicked(item.name, row[`${item.name}`], item.type);
                             }
-                          >{`${
-                            item.type === dataTypeLabel.LIST ||
-                            item.type === dataTypeLabel.OBJECT ||
-                            item.type === dataTypeLabel.NON_NULL
-                              ? row[`${item.name}`] !== undefined
-                                ? row[`${item.name}`].id
-                                : label.EMPTY
-                              : `${item.name}` === columnLabel.CREATED_AT_TIMESTAMP ||
-                                `${item.name}` === columnLabel.TIMESTAMP ||
-                                `${item.name}` === columnLabel.UPDATED_AT_TIMESTAMP ||
-                                `${item.name}` === columnLabel.DATE
-                              ? row[`${item.name}`] !== undefined
-                                ? moment(new Date(row[`${item.name}`] * 1000)).format(
-                                    'MMMM D, YYYY, h:mmA'
-                                  )
-                                : label.EMPTY
-                              : row[`${item.name}`] !== undefined
-                              ? row[`${item.name}`]
+                          }}
+                        >{`${
+                          item.type === dataTypeLabel.LIST ||
+                          item.type === dataTypeLabel.OBJECT ||
+                          item.type === dataTypeLabel.NON_NULL
+                            ? row[`${item.name}`] !== undefined
+                              ? row[`${item.name}`].id
                               : label.EMPTY
-                          }`}</TableCell>
-                        ))}
-                      </TableRow>
-                    ))
-                  : label.EMPTY}
-              </TableBody>
-            </Table>
+                            : `${item.name}` === columnLabel.CREATED_AT_TIMESTAMP ||
+                              `${item.name}` === columnLabel.TIMESTAMP ||
+                              `${item.name}` === columnLabel.UPDATED_AT_TIMESTAMP ||
+                              `${item.name}` === columnLabel.DATE
+                            ? row[`${item.name}`] !== undefined
+                              ? moment(new Date(row[`${item.name}`] * 1000)).format(
+                                  'MMMM D, YYYY, h:mmA'
+                                )
+                              : label.EMPTY
+                            : row[`${item.name}`] !== undefined
+                            ? row[`${item.name}`]
+                            : label.EMPTY
+                        }`}</TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                : label.EMPTY}
+            </TableBody>
+          </Table>
 
-            {rows.length > 0 ? (
-              label.EMPTY
-            ) : (
-              <div className="no-record-found">
-                <img className="no-record-found" src="/images/no_record_found.gif" alt="" />
-                <span>Oops!! No Record Found.</span>
-              </div>
-            )}
-
-            <Menu id="menu" onClose={handleCloseMenu} anchorEl={anchorEl} open={Boolean(anchorEl)}>
-              <PrimaryMenu
-                attributeName={attribute}
-                attributeType={attributeType}
-                attributeDataType={attributeDataType}
-              />
-            </Menu>
-            <Snackbar
-              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-              open={open}
-              autoHideDuration={3000}
-              onClose={handleCloseToast}
-            >
-              <Alert onClose={handleCloseToast} severity="error" sx={{ width: '100%' }}>
-                {label.INVALID}
-              </Alert>
-            </Snackbar>
-          </div>
-          {parsed.id === undefined && rows.length > 0 ? (
-            <div
-              className={`next-previous-option ${
-                drawerOpen ? 'drawer-open-next-previous-option' : label.EMPTY
-              }`}
-            >
-              <Tooltip title="previous">
-                <NavigateBeforeIcon
-                  onClick={goToPrev}
-                  className={`previous-icon ${isPrevDisable ? 'disable-navigation' : label.EMPTY}`}
-                ></NavigateBeforeIcon>
-              </Tooltip>
-              <span>{pageNumber}</span>
-              <Tooltip title="next">
-                <NavigateNextIcon
-                  onClick={goToNext}
-                  className={`${isNextDisable ? 'disable-navigation' : label.EMPTY}`}
-                ></NavigateNextIcon>
-              </Tooltip>
+          {rows.length > 0 ? (
+            label.EMPTY
+          ) : (
+            <div className="no-record-found">
+              <img className="no-record-found" src="/images/no_record_found.gif" alt="" />
+              <span>Oops!! No Record Found.</span>
             </div>
-          ) : null}
+          )}
+
+          <Menu id="menu" onClose={handleCloseMenu} anchorEl={anchorEl} open={Boolean(anchorEl)}>
+            <PrimaryMenu
+              attributeName={attribute}
+              attributeType={attributeType}
+              attributeDataType={attributeDataType}
+            />
+          </Menu>
+          <Snackbar
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            open={open}
+            autoHideDuration={3000}
+            onClose={handleCloseToast}
+          >
+            <Alert onClose={handleCloseToast} severity="error" sx={{ width: '100%' }}>
+              {label.INVALID}
+            </Alert>
+          </Snackbar>
         </div>
-      )}
+        {parsed.id === undefined && rows.length > 0 ? (
+          <div
+            className={`next-previous-option ${
+              drawerOpen ? 'drawer-open-next-previous-option' : label.EMPTY
+            }`}
+          >
+            <Tooltip title="previous">
+              <NavigateBeforeIcon
+                onClick={goToPrev}
+                className={`previous-icon ${isPrevDisable ? 'disable-navigation' : label.EMPTY}`}
+              ></NavigateBeforeIcon>
+            </Tooltip>
+            <span>{pageNumber}</span>
+            <Tooltip title="next">
+              <NavigateNextIcon
+                onClick={goToNext}
+                className={`${isNextDisable ? 'disable-navigation' : label.EMPTY}`}
+              ></NavigateNextIcon>
+            </Tooltip>
+          </div>
+        ) : null}
+      </div>
     </>
   );
 };

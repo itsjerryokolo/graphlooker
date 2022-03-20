@@ -16,34 +16,15 @@
         background-color: #e2e2e2;
       }
     }
-    .entity-object {
-      color: #00a2ff;
+    .tablerow-data-css {
       font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-      font-weight: 400;
+      font-weight: 600;
       cursor: pointer;
       font-size: 14px;
-      // &:hover {
-      //   text-decoration: underline;
-      // }
-    }
-    .ether-scan-address {
-      color: #00a2ff;
-      font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-      font-weight: 400;
-      cursor: pointer;
-      font-size: 14px;
-      // &:hover {
-      //   text-decoration: underline;
-      // }
-    }
-    .entity_number {
-      font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-      font-weight: 400;
-      cursor: pointer;
-      font-size: 14px;
-      // &:hover {
-      //   border-radius: 10px;
-      // }
+      min-width: 170px;
+      &.address-data-css {
+        color: #00a2ff;
+      }
     }
     .table-head-cell {
       color: #fff;

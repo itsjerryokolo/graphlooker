@@ -9,12 +9,17 @@ import { EndpointState, EntityState } from '../../utility/redux/state';
 import { useSelector } from 'react-redux';
 import FilterMenu from '../FilterMenu/filter-menu';
 import Constants from '../../utility/constant';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import queryString from 'query-string';
 
-const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps> = ({
+const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProps<any>> = ({
   attributeName,
   attributeType,
   attributeDataType,
+  location,
 }) => {
+  const parsed = queryString.parse(location.search);
+  const theme = parsed.th;
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
   const filterLabels = Constants.FILTERLABELS.dataTypeLabels;
@@ -24,10 +29,10 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps> = ({
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
 
   //Sort Data (Ascending /Descending) when Attribute Clicked
-  const attributeClicked = (s: string, c: string) => {
+  const sortDataAscDesc = (s: string, c: string) => {
     const URI = encodeURIComponent(endpoint);
     const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&s=${s}&c=${c}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&s=${s}&c=${c}`;
   };
 
   const [anchorFiterEl, setAnchorFiterEl] = useState<null | HTMLElement>(null);
@@ -52,13 +57,13 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps> = ({
             <button className="sort-btn">
               <ArrowUpwardTwoToneIcon
                 className="dropdown-arrow"
-                onClick={() => attributeClicked(label.ASC, attributeName)}
+                onClick={() => sortDataAscDesc(label.ASC, attributeName)}
               />
             </button>
             <button className="sort-btn">
               <ArrowDownwardTwoToneIcon
                 className="dropdown-arrow"
-                onClick={() => attributeClicked(label.DESC, attributeName)}
+                onClick={() => sortDataAscDesc(label.DESC, attributeName)}
               />
             </button>
           </MenuItem>
@@ -94,4 +99,4 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps> = ({
   );
 };
 
-export default PrimaryMenu;
+export default withRouter(PrimaryMenu);

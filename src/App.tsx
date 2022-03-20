@@ -1,14 +1,16 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, RouteComponentProps } from 'react-router-dom';
+import { Route, Switch, RouteComponentProps, withRouter } from 'react-router-dom';
 import Home from './components/Home/home';
 import './App.css';
 import { useSelector } from 'react-redux';
-import { EndpointState, ThemeState } from './utility/redux/state';
+import { EndpointState } from './utility/redux/state';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import GraphData from './components/GraphData/graph-data';
+import queryString from 'query-string';
 
-function App() {
-  const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
+const App: React.FunctionComponent<RouteComponentProps<any>> = ({ location }) => {
+  const parsed = queryString.parse(location.search);
+  let theme = parsed.th;
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
   console.log('endpoint', endpoint);
   const client = new ApolloClient({
@@ -20,24 +22,22 @@ function App() {
     <>
       <ApolloProvider client={client}>
         <div theme-selector={theme} className="App">
-          <BrowserRouter>
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={(props: RouteComponentProps<any>) => <Home></Home>}
-              ></Route>
-              <Route
-                exact
-                path="/explore"
-                render={(props: RouteComponentProps<any>) => <GraphData></GraphData>}
-              ></Route>
-            </Switch>
-          </BrowserRouter>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={(props: RouteComponentProps<any>) => <Home></Home>}
+            ></Route>
+            <Route
+              exact
+              path="/explore"
+              render={(props: RouteComponentProps<any>) => <GraphData></GraphData>}
+            ></Route>
+          </Switch>
         </div>
       </ApolloProvider>
     </>
   );
-}
+};
 
-export default App;
+export default withRouter(App);
