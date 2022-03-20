@@ -29,3 +29,6 @@ export interface NumberFilterMenuProps {
 export interface TimeFilterMenuProps {
   attributeName: string;
 }
+export interface LoaderProps {
+  theme: string;
+}

@@ -22,3 +22,9 @@ interface AllAttributes {
 export interface AttributesState {
   allAttributes: AllAttributes;
 }
+interface DataLoading {
+  loading: boolean;
+}
+export interface LoadingState {
+  dataLoading: DataLoading;
+}

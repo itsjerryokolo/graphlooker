@@ -31,7 +31,7 @@ export default class Constants {
 
   public static LABELS = {
     commonLables: {
-      subgraph_visualizer: 'Subgraph Visualizer',
+      title: 'Subgraph Explorer',
       FILTER_BY_THIS_COL: 'Filter by this column',
       ASC: 'asc',
       DESC: 'desc',
