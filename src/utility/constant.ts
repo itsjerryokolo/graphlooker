@@ -59,7 +59,7 @@ export default class Constants {
       DWNLD_STARTED: 'Download started, you can close the tab.',
       DWNLD_SOON: 'Downloading will start automatically.',
       HOLD_MSG: ' the bits are breeding...',
-      RECORDS_MSG: 'RECORDS UPDATED.',
+      RECORDS_MSG: 'RECORDS DOWNLOADED.',
       CLOSE_TAB_MSG: 'IF YOU WISH TO STOP DOWNLODING, CLOSE THE TAB.',
     },
   };
