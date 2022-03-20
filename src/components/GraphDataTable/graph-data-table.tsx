@@ -114,10 +114,8 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
       const selectedEntity = entity.charAt(0).toLowerCase() + entity.slice(1);
       window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&id=${id}`;
     }
-    console.log(entity, verifyAddress);
     if (id.length > 20) {
       if (entity === 'id' && verifyAddress) {
-        console.log('Coming..', verifyAddress);
         window.open(
           `${urlLabels.ADDRESS_URL}${id}`,
           '_blank' // <- This is what makes it open in a new window.
@@ -175,7 +173,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const handleCloseToast = () => {
     setOpen(false);
   };
-
   return (
     <>
       <div className="all-graph-data">
@@ -251,16 +248,18 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                       ))}
                     </TableRow>
                   ))
-                : null}
+                : label.EMPTY}
             </TableBody>
           </Table>
 
-          {!loadingScreen && rows.length === 0 ? (
+          {rows.length > 0 ? (
+            label.EMPTY
+          ) : (
             <div className="no-record-found">
               <img className="no-record-found" src="/images/no_record_found.gif" alt="" />
               <span>Oops!! No Record Found.</span>
             </div>
-          ) : null}
+          )}
 
           <Menu id="menu" onClose={handleCloseMenu} anchorEl={anchorEl} open={Boolean(anchorEl)}>
             <PrimaryMenu

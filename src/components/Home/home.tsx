@@ -41,7 +41,7 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
       <div theme-selector={theme}>
         <Navbar></Navbar>
         <div className="container">
-          <h1>{commonLables.subgraph_visualizer}</h1>
+          <h1>{commonLables.title}</h1>
           <div className="search-box">
             <form className="search-box-form" onSubmit={searchEndpoint}>
               <input

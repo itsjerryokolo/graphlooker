@@ -29,10 +29,10 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
 
   //Sort Data (Ascending /Descending) when Attribute Clicked
-  const sortDataAscDesc = (s: string, c: string) => {
+  const sortDataAscDesc = (sortType: string, columnName: string) => {
     const URI = encodeURIComponent(endpoint);
     const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&s=${s}&c=${c}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&s=${sortType}&c=${columnName}`;
   };
 
   const [anchorFiterEl, setAnchorFiterEl] = useState<null | HTMLElement>(null);
