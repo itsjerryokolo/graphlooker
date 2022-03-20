@@ -44,7 +44,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   const dispatch = useDispatch();
   const parsed = queryString.parse(location.search);
   let theme: any = parsed.th;
-  console.log(parsed.th);
+
   React.useEffect(() => {
     if (parsed.uri && parsed.e) {
       const endpointEncoded = parsed.uri;
@@ -118,95 +118,99 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
 
   return (
     <>
-      {loadingScreen ? <Loader theme={theme} /> : ''}
-
       <div className="card-container" theme-selector={theme}>
-        <AppBar position="fixed" className="app-bar">
-          <Toolbar className="toolbar toolbar-padding">
-            <div className="menu-container">
-              <Box
+        {loadingScreen ? (
+          <Loader theme={theme} />
+        ) : (
+          <>
+            <AppBar position="fixed" className="app-bar">
+              <Toolbar className="toolbar toolbar-padding">
+                <div className="menu-container">
+                  <Box
+                    sx={{
+                      display: { xs: 'none', sm: 'block' },
+                    }}
+                  >
+                    <Link to="/">
+                      <img
+                        src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
+                        height="43px"
+                        alt="dapplooker-icon"
+                      ></img>
+                    </Link>
+                  </Box>
+                  {drawerOpen ? (
+                    <KeyboardDoubleArrowLeftIcon
+                      className="toggle-drawer-icon"
+                      onClick={handleToggleDrawer}
+                    />
+                  ) : (
+                    <KeyboardDoubleArrowRightIcon
+                      className="toggle-drawer-icon"
+                      onClick={handleToggleDrawer}
+                    />
+                  )}
+                </div>
+                <div className="theme-icon" onClick={handleToggleTheme}>
+                  {theme === label.LIGHT ? <DarkModeIcon /> : <LightModeIcon />}
+                </div>
+              </Toolbar>
+            </AppBar>
+            <Box>
+              <Drawer
+                variant="temporary"
+                open={drawerOpen}
+                onClose={handleToggleDrawer}
+                ModalProps={{
+                  keepMounted: true, // Better open performance on mobile.
+                }}
+                className="drawer-first"
                 sx={{
-                  display: { xs: 'none', sm: 'block' },
+                  display: { xs: 'block', sm: 'none' },
+                  '& .MuiDrawer-paper': {
+                    boxSizing: 'border-box',
+                    width: drawerWidth,
+                    backgroundColor: `${theme === label.LIGHT ? label.WHITE : label.BLACK}`,
+                    color: 'white',
+                    paddingBottom: '8rem',
+                  },
                 }}
               >
-                <Link to="/">
-                  <img
-                    src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
-                    height="43px"
-                    alt="dapplooker-icon"
-                  ></img>
-                </Link>
-              </Box>
-              {drawerOpen ? (
-                <KeyboardDoubleArrowLeftIcon
-                  className="toggle-drawer-icon"
-                  onClick={handleToggleDrawer}
-                />
-              ) : (
-                <KeyboardDoubleArrowRightIcon
-                  className="toggle-drawer-icon"
-                  onClick={handleToggleDrawer}
-                />
-              )}
-            </div>
-            <div className="theme-icon" onClick={handleToggleTheme}>
-              {theme === label.LIGHT ? <DarkModeIcon /> : <LightModeIcon />}
-            </div>
-          </Toolbar>
-        </AppBar>
-        <Box>
-          <Drawer
-            variant="temporary"
-            open={drawerOpen}
-            onClose={handleToggleDrawer}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-            className="drawer-first"
-            sx={{
-              display: { xs: 'block', sm: 'none' },
-              '& .MuiDrawer-paper': {
-                boxSizing: 'border-box',
-                width: drawerWidth,
-                backgroundColor: `${theme === label.LIGHT ? label.WHITE : label.BLACK}`,
-                color: 'white',
-                paddingBottom: '8rem',
-              },
-            }}
-          >
-            <DrawerHeader>
-              <Box>
-                <Link to="/">
-                  <img
-                    src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
-                    height="33px"
-                    alt="dapplooker-icon"
-                  ></img>
-                </Link>
-              </Box>
-            </DrawerHeader>
-            {drawer}
-          </Drawer>
-          <Drawer
-            className="drawer-two"
-            sx={{
-              '& .MuiDrawer-paper': {
-                width: drawerWidth,
-                color: 'white',
-                marginTop: '64px',
-                boxSizing: 'border-box',
-                backgroundColor: `${theme === label.LIGHT ? label.WHITE : label.BLACK}`,
-                paddingBottom: '8rem',
-                display: { xs: 'none', sm: 'block' },
-              },
-            }}
-            variant="persistent"
-            anchor="left"
-            open={drawerOpen}
-          >
-            {drawer}
-          </Drawer>
-        </Box>
+                <DrawerHeader>
+                  <Box>
+                    <Link to="/">
+                      <img
+                        src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
+                        height="33px"
+                        alt="dapplooker-icon"
+                      ></img>
+                    </Link>
+                  </Box>
+                </DrawerHeader>
+                {drawer}
+              </Drawer>
+              <Drawer
+                className="drawer-two"
+                sx={{
+                  '& .MuiDrawer-paper': {
+                    width: drawerWidth,
+                    color: 'white',
+                    marginTop: '64px',
+                    boxSizing: 'border-box',
+                    backgroundColor: `${theme === label.LIGHT ? label.WHITE : label.BLACK}`,
+                    paddingBottom: '8rem',
+                    display: { xs: 'none', sm: 'block' },
+                  },
+                }}
+                variant="persistent"
+                anchor="left"
+                open={drawerOpen}
+              >
+                {drawer}
+              </Drawer>
+            </Box>
+          </>
+        )}
         <DataBoard drawerOpen={drawerOpen}></DataBoard>
       </div>
     </>

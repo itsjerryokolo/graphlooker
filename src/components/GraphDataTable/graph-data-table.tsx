@@ -175,7 +175,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const handleCloseToast = () => {
     setOpen(false);
   };
-  console.log('GET LOADING-----', loadingScreen);
+
   return (
     <>
       <div className="all-graph-data">
@@ -251,18 +251,16 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                       ))}
                     </TableRow>
                   ))
-                : label.EMPTY}
+                : null}
             </TableBody>
           </Table>
 
-          {rows.length > 0 ? (
-            label.EMPTY
-          ) : (
+          {!loadingScreen && rows.length === 0 ? (
             <div className="no-record-found">
               <img className="no-record-found" src="/images/no_record_found.gif" alt="" />
               <span>Oops!! No Record Found.</span>
             </div>
-          )}
+          ) : null}
 
           <Menu id="menu" onClose={handleCloseMenu} anchorEl={anchorEl} open={Boolean(anchorEl)}>
             <PrimaryMenu

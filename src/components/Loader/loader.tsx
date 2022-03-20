@@ -6,7 +6,7 @@ import { LoaderProps } from '../../utility/interface/props';
 
 const Loader: React.FunctionComponent<LoaderProps> = ({ theme }) => {
   const label = Constants.LABELS.commonLables;
-  console.log('Theme Color', theme);
+
   return (
     <>
       <div className="loader" theme-selector={theme}>
