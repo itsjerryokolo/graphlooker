@@ -22,6 +22,7 @@ import queryString from 'query-string';
 import { setGraphEntity, setGraphEndpoint } from '../../redux/actions/endpoint-action';
 import DataBoard from '../DataBoard/data-board';
 import Constants from '../../utility/constant';
+import ExportButton from '../ExportToCSV/ExportButton';
 import Loader from '../Loader/loader';
 
 const AppBar = styled(MuiAppBar, {
@@ -44,7 +45,6 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   const dispatch = useDispatch();
   const parsed = queryString.parse(location.search);
   let theme: any = parsed.th;
-  console.log(parsed.th);
   React.useEffect(() => {
     if (parsed.uri && parsed.e) {
       const endpointEncoded = parsed.uri;
@@ -149,6 +149,9 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                 />
               )}
             </div>
+
+            <ExportButton />
+
             <div className="theme-icon" onClick={handleToggleTheme}>
               {theme === label.LIGHT ? <DarkModeIcon /> : <LightModeIcon />}
             </div>

@@ -195,3 +195,80 @@ export const getStringFilterGraphData = (
       }
       `;
 };
+
+// Query based on last ID (export to csv)
+
+export const getCsvDataQuery = (
+  columnNames: { name: string; type: string; typeName: string }[],
+  queryData: string,
+  entity: any,
+  count: number,
+  whereId: any
+) => {
+  const selectedEntity = makePluralChanges(entity);
+  let orderByColumnName = 'id';
+  orderByColumnName = Utility.getColumnNameForOptimizeQuery(columnNames);
+
+  return gql`
+    query {
+      entity: ${selectedEntity}(first:${count}, orderBy: ${orderByColumnName}, orderDirection: desc, where: {id_gt:"${whereId}" } ){
+        id      
+        ${queryData}
+        }
+    }
+    `;
+};
+
+// Query based on last ID and asc, desc (export to csv)
+
+export const getSortedCsvDataQuery = (
+  queryData: string,
+  entity: any,
+  count: number,
+  sortType: string,
+  attributeName: string,
+  whereId: any
+) => {
+  const selectedEntity = makePluralChanges(entity);
+
+  return gql`
+    query {
+      entity: ${selectedEntity}(first:${count}, orderBy: ${attributeName}, orderDirection: ${sortType}, where: {id_gt:"${whereId}" }){
+        id      
+        ${queryData}
+        }
+    }
+    `;
+};
+
+//Query for Filter Menu
+export const getStringFilterCsvData = (
+  queryData: string,
+  columnNames: { name: string; type: string; typeName: string }[],
+  entity: string,
+  filterOption: string,
+  attributeName: string,
+  userInputValue: string,
+  whereId: any
+) => {
+  const selectedEntity = makePluralChanges(entity);
+  attributeName = attributeName.concat(filterOption);
+  let orderByColumnName = 'id';
+
+  if (userInputValue === '') {
+    userInputValue = 'null';
+  } else {
+    userInputValue = '"' + userInputValue + '"';
+  }
+
+  orderByColumnName = Utility.getColumnNameForOptimizeQuery(columnNames);
+
+  return gql`
+      query {
+        entity: ${selectedEntity}(first:100,orderBy:${orderByColumnName}, orderDirection: desc,where: {${attributeName} :${userInputValue}}, where: {id_gt:"${whereId}"}){
+          id      
+          ${queryData}
+          }
+      }
+      `;
+};

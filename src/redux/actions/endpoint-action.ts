@@ -22,3 +22,10 @@ export const setGraphAttributes = (
     payload: entity,
   };
 };
+
+export const setGraphQuery = (query: any) => {
+  return {
+    type: EndpointActionTypes.SET_QUERY,
+    payload: query,
+  };
+};

@@ -55,6 +55,13 @@ export default class Constants {
       ADDRESS_URL: 'https://etherscan.io/address/',
       TNX_URL: 'https://etherscan.io/tx/',
     },
+    exportLabels: {
+      DWNLD_STARTED: 'Download started, you can close the tab.',
+      DWNLD_SOON: 'Downloading will start automatically.',
+      HOLD_MSG: ' the bits are breeding...',
+      RECORDS_MSG: 'RECORDS DOWNLOADED.',
+      CLOSE_TAB_MSG: 'IF YOU WISH TO STOP DOWNLODING, CLOSE THE TAB.',
+    },
   };
 
   public static TIMESTAMP_MENU = {
@@ -104,5 +111,8 @@ export default class Constants {
       { menuItem: 'Is Empty', menuValue: ' ' },
       { menuItem: 'Not Empty', menuValue: '_not' },
     ],
+  };
+  public static NUMBERS = {
+    csvData: 100000,
   };
 }

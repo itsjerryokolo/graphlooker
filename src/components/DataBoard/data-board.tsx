@@ -8,8 +8,10 @@ import './data-board.scss';
 import { useLazyQuery } from '@apollo/client';
 import { getAllAttributes } from '../../utility/graph/query';
 import GraphDataTable from '../GraphDataTable/graph-data-table';
-import { setGraphAttributes } from '../../redux/actions/endpoint-action';
+import { setGraphAttributes, setGraphQuery } from '../../redux/actions/endpoint-action';
 import Constants from '../../utility/constant';
+import queryString from 'query-string';
+import ExportToCsv from '../ExportToCSV/export-to-csv';
 
 const drawerWidth = 300;
 
@@ -50,6 +52,8 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
     ? selectedEntity.charAt(0).toUpperCase() + selectedEntity.slice(1)
     : label.EMPTY;
 
+  const parsed = queryString.parse(window.location.search);
+
   useEffect(() => {
     getAttributes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,18 +85,37 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
       }
       if (allAttributes.length > 0) {
         dispatch(setGraphAttributes(allAttributes));
+
+        let myGlobalQuery: string = ` `;
+
+        for (let item of allAttributes) {
+          // myGlobalQuery += item.name
+
+          if (item.name === 'id') {
+            continue;
+          }
+          if (item.type === 'LIST' || item.type === 'OBJECT' || item.type === 'NON_NULL') {
+            myGlobalQuery = myGlobalQuery + `${item.name} { id } `;
+          } else {
+            myGlobalQuery = myGlobalQuery + `${item.name} `;
+          }
+        }
+        dispatch(setGraphQuery(myGlobalQuery));
       }
     }
   }
 
   return (
-    <Main open={drawerOpen}>
-      <div className="tab-pane" id="tab0" role="tabpanel" aria-labelledby="tab_0">
-        {allAttributes.length !== 0 ? (
-          <GraphDataTable drawerOpen={drawerOpen}></GraphDataTable>
-        ) : null}
-      </div>
-    </Main>
+    <>
+      <div>{parsed.v !== undefined ? <ExportToCsv /> : null}</div>
+      <Main open={drawerOpen}>
+        <div className="tab-pane" id="tab0" role="tabpanel" aria-labelledby="tab_0">
+          {allAttributes.length !== 0 ? (
+            <GraphDataTable drawerOpen={drawerOpen}></GraphDataTable>
+          ) : null}
+        </div>
+      </Main>
+    </>
   );
 };
 

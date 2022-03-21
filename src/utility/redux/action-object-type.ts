@@ -18,3 +18,7 @@ export interface LoadingActionObjectTypes {
   type: boolean;
   payload: boolean;
 }
+export interface QueryActionObjectTypes {
+  type: string;
+  payload: any;
+}
