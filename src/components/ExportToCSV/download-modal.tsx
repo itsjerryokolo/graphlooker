@@ -1,13 +1,13 @@
 import React from 'react';
 import { Modal } from '@mui/material';
 import Constants from '../../utility/constant';
+import './download-modal.scss';
 
 const DownloadModal: React.FunctionComponent<any> = ({ sortedDataState, clickRef }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [open, setOpen] = React.useState(true);
 
   const exportLabels = Constants.LABELS.exportLabels;
-  console.log(exportLabels);
 
   return (
     <Modal open={open}>
@@ -38,7 +38,7 @@ const DownloadModal: React.FunctionComponent<any> = ({ sortedDataState, clickRef
           )}
 
           {clickRef === false ? (
-            <h3 className="records-msg">Your Download started</h3>
+            <h3 className="records-msg">{exportLabels.DWLD_START_MSG}</h3>
           ) : (
             <h3 className="records-msg">
               {exportLabels.HOLD_MSG}

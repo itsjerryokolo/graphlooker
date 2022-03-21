@@ -61,6 +61,7 @@ export default class Constants {
       HOLD_MSG: " At least you're not on hold...",
       RECORDS_MSG: 'RECORDS UPDATED.',
       CLOSE_TAB_MSG: 'IF YOU WISH TO STOP DOWNLODING, CLOSE THE TAB',
+      DWLD_START_MSG: 'Your Download started',
     },
   };
 
