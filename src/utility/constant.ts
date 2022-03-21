@@ -56,12 +56,11 @@ export default class Constants {
       TNX_URL: 'https://etherscan.io/tx/',
     },
     exportLabels: {
-      DWNLD_STARTED: 'Your Download Started, You can close the tab !!',
-      DWNLD_SOON: 'Your downloading will start soon.',
-      HOLD_MSG: " At least you're not on hold...",
-      RECORDS_MSG: 'RECORDS UPDATED.',
-      CLOSE_TAB_MSG: 'IF YOU WISH TO STOP DOWNLODING, CLOSE THE TAB',
-      DWLD_START_MSG: 'Your Download started',
+      DWNLD_STARTED: 'Download started, you can close the tab.',
+      DWNLD_SOON: 'Downloading will start automatically.',
+      HOLD_MSG: ' the bits are breeding...',
+      RECORDS_MSG: 'RECORDS DOWNLOADED.',
+      CLOSE_TAB_MSG: 'IF YOU WISH TO STOP DOWNLODING, CLOSE THE TAB.',
     },
   };
 
@@ -114,6 +113,6 @@ export default class Constants {
     ],
   };
   public static NUMBERS = {
-    csvData: 10000,
+    csvData: 100000,
   };
 }

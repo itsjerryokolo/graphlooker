@@ -37,9 +37,7 @@ const DownloadModal: React.FunctionComponent<any> = ({ sortedDataState, clickRef
             </figure>
           )}
 
-          {clickRef === false ? (
-            <h3 className="records-msg">{exportLabels.DWLD_START_MSG}</h3>
-          ) : (
+          {clickRef && (
             <h3 className="records-msg">
               {exportLabels.HOLD_MSG}
               <b>
@@ -49,10 +47,12 @@ const DownloadModal: React.FunctionComponent<any> = ({ sortedDataState, clickRef
             </h3>
           )}
 
-          <figure className="warning-container">
-            <img src="/images/error-outline.gif" alt="Downloading..." width={60} height={60} />
-            <figcaption className="msg">{exportLabels.CLOSE_TAB_MSG}</figcaption>
-          </figure>
+          {!(clickRef === false) && (
+            <figure className="warning-container">
+              <img src="/images/error-outline.gif" alt="Downloading..." width={60} height={60} />
+              <figcaption className="msg">{exportLabels.CLOSE_TAB_MSG}</figcaption>
+            </figure>
+          )}
         </div>
       </div>
     </Modal>
