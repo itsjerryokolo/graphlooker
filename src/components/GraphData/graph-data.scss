@@ -51,13 +51,13 @@
         }
       }
       .theme-icon {
-        border: var(--themeIconBorder) solid 0.5px;
+        // border: var(--themeIconBorder) solid 0.5px;
         padding: 7px;
         border-radius: 10px;
         display: flex;
         align-items: center;
         margin-right: 20px;
-        background-color: var(--themeIconBackground);
+        background-color: var(--iconBackgroundColor);
         cursor: pointer;
         svg {
           font-size: 1.7rem;
