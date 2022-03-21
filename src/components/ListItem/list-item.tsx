@@ -8,15 +8,22 @@ import { ListItemProps } from './../../utility/interface/props';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import { EndpointState, EntityState } from '../../utility/redux/state';
 import Constants from '../../utility/constant';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import queryString from 'query-string';
 
-const ListItem: React.FunctionComponent<ListItemProps> = ({ entity }) => {
+const ListItem: React.FunctionComponent<ListItemProps & RouteComponentProps<any>> = ({
+  entity,
+  location,
+}) => {
+  const parsed = queryString.parse(location.search);
+  let theme = parsed.th;
   let selectedEntity: string;
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
   const urlLabels = Constants.LABELS.commonUrls;
   const handleEntityChange = (entity: string) => {
     const URI = encodeURIComponent(endpoint);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}`;
   };
   return (
     <React.Fragment>
@@ -40,4 +47,4 @@ const ListItem: React.FunctionComponent<ListItemProps> = ({ entity }) => {
   );
 };
 
-export default ListItem;
+export default withRouter(ListItem);

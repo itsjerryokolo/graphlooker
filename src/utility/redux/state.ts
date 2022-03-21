@@ -30,3 +30,9 @@ export interface QueryDataState {
   queryState: any;
   queryData: QueryData;
 }
+interface DataLoading {
+  loading: boolean;
+}
+export interface LoadingState {
+  dataLoading: DataLoading;
+}

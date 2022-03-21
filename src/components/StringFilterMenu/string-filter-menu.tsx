@@ -6,8 +6,15 @@ import { useSelector } from 'react-redux';
 import { EndpointState, EntityState } from '../../utility/redux/state';
 import { StringFilterMenuProps } from '../../utility/interface/props';
 import './string-filter-menu.scss';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import queryString from 'query-string';
 
-const StringFilterMenu: React.FunctionComponent<StringFilterMenuProps> = ({ attributeName }) => {
+const StringFilterMenu: React.FunctionComponent<
+  StringFilterMenuProps & RouteComponentProps<any>
+> = ({ attributeName, location }) => {
+  const parsed = queryString.parse(location.search);
+  const theme = parsed.th;
+
   const label = Constants.LABELS.commonLables;
   const filterOptionLabel = Constants.FILTERLABELS.filterOptionLabels;
 
@@ -66,7 +73,14 @@ const StringFilterMenu: React.FunctionComponent<StringFilterMenuProps> = ({ attr
           variant="contained"
           className="update-filter-button"
           onClick={() =>
-            filterStringIs(endpoint, selectedEntity, attributeName, optionSelected, stringValue)
+            filterStringIs(
+              endpoint,
+              selectedEntity,
+              attributeName,
+              optionSelected,
+              stringValue,
+              theme
+            )
           }
         >
           {label.UPDATE_BY_FILTER}
@@ -76,4 +90,4 @@ const StringFilterMenu: React.FunctionComponent<StringFilterMenuProps> = ({ attr
   );
 };
 
-export default StringFilterMenu;
+export default withRouter(StringFilterMenu);

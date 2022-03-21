@@ -6,9 +6,10 @@ export const filterNumberIs = (
   selectedEntity: string,
   columnName: string,
   selectedOption: string,
-  numberInputValue: string
+  numberInputValue: string,
+  theme: any
 ) => {
   const URI = encodeURIComponent(endpoint);
   const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-  window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&f=${selectedOption}&i=${numberInputValue}&c=${columnName}`;
+  window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&f=${selectedOption}&i=${numberInputValue}&c=${columnName}`;
 };

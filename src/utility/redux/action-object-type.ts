@@ -14,7 +14,10 @@ export interface AttributesActionObjectTypes {
   type: string;
   payload: { name: string; type: string; typeName: string }[];
 }
-
+export interface LoadingActionObjectTypes {
+  type: boolean;
+  payload: boolean;
+}
 export interface QueryActionObjectTypes {
   type: string;
   payload: any;

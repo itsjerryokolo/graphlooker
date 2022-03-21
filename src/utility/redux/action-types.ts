@@ -8,3 +8,7 @@ export const EndpointActionTypes = {
   SET_ATTRIBUTES: 'SET_ATTRIBUTES',
   SET_QUERY: 'SET_QUERY',
 };
+
+export const LoadingActionTypes = {
+  SET_LOADING: true,
+};
