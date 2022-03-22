@@ -54,8 +54,8 @@ export default class Utility {
   };
 }
 
-export const sortData = (sortedData: any) => {
-  sortedData = sortedData.map((item: any) => {
+export const sortData = (sortedData: object[]) => {
+  sortedData = sortedData.map((item: object) => {
     let arr = Object.entries(item);
 
     arr.forEach((itm: any) => {
