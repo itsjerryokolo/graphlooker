@@ -48,6 +48,9 @@
         color: $colorBlack;
         font-weight: bold;
         width: max-content;
+        &:hover {
+          border-color: $colorBlack;
+        }
       }
     }
     .no-record-found {
