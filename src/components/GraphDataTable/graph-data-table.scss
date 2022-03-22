@@ -18,8 +18,8 @@
       }
     }
     .tablerow-data-css {
-      font-family: $primary_font_family;
-      font-weight: $weight400;
+      font-family: $primaryFontFamily;
+      font-weight: $fontWeight400;
       cursor: pointer;
       font-size: $size14;
       min-width: 170px;
@@ -29,7 +29,7 @@
     }
     .table-head-cell {
       color: $colorWhite;
-      background-color: $primary_color;
+      background-color: $primaryColor;
       padding: $size16 $size8;
 
       .table-column-btn {
@@ -61,8 +61,8 @@
       }
 
       span {
-        font-family: $primary_font_family;
-        font-weight: $weight500;
+        font-family: $primaryFontFamily;
+        font-weight: $fontWeight500;
         font-size: $size20;
       }
     }

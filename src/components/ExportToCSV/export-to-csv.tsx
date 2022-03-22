@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { CSVLink } from 'react-csv';
 import {
   getCsvDataQuery,
@@ -15,7 +15,7 @@ import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import Constants from '../../utility/constant';
 import DownloadModal from './download-modal';
-import { sortData } from '../../utility/common-methods/SortData';
+import { sortData } from '../../utility/SortData';
 
 const ExportToCSV: React.FunctionComponent<any> = () => {
   const [entityId, setEntityId] = useState<any[]>([]);

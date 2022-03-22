@@ -15,15 +15,15 @@
   .modal-container {
     width: 500px;
     margin: $size10 auto;
-    font-family: $primary_font_family;
+    font-family: $primaryFontFamily;
     text-align: center;
     font-size: $size16;
     .download-heading {
       font-size: 30px;
-      font-weight: $weight400;
+      font-weight: $fontWeight400;
     }
     .records-msg {
-      font-weight: $weight400;
+      font-weight: $fontWeight400;
       img {
         position: relative;
         top: 20px;
@@ -35,7 +35,7 @@
 
     .warning-container {
       display: inline-flex;
-      font-weight: $weight500;
+      font-weight: $fontWeight500;
       margin-left: 0;
       img {
         position: relative;
