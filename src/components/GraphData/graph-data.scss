@@ -1,11 +1,12 @@
+@import '../../utility/theme/variable.scss';
 .loader {
   width: 100%;
   height: 100vh;
-  background-color: #03000c;
+  background-color: $primaryColor;
   display: flex;
   span {
     font-size: 2rem;
-    color: #00a1ff;
+    color: $colorCyan;
     font-weight: bold;
     margin: auto;
   }
@@ -33,7 +34,7 @@
         align-items: center;
         padding: 0;
         //border: red solid 2px;
-        margin-left: 20px;
+        margin-left: $size20;
         height: 100%;
 
         .toggle-drawer-icon {
@@ -52,11 +53,11 @@
       }
       .theme-icon {
         // border: var(--themeIconBorder) solid 0.5px;
-        padding: 7px;
-        border-radius: 10px;
+        padding: $size7;
+        border-radius: $size10;
         display: flex;
         align-items: center;
-        margin-right: 20px;
+        margin-right: $size20;
         background-color: var(--iconBackgroundColor);
         cursor: pointer;
         svg {
@@ -71,7 +72,7 @@
       box-sizing: border-box;
       width: 300px;
       padding-bottom: 8rem;
-      color: white;
+      color: $colorWhite;
     }
     .list-drawer {
       width: 100%;

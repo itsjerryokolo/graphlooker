@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { CSVLink } from 'react-csv';
 import {
   getCsvDataQuery,
@@ -15,6 +15,7 @@ import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import Constants from '../../utility/constant';
 import DownloadModal from './download-modal';
+import { sortData } from '../../utility/utility';
 
 const ExportToCSV: React.FunctionComponent<any> = () => {
   const [entityId, setEntityId] = useState<any[]>([]);
@@ -25,7 +26,6 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   const client = useApolloClient();
 
   const parsed = queryString.parse(window.location.search);
-
   let rows: any[] = [];
 
   const regex: any = new RegExp(/^(?:[1-9][0-9]{3}|[1-9][0-9]{2}|[1-9][0-9]|[1-9])$/gm);
@@ -100,6 +100,8 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
 
       return sortedRows;
     });
+
+    sortedData = await sortData(sortedData);
 
     if (sortedData) {
       setSortedDataState([...sortedDataState, ...sortedData]);

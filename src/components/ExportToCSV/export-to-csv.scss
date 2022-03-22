@@ -1,12 +1,14 @@
+@import '../../utility/theme/variable.scss';
+
 .btn-exportcsv {
   text-decoration: none;
   cursor: pointer;
   z-index: 999;
-  padding: 7px;
+  padding: $size7;
   padding: auto;
   background: var(--drawerToggleIconBackground);
   border: none;
-  border-radius: 5px;
+  border-radius: $size5;
   position: absolute;
   right: 80px;
   svg {

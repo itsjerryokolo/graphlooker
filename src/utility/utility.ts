@@ -53,3 +53,21 @@ export default class Utility {
     return columnName;
   };
 }
+
+export const sortData = (sortedData: object[]) => {
+  sortedData = sortedData.map((item: object) => {
+    let arr = Object.entries(item);
+
+    arr.forEach((itm: any) => {
+      if (typeof itm[1] === 'object') {
+        itm[0] = `${itm[0]}_id`;
+        itm[1] = itm[1]?.id;
+      }
+    });
+
+    let fixedObj = Object.fromEntries(arr);
+    return fixedObj;
+  });
+
+  return sortedData;
+};

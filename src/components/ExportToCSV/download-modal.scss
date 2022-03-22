@@ -1,3 +1,4 @@
+@import '../../utility/theme/variable.scss';
 .modal-wrapper {
   display: flex;
   flex-direction: column;
@@ -13,28 +14,28 @@
   border-radius: 10px;
   .modal-container {
     width: 500px;
-    margin: 10px auto;
-    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    margin: $size10 auto;
+    font-family: $primaryFontFamily;
     text-align: center;
-    font-size: 16px;
+    font-size: $size16;
     .download-heading {
       font-size: 30px;
-      font-weight: 400;
+      font-weight: $fontWeight400;
     }
     .records-msg {
-      font-weight: 400;
+      font-weight: $fontWeight400;
       img {
         position: relative;
         top: 20px;
       }
       b {
-        color: #00a1ff;
+        color: $colorCyan;
       }
     }
 
     .warning-container {
       display: inline-flex;
-      font-weight: 500;
+      font-weight: $fontWeight500;
       margin-left: 0;
       img {
         position: relative;

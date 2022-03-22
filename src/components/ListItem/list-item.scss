@@ -1,3 +1,5 @@
+@import '../../utility/theme/variable.scss';
+
 .list-item {
   &.margin-halfrem {
     margin: 0.5rem;
@@ -15,7 +17,7 @@
     color: var(--listIconColour);
   }
   .list-item-text {
-    font-size: 16px;
+    font-size: $size16;
     text-transform: capitalize;
     color: var(--listItemColour);
   }
@@ -29,9 +31,9 @@
   }
 
   &.selected-background {
-    color: #00a1ff;
+    color: $colorCyan;
     text-transform: capitalize;
-    font-weight: 600;
+    font-weight: $fontWeight600;
     background-color: rgba(0, 161, 255, 0.2);
     border-radius: 5px;
     margin: 0.5rem;

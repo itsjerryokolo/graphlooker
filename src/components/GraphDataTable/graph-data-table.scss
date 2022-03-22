@@ -1,3 +1,4 @@
+@import '../../utility/theme/variable.scss';
 .all-graph-data {
   box-sizing: border-box;
   .table-conatiner {
@@ -7,7 +8,7 @@
     box-sizing: border-box;
     overflow-x: auto;
     overflow-y: auto;
-    margin: 4px auto 0;
+    margin: $size4 auto 0;
     &.drawer-open-table-length {
       max-width: calc(100vw - 310px);
     }
@@ -17,34 +18,34 @@
       }
     }
     .tablerow-data-css {
-      font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-      font-weight: 400;
+      font-family: $primaryFontFamily;
+      font-weight: $fontWeight400;
       cursor: pointer;
-      font-size: 14px;
+      font-size: $size14;
       min-width: 170px;
       &.address-data-css {
-        color: #00a2ff;
+        color: $colorCyan;
       }
     }
     .table-head-cell {
-      color: #fff;
-      background-color: #03000c;
-      padding: 16px 8px;
+      color: $colorWhite;
+      background-color: $primaryColor;
+      padding: $size16 $size8;
 
       .table-column-btn {
-        color: white;
+        color: $colorWhite;
         font-weight: bold;
         width: max-content;
       }
     }
     .table-head-cell-light {
-      color: #fff;
+      color: $colorWhite;
       // background-color: rgb(30, 136, 229);
-      padding: 16px 8px;
+      padding: $size16 $size8;
 
       .table-column-btn {
         border: 1px solid #cdc9c9;
-        color: black;
+        color: $colorBlack;
         font-weight: bold;
         width: max-content;
       }
@@ -60,9 +61,9 @@
       }
 
       span {
-        font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-        font-weight: 500;
-        font-size: 20px;
+        font-family: $primaryFontFamily;
+        font-weight: $fontWeight500;
+        font-size: $size20;
       }
     }
   }
@@ -83,8 +84,8 @@
       cursor: not-allowed;
     }
     span {
-      padding: 2.5px 8px;
-      font-size: 18px;
+      padding: 2.5px $size8;
+      font-size: $size18;
       border: gray solid 1px;
       border-radius: 3px;
       margin: 0.5rem 0.5rem 0;

@@ -1,9 +1,10 @@
+@import '../../utility/theme/variable.scss';
 .error-message {
   width: 100%;
-  font-size: 18px;
+  font-size: $size18;
   color: #e7003b;
-  padding: 2px 0;
+  padding: $size2 0;
   display: block;
-  min-height: 20px;
+  min-height: $size20;
   text-align: left;
 }
