@@ -15,7 +15,7 @@ import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import Constants from '../../utility/constant';
 import DownloadModal from './download-modal';
-import { sortData } from '../../utility/SortData';
+import { sortData } from '../../utility/utility';
 
 const ExportToCSV: React.FunctionComponent<any> = () => {
   const [entityId, setEntityId] = useState<any[]>([]);
