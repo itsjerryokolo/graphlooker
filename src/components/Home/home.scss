@@ -1,9 +1,10 @@
 @import 'src/utility/theme/dark-theme.scss';
 @import 'src/utility/theme/light-theme.scss';
+@import '../../utility/theme/variable.scss';
 
 .container {
   background-color: var(--homeBackground);
-  color: var(--fontColour);
+  color: var(--fontPrimaryColor);
   box-sizing: border-box;
   width: 100%;
   min-height: 100vh;
@@ -12,7 +13,7 @@
   h1 {
     font-size: 5rem;
     margin: 9rem 0 3rem 0;
-    font-weight: 400;
+    font-weight: $weight400;
   }
   .search-box {
     .search-box-form {
@@ -33,14 +34,14 @@
         margin-bottom: 1rem;
       }
       .search-button {
-        font-weight: 700;
+        font-weight: $weight700;
         font-size: 23px;
         width: 25%;
         border-radius: 0 7px 7px 0;
         background-color: #21d4fd;
         margin-bottom: 1rem;
         background: var(--exploreButtonBackground);
-        color: #fff;
+        color: $colorWhite;
         transition: 0.4s;
         cursor: pointer;
         border: none;

@@ -1,9 +1,10 @@
 @import 'src/utility/theme/dark-theme.scss';
 @import 'src/utility/theme/light-theme.scss';
+@import '../../utility/theme/variable.scss';
 
 .toolbar {
   width: 100%;
-  background-color: var(--navbarBackground);
+  background-color: var(--baseColor);
   box-shadow: var(--navbarBoxShadow);
   &.toolbar-padding {
     padding: 0;
@@ -16,9 +17,9 @@
     align-items: center;
     margin: 0 3rem;
     .theme-icon {
-      border: var(--themeIconBorder) solid 0.5px;
-      padding: 7px;
-      border-radius: 10px;
+      border: var(--primaryBorderColor) solid 0.5px;
+      padding: $size7;
+      border-radius: $size10;
       display: flex;
       align-items: center;
       background-color: var(--themeIconBackground);

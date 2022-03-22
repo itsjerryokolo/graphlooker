@@ -1,5 +1,6 @@
 @import 'src/utility/theme/dark-theme.scss';
 @import 'src/utility/theme/light-theme.scss';
+@import '../../utility/theme/variable.scss';
 
 .loader {
   width: 100%;
@@ -13,15 +14,15 @@
     position: absolute;
     color: var(--loaderTextColor);
     margin-top: 120px;
-    font-size: 20px;
+    font-size: $size20;
     width: 350px;
-    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-family: $primary_font_family;
     margin: auto;
     text-align: center;
   }
   span {
     font-size: 2rem;
-    color: #00a1ff;
+    color: $colorCyan;
     font-weight: bold;
     margin: auto;
     width: 40px;

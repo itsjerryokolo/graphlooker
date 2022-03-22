@@ -1,23 +1,24 @@
+@import '../../utility/theme/variable.scss';
 .first-time-select {
   width: 120px;
   height: 40px;
   &:focus {
-    border-radius: 4px;
+    border-radius: $size4;
     border-color: #80bdff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
   }
 }
 .time-inputfield {
   width: 40px;
-  padding: 10px;
-  margin: 0 10px 0 10px;
-  border: 10px;
+  padding: $size10;
+  margin: 0 $size10 0 $size10;
+  border: $size10;
 }
 .second-time-select {
   width: 120px;
   height: 40px;
   &:focus {
-    border-radius: 4px;
+    border-radius: $size4;
     border-color: #80bdff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
   }
