@@ -39,7 +39,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   useEffect(() => {
     console.log(selectedEntity, queryDataGlobalState, allAttributes);
     if (selectedEntity && queryDataGlobalState && allAttributes) {
-      ExportClickHandler();
+      exportClickHandler();
     }
   }, [selectedEntity, queryDataGlobalState, allAttributes]);
 
@@ -84,7 +84,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
 
   //<--------------- Export Handler --------------->
 
-  const ExportClickHandler = async () => {
+  const exportClickHandler = async () => {
     console.log('Exporting data ... ');
 
     const { data } = await client.query({
@@ -116,7 +116,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       sortedDataState.length < Constants.NUMBERS.csvData &&
       regex.test(sortedDataState.length / 1000)
     ) {
-      ExportClickHandler();
+      exportClickHandler();
     } else if (clickRef) {
       CSV_LINK_REF?.current?.link.click();
       setClickRef(false);
