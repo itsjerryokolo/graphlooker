@@ -5,16 +5,14 @@ import { Tooltip } from '@mui/material';
 const ExportButton: React.FunctionComponent<any> = () => {
   let location = useLocation();
 
-  function clickHandler() {
-    console.log('opening download page');
-
+  function openNewTabForDownload() {
     window.open(`${location.pathname}${location.search}&v=download`);
   }
 
   return (
     <>
       <Tooltip title="Download">
-        <button onClick={clickHandler} className="btn-exportcsv">
+        <button onClick={openNewTabForDownload} className="btn-exportcsv">
           <FileDownloadIcon />
         </button>
       </Tooltip>
