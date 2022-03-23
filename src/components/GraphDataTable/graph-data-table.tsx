@@ -71,8 +71,8 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
       );
     }
     if (parsed.p !== undefined) {
-      const PaginateNumber: string = `${parsed.p}`;
-      pageNumber = parseInt(PaginateNumber);
+      const paginateNumber: string = `${parsed.p}`;
+      pageNumber = parseInt(paginateNumber);
       if (pageNumber > 1) {
         isPrevDisable = false;
       }
