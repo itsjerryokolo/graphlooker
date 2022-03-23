@@ -27,6 +27,7 @@ export default class Constants {
       PREVIOUS: 'Previous',
       DAYS: 'Days',
     },
+    checkProperEntityName: ['Nft', 'Ens'],
   };
 
   public static LABELS = {

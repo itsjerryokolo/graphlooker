@@ -27,11 +27,7 @@ import Constants from '../../utility/constant';
 import humanizeString from 'humanize-string';
 import { ethers } from 'ethers';
 import { setDataLoading } from '../../redux/actions/loading-action';
-import {
-  checkAddressValidity,
-  checkAttributeIsEntity,
-  getTimestampColumns,
-} from '../../utility/utility';
+import Utility from '../../utility/utility';
 
 const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteComponentProps<any>> = ({
   drawerOpen,
@@ -149,21 +145,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     setOpen(false);
   };
 
-  //Verify Address onClick and Redirect to etherscan
-  const verifyAddress = (row: any, columnName: any, columnType: any) => {
-    let inputValue = row[`${columnName}`];
-    let address = ethers.utils.isAddress(inputValue);
-    if (columnType === dataTypeLabel.OBJECT) {
-      checkAttributeIsEntity(inputValue.__typename, inputValue.id, endpoint, theme);
-    } else if (columnName === 'id' && typeof inputValue === 'string') {
-      let openCloseSnackbar = checkAddressValidity(columnName, inputValue, columnType);
-      setOpen(Boolean(openCloseSnackbar));
-    } else if (address || (inputValue && inputValue.length === 66 && re.test(inputValue))) {
-      let openCloseSnackbar = checkAddressValidity(columnName, inputValue, columnType);
-      setOpen(Boolean(openCloseSnackbar));
-    }
-  };
-
   return (
     <>
       <div className="all-graph-data">
@@ -208,7 +189,16 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                               ? 'tablerow-data-css address-data-css'
                               : 'tablerow-data-css'
                           }`}
-                          onClick={() => verifyAddress(row, item.name, item.type)}
+                          onClick={() => {
+                            let openCloseSnackbar = Utility.verifyAddress(
+                              row,
+                              item.name,
+                              item.type,
+                              endpoint,
+                              String(theme)
+                            );
+                            setOpen(Boolean(openCloseSnackbar));
+                          }}
                         >{`${
                           item.type === dataTypeLabel.LIST ||
                           item.type === dataTypeLabel.OBJECT ||
@@ -216,7 +206,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                             ? row[`${item.name}`] !== undefined
                               ? row[`${item.name}`].id
                               : label.EMPTY
-                            : getTimestampColumns(item.name)
+                            : Utility.getTimestampColumns(item.name)
                             ? row[`${item.name}`] !== undefined
                               ? moment(new Date(row[`${item.name}`] * 1000)).format(
                                   label.TIME_FORMAT
@@ -225,7 +215,11 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                             : item.typeName === dataTypeLabel.BIGINT ||
                               item.typeName === dataTypeLabel.BIGDECIMAL ||
                               item.typeName === dataTypeLabel.INT
-                            ? parseInt(row[`${item.name}`]).toFixed(2)
+                            ? Utility.getIntUptoTwoDecimal(row, item.name)
+                              ? parseInt(row[`${item.name}`]).toFixed(2)
+                              : row[`${item.name}`] !== undefined
+                              ? row[`${item.name}`]
+                              : label.EMPTY
                             : row[`${item.name}`] !== undefined
                             ? row[`${item.name}`]
                             : label.EMPTY
