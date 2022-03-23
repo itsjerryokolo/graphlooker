@@ -1,5 +1,6 @@
 import { useLocation, withRouter } from 'react-router-dom';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { Tooltip } from '@mui/material';
 
 const ExportButton: React.FunctionComponent<any> = () => {
   let location = useLocation();
@@ -12,9 +13,11 @@ const ExportButton: React.FunctionComponent<any> = () => {
 
   return (
     <>
-      <button onClick={clickHandler} className="btn-exportcsv">
-        <FileDownloadIcon />
-      </button>
+      <Tooltip title="Download">
+        <button onClick={clickHandler} className="btn-exportcsv">
+          <FileDownloadIcon />
+        </button>
+      </Tooltip>
     </>
   );
 };

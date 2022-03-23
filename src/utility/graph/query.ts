@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import pluralizer from 'pluralize';
 import Constants from '../constant';
-import Utility from '../utility';
+import Utility, { getProperEntity } from '../utility';
 
 const label = Constants.FILTERLABELS.dataTypeLabels;
 
@@ -18,6 +18,7 @@ export const getAllEntities = gql`
 `;
 
 export const getAllAttributes = (entity: string) => {
+  entity = getProperEntity(entity);
   return gql`
         query{
           __type(name:"${entity}"){
@@ -41,8 +42,11 @@ function makePluralChanges(normalStr: string) {
   let pluralStr = pluralizer(normalStr);
   if (pluralStr === normalStr) {
     return pluralStr + 's';
+  } else if (pluralStr[pluralStr.length - 1] === pluralStr[pluralStr.length - 1].toUpperCase()) {
+    pluralStr = pluralStr.slice(0, -1) + pluralStr.charAt(pluralStr.length - 1).toLowerCase();
+    return pluralStr;
   } else {
-    return pluralizer(normalStr);
+    return pluralStr;
   }
 }
 
