@@ -24,6 +24,7 @@ import DataBoard from '../DataBoard/data-board';
 import Constants from '../../utility/constant';
 import ExportButton from '../ExportToCSV/ExportButton';
 import Loader from '../Loader/loader';
+import ErrorMessage from '../ErrorMessage/error-message';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -210,7 +211,14 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
             {drawer}
           </Drawer>
         </Box>
-        <DataBoard drawerOpen={drawerOpen}></DataBoard>
+        {error ? (
+          <ErrorMessage
+            message={error.message}
+            endpoint={'https://api.thegraph.com/subgraphs/name/'}
+          ></ErrorMessage>
+        ) : (
+          <DataBoard drawerOpen={drawerOpen}></DataBoard>
+        )}
       </div>
     </>
   );

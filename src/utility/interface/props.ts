@@ -1,5 +1,6 @@
 export interface ErrorMassageProps {
   message: string;
+  endpoint: string;
 }
 export interface ListItemProps {
   entity: string;

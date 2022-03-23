@@ -116,6 +116,13 @@ export default class Constants {
     ],
   };
   public static NUMBERS = {
-    csvData: 100000,
+    CSV_Data: 100000,
+  };
+  public static ERROR_MESSAGES = {
+    NOT_FOUND: 'Subgraph not found, please check subgraph name.',
+    FAILED_TO_FETCH: 'Unable to fetch this Subgraph, Please try again!',
+    INDEXING_ERROR: 'Subgraph is facing indexing error.',
+    UNEXPECTED: 'ohh! Something unexpected happened.',
+    INVALID: 'Subgraph endpoint is invalid or not allowed',
   };
 }

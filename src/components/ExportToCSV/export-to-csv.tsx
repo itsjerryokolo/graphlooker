@@ -113,7 +113,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   useEffect(() => {
     if (
       entityId.length > 0 &&
-      sortedDataState.length < Constants.NUMBERS.csvData &&
+      sortedDataState.length < Constants.NUMBERS.CSV_Data &&
       regex.test(sortedDataState.length / 1000)
     ) {
       exportClickHandler();
