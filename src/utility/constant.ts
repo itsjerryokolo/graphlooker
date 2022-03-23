@@ -31,7 +31,7 @@ export default class Constants {
 
   public static LABELS = {
     commonLables: {
-      title: 'Subgraph Explorer',
+      TITLE: 'Subgraph Explorer',
       FILTER_BY_THIS_COL: 'Filter by this column',
       ASC: 'asc',
       DESC: 'desc',
@@ -51,9 +51,12 @@ export default class Constants {
       INCLUDE_TODAY: 'Include today',
     },
     commonUrls: {
-      BASE_URL: 'http://localhost:3000/explore?',
-      ADDRESS_URL: 'https://etherscan.io/address/',
-      TNX_URL: 'https://etherscan.io/tx/',
+      BASE_URL:
+        process.env.NODE_ENV === 'development'
+          ? process.env.REACT_APP_BASE_URL_DEVELOPMENT
+          : process.env.REACT_APP_BASE_URL_PRODUCTION,
+      ADDRESS_URL: process.env.REACT_APP_ADDRESS_URL,
+      TNX_URL: process.env.REACT_APP_TNX_URL,
     },
     exportLabels: {
       DWNLD_STARTED: 'Download started, you can close the tab.',
