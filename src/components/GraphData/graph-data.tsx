@@ -24,6 +24,7 @@ import DataBoard from '../DataBoard/data-board';
 import Constants from '../../utility/constant';
 import ExportButton from '../ExportToCSV/ExportButton';
 import Loader from '../Loader/loader';
+import { Tooltip } from '@mui/material';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -138,23 +139,29 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                 </Link>
               </Box>
               {drawerOpen ? (
-                <KeyboardDoubleArrowLeftIcon
-                  className="toggle-drawer-icon"
-                  onClick={handleToggleDrawer}
-                />
+                <Tooltip title={label.COLLAPSE}>
+                  <KeyboardDoubleArrowLeftIcon
+                    className="toggle-drawer-icon"
+                    onClick={handleToggleDrawer}
+                  />
+                </Tooltip>
               ) : (
-                <KeyboardDoubleArrowRightIcon
-                  className="toggle-drawer-icon"
-                  onClick={handleToggleDrawer}
-                />
+                <Tooltip title={label.COLLAPSE}>
+                  <KeyboardDoubleArrowRightIcon
+                    className="toggle-drawer-icon"
+                    onClick={handleToggleDrawer}
+                  />
+                </Tooltip>
               )}
             </div>
 
             <ExportButton />
 
-            <div className="theme-icon" onClick={handleToggleTheme}>
-              {theme === label.LIGHT ? <DarkModeIcon /> : <LightModeIcon />}
-            </div>
+            <Tooltip title={label.SWITCH_THEME}>
+              <div className="theme-icon" onClick={handleToggleTheme}>
+                {theme === label.LIGHT ? <DarkModeIcon /> : <LightModeIcon />}
+              </div>
+            </Tooltip>
           </Toolbar>
         </AppBar>
         <Box>

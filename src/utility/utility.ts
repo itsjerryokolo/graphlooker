@@ -1,3 +1,11 @@
+import { ethers } from 'ethers';
+import Constants from './constant';
+import pluralizer from 'pluralize';
+
+const urlLabels = Constants.LABELS.commonUrls;
+const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
+const entityArray = Constants.FILTERLABELS.checkProperEntityName;
+
 export default class Utility {
   public static getColumnNameForOptimizeQuery = (columnNames: any) => {
     let columnName = 'id';
@@ -51,6 +59,108 @@ export default class Utility {
       }
     }
     return columnName;
+  };
+
+  public static verifyAddress = (
+    row: any,
+    columnName: string,
+    columnType: string,
+    endpoint: string,
+    theme: string
+  ) => {
+    const txHashRegex = /[0-9A-Fa-f]{6}/g;
+    let inputValue = row[`${columnName}`];
+    let address = ethers.utils.isAddress(inputValue);
+
+    if (columnType === dataTypeLabel.OBJECT) {
+      Utility.checkAttributeIsEntity(inputValue.__typename, inputValue.id, endpoint, theme);
+    } else if (columnName === 'id' && typeof inputValue === 'string') {
+      let openCloseSnackbar = Utility.checkAddressValidity(columnName, inputValue, columnType);
+      return openCloseSnackbar;
+    } else if (
+      address ||
+      (inputValue && inputValue.length === 66 && txHashRegex.test(inputValue))
+    ) {
+      let openCloseSnackbar = Utility.checkAddressValidity(columnName, inputValue, columnType);
+      return openCloseSnackbar;
+    }
+  };
+
+  public static checkAttributeIsEntity = (
+    entity: string,
+    id: string,
+    endpoint: string,
+    theme: any
+  ) => {
+    const URI = encodeURIComponent(endpoint);
+    const selectedEntity = entity.charAt(0).toLowerCase() + entity.slice(1);
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&id=${id}`;
+  };
+
+  public static checkAddressValidity = (entity: string, id: string, type: string) => {
+    let verifyAddress = ethers.utils.isAddress(id);
+    const re = /[0-9A-Fa-f]{6}/g; // 0x + 64 bytes
+
+    if (verifyAddress) {
+      window.open(
+        `${urlLabels.ADDRESS_URL}${id}`,
+        '_blank' // <- This is what makes it open in a new window.
+      );
+    } else if (id && id.length === 66 && re.test(id)) {
+      window.open(
+        `${urlLabels.TNX_URL}${id}`,
+        '_blank' // <- This is what makes it open in a new window.
+      );
+    } else {
+      return true;
+    }
+  };
+
+  public static getTimestampColumns = (columnName: string) => {
+    if (columnName.includes('date')) {
+      return true;
+    } else if (columnName.includes('timestamp')) {
+      return true;
+    } else if (columnName.includes('createdAtTimestamp')) {
+      return true;
+    } else if (columnName.includes('updatedAtTimestamp')) {
+      return true;
+    } else if (columnName.includes('hourStartUnix')) {
+      return true;
+    } else if (columnName === 'createdAt') {
+      return true;
+    }
+  };
+
+  public static getProperEntity = (entity: string) => {
+    let newEntity = entity;
+    // eslint-disable-next-line array-callback-return
+    entityArray.map((item) => {
+      if (item === entity) {
+        newEntity = entity.toUpperCase();
+      }
+    });
+    return newEntity;
+  };
+
+  public static getIntUptoTwoDecimal = (row: any, inputValue: string) => {
+    let convertedInt = parseFloat(row[`${inputValue}`]);
+    if (convertedInt % 1 !== 0) {
+      return true;
+    }
+  };
+
+  //Function to make of entities plural
+  public static makePluralChanges = (normalStr: string) => {
+    let pluralStr = pluralizer(normalStr);
+    if (pluralStr === normalStr) {
+      return pluralStr + 's';
+    } else if (pluralStr[pluralStr.length - 1] === pluralStr[pluralStr.length - 1].toUpperCase()) {
+      pluralStr = pluralStr.slice(0, -1) + pluralStr.charAt(pluralStr.length - 1).toLowerCase();
+      return pluralStr;
+    } else {
+      return pluralStr;
+    }
   };
 }
 

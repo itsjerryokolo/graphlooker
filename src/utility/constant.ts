@@ -27,6 +27,7 @@ export default class Constants {
       PREVIOUS: 'Previous',
       DAYS: 'Days',
     },
+    checkProperEntityName: ['Nft', 'Ens'],
   };
 
   public static LABELS = {
@@ -41,14 +42,18 @@ export default class Constants {
       SEARCH_BY_USER: 'Search by User',
       SEARCH_BY_NUMBER: 'Search by Number',
       LOADING: `Don't worry - a few bits tried to escape, but we caught them.`,
-      NO_RECORD: 'No Records Found',
+      NO_RECORD: 'Oops!! No Record Found.',
       EXPLORE: 'Explore',
       LIGHT: 'light',
       WHITE: 'white',
       BLACK: 'black',
       DARK: 'dark',
-      INVALID: 'Invalid ID',
+      INVALID: 'Not a Valid Address or TransactionHash',
       INCLUDE_TODAY: 'Include today',
+      TIME_FORMAT: 'MMMM D, YYYY, h:mmA',
+      COLLAPSE: 'Collapse',
+      SWITCH_THEME: 'Switch Theme',
+      DOWNLOAD: 'Download',
     },
     commonUrls: {
       BASE_URL:
