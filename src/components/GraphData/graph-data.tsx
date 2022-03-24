@@ -215,11 +215,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
             {drawer}
           </Drawer>
         </Box>
-        {error ? (
-          <ErrorMessage message={error.message} endpoint={parsed?.uri}></ErrorMessage>
-        ) : (
-          <DataBoard drawerOpen={drawerOpen}></DataBoard>
-        )}
+        <DataBoard drawerOpen={drawerOpen}></DataBoard>
       </div>
     </>
   );

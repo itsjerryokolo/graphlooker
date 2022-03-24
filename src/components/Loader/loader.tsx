@@ -7,12 +7,10 @@ import { customMessages } from '../../utility/utility';
 
 const Loader: React.FunctionComponent<LoaderProps> = ({ theme, error, endpoint }) => {
   const label = Constants.LABELS.commonLables;
-  let customMessage: string = customMessages(error, endpoint);
+  let customMessage: string = error;
 
-  console.log(error);
   if (error) {
-    console.log(customMessages(error, endpoint));
-    console.log(customMessage);
+    customMessage = customMessages(error, endpoint);
   }
 
   return (
