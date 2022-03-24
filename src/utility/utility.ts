@@ -5,6 +5,8 @@ import pluralizer from 'pluralize';
 const urlLabels = Constants.LABELS.commonUrls;
 const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
 const entityArray = Constants.FILTERLABELS.checkProperEntityName;
+const txHashRegex = /[0-9A-Fa-f]{6}/g;
+const checkIsNumber = /^\d*(\.\d+)?$/;
 
 export default class Utility {
   public static getColumnNameForOptimizeQuery = (columnNames: any) => {
@@ -68,15 +70,20 @@ export default class Utility {
     endpoint: string,
     theme: string
   ) => {
-    const txHashRegex = /[0-9A-Fa-f]{6}/g;
     let inputValue = row[`${columnName}`];
     let address = ethers.utils.isAddress(inputValue);
 
     if (columnType === dataTypeLabel.OBJECT) {
       Utility.checkAttributeIsEntity(inputValue.__typename, inputValue.id, endpoint, theme);
-    } else if (columnName === 'id' && typeof inputValue === 'string') {
-      let openCloseSnackbar = Utility.checkAddressValidity(columnName, inputValue, columnType);
-      return openCloseSnackbar;
+    } else if (columnName === 'id') {
+      let splitNumber = inputValue.split('-');
+      let addressID = splitNumber[0].toString();
+      if (checkIsNumber.test(addressID)) {
+        return false;
+      } else {
+        let openCloseSnackbar = Utility.checkAddressValidity(columnName, addressID, columnType);
+        return openCloseSnackbar;
+      }
     } else if (
       address ||
       (inputValue && inputValue.length === 66 && txHashRegex.test(inputValue))
@@ -127,6 +134,8 @@ export default class Utility {
       return true;
     } else if (columnName.includes('hourStartUnix')) {
       return true;
+    } else if (columnName.includes('createTime')) {
+      return true;
     } else if (columnName === 'createdAt') {
       return true;
     }
@@ -160,6 +169,24 @@ export default class Utility {
       return pluralStr;
     } else {
       return pluralStr;
+    }
+  };
+
+  public static linkToAddressAndTxHash = (row: any, columnName: string, columnType: string) => {
+    if (columnType === dataTypeLabel.OBJECT) {
+      return true;
+    } else if (columnName === 'id') {
+      let splitNumber = row[`${columnName}`].split('-');
+      let num = splitNumber[0].toString();
+      if (checkIsNumber.test(num)) {
+        return false;
+      } else {
+        return true;
+      }
+    } else if (ethers.utils.isAddress(row[`${columnName}`])) {
+      return true;
+    } else if (txHashRegex.test(row[`${columnName}`]) && row[`${columnName}`].length === 66) {
+      return true;
     }
   };
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import './graph-data.scss';
 import { useQuery } from '@apollo/client';
 import { getAllEntities } from '../../utility/graph/query';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import { styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -46,6 +46,9 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   const dispatch = useDispatch();
   const parsed = queryString.parse(location.search);
   let theme: any = parsed.th;
+  if (theme !== 'light' || theme !== 'dark') {
+    theme = 'dark';
+  }
   React.useEffect(() => {
     if (parsed.uri && parsed.e) {
       const endpointEncoded = parsed.uri;
@@ -130,13 +133,13 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                   display: { xs: 'none', sm: 'block' },
                 }}
               >
-                <Link to="/">
+                <a href="/">
                   <img
                     src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
                     height="43px"
                     alt="dapplooker-icon"
                   ></img>
-                </Link>
+                </a>
               </Box>
               {drawerOpen ? (
                 <Tooltip title={label.COLLAPSE}>
@@ -186,13 +189,13 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
           >
             <DrawerHeader>
               <Box>
-                <Link to="/">
+                <a href="/">
                   <img
                     src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
                     height="33px"
                     alt="dapplooker-icon"
                   ></img>
-                </Link>
+                </a>
               </Box>
             </DrawerHeader>
             {drawer}

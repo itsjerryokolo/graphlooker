@@ -14,6 +14,7 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
   const dispatch = useDispatch();
   const label = Constants.LABELS.commonLables;
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
+  console.log('THeme', theme);
   const handleToggleTheme = () => {
     const newTheme = theme === label.LIGHT ? label.DARK : label.LIGHT;
     dispatch(toggleTheme(newTheme));
