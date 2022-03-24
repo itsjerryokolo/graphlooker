@@ -1,6 +1,6 @@
 export interface ErrorMassageProps {
   message: string;
-  endpoint: string;
+  endpoint: string | any;
 }
 export interface ListItemProps {
   entity: string;
@@ -32,4 +32,6 @@ export interface TimeFilterMenuProps {
 }
 export interface LoaderProps {
   theme: string;
+  error: string | any;
+  endpoint: string | any;
 }

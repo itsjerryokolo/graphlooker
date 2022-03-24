@@ -12,7 +12,6 @@ import { setGraphAttributes, setGraphQuery } from '../../redux/actions/endpoint-
 import Constants from '../../utility/constant';
 import queryString from 'query-string';
 import ExportToCsv from '../ExportToCSV/export-to-csv';
-import ErrorMessage from '../ErrorMessage/error-message';
 
 const drawerWidth = 300;
 
@@ -114,12 +113,6 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
           {allAttributes.length !== 0 ? (
             <GraphDataTable drawerOpen={drawerOpen}></GraphDataTable>
           ) : null}
-          {error && (
-            <ErrorMessage
-              message={error.message}
-              endpoint={'https://api.thegraph.com/subgraphs/name/'}
-            ></ErrorMessage>
-          )}
         </div>
       </Main>
     </>

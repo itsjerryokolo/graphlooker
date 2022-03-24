@@ -119,7 +119,11 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
 
   return (
     <>
-      {loadingScreen ? <Loader theme={theme} /> : ''}
+      {loading || error ? (
+        <Loader theme={theme} error={error?.message} endpoint={parsed?.uri} />
+      ) : (
+        ''
+      )}
 
       <div className="card-container" theme-selector={theme}>
         <AppBar position="fixed" className="app-bar">
@@ -212,10 +216,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
           </Drawer>
         </Box>
         {error ? (
-          <ErrorMessage
-            message={error.message}
-            endpoint={'https://api.thegraph.com/subgraphs/name/'}
-          ></ErrorMessage>
+          <ErrorMessage message={error.message} endpoint={parsed?.uri}></ErrorMessage>
         ) : (
           <DataBoard drawerOpen={drawerOpen}></DataBoard>
         )}
