@@ -68,7 +68,7 @@ export default class Utility {
     endpoint: string,
     theme: string
   ) => {
-    const re = /[0-9A-Fa-f]{6}/g;
+    const txHashRegex = /[0-9A-Fa-f]{6}/g;
     let inputValue = row[`${columnName}`];
     let address = ethers.utils.isAddress(inputValue);
 
@@ -77,7 +77,10 @@ export default class Utility {
     } else if (columnName === 'id' && typeof inputValue === 'string') {
       let openCloseSnackbar = Utility.checkAddressValidity(columnName, inputValue, columnType);
       return openCloseSnackbar;
-    } else if (address || (inputValue && inputValue.length === 66 && re.test(inputValue))) {
+    } else if (
+      address ||
+      (inputValue && inputValue.length === 66 && txHashRegex.test(inputValue))
+    ) {
       let openCloseSnackbar = Utility.checkAddressValidity(columnName, inputValue, columnType);
       return openCloseSnackbar;
     }

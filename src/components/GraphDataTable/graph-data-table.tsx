@@ -48,7 +48,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
-  const re = /[0-9A-Fa-f]{6}/g;
+  const txHashRegex = /[0-9A-Fa-f]{6}/g;
 
   const getBoardDataAsQuery = () => {
     if (parsed.id !== undefined) {
@@ -185,7 +185,8 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                             item.type === dataTypeLabel.OBJECT ||
                             item.name === 'id' ||
                             ethers.utils.isAddress(row[`${item.name}`]) ||
-                            (row[`${item.name}`].length === 66 && re.test(row[`${item.name}`]))
+                            (row[`${item.name}`].length === 66 &&
+                              txHashRegex.test(row[`${item.name}`]))
                               ? 'tablerow-data-css address-data-css'
                               : 'tablerow-data-css'
                           }`}

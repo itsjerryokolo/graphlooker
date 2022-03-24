@@ -139,14 +139,14 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                 </Link>
               </Box>
               {drawerOpen ? (
-                <Tooltip title="Collapse">
+                <Tooltip title={label.COLLAPSE}>
                   <KeyboardDoubleArrowLeftIcon
                     className="toggle-drawer-icon"
                     onClick={handleToggleDrawer}
                   />
                 </Tooltip>
               ) : (
-                <Tooltip title="Collapse">
+                <Tooltip title={label.COLLAPSE}>
                   <KeyboardDoubleArrowRightIcon
                     className="toggle-drawer-icon"
                     onClick={handleToggleDrawer}
@@ -157,7 +157,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
 
             <ExportButton />
 
-            <Tooltip title="Switch Theme">
+            <Tooltip title={label.SWITCH_THEME}>
               <div className="theme-icon" onClick={handleToggleTheme}>
                 {theme === label.LIGHT ? <DarkModeIcon /> : <LightModeIcon />}
               </div>

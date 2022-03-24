@@ -1,9 +1,11 @@
 import { useLocation, withRouter } from 'react-router-dom';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { Tooltip } from '@mui/material';
+import Constants from '../../utility/constant';
 
 const ExportButton: React.FunctionComponent<any> = () => {
   let location = useLocation();
+  const label = Constants.LABELS.commonLables;
 
   function clickHandler() {
     console.log('opening download page');
@@ -13,7 +15,7 @@ const ExportButton: React.FunctionComponent<any> = () => {
 
   return (
     <>
-      <Tooltip title="Download">
+      <Tooltip title={label.DOWNLOAD}>
         <button onClick={clickHandler} className="btn-exportcsv">
           <FileDownloadIcon />
         </button>

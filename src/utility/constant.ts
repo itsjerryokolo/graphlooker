@@ -51,6 +51,9 @@ export default class Constants {
       INVALID: 'Not a Valid Address or TransactionHash',
       INCLUDE_TODAY: 'Include today',
       TIME_FORMAT: 'MMMM D, YYYY, h:mmA',
+      COLLAPSE: 'Collapse',
+      SWITCH_THEME: 'Switch Theme',
+      DOWNLOAD: 'Download',
     },
     commonUrls: {
       BASE_URL:
