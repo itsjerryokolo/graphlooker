@@ -46,7 +46,8 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   const dispatch = useDispatch();
   const parsed = queryString.parse(location.search);
   let theme: any = parsed.th;
-  if (theme !== 'light' || theme !== 'dark') {
+  if (theme === 'light' || theme === 'dark') {
+  } else {
     theme = 'dark';
   }
   React.useEffect(() => {
