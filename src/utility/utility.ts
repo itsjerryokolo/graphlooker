@@ -5,12 +5,12 @@ import pluralizer from 'pluralize';
 const urlLabels = Constants.LABELS.commonUrls;
 const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
 const entityArray = Constants.FILTERLABELS.checkProperEntityName;
-const txHashRegex = /[0-9A-Fa-f]{6}/g;
-const checkIsNumber = /^\d*(\.\d+)?$/;
+const regex = Constants.REGEX;
+const columnLabels = Constants.FILTERLABELS.columnNameLabels;
 
 export default class Utility {
   public static getColumnNameForOptimizeQuery = (columnNames: any) => {
-    let columnName = 'id';
+    let columnName = columnLabels.ID;
     for (let index = 0; index < columnNames.length; ++index) {
       const element = columnNames[index].name;
       const datatype = columnNames[index].typeName;
@@ -72,22 +72,30 @@ export default class Utility {
   ) => {
     let inputValue = row[`${columnName}`];
     let address = ethers.utils.isAddress(inputValue);
+    let verifyTxHash = Boolean(regex.TXHASH_REGEX.test(inputValue));
 
     if (columnType === dataTypeLabel.OBJECT) {
       Utility.checkAttributeIsEntity(inputValue.__typename, inputValue.id, endpoint, theme);
-    } else if (columnName === 'id') {
+    } else if (columnName === columnLabels.ID) {
       let splitNumber = inputValue.split('-');
-      let addressID = splitNumber[0].toString();
-      if (checkIsNumber.test(addressID)) {
-        return false;
-      } else {
-        let openCloseSnackbar = Utility.checkAddressValidity(columnName, addressID, columnType);
+      let addressFound = '';
+      // eslint-disable-next-line array-callback-return
+      splitNumber.map((el: string) => {
+        if (ethers.utils.isAddress(el)) {
+          addressFound = el;
+        }
+      });
+      if (addressFound !== '') {
+        let openCloseSnackbar = Utility.checkAddressValidity(columnName, addressFound, columnType);
+        return openCloseSnackbar;
+      } else if (verifyTxHash) {
+        let openCloseSnackbar = Utility.checkAddressValidity(columnName, inputValue, columnType);
         return openCloseSnackbar;
       }
-    } else if (
-      address ||
-      (inputValue && inputValue.length === 66 && txHashRegex.test(inputValue))
-    ) {
+    } else if (address) {
+      let openCloseSnackbar = Utility.checkAddressValidity(columnName, inputValue, columnType);
+      return openCloseSnackbar;
+    } else if (verifyTxHash) {
       let openCloseSnackbar = Utility.checkAddressValidity(columnName, inputValue, columnType);
       return openCloseSnackbar;
     }
@@ -106,14 +114,13 @@ export default class Utility {
 
   public static checkAddressValidity = (entity: string, id: string, type: string) => {
     let verifyAddress = ethers.utils.isAddress(id);
-    const re = /[0-9A-Fa-f]{6}/g; // 0x + 64 bytes
 
     if (verifyAddress) {
       window.open(
         `${urlLabels.ADDRESS_URL}${id}`,
         '_blank' // <- This is what makes it open in a new window.
       );
-    } else if (id && id.length === 66 && re.test(id)) {
+    } else if (id && id.length === 66 && regex.TXHASH_REGEX.test(id)) {
       window.open(
         `${urlLabels.TNX_URL}${id}`,
         '_blank' // <- This is what makes it open in a new window.
@@ -175,17 +182,20 @@ export default class Utility {
   public static linkToAddressAndTxHash = (row: any, columnName: string, columnType: string) => {
     if (columnType === dataTypeLabel.OBJECT) {
       return true;
-    } else if (columnName === 'id') {
+    } else if (columnName === columnLabels.ID) {
       let splitNumber = row[`${columnName}`].split('-');
       let num = splitNumber[0].toString();
-      if (checkIsNumber.test(num)) {
+      if (regex.CHECK_NUMBER_REGEX.test(num)) {
         return false;
       } else {
         return true;
       }
     } else if (ethers.utils.isAddress(row[`${columnName}`])) {
       return true;
-    } else if (txHashRegex.test(row[`${columnName}`]) && row[`${columnName}`].length === 66) {
+    } else if (
+      regex.TXHASH_REGEX.test(row[`${columnName}`]) &&
+      row[`${columnName}`].length === 66
+    ) {
       return true;
     }
   };

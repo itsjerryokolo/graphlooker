@@ -155,7 +155,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                     <TableCell
                       key={i}
                       className={`${
-                        theme === label.LIGHT ? 'table-head-cell-light' : 'table-head-cell'
+                        theme === label.LIGHT_THEME_LABEL
+                          ? 'table-head-cell-light'
+                          : 'table-head-cell'
                       }`}
                     >
                       <Button
