@@ -55,18 +55,32 @@
     }
     .no-record-found {
       display: block;
-      width: 225px;
+      width: 228px;
       margin: 50px auto;
+      text-align: center;
       img {
         width: 200px;
         height: 200px;
-        margin: 0;
+        margin: auto;
       }
 
       span {
         font-family: $primaryFontFamily;
         font-weight: $fontWeight500;
         font-size: $size20;
+      }
+    }
+    .error-found {
+      width: 100%;
+      height: 100%;
+      background-color: var(--loaderBackground);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 200px;
+        height: 200px;
       }
     }
   }

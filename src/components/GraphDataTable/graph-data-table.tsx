@@ -28,6 +28,7 @@ import humanizeString from 'humanize-string';
 import { ethers } from 'ethers';
 import { setDataLoading } from '../../redux/actions/loading-action';
 import Utility from '../../utility/utility';
+import ErrorMessage from '../ErrorMessage/error-message';
 
 const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteComponentProps<any>> = ({
   drawerOpen,
@@ -105,6 +106,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   if (loading) {
   }
   if (error) {
+    dispatch(setDataLoading(false));
   }
   if (data) {
     let queryData: any[];
@@ -144,8 +146,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const handleCloseToast = () => {
     setOpen(false);
   };
-
-  console.log(theme, error?.message, parsed?.uri);
 
   return (
     <>
@@ -234,13 +234,24 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
             </TableBody>
           </Table>
 
-          {rows.length === 0 && !loading ? (
+          {error ? (
+            <div className="error-found">
+              <img className="error-found" src="/images/error-outline.gif" alt="error" />
+              <span>
+                <ErrorMessage message={error?.message} endpoint={parsed.uri} />
+              </span>
+            </div>
+          ) : (
+            label.EMPTY
+          )}
+
+          {rows.length > 0 || error ? (
+            label.EMPTY
+          ) : (
             <div className="no-record-found">
               <img className="no-record-found" src="/images/no_record_found.gif" alt="" />
               <span>{label.NO_RECORD}</span>
             </div>
-          ) : (
-            label.EMPTY
           )}
 
           <Menu id="menu" onClose={handleCloseMenu} anchorEl={anchorEl} open={Boolean(anchorEl)}>
