@@ -12,8 +12,7 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { useSelector, useDispatch } from 'react-redux';
-import { LoadingState } from './../../utility/redux/state';
+import { useDispatch } from 'react-redux';
 import { toggleTheme } from '../../redux/actions/theme-action';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
@@ -24,7 +23,7 @@ import DataBoard from '../DataBoard/data-board';
 import Constants from '../../utility/constant';
 import ExportButton from '../ExportToCSV/ExportButton';
 import Loader from '../Loader/loader';
-import ErrorMessage from '../ErrorMessage/error-message';
+import { Tooltip } from '@mui/material';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -66,7 +65,6 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
   const [drawerOpen, setDrawerOpen] = React.useState(true);
-  const loadingScreen = useSelector((state: LoadingState) => state.dataLoading.loading);
   const handleToggleTheme = () => {
     const newTheme = theme === label.LIGHT ? label.DARK : label.LIGHT;
     dispatch(toggleTheme(newTheme));
@@ -143,23 +141,29 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                 </Link>
               </Box>
               {drawerOpen ? (
-                <KeyboardDoubleArrowLeftIcon
-                  className="toggle-drawer-icon"
-                  onClick={handleToggleDrawer}
-                />
+                <Tooltip title={label.COLLAPSE}>
+                  <KeyboardDoubleArrowLeftIcon
+                    className="toggle-drawer-icon"
+                    onClick={handleToggleDrawer}
+                  />
+                </Tooltip>
               ) : (
-                <KeyboardDoubleArrowRightIcon
-                  className="toggle-drawer-icon"
-                  onClick={handleToggleDrawer}
-                />
+                <Tooltip title={label.COLLAPSE}>
+                  <KeyboardDoubleArrowRightIcon
+                    className="toggle-drawer-icon"
+                    onClick={handleToggleDrawer}
+                  />
+                </Tooltip>
               )}
             </div>
 
             <ExportButton />
 
-            <div className="theme-icon" onClick={handleToggleTheme}>
-              {theme === label.LIGHT ? <DarkModeIcon /> : <LightModeIcon />}
-            </div>
+            <Tooltip title={label.SWITCH_THEME}>
+              <div className="theme-icon" onClick={handleToggleTheme}>
+                {theme === label.LIGHT ? <DarkModeIcon /> : <LightModeIcon />}
+              </div>
+            </Tooltip>
           </Toolbar>
         </AppBar>
         <Box>

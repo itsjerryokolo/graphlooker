@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import pluralizer from 'pluralize';
 import Constants from '../constant';
 import Utility from '../utility';
 
@@ -18,6 +17,7 @@ export const getAllEntities = gql`
 `;
 
 export const getAllAttributes = (entity: string) => {
+  entity = Utility.getProperEntity(entity);
   return gql`
         query{
           __type(name:"${entity}"){
@@ -36,16 +36,6 @@ export const getAllAttributes = (entity: string) => {
     `;
 };
 
-//Function to make of entities plural
-function makePluralChanges(normalStr: string) {
-  let pluralStr = pluralizer(normalStr);
-  if (pluralStr === normalStr) {
-    return pluralStr + 's';
-  } else {
-    return pluralizer(normalStr);
-  }
-}
-
 export const getGraphData = (
   columnNames: { name: string; type: string; typeName: string }[],
   entity: string,
@@ -53,7 +43,7 @@ export const getGraphData = (
   skip: number
 ) => {
   let queryData = ` `;
-  const selectedEntity = makePluralChanges(entity);
+  const selectedEntity = Utility.makePluralChanges(entity);
   let orderByColumnName = 'id';
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
@@ -89,7 +79,7 @@ export const getGraphDataForID = (
   filterID: string
 ) => {
   let queryData = ` `;
-  const selectedEntity = makePluralChanges(entity);
+  const selectedEntity = Utility.makePluralChanges(entity);
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
     if (element.name === 'id') {
@@ -123,7 +113,7 @@ export const getSortedGraphData = (
   attributeName: string
 ) => {
   let queryData = ` `;
-  const selectedEntity = makePluralChanges(entity);
+  const selectedEntity = Utility.makePluralChanges(entity);
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
     if (element.name === 'id') {
@@ -159,7 +149,7 @@ export const getStringFilterGraphData = (
   userInputValue: string
 ) => {
   let queryData = ` `;
-  const selectedEntity = makePluralChanges(entity);
+  const selectedEntity = Utility.makePluralChanges(entity);
   attributeName = attributeName.concat(filterOption);
   let orderByColumnName = 'id';
   for (let index = 0; index < columnNames.length; ++index) {
@@ -205,7 +195,7 @@ export const getCsvDataQuery = (
   count: number,
   whereId: any
 ) => {
-  const selectedEntity = makePluralChanges(entity);
+  const selectedEntity = Utility.makePluralChanges(entity);
   let orderByColumnName = 'id';
   orderByColumnName = Utility.getColumnNameForOptimizeQuery(columnNames);
 
@@ -229,7 +219,7 @@ export const getSortedCsvDataQuery = (
   attributeName: string,
   whereId: any
 ) => {
-  const selectedEntity = makePluralChanges(entity);
+  const selectedEntity = Utility.makePluralChanges(entity);
 
   return gql`
     query {
@@ -251,7 +241,7 @@ export const getStringFilterCsvData = (
   userInputValue: string,
   whereId: any
 ) => {
-  const selectedEntity = makePluralChanges(entity);
+  const selectedEntity = Utility.makePluralChanges(entity);
   attributeName = attributeName.concat(filterOption);
   let orderByColumnName = 'id';
 

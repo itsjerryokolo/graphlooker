@@ -41,8 +41,10 @@
           color: var(--drawerIconColour);
           font-size: 1.8rem;
           background: var(--drawerToggleIconBackground);
-          border-radius: 2px;
-          box-shadow: #21d4fd 0px 10px 50px;
+          height: 40px;
+          width: 38px;
+          border-radius: 5px;
+          cursor: pointer;
 
           cursor: pointer;
 
@@ -54,15 +56,15 @@
       .theme-icon {
         // border: var(--themeIconBorder) solid 0.5px;
         padding: $size7;
-        border-radius: $size10;
+        border-radius: 5px;
         display: flex;
         align-items: center;
         margin-right: $size20;
         background-color: var(--iconBackgroundColor);
         cursor: pointer;
         svg {
-          font-size: 1.7rem;
           color: var(--iconColour);
+          height: 24px;
         }
       }
     }

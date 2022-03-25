@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GraphDataTableProps } from './../../utility/interface/props';
-import {
-  EndpointState,
-  EntityState,
-  AttributesState,
-  LoadingState,
-} from '../../utility/redux/state';
+import { EndpointState, EntityState, AttributesState } from '../../utility/redux/state';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,7 +27,7 @@ import Constants from '../../utility/constant';
 import humanizeString from 'humanize-string';
 import { ethers } from 'ethers';
 import { setDataLoading } from '../../redux/actions/loading-action';
-import Loader from '../Loader/loader';
+import Utility from '../../utility/utility';
 
 const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteComponentProps<any>> = ({
   drawerOpen,
@@ -48,13 +43,12 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   const allAttributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
   const theme = parsed.th;
-  let loadingScreen = useSelector((state: LoadingState) => state.dataLoading.loading);
   const dispatch = useDispatch();
 
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
-  const columnLabel = Constants.FILTERLABELS.columnNameLabels;
+  const txHashRegex = /[0-9A-Fa-f]{6}/g;
 
   const getBoardDataAsQuery = () => {
     if (parsed.id !== undefined) {
@@ -106,32 +100,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     }`;
   };
 
-  const entityClicked = (entity: string, id: string, type: string) => {
-    let verifyAddress = ethers.utils.isAddress(id);
-    const re = /[0-9A-Fa-f]{6}/g; // 0x + 64 bytes
-
-    if (type === dataTypeLabel.OBJECT) {
-      const URI = encodeURIComponent(endpoint);
-      const selectedEntity = entity.charAt(0).toLowerCase() + entity.slice(1);
-      window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&id=${id}`;
-    }
-    if (id.length > 20) {
-      if (entity === 'id' && verifyAddress) {
-        window.open(
-          `${urlLabels.ADDRESS_URL}${id}`,
-          '_blank' // <- This is what makes it open in a new window.
-        );
-      } else if (id && id.length === 66 && re.test(id)) {
-        window.open(
-          `${urlLabels.TNX_URL}${id}`,
-          '_blank' // <- This is what makes it open in a new window.
-        );
-      } else {
-        setOpen(true);
-      }
-    }
-  };
-
+  //Get Table Data
   const [getBoardData, { error, loading, data }] = useLazyQuery(getBoardDataAsQuery());
   if (loading) {
   }
@@ -170,18 +139,16 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     setAnchorEl(null);
   };
 
+  //Snackbar(Toast) Open/Close handle
   const [open, setOpen] = useState(false);
   const handleCloseToast = () => {
     setOpen(false);
   };
+
+  console.log(theme, error?.message, parsed?.uri);
+
   return (
     <>
-      {loading || error ? (
-        <Loader theme={'theme'} error={error?.message} endpoint={parsed?.uri} />
-      ) : (
-        ''
-      )}
-
       <div className="all-graph-data">
         <div className={`table-conatiner ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`}>
           <Table stickyHeader aria-label="sticky table" className="data-table">
@@ -217,20 +184,23 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                         <TableCell
                           key={key}
                           className={`${
-                            item.type === dataTypeLabel.OBJECT || item.name === 'id'
+                            item.type === dataTypeLabel.OBJECT ||
+                            item.name === 'id' ||
+                            ethers.utils.isAddress(row[`${item.name}`]) ||
+                            (row[`${item.name}`].length === 66 &&
+                              txHashRegex.test(row[`${item.name}`]))
                               ? 'tablerow-data-css address-data-css'
                               : 'tablerow-data-css'
                           }`}
                           onClick={() => {
-                            if (item.type === dataTypeLabel.OBJECT) {
-                              entityClicked(
-                                row[`${item.name}`].__typename,
-                                row[`${item.name}`].id,
-                                item.type
-                              );
-                            } else if (item.name === 'id') {
-                              entityClicked(item.name, row[`${item.name}`], item.type);
-                            }
+                            let openCloseSnackbar = Utility.verifyAddress(
+                              row,
+                              item.name,
+                              item.type,
+                              endpoint,
+                              String(theme)
+                            );
+                            setOpen(Boolean(openCloseSnackbar));
                           }}
                         >{`${
                           item.type === dataTypeLabel.LIST ||
@@ -239,14 +209,19 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                             ? row[`${item.name}`] !== undefined
                               ? row[`${item.name}`].id
                               : label.EMPTY
-                            : `${item.name}` === columnLabel.CREATED_AT_TIMESTAMP ||
-                              `${item.name}` === columnLabel.TIMESTAMP ||
-                              `${item.name}` === columnLabel.UPDATED_AT_TIMESTAMP ||
-                              `${item.name}` === columnLabel.DATE
+                            : Utility.getTimestampColumns(item.name)
                             ? row[`${item.name}`] !== undefined
                               ? moment(new Date(row[`${item.name}`] * 1000)).format(
-                                  'MMMM D, YYYY, h:mmA'
+                                  label.TIME_FORMAT
                                 )
+                              : label.EMPTY
+                            : item.typeName === dataTypeLabel.BIGINT ||
+                              item.typeName === dataTypeLabel.BIGDECIMAL ||
+                              item.typeName === dataTypeLabel.INT
+                            ? Utility.getIntUptoTwoDecimal(row, item.name)
+                              ? parseInt(row[`${item.name}`]).toFixed(2)
+                              : row[`${item.name}`] !== undefined
+                              ? row[`${item.name}`]
                               : label.EMPTY
                             : row[`${item.name}`] !== undefined
                             ? row[`${item.name}`]
@@ -259,13 +234,13 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
             </TableBody>
           </Table>
 
-          {rows.length > 0 ? (
-            label.EMPTY
-          ) : (
+          {rows.length === 0 && !loading ? (
             <div className="no-record-found">
               <img className="no-record-found" src="/images/no_record_found.gif" alt="" />
-              <span>Oops!! No Record Found.</span>
+              <span>{label.NO_RECORD}</span>
             </div>
+          ) : (
+            label.EMPTY
           )}
 
           <Menu id="menu" onClose={handleCloseMenu} anchorEl={anchorEl} open={Boolean(anchorEl)}>

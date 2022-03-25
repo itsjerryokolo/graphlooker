@@ -12,6 +12,7 @@ import { setGraphAttributes, setGraphQuery } from '../../redux/actions/endpoint-
 import Constants from '../../utility/constant';
 import queryString from 'query-string';
 import ExportToCsv from '../ExportToCSV/export-to-csv';
+import Loader from '../Loader/loader';
 
 const drawerWidth = 300;
 
@@ -107,6 +108,12 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
 
   return (
     <>
+      {loading || error ? (
+        <Loader theme={'theme'} error={error?.message} endpoint={parsed?.uri} />
+      ) : (
+        ''
+      )}
+
       <div>{parsed.v !== undefined ? <ExportToCsv /> : null}</div>
       <Main open={drawerOpen}>
         <div className="tab-pane" id="tab0" role="tabpanel" aria-labelledby="tab_0">
