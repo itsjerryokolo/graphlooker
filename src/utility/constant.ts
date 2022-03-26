@@ -19,6 +19,7 @@ export default class Constants {
       UPDATED_AT_TIMESTAMP: 'updatedAtTimestamp',
       TIMESTAMP: 'timestamp',
       DATE: 'date',
+      ID: 'id',
     },
     filterOptionLabels: {
       IS_EMPTY: 'Is Empty',
@@ -44,10 +45,10 @@ export default class Constants {
       LOADING: `Don't worry - a few bits tried to escape, but we caught them.`,
       NO_RECORD: 'Oops!! No Record Found.',
       EXPLORE: 'Explore',
-      LIGHT: 'light',
+      LIGHT_THEME_LABEL: 'light',
       WHITE: 'white',
       BLACK: 'black',
-      DARK: 'dark',
+      DARK_THEME_LABEL: 'dark',
       INVALID: 'Not a Valid Address or TransactionHash',
       INCLUDE_TODAY: 'Include today',
       TIME_FORMAT: 'MMMM D, YYYY, h:mmA',
@@ -70,6 +71,11 @@ export default class Constants {
       RECORDS_MSG: 'RECORDS DOWNLOADED.',
       CLOSE_TAB_MSG: 'IF YOU WISH TO STOP DOWNLODING, CLOSE THE TAB.',
     },
+  };
+
+  public static REGEX = {
+    TXHASH_REGEX: /[0-9A-Fa-f]{6}/g,
+    CHECK_NUMBER_REGEX: /^\d*(\.\d+)?$/,
   };
 
   public static TIMESTAMP_MENU = {
@@ -122,5 +128,9 @@ export default class Constants {
   };
   public static NUMBERS = {
     csvData: 100000,
+  };
+
+  public static ROUTES = {
+    HOME_ROUTE: '/',
   };
 }
