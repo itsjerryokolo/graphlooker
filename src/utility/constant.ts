@@ -63,7 +63,6 @@ export default class Constants {
           : process.env.REACT_APP_BASE_URL_PRODUCTION,
       ADDRESS_URL: process.env.REACT_APP_ADDRESS_URL,
       TNX_URL: process.env.REACT_APP_TNX_URL,
-      HOME_ROUTE: '/',
     },
     exportLabels: {
       DWNLD_STARTED: 'Download started, you can close the tab.',
@@ -129,5 +128,9 @@ export default class Constants {
   };
   public static NUMBERS = {
     csvData: 100000,
+  };
+
+  public static ROUTES = {
+    HOME_ROUTE: '/',
   };
 }

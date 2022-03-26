@@ -66,7 +66,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
         parsed.th === label.LIGHT_THEME_LABEL ? label.DARK_THEME_LABEL : label.LIGHT_THEME_LABEL;
       dispatch(toggleTheme(val));
     }
-    window.location.href = urlLabels.HOME_ROUTE;
+    window.location.href = Constants.ROUTES.HOME_ROUTE;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -136,7 +136,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                   display: { xs: 'none', sm: 'block' },
                 }}
               >
-                <a href={urlLabels.HOME_ROUTE}>
+                <a href={Constants.ROUTES.HOME_ROUTE}>
                   <img
                     src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
                     height="43px"
@@ -192,7 +192,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
           >
             <DrawerHeader>
               <Box>
-                <a href={urlLabels.HOME_ROUTE}>
+                <a href={Constants.ROUTES.HOME_ROUTE}>
                   <img
                     src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
                     height="33px"
