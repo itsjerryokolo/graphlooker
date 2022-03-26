@@ -2,7 +2,7 @@ import * as React from 'react';
 import './graph-data.scss';
 import { useQuery } from '@apollo/client';
 import { getAllEntities } from '../../utility/graph/query';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import { styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -44,9 +44,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location }) => {
+  const label = Constants.LABELS.commonLables;
+  const urlLabels = Constants.LABELS.commonUrls;
   const dispatch = useDispatch();
   const parsed = queryString.parse(location.search);
   let theme: any = parsed.th;
+  if (theme === label.LIGHT_THEME_LABEL || theme === label.DARK_THEME_LABEL) {
+  } else {
+    theme = label.DARK_THEME_LABEL;
+  }
   React.useEffect(() => {
     if (parsed.uri && parsed.e) {
       const endpointEncoded = parsed.uri;
@@ -57,19 +63,19 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
       return;
     }
     if (parsed.th !== undefined) {
-      const val = parsed.th === label.LIGHT ? label.DARK : label.LIGHT;
+      const val =
+        parsed.th === label.LIGHT_THEME_LABEL ? label.DARK_THEME_LABEL : label.LIGHT_THEME_LABEL;
       dispatch(toggleTheme(val));
     }
-    window.location.href = '/';
+    window.location.href = Constants.ROUTES.HOME_ROUTE;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const label = Constants.LABELS.commonLables;
-  const urlLabels = Constants.LABELS.commonUrls;
   const [drawerOpen, setDrawerOpen] = React.useState(true);
   const loadingScreen = useSelector((state: LoadingState) => state.dataLoading.loading);
   const handleToggleTheme = () => {
-    const newTheme = theme === label.LIGHT ? label.DARK : label.LIGHT;
+    const newTheme =
+      theme === label.LIGHT_THEME_LABEL ? label.DARK_THEME_LABEL : label.LIGHT_THEME_LABEL;
     dispatch(toggleTheme(newTheme));
     theme = newTheme;
     window.location.href = `${urlLabels.BASE_URL}uri=${parsed.uri}&e=${parsed.e}&th=${theme}`;
@@ -106,7 +112,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
           width: '100%',
           maxWidth: 360,
           bgcolor: 'background.paper',
-          backgroundColor: `${theme === label.LIGHT ? label.WHITE : label.BLACK}`,
+          backgroundColor: `${theme === label.LIGHT_THEME_LABEL ? label.WHITE : label.BLACK}`,
         }}
         component="nav"
         aria-labelledby="nested-list-subheader"
@@ -140,13 +146,13 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                   display: { xs: 'none', sm: 'block' },
                 }}
               >
-                <Link to="/">
+                <a href={Constants.ROUTES.HOME_ROUTE}>
                   <img
                     src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
                     height="43px"
                     alt="dapplooker-icon"
                   ></img>
-                </Link>
+                </a>
               </Box>
               {drawerOpen ? (
                 <Tooltip title={label.COLLAPSE}>
@@ -169,7 +175,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
 
             <Tooltip title={label.SWITCH_THEME}>
               <div className="theme-icon" onClick={handleToggleTheme}>
-                {theme === label.LIGHT ? <DarkModeIcon /> : <LightModeIcon />}
+                {theme === label.LIGHT_THEME_LABEL ? <DarkModeIcon /> : <LightModeIcon />}
               </div>
             </Tooltip>
           </Toolbar>
@@ -188,7 +194,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               '& .MuiDrawer-paper': {
                 boxSizing: 'border-box',
                 width: drawerWidth,
-                backgroundColor: `${theme === label.LIGHT ? label.WHITE : label.BLACK}`,
+                backgroundColor: `${theme === label.LIGHT_THEME_LABEL ? label.WHITE : label.BLACK}`,
                 color: 'white',
                 paddingBottom: '8rem',
               },
@@ -196,13 +202,13 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
           >
             <DrawerHeader>
               <Box>
-                <Link to="/">
+                <a href={Constants.ROUTES.HOME_ROUTE}>
                   <img
                     src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
                     height="33px"
                     alt="dapplooker-icon"
                   ></img>
-                </Link>
+                </a>
               </Box>
             </DrawerHeader>
             {drawer}
@@ -215,7 +221,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                 color: 'white',
                 marginTop: '64px',
                 boxSizing: 'border-box',
-                backgroundColor: `${theme === label.LIGHT ? label.WHITE : label.BLACK}`,
+                backgroundColor: `${theme === label.LIGHT_THEME_LABEL ? label.WHITE : label.BLACK}`,
                 paddingBottom: '8rem',
                 display: { xs: 'none', sm: 'block' },
               },
