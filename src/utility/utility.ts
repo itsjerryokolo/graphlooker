@@ -171,9 +171,9 @@ export default class Utility {
     let pluralStr = pluralizer(normalStr);
     if (pluralStr === normalStr) {
       return pluralStr + 's';
-    } else if (pluralStr[pluralStr.length - 1] === pluralStr[pluralStr.length - 1].toUpperCase()) {
-      pluralStr = pluralStr.slice(0, -1) + pluralStr.charAt(pluralStr.length - 1).toLowerCase();
-      return pluralStr;
+      // } else if (pluralStr[pluralStr.length - 1] === pluralStr[pluralStr.length - 1].toUpperCase()) {
+      //   pluralStr = pluralStr.slice(0, -1) + pluralStr.charAt(pluralStr.length - 1).toLowerCase();
+      //   return pluralStr;
     } else {
       return pluralStr;
     }

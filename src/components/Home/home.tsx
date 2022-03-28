@@ -56,7 +56,14 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
               <button className="search-button" type="submit">
                 {commonLables.EXPLORE}
               </button>
-              {error && <ErrorMessage message={error.message} endpoint={endpoint}></ErrorMessage>}
+              {error && (
+                <ErrorMessage
+                  type="message"
+                  errorMessage={error.message}
+                  endpoint={endpoint}
+                ></ErrorMessage>
+              )}
+              {/* {error && <Error type="message"></Error>} */}
             </form>
           </div>
         </div>

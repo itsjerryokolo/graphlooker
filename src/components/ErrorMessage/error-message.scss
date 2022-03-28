@@ -3,3 +3,25 @@
   font-size: $size18;
   color: #e7003b;
 }
+@import 'src/utility/theme/dark-theme.scss';
+@import 'src/utility/theme/light-theme.scss';
+@import '../../utility/theme/variable.scss';
+
+.error-conatiner {
+  position: relative;
+  font-size: $size20;
+  font-family: $primaryFontFamily;
+  display: block;
+  width: 500px;
+  margin: 100px auto;
+  text-align: center;
+  .icon {
+    width: 100px;
+    height: 100px;
+  }
+
+  .message {
+    margin: 10px;
+    display: block;
+  }
+}
