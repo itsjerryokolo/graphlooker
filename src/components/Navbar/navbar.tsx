@@ -15,7 +15,8 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
   const label = Constants.LABELS.commonLables;
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
   const handleToggleTheme = () => {
-    const newTheme = theme === label.LIGHT ? label.DARK : label.LIGHT;
+    const newTheme =
+      theme === label.LIGHT_THEME_LABEL ? label.DARK_THEME_LABEL : label.LIGHT_THEME_LABEL;
     dispatch(toggleTheme(newTheme));
   };
 
@@ -24,7 +25,7 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
       <AppBar position="static">
         <Toolbar className="toolbar toolbar-padding">
           <div className="menu-items">
-            {theme === label.LIGHT ? (
+            {theme === label.LIGHT_THEME_LABEL ? (
               <img
                 src="https://dapplooker.s3.amazonaws.com/assets/img/Dapplooker_light_theme_logo.png"
                 height="47px"
@@ -38,7 +39,7 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
               ></img>
             )}
             <div className="theme-icon" onClick={handleToggleTheme}>
-              {theme === label.LIGHT ? <DarkModeIcon /> : <LightModeIcon />}
+              {theme === label.LIGHT_THEME_LABEL ? <DarkModeIcon /> : <LightModeIcon />}
             </div>
           </div>
         </Toolbar>

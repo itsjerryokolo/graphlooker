@@ -25,7 +25,6 @@ import moment from 'moment';
 import PrimaryMenu from '../PrimaryMenu/primary-menu';
 import Constants from '../../utility/constant';
 import humanizeString from 'humanize-string';
-import { ethers } from 'ethers';
 import { setDataLoading } from '../../redux/actions/loading-action';
 import Utility from '../../utility/utility';
 import ErrorMessage from '../ErrorMessage/error-message';
@@ -49,7 +48,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
-  const txHashRegex = /[0-9A-Fa-f]{6}/g;
 
   const getBoardDataAsQuery = () => {
     if (parsed.id !== undefined) {
@@ -159,7 +157,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                     <TableCell
                       key={i}
                       className={`${
-                        theme === label.LIGHT ? 'table-head-cell-light' : 'table-head-cell'
+                        theme === label.LIGHT_THEME_LABEL
+                          ? 'table-head-cell-light'
+                          : 'table-head-cell'
                       }`}
                     >
                       <Button
@@ -184,11 +184,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                         <TableCell
                           key={key}
                           className={`${
-                            item.type === dataTypeLabel.OBJECT ||
-                            item.name === 'id' ||
-                            ethers.utils.isAddress(row[`${item.name}`]) ||
-                            (row[`${item.name}`].length === 66 &&
-                              txHashRegex.test(row[`${item.name}`]))
+                            Utility.linkToAddressAndTxHash(row, item.name, item.type)
                               ? 'tablerow-data-css address-data-css'
                               : 'tablerow-data-css'
                           }`}
