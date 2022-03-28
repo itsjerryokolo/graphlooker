@@ -130,7 +130,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
         <div className="error-screen">
           <img className="error-found" src="/images/error-outline.gif" alt="" />
           <div>
-            <ErrorMessage message={error?.message} endpoint={parsed.uri} />
+            <ErrorMessage type="icon" errorMessage={error?.message} endpoint={parsed.uri} />
           </div>
         </div>
       ) : null}
