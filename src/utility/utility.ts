@@ -1,6 +1,7 @@
 import { ethers } from 'ethers';
 import Constants from './constant';
 import pluralizer from 'pluralize';
+import humanizeString from 'humanize-string';
 
 const urlLabels = Constants.LABELS.commonUrls;
 const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
@@ -210,6 +211,7 @@ export const sortData = (sortedData: object[]) => {
         itm[0] = `${itm[0]}_id`;
         itm[1] = itm[1]?.id;
       }
+      itm[0] = humanizeString(itm[0]);
     });
 
     let fixedObj = Object.fromEntries(arr);
@@ -218,3 +220,22 @@ export const sortData = (sortedData: object[]) => {
 
   return sortedData;
 };
+
+// export const humanizedSortedData = (data: object[]) => {
+//   let humanizedData = data.map((item) => {
+//     let arr: any = Object.entries(item);
+//     arr.forEach((itm: any) => {
+//       itm[0] = humanizeString(itm[0]);
+//     });
+//     let fixedObj = Object.fromEntries(arr);
+//     console.log(fixedObj);
+//     return fixedObj;
+//   });
+//   return humanizedData;
+// };
+
+// export const sortedTimeData = (data: object[]) => {
+//   let sortedTime = data.map((item) => {
+//     console.log(item);
+//   });
+// };

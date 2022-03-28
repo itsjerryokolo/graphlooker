@@ -37,8 +37,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   const allAttributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
 
   useEffect(() => {
-    console.log(selectedEntity, queryDataGlobalState, allAttributes);
-    if (selectedEntity && queryDataGlobalState && allAttributes) {
+    if (selectedEntity && queryDataGlobalState && allAttributes && sortedDataState.length < 5) {
       exportClickHandler();
     }
   }, [selectedEntity, queryDataGlobalState, allAttributes]);
@@ -66,7 +65,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       return getSortedCsvDataQuery(
         queryDataGlobalState,
         selectedEntity,
-        1000,
+        5,
         `${parsed.s}`,
         `${parsed.c}`,
         entityId.length > 0 ? entityId[entityId.length - 1] : ''
@@ -77,7 +76,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       allAttributes,
       queryDataGlobalState,
       selectedEntity,
-      1000,
+      5,
       entityId.length > 0 ? entityId[entityId.length - 1] : ''
     );
   }
@@ -85,7 +84,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   //<--------------- Export Handler --------------->
 
   const exportClickHandler = async () => {
-    console.log('Exporting data ... ');
+    // console.log('Exporting data ... ');
 
     const { data } = await client.query({
       query: getCsvDataResursively(),
@@ -101,7 +100,8 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       return sortedRows;
     });
 
-    sortedData = await sortData(sortedData);
+    sortedData = sortData(sortedData);
+    // sortedData = humanizedSortedData(sortedData);
 
     if (sortedData) {
       setSortedDataState([...sortedDataState, ...sortedData]);
@@ -116,9 +116,9 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       sortedDataState.length < Constants.NUMBERS.csvData &&
       regex.test(sortedDataState.length / 1000)
     ) {
-      exportClickHandler();
+      // exportClickHandler();
     } else if (clickRef) {
-      CSV_LINK_REF?.current?.link.click();
+      // CSV_LINK_REF?.current?.link.click();
       setClickRef(false);
     }
   }, [entityId]);
@@ -135,10 +135,12 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
 
   let fileName = `${selectedEntity}_Dapplooker.csv`;
 
+  // console.log(sortedTimeData(sortedDataState));
+
   return (
     <>
       <CSVLink
-        data={sortedDataState || []}
+        data={sortedDataState}
         filename={fileName}
         className="csvlink"
         ref={CSV_LINK_REF}
