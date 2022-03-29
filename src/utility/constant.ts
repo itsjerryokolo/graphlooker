@@ -34,7 +34,7 @@ export default class Constants {
   public static LABELS = {
     commonLables: {
       TITLE: 'Subgraph Explorer',
-      FILTER_BY_THIS_COL: 'Filter by this column',
+      FILTER_BY_COL: 'Filter by column',
       ASC: 'asc',
       DESC: 'desc',
       IS: 'Is',
@@ -54,7 +54,9 @@ export default class Constants {
       TIME_FORMAT: 'MMMM D, YYYY, h:mmA',
       COLLAPSE: 'Collapse',
       SWITCH_THEME: 'Switch Theme',
-      DOWNLOAD: 'Download',
+      DOWNLOAD: 'Download to CSV',
+      SORT_ASC: 'Sort Ascending',
+      SORT_DESC: 'Sort Descending',
     },
     commonUrls: {
       BASE_URL:

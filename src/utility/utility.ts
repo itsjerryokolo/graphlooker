@@ -2,6 +2,7 @@ import { ethers } from 'ethers';
 import Constants from './constant';
 import pluralizer from 'pluralize';
 import humanizeString from 'humanize-string';
+import moment from 'moment';
 
 const urlLabels = Constants.LABELS.commonUrls;
 const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
@@ -200,6 +201,23 @@ export default class Utility {
       return true;
     }
   };
+
+  public static sortedTimeData = (data: object[]) => {
+    let sortedByTime: any = data.map((item) => {
+      let arr = Object.entries(item);
+
+      arr.forEach((itm) => {
+        if (Utility.getTimestampColumns(itm[0])) {
+          itm[1] = moment(new Date(itm[1] * 1000)).format(
+            Constants.LABELS.commonLables.TIME_FORMAT
+          );
+        }
+      });
+      let fixedObj = Object.fromEntries(arr);
+      return fixedObj;
+    });
+    return sortedByTime;
+  };
 }
 
 export const sortData = (sortedData: object[]) => {
@@ -220,22 +238,3 @@ export const sortData = (sortedData: object[]) => {
 
   return sortedData;
 };
-
-// export const humanizedSortedData = (data: object[]) => {
-//   let humanizedData = data.map((item) => {
-//     let arr: any = Object.entries(item);
-//     arr.forEach((itm: any) => {
-//       itm[0] = humanizeString(itm[0]);
-//     });
-//     let fixedObj = Object.fromEntries(arr);
-//     console.log(fixedObj);
-//     return fixedObj;
-//   });
-//   return humanizedData;
-// };
-
-// export const sortedTimeData = (data: object[]) => {
-//   let sortedTime = data.map((item) => {
-//     console.log(item);
-//   });
-// };

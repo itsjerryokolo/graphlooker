@@ -15,7 +15,7 @@ import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import Constants from '../../utility/constant';
 import DownloadModal from './download-modal';
-import { sortData } from '../../utility/utility';
+import Utility, { sortData } from '../../utility/utility';
 
 const ExportToCSV: React.FunctionComponent<any> = () => {
   const [entityId, setEntityId] = useState<any[]>([]);
@@ -65,7 +65,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       return getSortedCsvDataQuery(
         queryDataGlobalState,
         selectedEntity,
-        5,
+        1000,
         `${parsed.s}`,
         `${parsed.c}`,
         entityId.length > 0 ? entityId[entityId.length - 1] : ''
@@ -76,7 +76,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       allAttributes,
       queryDataGlobalState,
       selectedEntity,
-      5,
+      1000,
       entityId.length > 0 ? entityId[entityId.length - 1] : ''
     );
   }
@@ -100,8 +100,8 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       return sortedRows;
     });
 
+    sortedData = Utility.sortedTimeData(sortedData);
     sortedData = sortData(sortedData);
-    // sortedData = humanizedSortedData(sortedData);
 
     if (sortedData) {
       setSortedDataState([...sortedDataState, ...sortedData]);
@@ -116,9 +116,9 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       sortedDataState.length < Constants.NUMBERS.csvData &&
       regex.test(sortedDataState.length / 1000)
     ) {
-      // exportClickHandler();
+      exportClickHandler();
     } else if (clickRef) {
-      // CSV_LINK_REF?.current?.link.click();
+      CSV_LINK_REF?.current?.link.click();
       setClickRef(false);
     }
   }, [entityId]);
@@ -134,8 +134,6 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   }, [sortedDataState]);
 
   let fileName = `${selectedEntity}_Dapplooker.csv`;
-
-  // console.log(sortedTimeData(sortedDataState));
 
   return (
     <>
