@@ -71,11 +71,15 @@ export default class Constants {
       RECORDS_MSG: 'RECORDS DOWNLOADED.',
       CLOSE_TAB_MSG: 'IF YOU WISH TO STOP DOWNLODING, CLOSE THE TAB.',
     },
+    errorComponenet: {
+      queryFailedMsg: 'There is something wrong with the server. Please try again after sometime.',
+    },
   };
 
   public static REGEX = {
     TXHASH_REGEX: /[0-9A-Fa-f]{6}/g,
     CHECK_NUMBER_REGEX: /^\d*(\.\d+)?$/,
+    urlRegex: /^(https:\/\/api\.|http:\/\/api\.)[a-zA-Z0-9\-_$]+\.[a-zA-Z]{2,5}/g,
   };
 
   public static TIMESTAMP_MENU = {

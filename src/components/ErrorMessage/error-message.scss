@@ -1,11 +1,15 @@
 @import '../../utility/theme/variable.scss';
-.error-message {
-  font-size: $size18;
-  color: #e7003b;
-}
 @import 'src/utility/theme/dark-theme.scss';
 @import 'src/utility/theme/light-theme.scss';
 @import '../../utility/theme/variable.scss';
+
+.error-message {
+  font-size: $size18;
+  color: #e7003b;
+  span {
+    text-align: left;
+  }
+}
 
 .error-conatiner {
   position: relative;

@@ -12,7 +12,6 @@ const App: React.FunctionComponent<RouteComponentProps<any>> = ({ location }) =>
   const parsed = queryString.parse(location.search);
   let theme = parsed.th;
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
-  // console.log('endpoint', endpoint);
   const client = new ApolloClient({
     cache: new InMemoryCache(),
     uri: endpoint,

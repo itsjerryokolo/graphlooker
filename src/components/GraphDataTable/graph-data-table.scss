@@ -109,9 +109,9 @@
     }
     svg {
       width: 50px;
-      color: var(--drawerIconColour);
+      color: var(--drawerToggleIconBackground);
       font-size: 1.8rem;
-      background: var(--drawerToggleIconBackground);
+      background: var(--baseColor);
       border-radius: 3px;
       cursor: pointer;
       margin: 0.5rem 0 0 0;

@@ -84,8 +84,6 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   //<--------------- Export Handler --------------->
 
   const exportClickHandler = async () => {
-    console.log('Exporting data ... ');
-
     const { data } = await client.query({
       query: getCsvDataResursively(),
     });
@@ -128,7 +126,6 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       entityId.includes(sortedDataState[sortedDataState.length - 1].id) === false
     ) {
       setEntityId([...entityId, sortedDataState[sortedDataState.length - 1].id]);
-      console.log('sortedDataState.length:', sortedDataState.length);
     }
   }, [sortedDataState]);
 
