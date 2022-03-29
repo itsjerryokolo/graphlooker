@@ -83,7 +83,7 @@ const NumberFilterMenu: React.FunctionComponent<
             )
           }
         >
-          {label.UPDATE_BY_FILTER}
+          {label.UPDATE_FILTER}
         </Button>
       </MenuItem>
     </>

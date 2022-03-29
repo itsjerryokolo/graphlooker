@@ -238,3 +238,27 @@ export const sortData = (sortedData: object[]) => {
 
   return sortedData;
 };
+
+export const customMessages = (message: string | any, endpoint: string) => {
+  let customMessage: string = message;
+
+  try {
+    if (endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH)) {
+      if (message.includes('Subgraph' && 'not found')) {
+        return (customMessage = Constants.ERROR_MESSAGES.NOT_FOUND);
+      }
+      if (message.includes('Failed to fetch')) {
+        return (customMessage = Constants.ERROR_MESSAGES.FAILED_TO_FETCH);
+      }
+      if (message.includes('indexing_error')) {
+        return (customMessage = Constants.ERROR_MESSAGES.INDEXING_ERROR);
+      }
+      if (message.includes('Unexpected token')) {
+        return (customMessage = Constants.ERROR_MESSAGES.UNEXPECTED);
+      }
+    } else {
+      return (customMessage = Constants.ERROR_MESSAGES.INVALID);
+    }
+  } catch (err) {}
+  return customMessage;
+};

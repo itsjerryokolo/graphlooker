@@ -55,7 +55,7 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps> = ({ attribut
         <input type="checkbox" />
         <h3>{label.INCLUDE_TODAY}</h3>
         <Button variant="contained" className="update-btn">
-          {label.UPDATE_BY_FILTER}
+          {label.UPDATE_FILTER}
         </Button>
       </MenuItem>
     </>

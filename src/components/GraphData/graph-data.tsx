@@ -12,8 +12,7 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { useSelector, useDispatch } from 'react-redux';
-import { LoadingState } from './../../utility/redux/state';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from '../../redux/actions/theme-action';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
@@ -25,6 +24,8 @@ import Constants from '../../utility/constant';
 import ExportButton from '../ExportToCSV/ExportButton';
 import Loader from '../Loader/loader';
 import { Tooltip } from '@mui/material';
+import ErrorMessage from '../ErrorMessage/error-message';
+import { LoadingState } from '../../utility/redux/state';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -125,6 +126,15 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
 
   return (
     <>
+      {error ? (
+        <div className="error-screen">
+          <img className="error-found" src="/images/error-outline.gif" alt="" />
+          <div>
+            <ErrorMessage type="icon" errorMessage={error?.message} endpoint={parsed.uri} />
+          </div>
+        </div>
+      ) : null}
+
       {loadingScreen ? <Loader theme={theme} /> : ''}
 
       <div className="card-container" theme-selector={theme}>

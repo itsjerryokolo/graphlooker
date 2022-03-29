@@ -37,7 +37,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   const allAttributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
 
   useEffect(() => {
-    if (selectedEntity && queryDataGlobalState && allAttributes && sortedDataState.length < 5) {
+    if (selectedEntity && queryDataGlobalState && allAttributes) {
       exportClickHandler();
     }
   }, [selectedEntity, queryDataGlobalState, allAttributes]);
@@ -84,8 +84,6 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   //<--------------- Export Handler --------------->
 
   const exportClickHandler = async () => {
-    // console.log('Exporting data ... ');
-
     const { data } = await client.query({
       query: getCsvDataResursively(),
     });
@@ -113,7 +111,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   useEffect(() => {
     if (
       entityId.length > 0 &&
-      sortedDataState.length < Constants.NUMBERS.csvData &&
+      sortedDataState.length < Constants.NUMBERS.CSV_Data &&
       regex.test(sortedDataState.length / 1000)
     ) {
       exportClickHandler();
@@ -129,7 +127,6 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       entityId.includes(sortedDataState[sortedDataState.length - 1].id) === false
     ) {
       setEntityId([...entityId, sortedDataState[sortedDataState.length - 1].id]);
-      console.log('sortedDataState.length:', sortedDataState.length);
     }
   }, [sortedDataState]);
 

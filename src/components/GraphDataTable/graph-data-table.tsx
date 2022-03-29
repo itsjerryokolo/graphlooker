@@ -27,6 +27,7 @@ import Constants from '../../utility/constant';
 import humanizeString from 'humanize-string';
 import { setDataLoading } from '../../redux/actions/loading-action';
 import Utility from '../../utility/utility';
+import ErrorMessage from '../ErrorMessage/error-message';
 
 const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteComponentProps<any>> = ({
   drawerOpen,
@@ -103,6 +104,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   if (loading) {
   }
   if (error) {
+    dispatch(setDataLoading(false));
   }
   if (data) {
     let queryData: any[];
@@ -228,7 +230,24 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
             </TableBody>
           </Table>
 
-          {rows.length > 0 ? (
+          {error ? (
+            // <div className="error-found">
+            //   <img className="error-found" src="/images/error-outline.gif" alt="error" />
+            //   <span>
+            //     <ErrorMessage message={error?.message} endpoint={parsed.uri} />
+            //   </span>
+            // </div>
+            // <Error type="icon" />
+            <ErrorMessage
+              type="icon"
+              errorMessage={error.message}
+              endpoint={endpoint}
+            ></ErrorMessage>
+          ) : (
+            label.EMPTY
+          )}
+
+          {rows.length > 0 || error ? (
             label.EMPTY
           ) : (
             <div className="no-record-found">
@@ -261,14 +280,14 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
               drawerOpen ? 'drawer-open-next-previous-option' : label.EMPTY
             }`}
           >
-            <Tooltip title="previous">
+            <Tooltip title="Previous">
               <NavigateBeforeIcon
                 onClick={goToPrev}
                 className={`previous-icon ${isPrevDisable ? 'disable-navigation' : label.EMPTY}`}
               ></NavigateBeforeIcon>
             </Tooltip>
             <span>{pageNumber}</span>
-            <Tooltip title="next">
+            <Tooltip title="Next">
               <NavigateNextIcon
                 onClick={goToNext}
                 className={`${isNextDisable ? 'disable-navigation' : label.EMPTY}`}

@@ -8,8 +8,6 @@ const ExportButton: React.FunctionComponent<any> = () => {
   const label = Constants.LABELS.commonLables;
 
   function clickHandler() {
-    console.log('opening download page');
-
     window.open(`${location.pathname}${location.search}&v=download`);
   }
 
