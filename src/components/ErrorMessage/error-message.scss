@@ -1,10 +1,31 @@
 @import '../../utility/theme/variable.scss';
+@import 'src/utility/theme/dark-theme.scss';
+@import 'src/utility/theme/light-theme.scss';
+@import '../../utility/theme/variable.scss';
+
 .error-message {
-  width: 100%;
   font-size: $size18;
   color: #e7003b;
-  padding: $size2 0;
+  span {
+    text-align: left;
+  }
+}
+
+.error-conatiner {
+  position: relative;
+  font-size: $size20;
+  font-family: $primaryFontFamily;
   display: block;
-  min-height: $size20;
-  text-align: left;
+  width: 500px;
+  margin: 100px auto;
+  text-align: center;
+  .icon {
+    width: 100px;
+    height: 100px;
+  }
+
+  .message {
+    margin: 10px;
+    display: block;
+  }
 }
