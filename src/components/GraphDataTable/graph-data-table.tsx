@@ -54,29 +54,11 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
       return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
     }
     if (parsed.s !== undefined && parsed.c !== undefined) {
-      if (parsed.p !== undefined) {
-        const paginateNumber: string = `${parsed.p}`;
-        pageNumber = parseInt(paginateNumber);
-      } else {
-        pageNumber = 1;
-      }
-      if (pageNumber > 1) {
-        isPrevDisable = false;
-      }
-      const skip = 100 * (pageNumber - 1);
+      const skip = checkForPagination();
       return getSortedGraphData(allAttributes, selectedEntity, `${parsed.s}`, `${parsed.c}`, skip);
     }
     if (parsed.f !== undefined && parsed.c !== undefined && parsed.i !== undefined) {
-      if (parsed.p !== undefined) {
-        const paginateNumber: string = `${parsed.p}`;
-        pageNumber = parseInt(paginateNumber);
-      } else {
-        pageNumber = 1;
-      }
-      if (pageNumber > 1) {
-        isPrevDisable = false;
-      }
-      const skip = 100 * (pageNumber - 1);
+      const skip = checkForPagination();
       return getStringFilterGraphData(
         allAttributes,
         selectedEntity,
@@ -101,6 +83,19 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     getBoardData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const checkForPagination = () => {
+    if (parsed.p !== undefined) {
+      const paginateNumber: string = `${parsed.p}`;
+      pageNumber = parseInt(paginateNumber);
+    } else {
+      pageNumber = 1;
+    }
+    if (pageNumber > 1) {
+      isPrevDisable = false;
+    }
+    return 100 * (pageNumber - 1);
+  };
 
   const goToNext = () => {
     if (isNextDisable) return;
