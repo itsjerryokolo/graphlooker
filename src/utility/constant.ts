@@ -130,14 +130,14 @@ export default class Constants {
     CSV_Data: 100000,
   };
   public static VALID_ENDPOINT = {
-    SUBGRAPH: 'https://api.thegraph.com/subgraphs/name/',
+    SUBGRAPH: 'https://api.thegraph.com',
   };
   public static ERROR_MESSAGES = {
     NOT_FOUND: 'Subgraph not found, please check subgraph name.',
     FAILED_TO_FETCH: 'Unable to fetch this Subgraph, Please try again!',
     INDEXING_ERROR: 'Subgraph is facing indexing error.',
-    UNEXPECTED: 'ohh! Something unexpected happened.',
-    INVALID: 'Subgraph endpoint is invalid or not allowed',
+    UNEXPECTED: 'Something unexpected happened.',
+    INVALID: 'Endpoint you are entering is invalid or not allowed',
   };
 
   public static ROUTES = {

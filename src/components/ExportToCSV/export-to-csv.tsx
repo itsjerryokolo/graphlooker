@@ -37,7 +37,6 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   const allAttributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
 
   useEffect(() => {
-    console.log(selectedEntity, queryDataGlobalState, allAttributes);
     if (selectedEntity && queryDataGlobalState && allAttributes) {
       exportClickHandler();
     }
