@@ -110,7 +110,8 @@ export const getSortedGraphData = (
   columnNames: { name: string; type: string; typeName: string }[],
   entity: string,
   sortType: string,
-  attributeName: string
+  attributeName: string,
+  skip: number
 ) => {
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
@@ -129,10 +130,9 @@ export const getSortedGraphData = (
       queryData = queryData + `${element.name} `;
     }
   }
-
   return gql`
       query {
-        entity: ${selectedEntity}(first:100, orderBy: ${attributeName}, orderDirection: ${sortType} ){
+        entity: ${selectedEntity}(first:100, skip:${skip}, orderBy: ${attributeName}, orderDirection: ${sortType} ){
           id      
           ${queryData}
           }
@@ -146,7 +146,8 @@ export const getStringFilterGraphData = (
   entity: string,
   filterOption: string,
   attributeName: string,
-  userInputValue: string
+  userInputValue: string,
+  skip: number
 ) => {
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
@@ -178,7 +179,7 @@ export const getStringFilterGraphData = (
 
   return gql`
       query {
-        entity: ${selectedEntity}(first:100,orderBy:${orderByColumnName}, orderDirection: desc,where: {${attributeName} :${userInputValue}}){
+        entity: ${selectedEntity}(first:100, skip:${skip},orderBy:${orderByColumnName}, orderDirection: desc,where: {${attributeName} :${userInputValue}}){
           id      
           ${queryData}
           }
