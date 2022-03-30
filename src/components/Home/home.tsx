@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ErrorMessage from '../ErrorMessage/error-message';
 import { useQuery } from '@apollo/client';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,6 @@ import './home.scss';
 import Navbar from '../Navbar/navbar';
 import Constants from '../../utility/constant';
 import { ThemeState } from '../../utility/redux/state';
-import Utility from '../../utility/utility';
 
 const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) => {
   const commonLables = Constants.LABELS.commonLables;
@@ -18,6 +17,7 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
   const { data, error, loading } = useQuery(getAllEntities);
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
   const dispatch = useDispatch();
+  const urlRegex = /^(https:\/\/api\.|http:\/\/api\.)[a-zA-Z0-9\-_$]+\.[a-zA-Z]{2,5}/g;
 
   const searchEndpoint = (e: any) => {
     e.preventDefault();
@@ -73,7 +73,7 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
                 Browse subgraph data, export data to CSV, sort, filter and share with everyone
               </p>
 
-              {!Constants.REGEX.urlRegex.test(endpoint) && endpoint.length > 0 ? (
+              {!urlRegex.test(endpoint) && endpoint.length > 0 ? (
                 <ErrorMessage
                   type="message"
                   errorMessage={Constants.ERROR_MESSAGES.INVALID}

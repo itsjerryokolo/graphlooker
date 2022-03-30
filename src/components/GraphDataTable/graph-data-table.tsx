@@ -54,15 +54,18 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
       return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
     }
     if (parsed.s !== undefined && parsed.c !== undefined) {
-      return getSortedGraphData(allAttributes, selectedEntity, `${parsed.s}`, `${parsed.c}`);
+      const skip = checkForPagination();
+      return getSortedGraphData(allAttributes, selectedEntity, `${parsed.s}`, `${parsed.c}`, skip);
     }
     if (parsed.f !== undefined && parsed.c !== undefined && parsed.i !== undefined) {
+      const skip = checkForPagination();
       return getStringFilterGraphData(
         allAttributes,
         selectedEntity,
         `${parsed.f}`,
         `${parsed.c}`,
-        `${parsed.i}`
+        `${parsed.i}`,
+        skip
       );
     }
     if (parsed.p !== undefined) {
@@ -81,9 +84,34 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const checkForPagination = () => {
+    if (parsed.p !== undefined) {
+      const paginateNumber: string = `${parsed.p}`;
+      pageNumber = parseInt(paginateNumber);
+    } else {
+      pageNumber = 1;
+    }
+    if (pageNumber > 1) {
+      isPrevDisable = false;
+    }
+    return 100 * (pageNumber - 1);
+  };
+
   const goToNext = () => {
     if (isNextDisable) return;
     const URI = encodeURIComponent(endpoint);
+    if (parsed.s !== undefined && parsed.c !== undefined) {
+      return (window.location.href = `${
+        urlLabels.BASE_URL
+      }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&c=${parsed.c}&p=${pageNumber + 1}`);
+    }
+    if (parsed.f !== undefined && parsed.c !== undefined && parsed.i !== undefined) {
+      return (window.location.href = `${
+        urlLabels.BASE_URL
+      }uri=${URI}&e=${selectedEntity}&th=${theme}&f=${parsed.f}&i=${parsed.i}&c=${parsed.c}&p=${
+        pageNumber + 1
+      }`);
+    }
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&p=${
       pageNumber + 1
     }`;
@@ -91,8 +119,17 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const goToPrev = () => {
     if (isPrevDisable) return;
     const URI = encodeURIComponent(endpoint);
-    if (pageNumber === 2) {
-      return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}`);
+    if (parsed.s !== undefined && parsed.c !== undefined) {
+      return (window.location.href = `${
+        urlLabels.BASE_URL
+      }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&c=${parsed.c}&p=${pageNumber - 1}`);
+    }
+    if (parsed.f !== undefined && parsed.c !== undefined && parsed.i !== undefined) {
+      return (window.location.href = `${
+        urlLabels.BASE_URL
+      }uri=${URI}&e=${selectedEntity}&th=${theme}&f=${parsed.f}&i=${parsed.i}&c=${parsed.c}&p=${
+        pageNumber - 1
+      }`);
     }
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&p=${
       pageNumber - 1
