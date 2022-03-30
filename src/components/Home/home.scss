@@ -18,7 +18,7 @@
   .search-box {
     .search-box-form {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       max-width: 850px;
       margin: 2.5rem auto 0;
       flex-wrap: wrap;
@@ -46,6 +46,10 @@
         transition: 0.4s;
         cursor: pointer;
         border: none;
+      }
+      .explore-msg {
+        font-size: $size18;
+        font-family: $primaryFontFamily;
       }
     }
   }

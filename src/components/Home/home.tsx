@@ -9,6 +9,7 @@ import './home.scss';
 import Navbar from '../Navbar/navbar';
 import Constants from '../../utility/constant';
 import { ThemeState } from '../../utility/redux/state';
+import Utility from '../../utility/utility';
 
 const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) => {
   const commonLables = Constants.LABELS.commonLables;
@@ -67,6 +68,10 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
               <button className="search-button" type="submit">
                 {commonLables.EXPLORE}
               </button>
+
+              <p className="explore-msg">
+                Browse subgraph data, export data to CSV, sort, filter and share with everyone
+              </p>
 
               {!Constants.REGEX.urlRegex.test(endpoint) && endpoint.length > 0 ? (
                 <ErrorMessage
