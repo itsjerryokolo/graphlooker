@@ -17,6 +17,7 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
   const { data, error, loading } = useQuery(getAllEntities);
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
   const dispatch = useDispatch();
+  const urlRegex = /^(https:\/\/api\.|http:\/\/api\.)[a-zA-Z0-9\-_$]+\.[a-zA-Z]{2,5}/g;
 
   const searchEndpoint = (e: any) => {
     e.preventDefault();
@@ -68,7 +69,7 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
                 {commonLables.EXPLORE}
               </button>
 
-              {!Constants.REGEX.urlRegex.test(endpoint) && endpoint.length > 0 ? (
+              {!urlRegex.test(endpoint) && endpoint.length > 0 ? (
                 <ErrorMessage
                   type="message"
                   errorMessage={Constants.ERROR_MESSAGES.INVALID}
