@@ -51,8 +51,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   const parsed = queryString.parse(location.search);
   let theme: any = parsed.th;
   let graphName: string | any = parsed.uri?.slice(parsed.uri?.lastIndexOf('/') + 1);
-  graphName = humanizeString(graphName);
-  graphName = graphName.toUpperCase();
+  graphName = humanizeString(graphName).toUpperCase();
   if (theme === label.LIGHT_THEME_LABEL || theme === label.DARK_THEME_LABEL) {
   } else {
     theme = label.DARK_THEME_LABEL;

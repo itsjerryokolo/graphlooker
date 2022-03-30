@@ -57,6 +57,7 @@ export default class Constants {
       DOWNLOAD: 'Download to CSV',
       SORT_ASC: 'Sort Ascending',
       SORT_DESC: 'Sort Descending',
+      DESC_TITLE: "Browse subgraph data, export data to CSV, sort, filter and share with everyone"
     },
     commonUrls: {
       BASE_URL:

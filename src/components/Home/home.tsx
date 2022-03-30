@@ -53,7 +53,6 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
       <div theme-selector={theme}>
         <Navbar></Navbar>
         <div className="container">
-          {/* <h1>{commonLables.TITLE}</h1> */}
           <div className="search-box">
             <form className="search-box-form" onSubmit={searchEndpoint}>
               <input
@@ -69,9 +68,7 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
                 {commonLables.EXPLORE}
               </button>
 
-              <p className="explore-msg">
-                Browse subgraph data, export data to CSV, sort, filter and share with everyone
-              </p>
+              <p className="explore-msg">{Constants.LABELS.commonLables.DESC_TITLE}</p>
 
               {!urlRegex.test(endpoint) && endpoint.length > 0 ? (
                 <ErrorMessage
