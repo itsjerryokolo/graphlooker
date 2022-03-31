@@ -3,7 +3,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { Tooltip } from '@mui/material';
 import Constants from '../../utility/constant';
 
-const ExportButton: React.FunctionComponent<any> = () => {
+const ExportButton: React.FunctionComponent<any> = ({ rows }) => {
   let location = useLocation();
   const label = Constants.LABELS.commonLables;
 
@@ -14,7 +14,7 @@ const ExportButton: React.FunctionComponent<any> = () => {
   return (
     <>
       <Tooltip title={label.DOWNLOAD}>
-        <button onClick={clickHandler} className="btn-exportcsv">
+        <button onClick={clickHandler} className="btn-exportcsv" disabled={rows.length === 0}>
           <FileDownloadIcon />
         </button>
       </Tooltip>

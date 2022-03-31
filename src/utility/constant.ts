@@ -34,16 +34,16 @@ export default class Constants {
   public static LABELS = {
     commonLables: {
       TITLE: 'Subgraph Explorer',
-      FILTER_BY_THIS_COL: 'Filter by this column',
+      FILTER_BY_COL: 'Filter by column',
       ASC: 'asc',
       DESC: 'desc',
       IS: 'Is',
       EMPTY: '',
-      UPDATE_BY_FILTER: 'Update by Filter',
+      UPDATE_FILTER: 'Update filter',
       SEARCH_BY_USER: 'Search by User',
       SEARCH_BY_NUMBER: 'Search by Number',
       LOADING: `Don't worry - a few bits tried to escape, but we caught them.`,
-      NO_RECORD: 'Oops!! No Record Found.',
+      NO_RECORD: 'Oops!! No record found.',
       EXPLORE: 'Explore',
       LIGHT_THEME_LABEL: 'light',
       WHITE: 'white',
@@ -54,7 +54,10 @@ export default class Constants {
       TIME_FORMAT: 'MMMM D, YYYY, h:mmA',
       COLLAPSE: 'Collapse',
       SWITCH_THEME: 'Switch Theme',
-      DOWNLOAD: 'Download',
+      DOWNLOAD: 'Download to CSV',
+      SORT_ASC: 'Sort Ascending',
+      SORT_DESC: 'Sort Descending',
+      DESC_TITLE: 'Browse subgraph data, export data to CSV, sort, filter and share with everyone',
     },
     commonUrls: {
       BASE_URL:
@@ -65,11 +68,11 @@ export default class Constants {
       TNX_URL: process.env.REACT_APP_TNX_URL,
     },
     exportLabels: {
-      DWNLD_STARTED: 'Download started, you can close the tab.',
-      DWNLD_SOON: 'Downloading will start automatically.',
-      HOLD_MSG: ' the bits are breeding...',
+      DWNLD_STARTED: 'Download Completed, you can close the tab.',
+      DWNLD_SOON: 'Download in progress...',
+      HOLD_MSG: 'The bits are breeding...',
       RECORDS_MSG: 'RECORDS DOWNLOADED.',
-      CLOSE_TAB_MSG: 'IF YOU WISH TO STOP DOWNLODING, CLOSE THE TAB.',
+      CLOSE_TAB_MSG: 'IF YOU WISH TO STOP DOWNLOAD, CLOSE THE TAB.',
     },
     errorComponenet: {
       queryFailedMsg: 'There is something wrong with the server. Please try again after sometime.',

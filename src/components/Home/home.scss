@@ -16,9 +16,13 @@
     font-weight: $fontWeight400;
   }
   .search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
     .search-box-form {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       max-width: 850px;
       margin: 2.5rem auto 0;
       flex-wrap: wrap;
@@ -32,6 +36,7 @@
         height: 70px;
         font-size: 23px;
         margin-bottom: 1rem;
+        font-size: $size20;
       }
       .search-button {
         font-weight: $fontWeight700;
@@ -45,6 +50,11 @@
         transition: 0.4s;
         cursor: pointer;
         border: none;
+      }
+      .explore-msg {
+        font-size: $size18;
+        font-family: $primaryFontFamily;
+        margin: 0;
       }
       .search-button:disabled {
         // background: #fd2121;

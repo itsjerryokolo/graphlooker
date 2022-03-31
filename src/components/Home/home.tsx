@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ErrorMessage from '../ErrorMessage/error-message';
 import { useQuery } from '@apollo/client';
 import { useDispatch, useSelector } from 'react-redux';
@@ -62,7 +62,6 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
       <div theme-selector={theme}>
         <Navbar></Navbar>
         <div className="container">
-          <h1>{commonLables.TITLE}</h1>
           <div className="search-box">
             <form className="search-box-form" onSubmit={searchEndpoint}>
               <input
@@ -70,13 +69,15 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
                 id="endpoint"
                 name="endpoint"
                 type="text"
-                placeholder="Enter Endpoint"
+                placeholder="Input Subgraph Endpoint"
                 value={endpoint}
                 onChange={(e) => onChangeHandler(e.target.value)}
               ></input>
               <button className="search-button" type="submit" disabled={isError}>
                 {commonLables.EXPLORE}
               </button>
+
+              <p className="explore-msg">{Constants.LABELS.commonLables.DESC_TITLE}</p>
 
               {isError && endpoint.length > 0 ? (
                 <ErrorMessage
