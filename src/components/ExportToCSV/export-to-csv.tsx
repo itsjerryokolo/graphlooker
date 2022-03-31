@@ -124,9 +124,9 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   useEffect(() => {
     if (
       sortedDataState.length > 0 &&
-      entityId.includes(sortedDataState[sortedDataState.length - 1].id) === false
+      entityId.includes(sortedDataState[sortedDataState.length - 1].Id) === false
     ) {
-      setEntityId([...entityId, sortedDataState[sortedDataState.length - 1].id]);
+      setEntityId([...entityId, sortedDataState[sortedDataState.length - 1].Id]);
     }
   }, [sortedDataState]);
 
