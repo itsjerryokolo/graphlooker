@@ -46,6 +46,10 @@
         cursor: pointer;
         border: none;
       }
+      .search-button:disabled {
+        // background: #fd2121;
+        cursor: not-allowed;
+      }
     }
   }
 }
