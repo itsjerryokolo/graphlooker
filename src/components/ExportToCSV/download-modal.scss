@@ -12,6 +12,7 @@
   height: 500px;
   background: white;
   border-radius: 10px;
+  z-index: 9999;
   .modal-container {
     width: 500px;
     margin: $size10 auto;
