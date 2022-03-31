@@ -34,7 +34,7 @@ export default class Constants {
   public static LABELS = {
     commonLables: {
       TITLE: 'Subgraph Explorer',
-      FILTER_BY_THIS_COL: 'Filter by this column',
+      FILTER_BY_COL: 'Filter by column',
       ASC: 'asc',
       DESC: 'desc',
       IS: 'Is',
@@ -100,7 +100,14 @@ export default class Constants {
       { menuItem: 'Days' },
       { menuItem: 'Weeks' },
       { menuItem: 'Months' },
-      { menuItem: 'Ouarters' },
+      { menuItem: 'Quarters' },
+      { menuItem: 'Years' },
+    ],
+    currentFilter: [
+      { menuItem: 'Days' },
+      { menuItem: 'Weeks' },
+      { menuItem: 'Months' },
+      { menuItem: 'Quarters' },
       { menuItem: 'Years' },
     ],
   };

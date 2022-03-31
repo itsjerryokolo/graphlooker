@@ -32,7 +32,11 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
   const sortDataAscDesc = (sortType: string, columnName: string) => {
     const URI = encodeURIComponent(endpoint);
     const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&s=${sortType}&c=${columnName}`;
+    if (parsed.f !== undefined && parsed.i !== undefined) {
+      return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&s=${sortType}&f=${parsed.f}&i=${parsed.i}&c=${columnName}`);
+    } else {
+      return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&s=${sortType}&c=${columnName}`);
+    }
   };
 
   const [anchorFiterEl, setAnchorFiterEl] = useState<null | HTMLElement>(null);
@@ -82,7 +86,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
           className="filter-menu-button"
         >
           <FilterListIcon color="primary" className="filter-list-icon" />
-          <span className="filter-by-col-label">{label.FILTER_BY_THIS_COL}</span>
+          <span className="filter-by-col-label">{label.FILTER_BY_COL}</span>
         </button>
       </MenuItem>
 

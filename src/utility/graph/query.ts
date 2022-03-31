@@ -147,11 +147,12 @@ export const getStringFilterGraphData = (
   filterOption: string,
   attributeName: string,
   userInputValue: string,
-  skip: number
+  skip: number,
+  sortType: string
 ) => {
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
-  attributeName = attributeName.concat(filterOption);
+  let columnNameWithFilter = attributeName.concat(filterOption);
   let orderByColumnName = 'id';
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
@@ -169,22 +170,38 @@ export const getStringFilterGraphData = (
     }
   }
 
-  if (userInputValue === '') {
-    userInputValue = 'null';
-  } else {
-    userInputValue = '"' + userInputValue + '"';
+  console.log(filterOption, userInputValue, sortType);
+
+  if (sortType === 'undefined') {
+    sortType = 'desc';
   }
+  // orderByColumnName = Utility.getColumnNameForOptimizeQuery(columnNames);
 
-  orderByColumnName = Utility.getColumnNameForOptimizeQuery(columnNames);
-
-  return gql`
+  if (userInputValue === 'undefined' && filterOption === 'undefined') {
+    return gql`
       query {
-        entity: ${selectedEntity}(first:100, skip:${skip},orderBy:${orderByColumnName}, orderDirection: desc,where: {${attributeName} :${userInputValue}}){
+        entity: ${selectedEntity}(first:100, skip:${skip}, orderBy: ${attributeName}, orderDirection: ${sortType} ){
           id      
           ${queryData}
           }
       }
       `;
+  } else {
+    if (userInputValue === '') {
+      userInputValue = 'null';
+    } else {
+      userInputValue = '"' + userInputValue + '"';
+    }
+
+    return gql`
+      query {
+        entity: ${selectedEntity}(first:100, skip:${skip},orderBy:${attributeName}, orderDirection: ${sortType},where: {${columnNameWithFilter} :${userInputValue}}){
+          id      
+          ${queryData}
+          }
+      }
+      `;
+  }
 };
 
 // Query based on last ID (export to csv)

@@ -53,11 +53,11 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     if (parsed.id !== undefined) {
       return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
     }
-    if (parsed.s !== undefined && parsed.c !== undefined) {
-      const skip = checkForPagination();
-      return getSortedGraphData(allAttributes, selectedEntity, `${parsed.s}`, `${parsed.c}`, skip);
-    }
-    if (parsed.f !== undefined && parsed.c !== undefined && parsed.i !== undefined) {
+    // if (parsed.s !== undefined && parsed.c !== undefined) {
+    //   const skip = checkForPagination();
+    //   return getSortedGraphData(allAttributes, selectedEntity, `${parsed.s}`, `${parsed.c}`, skip);
+    // }
+    if (parsed.c !== undefined) {
       const skip = checkForPagination();
       return getStringFilterGraphData(
         allAttributes,
@@ -65,9 +65,21 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         `${parsed.f}`,
         `${parsed.c}`,
         `${parsed.i}`,
-        skip
+        skip,
+        `${parsed.s}`
       );
     }
+    // if (parsed.f !== undefined && parsed.c !== undefined && parsed.i !== undefined) {
+    //   const skip = checkForPagination();
+    //   return getStringFilterGraphData(
+    //     allAttributes,
+    //     selectedEntity,
+    //     `${parsed.f}`,
+    //     `${parsed.c}`,
+    //     `${parsed.i}`,
+    //     skip
+    //   );
+    // }
     if (parsed.p !== undefined) {
       const paginateNumber: string = `${parsed.p}`;
       pageNumber = parseInt(paginateNumber);
