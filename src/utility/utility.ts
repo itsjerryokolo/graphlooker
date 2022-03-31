@@ -213,8 +213,8 @@ export default class Utility {
           );
         }
       });
-      let fixedObj = Object.fromEntries(arr);
-      return fixedObj;
+      let sortedObj = Object.fromEntries(arr);
+      return sortedObj;
     });
     return sortedByTime;
   };
@@ -232,8 +232,8 @@ export const sortData = (sortedData: object[]) => {
       itm[0] = humanizeString(itm[0]);
     });
 
-    let fixedObj = Object.fromEntries(arr);
-    return fixedObj;
+    let sortedObj = Object.fromEntries(arr);
+    return sortedObj;
   });
 
   return sortedData;

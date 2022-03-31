@@ -57,6 +57,7 @@ export default class Constants {
       DOWNLOAD: 'Download to CSV',
       SORT_ASC: 'Sort Ascending',
       SORT_DESC: 'Sort Descending',
+      DESC_TITLE: 'Browse subgraph data, export data to CSV, sort, filter and share with everyone',
     },
     commonUrls: {
       BASE_URL:
@@ -68,7 +69,7 @@ export default class Constants {
     },
     exportLabels: {
       DWNLD_STARTED: 'Download started, you can close the tab.',
-      DWNLD_SOON: 'Download in progress',
+      DWNLD_SOON: 'Download in progress...',
       HOLD_MSG: 'The bits are breeding...',
       RECORDS_MSG: 'RECORDS DOWNLOADED.',
       CLOSE_TAB_MSG: 'IF YOU WISH TO STOP DOWNLOAD, CLOSE THE TAB.',
