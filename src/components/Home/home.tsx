@@ -19,7 +19,7 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
   const dispatch = useDispatch();
   const urlRegex = /^(https:\/\/api\.|http:\/\/api\.)[a-zA-Z0-9\-_$]+\.[a-zA-Z]{2,5}/g;
-  let urlTest = urlRegex.test(endpoint);
+  let isendpointCorrect = urlRegex.test(endpoint);
 
   const searchEndpoint = (e: any) => {
     e.preventDefault();
@@ -33,12 +33,12 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
   }, [error]);
 
   useEffect(() => {
-    if (urlTest) {
+    if (isendpointCorrect) {
       setIsError(false);
     } else {
       setIsError(true);
     }
-  }, [endpoint, urlTest]);
+  }, [endpoint, isendpointCorrect]);
 
   if (loading) {
   } else {
