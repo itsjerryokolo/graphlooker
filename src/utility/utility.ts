@@ -204,16 +204,16 @@ export default class Utility {
 
   public static sortedTimeData = (data: object[]) => {
     let sortedByTime: any = data.map((item) => {
-      let arr = Object.entries(item);
+      let array = Object.entries(item);
 
-      arr.forEach((itm) => {
+      array.forEach((itm) => {
         if (Utility.getTimestampColumns(itm[0])) {
           itm[1] = moment(new Date(itm[1] * 1000)).format(
             Constants.LABELS.commonLables.TIME_FORMAT
           );
         }
       });
-      let sortedObj = Object.fromEntries(arr);
+      let sortedObj = Object.fromEntries(array);
       return sortedObj;
     });
     return sortedByTime;
@@ -222,9 +222,9 @@ export default class Utility {
 
 export const sortData = (sortedData: object[]) => {
   sortedData = sortedData.map((item: object) => {
-    let arr = Object.entries(item);
+    let array = Object.entries(item);
 
-    arr.forEach((itm: any) => {
+    array.forEach((itm: any) => {
       if (typeof itm[1] === 'object') {
         itm[0] = `${itm[0]}_id`;
         itm[1] = itm[1]?.id;
@@ -232,7 +232,7 @@ export const sortData = (sortedData: object[]) => {
       itm[0] = humanizeString(itm[0]);
     });
 
-    let sortedObj = Object.fromEntries(arr);
+    let sortedObj = Object.fromEntries(array);
     return sortedObj;
   });
 
