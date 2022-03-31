@@ -68,7 +68,7 @@ export default class Constants {
       TNX_URL: process.env.REACT_APP_TNX_URL,
     },
     exportLabels: {
-      DWNLD_STARTED: 'Download started, you can close the tab.',
+      DWNLD_STARTED: 'Download Completed, you can close the tab.',
       DWNLD_SOON: 'Download in progress...',
       HOLD_MSG: 'The bits are breeding...',
       RECORDS_MSG: 'RECORDS DOWNLOADED.',
