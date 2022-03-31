@@ -16,6 +16,10 @@
     font-weight: $fontWeight400;
   }
   .search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
     .search-box-form {
       display: flex;
       justify-content: flex-start;
