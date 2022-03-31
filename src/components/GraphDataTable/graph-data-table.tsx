@@ -28,6 +28,7 @@ import humanizeString from 'humanize-string';
 import { setDataLoading } from '../../redux/actions/loading-action';
 import Utility from '../../utility/utility';
 import ErrorMessage from '../ErrorMessage/error-message';
+import ExportButton from '../ExportToCSV/ExportButton';
 
 const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteComponentProps<any>> = ({
   drawerOpen,
@@ -184,6 +185,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
 
   return (
     <>
+      <ExportButton rows={rows} />
       <div className="all-graph-data">
         <div className={`table-conatiner ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`}>
           <Table stickyHeader aria-label="sticky table" className="data-table">

@@ -143,7 +143,8 @@ export default class Constants {
     NOT_FOUND: 'Subgraph not found, please check subgraph name.',
     FAILED_TO_FETCH: 'Unable to fetch this Subgraph, Please try again!',
     INDEXING_ERROR: 'Subgraph is facing indexing error.',
-    UNEXPECTED: 'Something unexpected happened.',
+    UNEXPECTED:
+      'There is some problem with the graph, please check if you are entering correct endpoint.',
     INVALID: 'Endpoint you are entering is invalid or not allowed',
   };
 

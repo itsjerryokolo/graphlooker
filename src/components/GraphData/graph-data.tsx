@@ -176,7 +176,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
 
             <h2 className="graph-heading">{graphName}</h2>
 
-            <ExportButton />
+            {/* <ExportButton /> */}
 
             <Tooltip title={label.SWITCH_THEME}>
               <div className="theme-icon" onClick={handleToggleTheme}>
