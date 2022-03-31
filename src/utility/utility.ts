@@ -1,6 +1,8 @@
 import { ethers } from 'ethers';
 import Constants from './constant';
 import pluralizer from 'pluralize';
+import humanizeString from 'humanize-string';
+import moment from 'moment';
 
 const urlLabels = Constants.LABELS.commonUrls;
 const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
@@ -199,21 +201,39 @@ export default class Utility {
       return true;
     }
   };
+
+  public static sortedTimeData = (data: object[]) => {
+    let sortedByTime: any = data.map((item) => {
+      let array = Object.entries(item);
+
+      array.forEach((itm) => {
+        if (Utility.getTimestampColumns(itm[0])) {
+          itm[1] = moment(new Date(itm[1] * 1000)).format(
+            Constants.LABELS.commonLables.TIME_FORMAT
+          );
+        }
+      });
+      let sortedObj = Object.fromEntries(array);
+      return sortedObj;
+    });
+    return sortedByTime;
+  };
 }
 
 export const sortData = (sortedData: object[]) => {
   sortedData = sortedData.map((item: object) => {
-    let arr = Object.entries(item);
+    let array = Object.entries(item);
 
-    arr.forEach((itm: any) => {
+    array.forEach((itm: any) => {
       if (typeof itm[1] === 'object') {
         itm[0] = `${itm[0]}_id`;
         itm[1] = itm[1]?.id;
       }
+      itm[0] = humanizeString(itm[0]);
     });
 
-    let fixedObj = Object.fromEntries(arr);
-    return fixedObj;
+    let sortedObj = Object.fromEntries(array);
+    return sortedObj;
   });
 
   return sortedData;

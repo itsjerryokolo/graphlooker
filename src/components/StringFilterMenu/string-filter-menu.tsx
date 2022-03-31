@@ -83,7 +83,7 @@ const StringFilterMenu: React.FunctionComponent<
             )
           }
         >
-          {label.UPDATE_BY_FILTER}
+          {label.UPDATE_FILTER}
         </Button>
       </MenuItem>
     </>

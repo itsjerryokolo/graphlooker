@@ -125,7 +125,7 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
         ) : null}
 
         <Button variant="contained" className="update-btn" onClick={() => renderUpdateButton()}>
-          {label.UPDATE_BY_FILTER}
+          {label.UPDATE_FILTER}
         </Button>
       </MenuItem>
     </>

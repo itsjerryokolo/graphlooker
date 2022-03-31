@@ -26,6 +26,7 @@ import Loader from '../Loader/loader';
 import { Tooltip } from '@mui/material';
 import ErrorMessage from '../ErrorMessage/error-message';
 import { LoadingState } from '../../utility/redux/state';
+import humanizeString from 'humanize-string';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -49,6 +50,8 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   const dispatch = useDispatch();
   const parsed = queryString.parse(location.search);
   let theme: any = parsed.th;
+  let graphName: string | any = parsed.uri?.slice(parsed.uri?.lastIndexOf('/') + 1);
+  graphName = humanizeString(graphName).toUpperCase();
   if (theme === label.LIGHT_THEME_LABEL || theme === label.DARK_THEME_LABEL) {
   } else {
     theme = label.DARK_THEME_LABEL;
@@ -171,7 +174,9 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               )}
             </div>
 
-            <ExportButton />
+            <h2 className="graph-heading">{graphName}</h2>
+
+            {/* <ExportButton /> */}
 
             <Tooltip title={label.SWITCH_THEME}>
               <div className="theme-icon" onClick={handleToggleTheme}>

@@ -28,6 +28,7 @@ import humanizeString from 'humanize-string';
 import { setDataLoading } from '../../redux/actions/loading-action';
 import Utility from '../../utility/utility';
 import ErrorMessage from '../ErrorMessage/error-message';
+import ExportButton from '../ExportToCSV/ExportButton';
 
 const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteComponentProps<any>> = ({
   drawerOpen,
@@ -196,6 +197,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
 
   return (
     <>
+      <ExportButton rows={rows} />
       <div className="all-graph-data">
         <div className={`table-conatiner ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`}>
           <Table stickyHeader aria-label="sticky table" className="data-table">
@@ -329,14 +331,14 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
               drawerOpen ? 'drawer-open-next-previous-option' : label.EMPTY
             }`}
           >
-            <Tooltip title="previous">
+            <Tooltip title="Previous">
               <NavigateBeforeIcon
                 onClick={goToPrev}
                 className={`previous-icon ${isPrevDisable ? 'disable-navigation' : label.EMPTY}`}
               ></NavigateBeforeIcon>
             </Tooltip>
             <span>{pageNumber}</span>
-            <Tooltip title="next">
+            <Tooltip title="Next">
               <NavigateNextIcon
                 onClick={goToNext}
                 className={`${isNextDisable ? 'disable-navigation' : label.EMPTY}`}

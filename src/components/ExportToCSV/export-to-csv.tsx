@@ -15,7 +15,7 @@ import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import Constants from '../../utility/constant';
 import DownloadModal from './download-modal';
-import { sortData } from '../../utility/utility';
+import Utility, { sortData } from '../../utility/utility';
 
 const ExportToCSV: React.FunctionComponent<any> = () => {
   const [entityId, setEntityId] = useState<any[]>([]);
@@ -98,10 +98,15 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       return sortedRows;
     });
 
-    sortedData = await sortData(sortedData);
+    sortedData = Utility.sortedTimeData(sortedData);
+    sortedData = sortData(sortedData);
 
     if (sortedData) {
       setSortedDataState([...sortedDataState, ...sortedData]);
+    }
+
+    if (rows.length === 0) {
+      CSV_LINK_REF?.current?.link.click();
     }
 
     setClickRef(true);
@@ -123,9 +128,9 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   useEffect(() => {
     if (
       sortedDataState.length > 0 &&
-      entityId.includes(sortedDataState[sortedDataState.length - 1].id) === false
+      entityId.includes(sortedDataState[sortedDataState.length - 1].Id) === false
     ) {
-      setEntityId([...entityId, sortedDataState[sortedDataState.length - 1].id]);
+      setEntityId([...entityId, sortedDataState[sortedDataState.length - 1].Id]);
     }
   }, [sortedDataState]);
 
@@ -134,7 +139,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   return (
     <>
       <CSVLink
-        data={sortedDataState || []}
+        data={sortedDataState}
         filename={fileName}
         className="csvlink"
         ref={CSV_LINK_REF}

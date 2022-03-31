@@ -1,4 +1,4 @@
-import { Menu, MenuItem } from '@mui/material';
+import { Menu, MenuItem, Tooltip } from '@mui/material';
 import React, { useState } from 'react';
 import './primary-menu.scss';
 import { PrimaryMenuProps } from '../../utility/interface/props';
@@ -58,18 +58,22 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
       return (
         <>
           <MenuItem>
-            <button className="sort-btn">
-              <ArrowUpwardTwoToneIcon
-                className="dropdown-arrow"
-                onClick={() => sortDataAscDesc(label.ASC, attributeName)}
-              />
-            </button>
-            <button className="sort-btn">
-              <ArrowDownwardTwoToneIcon
-                className="dropdown-arrow"
-                onClick={() => sortDataAscDesc(label.DESC, attributeName)}
-              />
-            </button>
+            <Tooltip title={label.SORT_ASC}>
+              <button className="sort-btn">
+                <ArrowUpwardTwoToneIcon
+                  className="dropdown-arrow"
+                  onClick={() => sortDataAscDesc(label.ASC, attributeName)}
+                />
+              </button>
+            </Tooltip>
+            <Tooltip title={label.SORT_ASC}>
+              <button className="sort-btn">
+                <ArrowDownwardTwoToneIcon
+                  className="dropdown-arrow"
+                  onClick={() => sortDataAscDesc(label.DESC, attributeName)}
+                />
+              </button>
+            </Tooltip>
           </MenuItem>
         </>
       );

@@ -3,7 +3,7 @@
 .btn-exportcsv {
   text-decoration: none;
   cursor: pointer;
-  z-index: 999;
+  z-index: 1100;
   padding: $size7;
   padding: auto;
   background: var(--drawerToggleIconBackground);
@@ -11,6 +11,7 @@
   border-radius: $size5;
   position: absolute;
   right: 80px;
+  top: 13px;
   svg {
     color: var(--iconColour);
     height: 22px;
@@ -19,4 +20,8 @@
     text-decoration: none;
     color: inherit;
   }
+}
+.btn-exportcsv:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
 }
