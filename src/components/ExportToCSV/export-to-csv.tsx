@@ -105,6 +105,10 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       setSortedDataState([...sortedDataState, ...sortedData]);
     }
 
+    if (rows.length === 0) {
+      CSV_LINK_REF?.current?.link.click();
+    }
+
     setClickRef(true);
   };
 
