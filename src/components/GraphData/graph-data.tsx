@@ -58,7 +58,6 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   } else {
     theme = label.DARK_THEME_LABEL;
   }
-  console.log(parsed);
 
   React.useEffect(() => {
     if (parsed.uri && parsed.e) {
