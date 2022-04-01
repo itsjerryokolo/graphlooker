@@ -83,7 +83,7 @@ export default class Utility {
       let addressFound = '';
       // eslint-disable-next-line array-callback-return
       splitNumber.map((el: string) => {
-        if (ethers.utils.isAddress(el)) {
+        if (ethers.utils.isAddress(el) || Boolean(regex.TXHASH_REGEX.test(el))) {
           addressFound = el;
         }
       });
@@ -186,8 +186,9 @@ export default class Utility {
       return true;
     } else if (columnName === columnLabels.ID) {
       let splitNumber = row[`${columnName}`].split('-');
-      let num = splitNumber[0].toString();
-      if (regex.CHECK_NUMBER_REGEX.test(num)) {
+      let num1 = splitNumber[0]?.toString();
+      let num2 = splitNumber[1]?.toString();
+      if (regex.CHECK_NUMBER_REGEX.test(num1) && regex.CHECK_NUMBER_REGEX.test(num2)) {
         return false;
       } else {
         return true;

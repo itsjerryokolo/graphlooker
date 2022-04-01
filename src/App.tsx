@@ -32,6 +32,9 @@ const App: React.FunctionComponent<RouteComponentProps<any>> = ({ location }) =>
               path="/explore"
               render={(props: RouteComponentProps<any>) => <GraphData></GraphData>}
             ></Route>
+            <Route path="*">
+              <Home />
+            </Route>
           </Switch>
         </div>
       </ApolloProvider>
