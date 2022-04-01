@@ -186,12 +186,18 @@ export default class Utility {
       return true;
     } else if (columnName === columnLabels.ID) {
       let splitNumber = row[`${columnName}`].split('-');
-      let num1 = splitNumber[0]?.toString();
-      let num2 = splitNumber[1]?.toString();
-      if (regex.CHECK_NUMBER_REGEX.test(num1) && regex.CHECK_NUMBER_REGEX.test(num2)) {
-        return false;
-      } else {
-        return true;
+
+      for (let i = 0; i < splitNumber.length; i++) {
+        for (let j = 1; j <= splitNumber.length; j++) {
+          if (
+            regex.CHECK_NUMBER_REGEX.test(splitNumber[i]) &&
+            regex.CHECK_NUMBER_REGEX.test(splitNumber[j])
+          ) {
+            return false;
+          } else {
+            return true;
+          }
+        }
       }
     } else if (ethers.utils.isAddress(row[`${columnName}`])) {
       return true;
