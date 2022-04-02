@@ -83,7 +83,7 @@ export default class Utility {
       let addressFound = '';
       // eslint-disable-next-line array-callback-return
       splitNumber.map((el: string) => {
-        if (ethers.utils.isAddress(el)) {
+        if (ethers.utils.isAddress(el) || Boolean(regex.TXHASH_REGEX.test(el))) {
           addressFound = el;
         }
       });
@@ -186,11 +186,11 @@ export default class Utility {
       return true;
     } else if (columnName === columnLabels.ID) {
       let splitNumber = row[`${columnName}`].split('-');
-      let num = splitNumber[0].toString();
-      if (regex.CHECK_NUMBER_REGEX.test(num)) {
-        return false;
-      } else {
-        return true;
+
+      for (let i = 0; i < splitNumber.length; i++) {
+        if (!regex.CHECK_NUMBER_REGEX.test(splitNumber[i])) {
+          return true;
+        }
       }
     } else if (ethers.utils.isAddress(row[`${columnName}`])) {
       return true;
