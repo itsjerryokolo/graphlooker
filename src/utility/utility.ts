@@ -188,15 +188,8 @@ export default class Utility {
       let splitNumber = row[`${columnName}`].split('-');
 
       for (let i = 0; i < splitNumber.length; i++) {
-        for (let j = 1; j <= splitNumber.length; j++) {
-          if (
-            regex.CHECK_NUMBER_REGEX.test(splitNumber[i]) &&
-            regex.CHECK_NUMBER_REGEX.test(splitNumber[j])
-          ) {
-            return false;
-          } else {
-            return true;
-          }
+        if (!regex.CHECK_NUMBER_REGEX.test(splitNumber[i])) {
+          return true;
         }
       }
     } else if (ethers.utils.isAddress(row[`${columnName}`])) {
