@@ -153,7 +153,6 @@ export const getStringFilterGraphData = (
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
   let columnNameWithFilter = attributeName.concat(filterOption);
-  let orderByColumnName = 'id';
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
     if (element.name === 'id') {
@@ -170,30 +169,28 @@ export const getStringFilterGraphData = (
     }
   }
 
-  console.log(filterOption, userInputValue, sortType);
-
   if (sortType === 'undefined') {
     sortType = 'desc';
   }
-  // orderByColumnName = Utility.getColumnNameForOptimizeQuery(columnNames);
 
-  if (userInputValue === 'undefined' && filterOption === 'undefined') {
+  if (userInputValue.includes(',')) {
+    let splitInputValues = userInputValue.split(',');
     return gql`
       query {
-        entity: ${selectedEntity}(first:100, skip:${skip}, orderBy: ${attributeName}, orderDirection: ${sortType} ){
+        entity: ${selectedEntity}(first:100, skip:${skip},orderBy:${attributeName}, orderDirection: ${sortType},where: {${attributeName}_gte :${splitInputValues[0]}, ${attributeName}_lte :${splitInputValues[1]} }){
           id      
           ${queryData}
           }
       }
       `;
+  }
+  if (userInputValue === '' || userInputValue === 'null') {
+    userInputValue = 'null';
   } else {
-    if (userInputValue === '') {
-      userInputValue = 'null';
-    } else {
-      userInputValue = '"' + userInputValue + '"';
-    }
+    userInputValue = '"' + userInputValue + '"';
+  }
 
-    return gql`
+  return gql`
       query {
         entity: ${selectedEntity}(first:100, skip:${skip},orderBy:${attributeName}, orderDirection: ${sortType},where: {${columnNameWithFilter} :${userInputValue}}){
           id      
@@ -201,11 +198,9 @@ export const getStringFilterGraphData = (
           }
       }
       `;
-  }
 };
 
 // Query based on last ID (export to csv)
-
 export const getCsvDataQuery = (
   columnNames: { name: string; type: string; typeName: string }[],
   queryData: string,

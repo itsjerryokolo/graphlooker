@@ -39,6 +39,7 @@ export default class Constants {
       DESC: 'desc',
       IS: 'Is',
       EMPTY: '',
+      NOT_EMPTY: '_not',
       UPDATE_FILTER: 'Update filter',
       SEARCH_BY_USER: 'Search by User',
       SEARCH_BY_NUMBER: 'Search by Number',
@@ -107,11 +108,11 @@ export default class Constants {
       { menuItem: 'Years' },
     ],
     currentFilter: [
-      { menuItem: 'Days' },
-      { menuItem: 'Weeks' },
-      { menuItem: 'Months' },
-      { menuItem: 'Quarters' },
-      { menuItem: 'Years' },
+      { menuItem: 'Day' },
+      { menuItem: 'Week' },
+      { menuItem: 'Month' },
+      { menuItem: 'Quarter' },
+      { menuItem: 'Year' },
     ],
   };
 
