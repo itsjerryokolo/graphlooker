@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Route, Switch, RouteComponentProps, withRouter, Redirect } from 'react-router-dom';
 import Home from './components/Home/home';
 import './App.css';
 import { useSelector } from 'react-redux';
@@ -33,7 +33,7 @@ const App: React.FunctionComponent<RouteComponentProps<any>> = ({ location }) =>
               render={(props: RouteComponentProps<any>) => <GraphData></GraphData>}
             ></Route>
             <Route path="*">
-              <Home />
+              <Redirect to="/" />
             </Route>
           </Switch>
         </div>
