@@ -167,7 +167,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                   />
                 </Tooltip>
               ) : (
-                <Tooltip title={label.COLLAPSE}>
+                <Tooltip title={label.EXPAND}>
                   <KeyboardDoubleArrowRightIcon
                     className="toggle-drawer-icon"
                     onClick={handleToggleDrawer}
