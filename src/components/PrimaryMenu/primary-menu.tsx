@@ -66,7 +66,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
                 />
               </button>
             </Tooltip>
-            <Tooltip title={label.SORT_ASC}>
+            <Tooltip title={label.SORT_DESC}>
               <button className="sort-btn">
                 <ArrowDownwardTwoToneIcon
                   className="dropdown-arrow"

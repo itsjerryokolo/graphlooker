@@ -29,6 +29,7 @@ import { setDataLoading } from '../../redux/actions/loading-action';
 import Utility from '../../utility/utility';
 import ErrorMessage from '../ErrorMessage/error-message';
 import ExportButton from '../ExportToCSV/ExportButton';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteComponentProps<any>> = ({
   drawerOpen,
@@ -208,16 +209,33 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                           : 'table-head-cell'
                       }`}
                     >
-                      <Button
-                        onClick={handleOpenMenu}
-                        onMouseOver={() => setAttributeDetails(item.name, item.type, item.typeName)}
-                        aria-controls="menu"
-                        endIcon={<KeyboardArrowDown />}
-                        variant="outlined"
-                        className="table-column-btn"
-                      >
-                        {` ${humanizeString(item.name)}`}
-                      </Button>
+                      <div className="attribute-columns-cell">
+                        <Button
+                          onClick={handleOpenMenu}
+                          onMouseOver={() =>
+                            setAttributeDetails(item.name, item.type, item.typeName)
+                          }
+                          aria-controls="menu"
+                          endIcon={<KeyboardArrowDown />}
+                          variant="outlined"
+                          className="table-column-btn"
+                        >
+                          {item.type === dataTypeLabel.OBJECT
+                            ? `${humanizeString(item.name)} Id`
+                            : `${humanizeString(item.name)}`}
+                          {item.type === dataTypeLabel.OBJECT ? (
+                            <Tooltip
+                              title={
+                                <>
+                                  {label.ENTITY_REFERENCE} <b> {item.name.toUpperCase()}</b>
+                                </>
+                              }
+                            >
+                              <InfoOutlinedIcon />
+                            </Tooltip>
+                          ) : null}
+                        </Button>
+                      </div>
                     </TableCell>
                   ))}
               </TableRow>

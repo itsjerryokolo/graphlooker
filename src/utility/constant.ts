@@ -54,11 +54,13 @@ export default class Constants {
       INCLUDE_TODAY: 'Include today',
       TIME_FORMAT: 'MMMM D, YYYY, h:mmA',
       COLLAPSE: 'Collapse',
+      EXPAND: 'Expand',
       SWITCH_THEME: 'Switch Theme',
       DOWNLOAD: 'Download to CSV',
       SORT_ASC: 'Sort Ascending',
       SORT_DESC: 'Sort Descending',
       DESC_TITLE: 'Browse subgraph data, export data to CSV, sort, filter and share with everyone',
+      ENTITY_REFERENCE: 'This column is a reference of',
     },
     commonUrls: {
       BASE_URL:

@@ -21,7 +21,6 @@ import queryString from 'query-string';
 import { setGraphEntity, setGraphEndpoint } from '../../redux/actions/endpoint-action';
 import DataBoard from '../DataBoard/data-board';
 import Constants from '../../utility/constant';
-import ExportButton from '../ExportToCSV/ExportButton';
 import Loader from '../Loader/loader';
 import { Tooltip } from '@mui/material';
 import ErrorMessage from '../ErrorMessage/error-message';
@@ -168,7 +167,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                   />
                 </Tooltip>
               ) : (
-                <Tooltip title={label.COLLAPSE}>
+                <Tooltip title={label.EXPAND}>
                   <KeyboardDoubleArrowRightIcon
                     className="toggle-drawer-icon"
                     onClick={handleToggleDrawer}
