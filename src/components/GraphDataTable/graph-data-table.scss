@@ -53,6 +53,10 @@
         }
       }
     }
+    .attribute-columns-cell {
+      display: flex;
+      align-items: center;
+    }
     .no-record-found {
       display: block;
       width: 228px;
