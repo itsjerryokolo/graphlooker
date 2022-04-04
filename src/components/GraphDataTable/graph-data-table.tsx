@@ -216,18 +216,18 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                           {item.type === dataTypeLabel.OBJECT
                             ? `${humanizeString(item.name)} Id`
                             : `${humanizeString(item.name)}`}
+                          {item.type === dataTypeLabel.OBJECT ? (
+                            <Tooltip
+                              title={
+                                <>
+                                  {label.ENTITY_REFERENCE} <b> {item.name.toUpperCase()}</b>
+                                </>
+                              }
+                            >
+                              <InfoOutlinedIcon />
+                            </Tooltip>
+                          ) : null}
                         </Button>
-                        {item.type === dataTypeLabel.OBJECT ? (
-                          <Tooltip
-                            title={
-                              <>
-                                {label.ENTITY_REFERENCE} <b> {item.name}</b>
-                              </>
-                            }
-                          >
-                            <InfoOutlinedIcon />
-                          </Tooltip>
-                        ) : null}
                       </div>
                     </TableCell>
                   ))}
