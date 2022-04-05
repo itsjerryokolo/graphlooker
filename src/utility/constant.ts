@@ -117,12 +117,11 @@ export default class Constants {
   public static TIMESTAMP_MENU = {
     timestampFilter: [
       { menuItem: 'Previous' },
-      { menuItem: 'Next' },
       { menuItem: 'Current' },
       { menuItem: 'Before' },
       { menuItem: 'After' },
       { menuItem: 'On' },
-      { menuItem: 'Between' },
+      // { menuItem: 'Between' },
       { menuItem: 'Is Empty' },
       { menuItem: 'Not Empty' },
     ],
