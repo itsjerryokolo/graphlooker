@@ -134,14 +134,14 @@ export default class Utility {
   };
 
   public static getTimestampColumns = (columnName: string) => {
-    let matchFound = false;
+    let isColumnExist = false;
     // eslint-disable-next-line array-callback-return
     timestampColumnNames.map((items: string) => {
       if (items === columnName) {
-        matchFound = true;
+        isColumnExist = true;
       }
     });
-    return matchFound;
+    return isColumnExist;
   };
 
   public static getProperEntity = (entity: string) => {

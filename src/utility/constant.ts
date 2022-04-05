@@ -76,14 +76,17 @@ export default class Constants {
       INCLUDE_TODAY: 'Include today',
       TIME_FORMAT: 'MMMM D, YYYY, h:mmA',
       COLLAPSE: 'Collapse',
+      EXPAND: 'Expand',
       SWITCH_THEME: 'Switch Theme',
       DOWNLOAD: 'Download to CSV',
       SORT_ASC: 'Sort Ascending',
       SORT_DESC: 'Sort Descending',
       DESC_TITLE: 'Browse subgraph data, export data to CSV, sort, filter and share with everyone',
+      ENTITY_REFERENCE: 'This column is a reference of',
       NULL: 'null',
       DOUBLE_QUOTES: '"',
       ID: 'id',
+      UNDEFINED: 'undefined',
     },
     commonUrls: {
       BASE_URL:
@@ -114,12 +117,11 @@ export default class Constants {
   public static TIMESTAMP_MENU = {
     timestampFilter: [
       { menuItem: 'Previous' },
-      { menuItem: 'Next' },
       { menuItem: 'Current' },
       { menuItem: 'Before' },
       { menuItem: 'After' },
       { menuItem: 'On' },
-      { menuItem: 'Between' },
+      // { menuItem: 'Between' },
       { menuItem: 'Is Empty' },
       { menuItem: 'Not Empty' },
     ],

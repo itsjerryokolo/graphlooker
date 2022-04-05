@@ -92,7 +92,7 @@ export const getGraphDataForID = (
       element.type === label.OBJECT ||
       element.type === label.NON_NULL
     ) {
-      queryData = queryData + `${element.name} { id } `;
+      queryData = queryData + `${element.name} { ${commonLables.ID} } `;
     } else {
       queryData = queryData + `${element.name} `;
     }
@@ -167,13 +167,13 @@ export const getStringFilterGraphData = (
       element.type === label.OBJECT ||
       element.type === label.NON_NULL
     ) {
-      queryData = queryData + `${element.name} { id } `;
+      queryData = queryData + `${element.name} { ${commonLables.ID} } `;
     } else {
       queryData = queryData + `${element.name} `;
     }
   }
 
-  if (sortType === 'undefined') {
+  if (sortType === commonLables.UNDEFINED) {
     sortType = commonLables.DESC;
   }
 
@@ -235,12 +235,12 @@ export const getCsvDataQuery = (
 
 export const getSortedCsvDataQuery = (
   queryData: string,
-  entity: any,
+  entity: string,
   sortType: string,
   attributeName: string,
   skip: number,
   count: number,
-  whereId: any
+  whereId: string
 ) => {
   const selectedEntity = Utility.makePluralChanges(entity);
 
