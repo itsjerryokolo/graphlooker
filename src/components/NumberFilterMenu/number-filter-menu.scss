@@ -1,5 +1,6 @@
+@import '../../utility/theme/variable.scss';
 .number-select-options {
-  width: 350px;
+  width: 100%;
   height: 40px;
 }
 .number-textfield {
@@ -7,4 +8,10 @@
 }
 .update-filter-btn {
   margin-left: 200px;
+}
+.between-filter-inputfield {
+  width: 50%;
+}
+h3 {
+  padding: 0 $size4 0 $size4;
 }

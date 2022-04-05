@@ -4,6 +4,7 @@ import Utility from '../utility';
 
 const label = Constants.FILTERLABELS.dataTypeLabels;
 const commonLables = Constants.LABELS.commonLables;
+const regex = Constants.REGEX;
 
 export const getAllEntities = gql`
   query {
@@ -153,6 +154,9 @@ export const getStringFilterGraphData = (
 ) => {
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
+  if (filterOption === commonLables.UNDERSCORE_IS) {
+    filterOption = commonLables.EMPTY;
+  }
   let columnNameWithFilter = attributeName.concat(filterOption);
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
@@ -186,10 +190,9 @@ export const getStringFilterGraphData = (
       `;
   }
 
-  let checkItsNumber = /^\d*(\.\d+)?$/;
   if (userInputValue === commonLables.EMPTY || userInputValue === commonLables.NULL) {
     userInputValue = commonLables.NULL;
-  } else if (checkItsNumber.test(userInputValue)) {
+  } else if (regex.CHECK_NUMBER_REGEX.test(userInputValue)) {
     userInputValue = Number(userInputValue);
   } else {
     userInputValue = commonLables.DOUBLE_QUOTES + userInputValue + commonLables.DOUBLE_QUOTES;

@@ -63,7 +63,7 @@ export default class Timestamp {
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&f=_gt&i=${generatedUnixTime}&c=${columnName}`;
   };
 
-  public static OnFilter = (
+  public static onFilter = (
     date: Date,
     endpoint: string,
     selectedEntity: string,
@@ -91,5 +91,23 @@ export default class Timestamp {
     const URI = encodeURIComponent(endpoint);
     const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&f=${appliedFilter}&i=null&c=${columnName}`;
+  };
+
+  public static betweenFilter = (
+    date: any,
+    endpoint: string,
+    selectedEntity: string,
+    theme: string,
+    columnName: string
+  ) => {
+    let generatedUnixTime: string[] = [];
+    let firstUnixTime = moment(date[0]).startOf('day').unix();
+    generatedUnixTime.push(String(firstUnixTime));
+    let secondUnixTime = moment(date[1]).endOf('day').unix();
+    generatedUnixTime.push(String(secondUnixTime));
+
+    const URI = encodeURIComponent(endpoint);
+    const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&f=_gte,_lte&i=${generatedUnixTime}&c=${columnName}`;
   };
 }
