@@ -1,5 +1,12 @@
 @import '../../utility/theme/variable.scss';
-.first-time-select {
+.calendar-menu {
+  display: flex;
+  flex-direction: column;
+  .first-select-menu {
+    width: 100%;
+  }
+}
+.first-select-menu {
   width: 120px;
   height: 40px;
   &:focus {
@@ -11,18 +18,24 @@
 .time-inputfield {
   width: 40px;
   padding: $size10;
-  margin: 0 $size10 0 $size10;
-  border: $size10;
+  margin-left: $size10;
+  border: 1px solid black;
 }
-.second-time-select {
+.second-select-menu {
   width: 120px;
   height: 40px;
+  margin-left: $size10;
   &:focus {
     border-radius: $size4;
     border-color: #80bdff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
   }
 }
-.update-btn {
-  margin-left: 60px;
+.calendar {
+  padding-top: $size20;
+}
+
+li.MuiMenuItem-root.MuiMenuItem-gutters.MuiButtonBase-root.end-menu-item.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+  display: flex;
+  justify-content: flex-end;
 }

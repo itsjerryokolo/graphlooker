@@ -3,6 +3,7 @@ import Constants from '../constant';
 import Utility from '../utility';
 
 const label = Constants.FILTERLABELS.dataTypeLabels;
+const commonLables = Constants.LABELS.commonLables;
 
 export const getAllEntities = gql`
   query {
@@ -44,10 +45,10 @@ export const getGraphData = (
 ) => {
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
-  let orderByColumnName = 'id';
+  let orderByColumnName = commonLables.ID;
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
-    if (element.name === 'id') {
+    if (element.name === commonLables.ID) {
       continue;
     }
     if (
@@ -55,7 +56,7 @@ export const getGraphData = (
       element.type === label.OBJECT ||
       element.type === label.NON_NULL
     ) {
-      queryData = queryData + `${element.name} { id } `;
+      queryData = queryData + `${element.name} { ${commonLables.ID} } `;
     } else {
       queryData = queryData + `${element.name} `;
     }
@@ -82,7 +83,7 @@ export const getGraphDataForID = (
   const selectedEntity = Utility.makePluralChanges(entity);
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
-    if (element.name === 'id') {
+    if (element.name === commonLables.ID) {
       continue;
     }
     if (
@@ -90,7 +91,7 @@ export const getGraphDataForID = (
       element.type === label.OBJECT ||
       element.type === label.NON_NULL
     ) {
-      queryData = queryData + `${element.name} { id } `;
+      queryData = queryData + `${element.name} { ${commonLables.ID} } `;
     } else {
       queryData = queryData + `${element.name} `;
     }
@@ -117,7 +118,7 @@ export const getSortedGraphData = (
   const selectedEntity = Utility.makePluralChanges(entity);
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
-    if (element.name === 'id') {
+    if (element.name === commonLables.ID) {
       continue;
     }
     if (
@@ -125,7 +126,7 @@ export const getSortedGraphData = (
       element.type === label.OBJECT ||
       element.type === label.NON_NULL
     ) {
-      queryData = queryData + `${element.name} { id } `;
+      queryData = queryData + `${element.name} { ${commonLables.ID} } `;
     } else {
       queryData = queryData + `${element.name} `;
     }
@@ -146,16 +147,16 @@ export const getStringFilterGraphData = (
   entity: string,
   filterOption: string,
   attributeName: string,
-  userInputValue: string,
-  skip: number
+  userInputValue: any,
+  skip: number,
+  sortType: string
 ) => {
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
-  attributeName = attributeName.concat(filterOption);
-  let orderByColumnName = 'id';
+  let columnNameWithFilter = attributeName.concat(filterOption);
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
-    if (element.name === 'id') {
+    if (element.name === commonLables.ID) {
       continue;
     }
     if (
@@ -163,23 +164,40 @@ export const getStringFilterGraphData = (
       element.type === label.OBJECT ||
       element.type === label.NON_NULL
     ) {
-      queryData = queryData + `${element.name} { id } `;
+      queryData = queryData + `${element.name} { ${commonLables.ID} } `;
     } else {
       queryData = queryData + `${element.name} `;
     }
   }
 
-  if (userInputValue === '') {
-    userInputValue = 'null';
-  } else {
-    userInputValue = '"' + userInputValue + '"';
+  if (sortType === commonLables.UNDEFINED) {
+    sortType = commonLables.DESC;
   }
 
-  orderByColumnName = Utility.getColumnNameForOptimizeQuery(columnNames);
+  if (userInputValue.includes(',')) {
+    let splitInputValues = userInputValue.split(',');
+    return gql`
+      query {
+        entity: ${selectedEntity}(first:100, skip:${skip},orderBy:${attributeName}, orderDirection: ${sortType},where: {${attributeName}_gte :${splitInputValues[0]}, ${attributeName}_lte :${splitInputValues[1]} }){
+          id      
+          ${queryData}
+          }
+      }
+      `;
+  }
+
+  let checkItsNumber = /^\d*(\.\d+)?$/;
+  if (userInputValue === commonLables.EMPTY || userInputValue === commonLables.NULL) {
+    userInputValue = commonLables.NULL;
+  } else if (checkItsNumber.test(userInputValue)) {
+    userInputValue = Number(userInputValue);
+  } else {
+    userInputValue = commonLables.DOUBLE_QUOTES + userInputValue + commonLables.DOUBLE_QUOTES;
+  }
 
   return gql`
       query {
-        entity: ${selectedEntity}(first:100, skip:${skip},orderBy:${orderByColumnName}, orderDirection: desc,where: {${attributeName} :${userInputValue}}){
+        entity: ${selectedEntity}(first:100, skip:${skip},orderBy:${attributeName}, orderDirection: ${sortType},where: {${columnNameWithFilter} :${userInputValue}}){
           id      
           ${queryData}
           }
@@ -188,7 +206,6 @@ export const getStringFilterGraphData = (
 };
 
 // Query based on last ID (export to csv)
-
 export const getCsvDataQuery = (
   columnNames: { name: string; type: string; typeName: string }[],
   queryData: string,
