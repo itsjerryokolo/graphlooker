@@ -82,14 +82,11 @@ export default class Constants {
       SORT_ASC: 'Sort Ascending',
       SORT_DESC: 'Sort Descending',
       DESC_TITLE: 'Browse subgraph data, export data to CSV, sort, filter and share with everyone',
-<<<<<<< HEAD
       ENTITY_REFERENCE: 'This column is a reference of',
-=======
       NULL: 'null',
       DOUBLE_QUOTES: '"',
       ID: 'id',
       UNDEFINED: 'undefined',
->>>>>>> e6df26eb1aab78cd8c87e08db64051873ceb18de
     },
     commonUrls: {
       BASE_URL:
