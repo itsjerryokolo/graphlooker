@@ -84,6 +84,7 @@ export default class Constants {
       NULL: 'null',
       DOUBLE_QUOTES: '"',
       ID: 'id',
+      UNDEFINED: 'undefined',
     },
     commonUrls: {
       BASE_URL:

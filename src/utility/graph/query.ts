@@ -56,7 +56,7 @@ export const getGraphData = (
       element.type === label.OBJECT ||
       element.type === label.NON_NULL
     ) {
-      queryData = queryData + `${element.name} { id } `;
+      queryData = queryData + `${element.name} { ${commonLables.ID} } `;
     } else {
       queryData = queryData + `${element.name} `;
     }
@@ -91,7 +91,7 @@ export const getGraphDataForID = (
       element.type === label.OBJECT ||
       element.type === label.NON_NULL
     ) {
-      queryData = queryData + `${element.name} { id } `;
+      queryData = queryData + `${element.name} { ${commonLables.ID} } `;
     } else {
       queryData = queryData + `${element.name} `;
     }
@@ -126,7 +126,7 @@ export const getSortedGraphData = (
       element.type === label.OBJECT ||
       element.type === label.NON_NULL
     ) {
-      queryData = queryData + `${element.name} { id } `;
+      queryData = queryData + `${element.name} { ${commonLables.ID} } `;
     } else {
       queryData = queryData + `${element.name} `;
     }
@@ -164,13 +164,13 @@ export const getStringFilterGraphData = (
       element.type === label.OBJECT ||
       element.type === label.NON_NULL
     ) {
-      queryData = queryData + `${element.name} { id } `;
+      queryData = queryData + `${element.name} { ${commonLables.ID} } `;
     } else {
       queryData = queryData + `${element.name} `;
     }
   }
 
-  if (sortType === 'undefined') {
+  if (sortType === commonLables.UNDEFINED) {
     sortType = commonLables.DESC;
   }
 

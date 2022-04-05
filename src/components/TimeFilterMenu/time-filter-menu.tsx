@@ -70,39 +70,49 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
   };
 
   const renderUpdateButtonFunctions = () => {
-    if (selectMenu === timeFilterMenu.PREVIOUS) {
-      return Timestamp.perviousFilter(
-        inputValues,
-        timeMenu,
-        endpoint,
-        selectedEntity,
-        theme,
-        attributeName
-      );
-    } else if (selectMenu === timeFilterMenu.CURRENT) {
-      return Timestamp.currentFilter(currentMenu, endpoint, selectedEntity, theme, attributeName);
-    } else if (selectMenu === timeFilterMenu.BEFORE) {
-      return Timestamp.beforeFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
-    } else if (selectMenu === timeFilterMenu.AFTER) {
-      return Timestamp.afterFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
-    } else if (selectMenu === timeFilterMenu.ON) {
-      return Timestamp.OnFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
-    } else if (selectMenu === timeFilterMenu.IS_EMPTY) {
-      return Timestamp.isEmptyNotEmptyFilter(
-        label.EMPTY,
-        endpoint,
-        selectedEntity,
-        theme,
-        attributeName
-      );
-    } else if (selectMenu === timeFilterMenu.NOT_EMPTY) {
-      return Timestamp.isEmptyNotEmptyFilter(
-        label.NOT_EMPTY,
-        endpoint,
-        selectedEntity,
-        theme,
-        attributeName
-      );
+    switch (selectMenu) {
+      case timeFilterMenu.PREVIOUS:
+        Timestamp.perviousFilter(
+          inputValues,
+          timeMenu,
+          endpoint,
+          selectedEntity,
+          theme,
+          attributeName
+        );
+        break;
+      case timeFilterMenu.CURRENT:
+        Timestamp.currentFilter(currentMenu, endpoint, selectedEntity, theme, attributeName);
+        break;
+      case timeFilterMenu.BEFORE:
+        Timestamp.beforeFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
+        break;
+      case timeFilterMenu.AFTER:
+        Timestamp.afterFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
+        break;
+      case timeFilterMenu.ON:
+        Timestamp.OnFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
+        break;
+      case timeFilterMenu.IS_EMPTY:
+        Timestamp.isEmptyNotEmptyFilter(
+          label.EMPTY,
+          endpoint,
+          selectedEntity,
+          theme,
+          attributeName
+        );
+        break;
+      case timeFilterMenu.NOT_EMPTY:
+        Timestamp.isEmptyNotEmptyFilter(
+          label.EMPTY,
+          endpoint,
+          selectedEntity,
+          theme,
+          attributeName
+        );
+        break;
+      default:
+        break;
     }
   };
 
