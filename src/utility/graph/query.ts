@@ -3,6 +3,7 @@ import Constants from '../constant';
 import Utility from '../utility';
 
 const label = Constants.FILTERLABELS.dataTypeLabels;
+const commonLables = Constants.LABELS.commonLables;
 
 export const getAllEntities = gql`
   query {
@@ -44,10 +45,10 @@ export const getGraphData = (
 ) => {
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
-  let orderByColumnName = 'id';
+  let orderByColumnName = commonLables.ID;
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
-    if (element.name === 'id') {
+    if (element.name === commonLables.ID) {
       continue;
     }
     if (
@@ -82,7 +83,7 @@ export const getGraphDataForID = (
   const selectedEntity = Utility.makePluralChanges(entity);
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
-    if (element.name === 'id') {
+    if (element.name === commonLables.ID) {
       continue;
     }
     if (
@@ -117,7 +118,7 @@ export const getSortedGraphData = (
   const selectedEntity = Utility.makePluralChanges(entity);
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
-    if (element.name === 'id') {
+    if (element.name === commonLables.ID) {
       continue;
     }
     if (
@@ -146,7 +147,7 @@ export const getStringFilterGraphData = (
   entity: string,
   filterOption: string,
   attributeName: string,
-  userInputValue: string,
+  userInputValue: any,
   skip: number,
   sortType: string
 ) => {
@@ -155,7 +156,7 @@ export const getStringFilterGraphData = (
   let columnNameWithFilter = attributeName.concat(filterOption);
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
-    if (element.name === 'id') {
+    if (element.name === commonLables.ID) {
       continue;
     }
     if (
@@ -170,7 +171,7 @@ export const getStringFilterGraphData = (
   }
 
   if (sortType === 'undefined') {
-    sortType = 'desc';
+    sortType = commonLables.DESC;
   }
 
   if (userInputValue.includes(',')) {
@@ -184,10 +185,14 @@ export const getStringFilterGraphData = (
       }
       `;
   }
-  if (userInputValue === '' || userInputValue === 'null') {
-    userInputValue = 'null';
+
+  let checkItsNumber = /^\d*(\.\d+)?$/;
+  if (userInputValue === commonLables.EMPTY || userInputValue === commonLables.NULL) {
+    userInputValue = commonLables.NULL;
+  } else if (checkItsNumber.test(userInputValue)) {
+    userInputValue = Number(userInputValue);
   } else {
-    userInputValue = '"' + userInputValue + '"';
+    userInputValue = commonLables.DOUBLE_QUOTES + userInputValue + commonLables.DOUBLE_QUOTES;
   }
 
   return gql`

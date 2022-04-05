@@ -51,14 +51,14 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
 
   const getBoardDataAsQuery = () => {
-    if (parsed.id !== undefined) {
+    if (parsed.id) {
       return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
     }
-    if (parsed.f === undefined && parsed.i === undefined && parsed.s !== undefined) {
+    if (!parsed.f && !parsed.i && parsed.s) {
       const skip = checkForPagination();
       return getSortedGraphData(allAttributes, selectedEntity, `${parsed.s}`, `${parsed.c}`, skip);
     }
-    if (parsed.c !== undefined) {
+    if (parsed.c) {
       const skip = checkForPagination();
       return getStringFilterGraphData(
         allAttributes,
@@ -70,7 +70,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         `${parsed.s}`
       );
     }
-    if (parsed.p !== undefined) {
+    if (parsed.p) {
       const paginateNumber: string = `${parsed.p}`;
       pageNumber = parseInt(paginateNumber);
       if (pageNumber > 1) {
@@ -87,7 +87,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   }, []);
 
   const checkForPagination = () => {
-    if (parsed.p !== undefined) {
+    if (parsed.p) {
       const paginateNumber: string = `${parsed.p}`;
       pageNumber = parseInt(paginateNumber);
     } else {
@@ -102,13 +102,13 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const goToNext = () => {
     if (isNextDisable) return;
     const URI = encodeURIComponent(endpoint);
-    if (parsed.f === undefined && parsed.i === undefined && parsed.s !== undefined) {
+    if (!parsed.f && !parsed.i && parsed.s) {
       return (window.location.href = `${
         urlLabels.BASE_URL
       }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&c=${parsed.c}&p=${pageNumber + 1}`);
     }
-    if (parsed.c !== undefined) {
-      if (parsed.s === undefined) {
+    if (parsed.c) {
+      if (!parsed.s) {
         parsed.s = label.DESC;
       }
       return (window.location.href = `${
@@ -124,13 +124,13 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const goToPrev = () => {
     if (isPrevDisable) return;
     const URI = encodeURIComponent(endpoint);
-    if (parsed.f === undefined && parsed.i === undefined && parsed.s !== undefined) {
+    if (!parsed.f && !parsed.i && parsed.s) {
       return (window.location.href = `${
         urlLabels.BASE_URL
       }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&c=${parsed.c}&p=${pageNumber - 1}`);
     }
-    if (parsed.c !== undefined) {
-      if (parsed.s === undefined) {
+    if (parsed.c) {
+      if (!parsed.s) {
         parsed.s = label.DESC;
       }
       return (window.location.href = `${
@@ -154,7 +154,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   if (data) {
     let queryData: any[];
     queryData = data['entity'];
-    if (queryData !== undefined) {
+    if (queryData) {
       rows = [...queryData];
       if (rows.length < 100) {
         isNextDisable = true;

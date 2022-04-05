@@ -9,6 +9,7 @@ const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
 const entityArray = Constants.FILTERLABELS.checkProperEntityName;
 const regex = Constants.REGEX;
 const columnLabels = Constants.FILTERLABELS.columnNameLabels;
+const timestampColumnNames = Constants.FILTERLABELS.timestampColumnNames;
 
 export default class Utility {
   public static getColumnNameForOptimizeQuery = (columnNames: any) => {
@@ -133,21 +134,14 @@ export default class Utility {
   };
 
   public static getTimestampColumns = (columnName: string) => {
-    if (columnName.includes('date')) {
-      return true;
-    } else if (columnName.includes('timestamp')) {
-      return true;
-    } else if (columnName.includes('createdAtTimestamp')) {
-      return true;
-    } else if (columnName.includes('updatedAtTimestamp')) {
-      return true;
-    } else if (columnName.includes('hourStartUnix')) {
-      return true;
-    } else if (columnName.includes('createTime')) {
-      return true;
-    } else if (columnName === 'createdAt') {
-      return true;
-    }
+    let matchFound = false;
+    // eslint-disable-next-line array-callback-return
+    timestampColumnNames.map((items: string) => {
+      if (items === columnName) {
+        matchFound = true;
+      }
+    });
+    return matchFound;
   };
 
   public static getProperEntity = (entity: string) => {
