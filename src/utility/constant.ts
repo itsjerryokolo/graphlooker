@@ -29,6 +29,28 @@ export default class Constants {
       DAYS: 'Days',
     },
     checkProperEntityName: ['Nft', 'Ens'],
+    timestampFilters: {
+      PREVIOUS: 'Previous',
+      CURRENT: 'Current',
+      BEFORE: 'Before',
+      AFTER: 'After',
+      ON: 'On',
+      BETWEEN: 'Between',
+      IS_EMPTY: 'Is Empty',
+      NOT_EMPTY: 'Not Empty',
+      DAYS: 'Days',
+      DAY: 'Day',
+    },
+    timestampColumnNames: [
+      'date',
+      'timestamp',
+      'createdAtTimestamp',
+      'updatdeAtTimestamp',
+      'createdAt',
+      'hourStartUnix',
+      'createTime',
+      'blockTime',
+    ],
   };
 
   public static LABELS = {
@@ -39,6 +61,7 @@ export default class Constants {
       DESC: 'desc',
       IS: 'Is',
       EMPTY: '',
+      NOT_EMPTY: '_not',
       UPDATE_FILTER: 'Update filter',
       SEARCH_BY_USER: 'Search by User',
       SEARCH_BY_NUMBER: 'Search by Number',
@@ -60,6 +83,10 @@ export default class Constants {
       SORT_DESC: 'Sort Descending',
       DESC_TITLE: 'Browse subgraph data, export data to CSV, sort, filter and share with everyone',
       ENTITY_REFERENCE: 'This column is a reference of',
+      NULL: 'null',
+      DOUBLE_QUOTES: '"',
+      ID: 'id',
+      UNDEFINED: 'undefined',
     },
     commonUrls: {
       BASE_URL:
@@ -90,12 +117,11 @@ export default class Constants {
   public static TIMESTAMP_MENU = {
     timestampFilter: [
       { menuItem: 'Previous' },
-      { menuItem: 'Next' },
       { menuItem: 'Current' },
       { menuItem: 'Before' },
       { menuItem: 'After' },
       { menuItem: 'On' },
-      { menuItem: 'Between' },
+      // { menuItem: 'Between' },
       { menuItem: 'Is Empty' },
       { menuItem: 'Not Empty' },
     ],
@@ -105,8 +131,15 @@ export default class Constants {
       { menuItem: 'Days' },
       { menuItem: 'Weeks' },
       { menuItem: 'Months' },
-      { menuItem: 'Ouarters' },
+      { menuItem: 'Quarters' },
       { menuItem: 'Years' },
+    ],
+    currentFilter: [
+      { menuItem: 'Day' },
+      { menuItem: 'Week' },
+      { menuItem: 'Month' },
+      { menuItem: 'Quarter' },
+      { menuItem: 'Year' },
     ],
   };
 

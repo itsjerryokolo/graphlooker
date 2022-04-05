@@ -5,7 +5,7 @@ import {
   getCsvDataQuery,
   getGraphDataForID,
   getSortedCsvDataQuery,
-  getStringFilterCsvData,
+  getStringFilterGraphData,
 } from '../../utility/graph/query';
 import { useApolloClient } from '@apollo/client';
 import { useSelector } from 'react-redux';
@@ -50,34 +50,38 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
     }
 
-    if (parsed.f !== undefined && parsed.c !== undefined && parsed.i !== undefined) {
-      return getStringFilterCsvData(
+    if (!parsed.f && !parsed.i && parsed.s) {
+      return getSortedCsvDataQuery(
         queryDataGlobalState,
+        selectedEntity,
+        `${parsed.s}`,
+        `${parsed.c}`,
+        0,
+        1000,
+        entityId.length > 0 ? entityId[entityId.length - 1] : ''
+      );
+    }
+
+    if (parsed.c) {
+      return getStringFilterGraphData(
         allAttributes,
         selectedEntity,
         `${parsed.f}`,
         `${parsed.c}`,
         `${parsed.i}`,
-        entityId.length > 0 ? entityId[entityId.length - 1] : ''
-      );
-    }
-
-    if (parsed.s !== undefined && parsed.c !== undefined) {
-      return getSortedCsvDataQuery(
-        queryDataGlobalState,
-        selectedEntity,
-        1000,
+        0,
         `${parsed.s}`,
-        `${parsed.c}`,
+        1000,
         entityId.length > 0 ? entityId[entityId.length - 1] : ''
       );
     }
 
     return getCsvDataQuery(
       allAttributes,
-      queryDataGlobalState,
       selectedEntity,
       1000,
+      0,
+      queryDataGlobalState,
       entityId.length > 0 ? entityId[entityId.length - 1] : ''
     );
   }
