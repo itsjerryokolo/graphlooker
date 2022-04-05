@@ -50,6 +50,14 @@ export default class Constants {
       'hourStartUnix',
       'createTime',
       'blockTime',
+      'rewardedAt',
+      'committedAt',
+      'openedAt',
+      'addedAt',
+      'expiresAt',
+      'updatedAt',
+      '_timeStamp',
+      'endTime',
     ],
   };
 
