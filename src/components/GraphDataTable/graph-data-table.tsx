@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { GraphDataTableProps } from './../../utility/interface/props';
-import { EndpointState, EntityState, AttributesState } from '../../utility/redux/state';
+import {
+  EndpointState,
+  EntityState,
+  AttributesState,
+  QueryDataState,
+} from '../../utility/redux/state';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  getGraphData,
+  getCsvDataQuery,
+  // getGraphData,
   getGraphDataForID,
-  getSortedGraphData,
+  getSortedCsvDataQuery,
+  // getSortedGraphData,
   getStringFilterGraphData,
 } from '../../utility/graph/query';
 import Table from '@mui/material/Table';
@@ -51,13 +58,24 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const urlLabels = Constants.LABELS.commonUrls;
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
 
+  const queryDataGlobalState = useSelector((state: QueryDataState) => state.queryState.query);
+
   const getBoardDataAsQuery = () => {
     if (parsed.id) {
       return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
     }
     if (!parsed.f && !parsed.i && parsed.s) {
       const skip = checkForPagination();
-      return getSortedGraphData(allAttributes, selectedEntity, `${parsed.s}`, `${parsed.c}`, skip);
+      // return getSortedGraphData(allAttributes, selectedEntity, `${parsed.s}`, `${parsed.c}`, skip);
+      return getSortedCsvDataQuery(
+        queryDataGlobalState,
+        selectedEntity,
+        `${parsed.s}`,
+        `${parsed.c}`,
+        skip,
+        100,
+        ''
+      );
     }
     if (parsed.c) {
       const skip = checkForPagination();
@@ -68,7 +86,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         `${parsed.c}`,
         `${parsed.i}`,
         skip,
-        `${parsed.s}`
+        `${parsed.s}`,
+        100,
+        ''
       );
     }
     if (parsed.p) {
@@ -78,9 +98,11 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         isPrevDisable = false;
       }
       const skip = 100 * (pageNumber - 1);
-      return getGraphData(allAttributes, selectedEntity, 100, skip);
+      // return getGraphData(allAttributes, selectedEntity, 100, skip);
+      return getCsvDataQuery(allAttributes, selectedEntity, 100, skip, queryDataGlobalState, '');
     }
-    return getGraphData(allAttributes, selectedEntity, 100, 0);
+    // return getGraphData(allAttributes, selectedEntity, 100, 0);
+    return getCsvDataQuery(allAttributes, selectedEntity, 100, 0, queryDataGlobalState, '');
   };
   useEffect(() => {
     getBoardData();
