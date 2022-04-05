@@ -27,10 +27,11 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
   const timestampFilter = Constants.TIMESTAMP_MENU.timestampFilter;
   const timeFilter = Constants.TIMESTAMP_MENU.timeFilter;
   const currentFilter = Constants.TIMESTAMP_MENU.currentFilter;
+  const timeFilterMenu = Constants.FILTERLABELS.timestampFilters;
 
-  const [selectMenu, setSelectMenu] = React.useState('Previous');
-  const [timeMenu, setTimeMenu] = React.useState('Days');
-  const [currentMenu, setCurrentMenu] = React.useState('Day');
+  const [selectMenu, setSelectMenu] = React.useState(timeFilterMenu.PREVIOUS);
+  const [timeMenu, setTimeMenu] = React.useState(timeFilterMenu.DAYS);
+  const [currentMenu, setCurrentMenu] = React.useState(timeFilterMenu.DAY);
   const [inputValues, setInputValues] = React.useState(30);
   const [calendarDate, setCalendarDate] = React.useState(new Date());
 
@@ -55,7 +56,7 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
           value={menu}
           onChange={handleChange}
           displayEmpty
-          inputProps={{ 'aria-label': 'Without label' }}
+          inputProps={{ 'aria-label': 'timestamp filter units' }}
           className="second-select-menu"
         >
           {filteringArray.map((item, i) => (
@@ -69,39 +70,49 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
   };
 
   const renderUpdateButtonFunctions = () => {
-    if (selectMenu === 'Previous') {
-      return Timestamp.perviousFilter(
-        inputValues,
-        timeMenu,
-        endpoint,
-        selectedEntity,
-        theme,
-        attributeName
-      );
-    } else if (selectMenu === 'Current') {
-      return Timestamp.currentFilter(currentMenu, endpoint, selectedEntity, theme, attributeName);
-    } else if (selectMenu === 'Before') {
-      return Timestamp.beforeFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
-    } else if (selectMenu === 'After') {
-      return Timestamp.afterFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
-    } else if (selectMenu === 'On') {
-      return Timestamp.OnFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
-    } else if (selectMenu === 'Is Empty') {
-      return Timestamp.isEmptyNotEmptyFilter(
-        label.EMPTY,
-        endpoint,
-        selectedEntity,
-        theme,
-        attributeName
-      );
-    } else if (selectMenu === 'Not Empty') {
-      return Timestamp.isEmptyNotEmptyFilter(
-        label.NOT_EMPTY,
-        endpoint,
-        selectedEntity,
-        theme,
-        attributeName
-      );
+    switch (selectMenu) {
+      case timeFilterMenu.PREVIOUS:
+        Timestamp.perviousFilter(
+          inputValues,
+          timeMenu,
+          endpoint,
+          selectedEntity,
+          theme,
+          attributeName
+        );
+        break;
+      case timeFilterMenu.CURRENT:
+        Timestamp.currentFilter(currentMenu, endpoint, selectedEntity, theme, attributeName);
+        break;
+      case timeFilterMenu.BEFORE:
+        Timestamp.beforeFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
+        break;
+      case timeFilterMenu.AFTER:
+        Timestamp.afterFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
+        break;
+      case timeFilterMenu.ON:
+        Timestamp.OnFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
+        break;
+      case timeFilterMenu.IS_EMPTY:
+        Timestamp.isEmptyNotEmptyFilter(
+          label.EMPTY,
+          endpoint,
+          selectedEntity,
+          theme,
+          attributeName
+        );
+        break;
+      case timeFilterMenu.NOT_EMPTY:
+        Timestamp.isEmptyNotEmptyFilter(
+          label.EMPTY,
+          endpoint,
+          selectedEntity,
+          theme,
+          attributeName
+        );
+        break;
+      default:
+        break;
     }
   };
 
@@ -109,11 +120,11 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
     <>
       <MenuItem
         className={
-          selectMenu === 'Before' ||
-          selectMenu === 'After' ||
-          selectMenu === 'On' ||
-          selectMenu === 'Is Empty' ||
-          selectMenu === 'Not Empty'
+          selectMenu === timeFilterMenu.BEFORE ||
+          selectMenu === timeFilterMenu.AFTER ||
+          selectMenu === timeFilterMenu.ON ||
+          selectMenu === timeFilterMenu.IS_EMPTY ||
+          selectMenu === timeFilterMenu.NOT_EMPTY
             ? 'calendar-menu'
             : label.EMPTY
         }
@@ -122,7 +133,7 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
           value={selectMenu}
           onChange={handleChange}
           displayEmpty
-          inputProps={{ 'aria-label': 'Without label' }}
+          inputProps={{ 'aria-label': 'timestamp filters' }}
           className="first-select-menu"
         >
           {timestampFilter.map((item, i) => (
@@ -132,7 +143,7 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
           ))}
         </Select>
 
-        {selectMenu === 'Previous' ? (
+        {selectMenu === timeFilterMenu.PREVIOUS ? (
           <>
             <input
               type="number"
@@ -144,10 +155,12 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
           </>
         ) : null}
 
-        {selectMenu === 'Current'
+        {selectMenu === timeFilterMenu.CURRENT
           ? renderSelectMenu(currentFilter, currentMenu, handleChangeCurrent)
           : null}
-        {selectMenu === 'Before' || selectMenu === 'After' || selectMenu === 'On' ? (
+        {selectMenu === timeFilterMenu.BEFORE ||
+        selectMenu === timeFilterMenu.AFTER ||
+        selectMenu === timeFilterMenu.ON ? (
           <>
             <div className="calendar">
               <Calendar onChange={setCalendarDate} value={calendarDate} />
@@ -159,13 +172,7 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
       <Divider sx={{ my: 0.5 }} />
 
       <MenuItem className="end-menu-item">
-        <Button
-          variant="contained"
-          className={
-            selectMenu === 'Next' || selectMenu === 'Between' ? 'update-filter-btn' : label.EMPTY
-          }
-          onClick={() => renderUpdateButtonFunctions()}
-        >
+        <Button variant="contained" onClick={() => renderUpdateButtonFunctions()}>
           {label.UPDATE_FILTER}
         </Button>
       </MenuItem>

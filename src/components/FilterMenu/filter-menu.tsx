@@ -4,13 +4,13 @@ import StringFilterMenu from '../StringFilterMenu/string-filter-menu';
 import NumberFilterMenu from '../NumberFilterMenu/number-filter-menu';
 import TimeFilterMenu from '../TimeFilterMenu/time-filter-menu';
 import Constants from '../../utility/constant';
+import Utility from '../../utility/utility';
 
 const FilterMenu: React.FunctionComponent<FilterMenuProps> = ({
   attributeName,
   attributeDataType,
 }) => {
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
-  const columnLabel = Constants.FILTERLABELS.columnNameLabels;
 
   const getTimestampMenuItem = () => {
     return (
@@ -42,9 +42,7 @@ const FilterMenu: React.FunctionComponent<FilterMenuProps> = ({
 
   return (
     <>
-      {attributeName === columnLabel.CREATED_AT_TIMESTAMP ||
-      attributeName === columnLabel.UPDATED_AT_TIMESTAMP ||
-      attributeName === columnLabel.TIMESTAMP
+      {Utility.getTimestampColumns(attributeName)
         ? getTimestampMenuItem()
         : getNumberOrStringMenu()}
     </>

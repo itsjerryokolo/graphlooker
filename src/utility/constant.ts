@@ -29,6 +29,28 @@ export default class Constants {
       DAYS: 'Days',
     },
     checkProperEntityName: ['Nft', 'Ens'],
+    timestampFilters: {
+      PREVIOUS: 'Previous',
+      CURRENT: 'Current',
+      BEFORE: 'Before',
+      AFTER: 'After',
+      ON: 'On',
+      BETWEEN: 'Between',
+      IS_EMPTY: 'Is Empty',
+      NOT_EMPTY: 'Not Empty',
+      DAYS: 'Days',
+      DAY: 'Day',
+    },
+    timestampColumnNames: [
+      'date',
+      'timestamp',
+      'createdAtTimestamp',
+      'updatdeAtTimestamp',
+      'createdAt',
+      'hourStartUnix',
+      'createTime',
+      'blockTime',
+    ],
   };
 
   public static LABELS = {
@@ -60,7 +82,14 @@ export default class Constants {
       SORT_ASC: 'Sort Ascending',
       SORT_DESC: 'Sort Descending',
       DESC_TITLE: 'Browse subgraph data, export data to CSV, sort, filter and share with everyone',
+<<<<<<< HEAD
       ENTITY_REFERENCE: 'This column is a reference of',
+=======
+      NULL: 'null',
+      DOUBLE_QUOTES: '"',
+      ID: 'id',
+      UNDEFINED: 'undefined',
+>>>>>>> e6df26eb1aab78cd8c87e08db64051873ceb18de
     },
     commonUrls: {
       BASE_URL:
