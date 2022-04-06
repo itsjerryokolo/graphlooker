@@ -333,7 +333,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
             label.EMPTY
           )}
 
-          {rows.length > 0 || error ? (
+          {rows.length > 0 || error || parsed.v ? (
             label.EMPTY
           ) : (
             <div className="no-record-found">
