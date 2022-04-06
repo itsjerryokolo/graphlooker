@@ -316,7 +316,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
             </TableBody>
           </Table>
 
-          {error ? (
+          {error && !parsed.v ? (
             // <div className="error-found">
             //   <img className="error-found" src="/images/error-outline.gif" alt="error" />
             //   <span>
@@ -333,7 +333,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
             label.EMPTY
           )}
 
-          {rows.length > 0 || error ? (
+          {(rows.length > 0 || error) && !parsed.v ? (
             label.EMPTY
           ) : (
             <div className="no-record-found">
