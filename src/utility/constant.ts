@@ -51,6 +51,14 @@ export default class Constants {
       'hourStartUnix',
       'createTime',
       'blockTime',
+      'rewardedAt',
+      'committedAt',
+      'openedAt',
+      'addedAt',
+      'expiresAt',
+      'updatedAt',
+      '_timeStamp',
+      'endTime',
     ],
   };
 
@@ -88,6 +96,7 @@ export default class Constants {
       DOUBLE_QUOTES: '"',
       ID: 'id',
       UNDEFINED: 'undefined',
+      DOWNLOADING: 'Downloading...',
       AND: 'and',
       UNDERSCORE_IS: '_is',
     },
@@ -108,6 +117,11 @@ export default class Constants {
     },
     errorComponenet: {
       queryFailedMsg: 'There is something wrong with the server. Please try again after sometime.',
+    },
+    imagePaths: {
+      FIREWORKS: '/images/firework-outline.gif',
+      DOWNLOAD: '/images/document-outline.gif',
+      ERROR: '/images/error-outline.gif',
     },
   };
 

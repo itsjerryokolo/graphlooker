@@ -316,14 +316,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
             </TableBody>
           </Table>
 
-          {error ? (
-            // <div className="error-found">
-            //   <img className="error-found" src="/images/error-outline.gif" alt="error" />
-            //   <span>
-            //     <ErrorMessage message={error?.message} endpoint={parsed.uri} />
-            //   </span>
-            // </div>
-            // <Error type="icon" />
+          {error && !parsed.v ? (
             <ErrorMessage
               type="icon"
               errorMessage={error.message}
@@ -333,7 +326,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
             label.EMPTY
           )}
 
-          {rows.length > 0 || error ? (
+          {rows.length > 0 || error || parsed.v ? (
             label.EMPTY
           ) : (
             <div className="no-record-found">

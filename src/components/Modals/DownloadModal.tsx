@@ -1,9 +1,10 @@
 import React from 'react';
-import { Modal } from '@mui/material';
+import Modal from '@mui/material/Modal';
 import Constants from '../../utility/constant';
-import './download-modal.scss';
+import './modals.scss';
 
-const DownloadModal: React.FunctionComponent<any> = ({ sortedDataState, clickRef }) => {
+const DownloadModal = (props: any) => {
+  const { sortedDataState, clickRef } = props;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [open, setOpen] = React.useState(true);
 
@@ -20,8 +21,9 @@ const DownloadModal: React.FunctionComponent<any> = ({ sortedDataState, clickRef
           {clickRef === false ? (
             <figure className="download-state">
               <img
+                // src={Constants.LABELS.imagePaths.FIREWORKS}
                 src="/images/firework-outline.gif"
-                alt="Downloading..."
+                alt={Constants.LABELS.commonLables.DOWNLOADING}
                 width={150}
                 height={150}
               />
@@ -29,8 +31,9 @@ const DownloadModal: React.FunctionComponent<any> = ({ sortedDataState, clickRef
           ) : (
             <figure className="download-state">
               <img
+                // src={Constants.LABELS.imagePaths.DOWNLOAD}
                 src="/images/document-outline.gif"
-                alt="Downloading..."
+                alt={Constants.LABELS.commonLables.DOWNLOADING}
                 width={150}
                 height={150}
               />
@@ -49,7 +52,13 @@ const DownloadModal: React.FunctionComponent<any> = ({ sortedDataState, clickRef
 
           {!(clickRef === false) && (
             <figure className="warning-container">
-              <img src="/images/error-outline.gif" alt="Downloading..." width={60} height={60} />
+              <img
+                // src={Constants.LABELS.imagePaths.ERROR}
+                src="/images/error-outline.gif"
+                alt={Constants.LABELS.commonLables.DOWNLOADING}
+                width={60}
+                height={60}
+              />
               <figcaption className="msg">{exportLabels.CLOSE_TAB_MSG}</figcaption>
             </figure>
           )}

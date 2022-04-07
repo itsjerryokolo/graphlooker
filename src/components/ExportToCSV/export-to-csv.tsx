@@ -14,13 +14,14 @@ import './export-to-csv.scss';
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import Constants from '../../utility/constant';
-import DownloadModal from './download-modal';
+import DownloadPage from './download-page';
 import Utility, { sortData } from '../../utility/utility';
 
 const ExportToCSV: React.FunctionComponent<any> = () => {
   const [entityId, setEntityId] = useState<any[]>([]);
   const [sortedDataState, setSortedDataState] = useState<any[]>([]);
   const [clickRef, setClickRef] = useState<any>(null);
+  const [error, setError] = useState<any>(null);
   const CSV_LINK_REF = useRef<any>(null);
 
   const client = useApolloClient();
@@ -88,12 +89,17 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   //<--------------- Export Handler --------------->
 
   const exportClickHandler = async () => {
-    const { data } = await client.query({
-      query: getCsvDataResursively(),
-    });
+    let data: any;
+    try {
+      data = await client.query({
+        query: getCsvDataResursively(),
+      });
+    } catch (err) {
+      setError(err);
+    }
 
-    let entityData = await data;
-    entityData = data['entity'];
+    let entityData: any = await data.data;
+    entityData = data.data['entity'];
     rows = [...entityData];
 
     let sortedData = rows.map((item) => {
@@ -150,7 +156,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
         asyncOnClick={true}
       />
 
-      <DownloadModal sortedDataState={sortedDataState} clickRef={clickRef} />
+      <DownloadPage sortedDataState={sortedDataState} clickRef={clickRef} error={error} />
     </>
   );
 };
