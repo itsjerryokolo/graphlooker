@@ -27,6 +27,7 @@ export default class Constants {
       EQUAL_TO: 'Equal to',
       PREVIOUS: 'Previous',
       DAYS: 'Days',
+      BETWEEN: 'Between',
     },
     checkProperEntityName: ['Nft', 'Ens'],
     timestampFilters: {
@@ -96,6 +97,8 @@ export default class Constants {
       ID: 'id',
       UNDEFINED: 'undefined',
       DOWNLOADING: 'Downloading...',
+      AND: 'and',
+      UNDERSCORE_IS: '_is',
     },
     commonUrls: {
       BASE_URL:
@@ -135,7 +138,7 @@ export default class Constants {
       { menuItem: 'Before' },
       { menuItem: 'After' },
       { menuItem: 'On' },
-      // { menuItem: 'Between' },
+      { menuItem: 'Between' },
       { menuItem: 'Is Empty' },
       { menuItem: 'Not Empty' },
     ],
@@ -159,26 +162,26 @@ export default class Constants {
 
   public static INT_TYPE_MENU = {
     intFilter: [
-      { menuItem: 'Equal to', menuValue: ' ' },
+      { menuItem: 'Equal to', menuValue: '_is' },
       { menuItem: 'Not equal to', menuValue: '_not' },
       { menuItem: 'Greater than', menuValue: '_gt' },
       { menuItem: 'Less than', menuValue: '_lt' },
-      { menuItem: 'Between', menuValue: '_btw' },
+      { menuItem: 'Between', menuValue: '_gte,_lte' },
       { menuItem: 'Greater than or equal to', menuValue: '_gte' },
       { menuItem: 'Less than or equal to', menuValue: '_lte' },
-      { menuItem: 'Is Empty', menuValue: ' ' },
+      { menuItem: 'Is Empty', menuValue: '_is' },
       { menuItem: 'Not Empty', menuValue: '_not' },
     ],
   };
   public static STRING_TYPE_MENU = {
     stringFilter: [
-      { menuItem: 'Is', menuValue: ' ' },
+      { menuItem: 'Is', menuValue: '_is' },
       { menuItem: 'Is not', menuValue: '_not' },
       { menuItem: 'Contains', menuValue: '_contains' },
       { menuItem: 'Does not contain', menuValue: 'does_not_contain' },
       { menuItem: 'Starts with', menuValue: 'starts_with' },
       { menuItem: 'Ends with', menuValue: 'ends_with' },
-      { menuItem: 'Is Empty', menuValue: ' ' },
+      { menuItem: 'Is Empty', menuValue: '_is' },
       { menuItem: 'Not Empty', menuValue: '_not' },
     ],
   };

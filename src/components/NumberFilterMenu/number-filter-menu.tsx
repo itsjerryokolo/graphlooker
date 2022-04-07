@@ -24,8 +24,9 @@ const NumberFilterMenu: React.FunctionComponent<
 
   const intFilter = Constants.INT_TYPE_MENU.intFilter;
   const [selectMenu, setSelectMenu] = React.useState(filterOptionLabel.EQUAL_TO); //For Number
-  const [optionSelected, setOptionSelected] = useState(label.EMPTY);
-  const [numberValue, setNumberValue] = useState(label.EMPTY);
+  const [optionSelected, setOptionSelected] = useState(label.UNDERSCORE_IS);
+  const [firstInputNumber, setFirstInputNumber] = useState(label.EMPTY);
+  const [secondInputNumber, setSecondInputNumber] = useState(label.EMPTY);
   const handleChange = (event: SelectChangeEvent) => {
     setSelectMenu(event.target.value as string);
   };
@@ -37,7 +38,7 @@ const NumberFilterMenu: React.FunctionComponent<
           value={selectMenu}
           onChange={handleChange}
           displayEmpty
-          inputProps={{ 'aria-label': 'Without label' }}
+          inputProps={{ 'aria-label': 'number filter' }}
           className="number-select-options"
         >
           {intFilter.map((item, i) => (
@@ -52,17 +53,34 @@ const NumberFilterMenu: React.FunctionComponent<
         </Select>
       </MenuItem>
       <MenuItem>
-        {selectMenu === filterOptionLabel.IS_EMPTY || selectMenu === filterOptionLabel.NOT_EMPTY ? (
-          ''
-        ) : (
+        <Divider sx={{ my: 0.5 }} />
+        {selectMenu === filterOptionLabel.BETWEEN ? (
           <>
-            <Divider sx={{ my: 0.5 }} />
+            <TextField
+              label={label.SEARCH_BY_NUMBER}
+              className="between-filter-inputfield"
+              variant="outlined"
+              value={firstInputNumber}
+              onChange={(e) => setFirstInputNumber(e.target.value)}
+            />
+            <h3>{label.AND}</h3>
+            <TextField
+              label={label.SEARCH_BY_NUMBER}
+              className="between-filter-inputfield"
+              variant="outlined"
+              value={secondInputNumber}
+              onChange={(e) => setSecondInputNumber(e.target.value)}
+            />
+          </>
+        ) : selectMenu === filterOptionLabel.IS_EMPTY ||
+          selectMenu === filterOptionLabel.NOT_EMPTY ? null : (
+          <>
             <TextField
               label={label.SEARCH_BY_NUMBER}
               className="number-textfield"
               variant="outlined"
-              value={numberValue}
-              onChange={(e) => setNumberValue(e.target.value)}
+              value={firstInputNumber}
+              onChange={(e) => setFirstInputNumber(e.target.value)}
             />
           </>
         )}
@@ -78,7 +96,8 @@ const NumberFilterMenu: React.FunctionComponent<
               selectedEntity,
               attributeName,
               optionSelected,
-              numberValue,
+              firstInputNumber,
+              secondInputNumber,
               theme
             )
           }

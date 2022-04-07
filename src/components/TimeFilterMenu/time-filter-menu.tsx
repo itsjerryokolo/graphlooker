@@ -91,11 +91,11 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
         Timestamp.afterFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
         break;
       case timeFilterMenu.ON:
-        Timestamp.OnFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
+        Timestamp.onFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
         break;
       case timeFilterMenu.IS_EMPTY:
         Timestamp.isEmptyNotEmptyFilter(
-          label.EMPTY,
+          label.UNDERSCORE_IS,
           endpoint,
           selectedEntity,
           theme,
@@ -104,12 +104,15 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
         break;
       case timeFilterMenu.NOT_EMPTY:
         Timestamp.isEmptyNotEmptyFilter(
-          label.EMPTY,
+          label.UNDERSCORE_IS,
           endpoint,
           selectedEntity,
           theme,
           attributeName
         );
+        break;
+      case timeFilterMenu.BETWEEN:
+        Timestamp.betweenFilter(calendarDate, endpoint, selectedEntity, theme, attributeName);
         break;
       default:
         break;
@@ -120,13 +123,9 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
     <>
       <MenuItem
         className={
-          selectMenu === timeFilterMenu.BEFORE ||
-          selectMenu === timeFilterMenu.AFTER ||
-          selectMenu === timeFilterMenu.ON ||
-          selectMenu === timeFilterMenu.IS_EMPTY ||
-          selectMenu === timeFilterMenu.NOT_EMPTY
-            ? 'calendar-menu'
-            : label.EMPTY
+          selectMenu === timeFilterMenu.PREVIOUS || selectMenu === timeFilterMenu.CURRENT
+            ? label.EMPTY
+            : 'calendar-menu'
         }
       >
         <Select
@@ -164,6 +163,14 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
           <>
             <div className="calendar">
               <Calendar onChange={setCalendarDate} value={calendarDate} />
+            </div>
+          </>
+        ) : null}
+
+        {selectMenu === timeFilterMenu.BETWEEN ? (
+          <>
+            <div className="calendar">
+              <Calendar onChange={setCalendarDate} value={calendarDate} selectRange={true} />
             </div>
           </>
         ) : null}

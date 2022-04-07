@@ -25,7 +25,7 @@ const StringFilterMenu: React.FunctionComponent<
   const stringFilter = Constants.STRING_TYPE_MENU.stringFilter;
   const [selectStringMenu, setSelectStringMenu] = React.useState(label.IS); //For String
   const [stringValue, setStringValue] = useState(label.EMPTY);
-  const [optionSelected, setOptionSelected] = useState(label.EMPTY);
+  const [optionSelected, setOptionSelected] = useState(label.UNDERSCORE_IS);
   const handleChangeString = (event: SelectChangeEvent) => {
     setSelectStringMenu(event.target.value as string);
   };
