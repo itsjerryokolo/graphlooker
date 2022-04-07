@@ -14,7 +14,7 @@ import './export-to-csv.scss';
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import Constants from '../../utility/constant';
-import DownloadModal from './download-modal';
+import DownloadPage from './download-page';
 import Utility, { sortData } from '../../utility/utility';
 
 const ExportToCSV: React.FunctionComponent<any> = () => {
@@ -156,7 +156,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
         asyncOnClick={true}
       />
 
-      <DownloadModal sortedDataState={sortedDataState} clickRef={clickRef} error={error} />
+      <DownloadPage sortedDataState={sortedDataState} clickRef={clickRef} error={error} />
     </>
   );
 };

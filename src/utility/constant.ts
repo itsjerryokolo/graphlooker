@@ -95,6 +95,7 @@ export default class Constants {
       DOUBLE_QUOTES: '"',
       ID: 'id',
       UNDEFINED: 'undefined',
+      DOWNLOADING: 'Downloading...',
     },
     commonUrls: {
       BASE_URL:
@@ -113,6 +114,11 @@ export default class Constants {
     },
     errorComponenet: {
       queryFailedMsg: 'There is something wrong with the server. Please try again after sometime.',
+    },
+    imagePaths: {
+      FIREWORKS: '/images/firework-outline.gif',
+      DOWNLOAD: '/images/document-outline.gif',
+      ERROR: '/images/error-outline.gif',
     },
   };
 
