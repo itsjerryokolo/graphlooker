@@ -90,7 +90,7 @@ export default class Constants {
       DOWNLOAD: 'Download to CSV',
       SORT_ASC: 'Sort Ascending',
       SORT_DESC: 'Sort Descending',
-      DESC_TITLE: 'Browse subgraph data, export data to CSV, sort, filter and share with everyone',
+      DESC_TITLE: 'Explore & Browse Universe of Blockchain.',
       ENTITY_REFERENCE: 'This column is a reference of',
       NULL: 'null',
       DOUBLE_QUOTES: '"',
@@ -110,13 +110,13 @@ export default class Constants {
     },
     exportLabels: {
       DWNLD_STARTED: 'Download Completed, you can close the tab.',
-      DWNLD_SOON: 'Download in progress...',
+      DWNLD_SOON: 'Download is in Progress...',
       HOLD_MSG: 'The bits are breeding...',
       RECORDS_MSG: 'RECORDS DOWNLOADED.',
       CLOSE_TAB_MSG: 'IF YOU WISH TO STOP DOWNLOAD, CLOSE THE TAB.',
     },
     errorComponenet: {
-      queryFailedMsg: 'There is something wrong with the server. Please try again after sometime.',
+      queryFailedMsg: 'Unexpected error encountered. Please try again after sometime.',
     },
     imagePaths: {
       FIREWORKS: '/images/firework-outline.gif',
@@ -196,8 +196,8 @@ export default class Constants {
     FAILED_TO_FETCH: 'Unable to fetch this Subgraph, Please try again!',
     INDEXING_ERROR: 'Subgraph is facing indexing error.',
     UNEXPECTED:
-      'There is some problem with the graph, please check if you are entering correct endpoint.',
-    INVALID: 'Endpoint you are entering is invalid or not allowed',
+      'Unexpected error encountered, please check if you are entering correct subgraph endpoint.',
+    INVALID: 'Subgraph endpoint you are entering is invalid or not allowed',
   };
 
   public static ROUTES = {
