@@ -129,7 +129,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
 
   useEffect(() => {
     if (errorMsg) {
-      setClickRef(false);
+      setClickRef('');
       exportClickHandler();
     }
   }, [errorMsg]);
