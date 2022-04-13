@@ -46,11 +46,9 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   //<------- functionality for dynamic query ------->
 
   function getCsvDataResursively(error: string) {
-    if (parsed.id !== undefined) {
+    if (parsed.id) {
       return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
-    }
-
-    if (!parsed.f && !parsed.i && parsed.s) {
+    } else if (!parsed.f && !parsed.i && parsed.s) {
       return getSortedCsvDataQuery(
         allAttributes,
         selectedEntity,
@@ -61,9 +59,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
         entityId.length > 0 ? entityId[entityId.length - 1] : '',
         error
       );
-    }
-
-    if (parsed.c) {
+    } else if (parsed.c) {
       return getStringFilterGraphData(
         allAttributes,
         selectedEntity,

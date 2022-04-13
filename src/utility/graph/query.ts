@@ -282,6 +282,7 @@ export const getSortedCsvDataQuery = (
         element.type === label.NON_NULL) &&
       !errorMsg
     ) {
+      //element.name = column name
       queryData = queryData + `${element.name} { ${commonLables.ID} } `;
     } else {
       queryData = queryData + `${element.name} `;
