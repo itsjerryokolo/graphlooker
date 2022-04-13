@@ -59,8 +59,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
 
   const queryDataGlobalState = useSelector((state: QueryDataState) => state.queryState.query);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const getBoardDataAsQuery = () => {
+  const getBoardDataAsQuery = (error: string) => {
     if (parsed.id) {
       return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
     }
@@ -68,13 +69,14 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
       const skip = checkForPagination();
       // return getSortedGraphData(allAttributes, selectedEntity, `${parsed.s}`, `${parsed.c}`, skip);
       return getSortedCsvDataQuery(
-        queryDataGlobalState,
+        allAttributes,
         selectedEntity,
         `${parsed.s}`,
         `${parsed.c}`,
         skip,
         100,
-        ''
+        '',
+        error
       );
     }
     if (parsed.c) {
@@ -88,7 +90,8 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         skip,
         `${parsed.s}`,
         100,
-        ''
+        '',
+        error
       );
     }
     if (parsed.p) {
@@ -98,11 +101,17 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         isPrevDisable = false;
       }
       const skip = 100 * (pageNumber - 1);
-      // return getGraphData(allAttributes, selectedEntity, 100, skip);
-      return getCsvDataQuery(allAttributes, selectedEntity, 100, skip, queryDataGlobalState, '');
+      return getCsvDataQuery(
+        allAttributes,
+        selectedEntity,
+        100,
+        skip,
+        queryDataGlobalState,
+        '',
+        error
+      );
     }
-    // return getGraphData(allAttributes, selectedEntity, 100, 0);
-    return getCsvDataQuery(allAttributes, selectedEntity, 100, 0, queryDataGlobalState, '');
+    return getCsvDataQuery(allAttributes, selectedEntity, 100, 0, queryDataGlobalState, '', error);
   };
   useEffect(() => {
     getBoardData();
@@ -168,7 +177,12 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   };
 
   //Get Table Data
-  const [getBoardData, { error, loading, data }] = useLazyQuery(getBoardDataAsQuery());
+  const [getBoardData, { error, loading, data }] = useLazyQuery(getBoardDataAsQuery(errorMsg));
+
+  useEffect(() => {
+    error && setErrorMsg(error?.message);
+  }, [error, data]);
+
   if (loading) {
   }
   if (error) {
@@ -316,17 +330,13 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
             </TableBody>
           </Table>
 
-          {error && !parsed.v ? (
-            <ErrorMessage
-              type="icon"
-              errorMessage={error.message}
-              endpoint={endpoint}
-            ></ErrorMessage>
+          {errorMsg && !data ? (
+            <ErrorMessage type="icon" errorMessage={errorMsg} endpoint={endpoint}></ErrorMessage>
           ) : (
             label.EMPTY
           )}
 
-          {rows.length > 0 || error || parsed.v ? (
+          {rows.length > 0 || errorMsg || parsed.v ? (
             label.EMPTY
           ) : (
             <div className="no-record-found">

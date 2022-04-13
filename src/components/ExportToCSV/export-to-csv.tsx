@@ -21,7 +21,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   const [entityId, setEntityId] = useState<any[]>([]);
   const [sortedDataState, setSortedDataState] = useState<any[]>([]);
   const [clickRef, setClickRef] = useState<any>(null);
-  const [error, setError] = useState<any>(null);
+  const [errorMsg, setErrorMsg] = useState<any>(null);
   const CSV_LINK_REF = useRef<any>(null);
 
   const client = useApolloClient();
@@ -45,20 +45,21 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
 
   //<------- functionality for dynamic query ------->
 
-  function getCsvDataResursively() {
+  function getCsvDataResursively(error: string) {
     if (parsed.id !== undefined) {
       return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
     }
 
     if (!parsed.f && !parsed.i && parsed.s) {
       return getSortedCsvDataQuery(
-        queryDataGlobalState,
+        allAttributes,
         selectedEntity,
         `${parsed.s}`,
         `${parsed.c}`,
         0,
         1000,
-        entityId.length > 0 ? entityId[entityId.length - 1] : ''
+        entityId.length > 0 ? entityId[entityId.length - 1] : '',
+        error
       );
     }
 
@@ -72,7 +73,8 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
         0,
         `${parsed.s}`,
         1000,
-        entityId.length > 0 ? entityId[entityId.length - 1] : ''
+        entityId.length > 0 ? entityId[entityId.length - 1] : '',
+        error
       );
     }
 
@@ -82,7 +84,8 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       1000,
       0,
       queryDataGlobalState,
-      entityId.length > 0 ? entityId[entityId.length - 1] : ''
+      entityId.length > 0 ? entityId[entityId.length - 1] : '',
+      error
     );
   }
 
@@ -92,14 +95,14 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     let data: any;
     try {
       data = await client.query({
-        query: getCsvDataResursively(),
+        query: getCsvDataResursively(errorMsg),
       });
     } catch (err) {
-      setError(err);
+      setErrorMsg(err);
     }
 
-    let entityData: any = await data.data;
-    entityData = data.data['entity'];
+    let entityData: any = await data?.data;
+    entityData = data?.data['entity'];
     rows = [...entityData];
 
     let sortedData = rows.map((item) => {
@@ -111,16 +114,25 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     sortedData = Utility.sortedTimeData(sortedData);
     sortedData = sortData(sortedData);
 
-    if (sortedData) {
+    if (sortedData && !sortedData.includes(sortedDataState[sortedDataState.length - 1]?.Id)) {
       setSortedDataState([...sortedDataState, ...sortedData]);
     }
 
-    if (rows.length === 0) {
+    if (sortedData.length === 0) {
       CSV_LINK_REF?.current?.link.click();
     }
 
-    setClickRef(true);
+    if (clickRef === null) {
+      setClickRef(true);
+    }
   };
+
+  useEffect(() => {
+    if (errorMsg) {
+      setClickRef(false);
+      exportClickHandler();
+    }
+  }, [errorMsg]);
 
   useEffect(() => {
     if (
@@ -129,11 +141,11 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       regex.test(sortedDataState.length / 1000)
     ) {
       exportClickHandler();
-    } else if (clickRef) {
+    } else if (clickRef && !errorMsg) {
       CSV_LINK_REF?.current?.link.click();
       setClickRef(false);
     }
-  }, [entityId]);
+  }, [entityId, clickRef, errorMsg]);
 
   useEffect(() => {
     if (
@@ -142,6 +154,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     ) {
       setEntityId([...entityId, sortedDataState[sortedDataState.length - 1].Id]);
     }
+    setErrorMsg('');
   }, [sortedDataState]);
 
   let fileName = `${selectedEntity}_Dapplooker.csv`;
@@ -156,7 +169,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
         asyncOnClick={true}
       />
 
-      <DownloadPage sortedDataState={sortedDataState} clickRef={clickRef} error={error} />
+      <DownloadPage sortedDataState={sortedDataState} clickRef={clickRef} errorMsg={errorMsg} />
     </>
   );
 };

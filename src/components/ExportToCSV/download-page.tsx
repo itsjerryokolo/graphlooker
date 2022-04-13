@@ -5,7 +5,7 @@ import DownloadModal from '../Modals/DownloadModal';
 const DownloadPage: React.FunctionComponent<any> = ({ sortedDataState, clickRef, error }) => {
   return (
     <>
-      {error ? (
+      {error && sortedDataState.length <= 0 ? (
         <ErrorModal error={error} />
       ) : (
         <DownloadModal sortedDataState={sortedDataState} clickRef={clickRef} />
@@ -13,7 +13,5 @@ const DownloadPage: React.FunctionComponent<any> = ({ sortedDataState, clickRef,
     </>
   );
 };
-{
-}
 
 export default DownloadPage;

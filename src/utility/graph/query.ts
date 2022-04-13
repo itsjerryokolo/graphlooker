@@ -153,7 +153,8 @@ export const getStringFilterGraphData = (
   skip: number,
   sortType: string,
   count: number,
-  whereId: string
+  whereId: string,
+  errorMsg: string
 ) => {
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
@@ -167,9 +168,10 @@ export const getStringFilterGraphData = (
       continue;
     }
     if (
-      element.type === label.LIST ||
-      element.type === label.OBJECT ||
-      element.type === label.NON_NULL
+      (element.type === label.LIST ||
+        element.type === label.OBJECT ||
+        element.type === label.NON_NULL) &&
+      !errorMsg
     ) {
       queryData = queryData + `${element.name} { ${commonLables.ID} } `;
     } else {
@@ -211,18 +213,38 @@ export const getStringFilterGraphData = (
       `;
 };
 
-// Query based on last ID (export to csv)
 export const getCsvDataQuery = (
   columnNames: { name: string; type: string; typeName: string }[],
   entity: any,
   count: number,
   skip: number,
-  queryData: string,
-  whereId: any
+  globalQuery: string,
+  whereId: any,
+  errorMsg: string
 ) => {
+  // console.log(errorMsg);
   const selectedEntity = Utility.makePluralChanges(entity);
   let orderByColumnName = 'id';
   orderByColumnName = Utility.getColumnNameForOptimizeQuery(columnNames);
+
+  let queryData = ` `;
+
+  for (let index = 0; index < columnNames.length; ++index) {
+    const element = columnNames[index];
+    if (element.name === commonLables.ID) {
+      continue;
+    }
+    if (
+      (element.type === label.LIST ||
+        element.type === label.OBJECT ||
+        element.type === label.NON_NULL) &&
+      !errorMsg
+    ) {
+      queryData = queryData + `${element.name} { ${commonLables.ID} } `;
+    } else if (element.type !== label.OBJECT) {
+      queryData = queryData + `${element.name} `;
+    }
+  }
 
   return gql`
     query {
@@ -234,25 +256,44 @@ export const getCsvDataQuery = (
     `;
 };
 
-// Query based on last ID and asc, desc (export to csv)
+// Query based on last ID and asc, desc
 
 export const getSortedCsvDataQuery = (
-  queryData: string,
+  columnNames: { name: string; type: string; typeName: string }[],
   entity: string,
   sortType: string,
   attributeName: string,
   skip: number,
   count: number,
-  whereId: string
+  whereId: string,
+  errorMsg: string
 ) => {
   const selectedEntity = Utility.makePluralChanges(entity);
+
+  let queryData = ` `;
+  for (let index = 0; index < columnNames.length; ++index) {
+    const element = columnNames[index];
+    if (element.name === commonLables.ID) {
+      continue;
+    }
+    if (
+      (element.type === label.LIST ||
+        element.type === label.OBJECT ||
+        element.type === label.NON_NULL) &&
+      !errorMsg
+    ) {
+      queryData = queryData + `${element.name} { ${commonLables.ID} } `;
+    } else {
+      queryData = queryData + `${element.name} `;
+    }
+  }
 
   return gql`
     query {
       entity: ${selectedEntity}(first:${count}, skip:${skip}, orderBy: ${attributeName}, orderDirection: ${sortType}, where: {id_gt:"${whereId}" }){
-        id      
+        id
         ${queryData}
-        }
+      }
     }
     `;
 };
