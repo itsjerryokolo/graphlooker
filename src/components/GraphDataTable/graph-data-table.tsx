@@ -37,6 +37,7 @@ import Utility from '../../utility/utility';
 import ErrorMessage from '../ErrorMessage/error-message';
 import ExportButton from '../ExportToCSV/ExportButton';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import NoRecords from '../NoRecords/NoRecords';
 
 const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteComponentProps<any>> = ({
   drawerOpen,
@@ -50,7 +51,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const parsed = queryString.parse(location.search);
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
-  const allAttributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
+  let listOfattributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
   const theme = parsed.th;
   const dispatch = useDispatch();
 
@@ -63,13 +64,13 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
 
   const getBoardDataAsQuery = (error: string) => {
     if (parsed.id) {
-      return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
+      return getGraphDataForID(listOfattributes, selectedEntity, `${parsed.id}`);
     }
     if (!parsed.f && !parsed.i && parsed.s) {
       const skip = checkForPagination();
       // return getSortedGraphData(allAttributes, selectedEntity, `${parsed.s}`, `${parsed.c}`, skip);
       return getSortedCsvDataQuery(
-        allAttributes,
+        listOfattributes,
         selectedEntity,
         `${parsed.s}`,
         `${parsed.c}`,
@@ -82,7 +83,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     if (parsed.c) {
       const skip = checkForPagination();
       return getStringFilterGraphData(
-        allAttributes,
+        listOfattributes,
         selectedEntity,
         `${parsed.f}`,
         `${parsed.c}`,
@@ -102,7 +103,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
       }
       const skip = 100 * (pageNumber - 1);
       return getCsvDataQuery(
-        allAttributes,
+        listOfattributes,
         selectedEntity,
         100,
         skip,
@@ -111,7 +112,15 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         error
       );
     }
-    return getCsvDataQuery(allAttributes, selectedEntity, 100, 0, queryDataGlobalState, '', error);
+    return getCsvDataQuery(
+      listOfattributes,
+      selectedEntity,
+      100,
+      0,
+      queryDataGlobalState,
+      '',
+      error
+    );
   };
   useEffect(() => {
     getBoardData();
@@ -186,7 +195,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   if (loading) {
   }
   if (error) {
-    dispatch(setDataLoading(false));
   }
   if (data) {
     let queryData: any[];
@@ -227,6 +235,13 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     setOpen(false);
   };
 
+  if (errorMsg) {
+    listOfattributes = listOfattributes.filter((item) => item.type !== dataTypeLabel.OBJECT);
+  }
+  if (listOfattributes.length === 0) {
+    dispatch(setDataLoading(false));
+  }
+
   return (
     <>
       <ExportButton rows={rows} />
@@ -236,7 +251,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
             <TableHead>
               <TableRow>
                 {data &&
-                  allAttributes.map((item, i) => (
+                  listOfattributes.map((item, i) => (
                     <TableCell
                       key={i}
                       className={`${
@@ -280,7 +295,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
               {rows.length !== 0
                 ? rows.map((row, i) => (
                     <TableRow className="tabledata-row" key={i}>
-                      {allAttributes.map((item, key) => (
+                      {listOfattributes.map((item, key) => (
                         <TableCell
                           key={key}
                           className={`${
@@ -339,10 +354,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
           {rows.length > 0 || errorMsg || parsed.v ? (
             label.EMPTY
           ) : (
-            <div className="no-record-found">
-              <img className="no-record-found" src="/images/no_record_found.gif" alt="" />
-              <span>{label.NO_RECORD}</span>
-            </div>
+            <NoRecords listOfattributes={listOfattributes} />
           )}
 
           <Menu id="menu" onClose={handleCloseMenu} anchorEl={anchorEl} open={Boolean(anchorEl)}>

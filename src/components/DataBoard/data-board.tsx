@@ -12,6 +12,8 @@ import { setGraphAttributes, setGraphQuery } from '../../redux/actions/endpoint-
 import Constants from '../../utility/constant';
 import queryString from 'query-string';
 import ExportToCsv from '../ExportToCSV/export-to-csv';
+import { setDataLoading } from '../../redux/actions/loading-action';
+import NoRecords from '../NoRecords/NoRecords';
 
 const drawerWidth = 300;
 
@@ -46,8 +48,8 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
 
   const selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   const dispatch = useDispatch();
-  let allAttributes: { name: string; type: string; typeName: string }[];
-  allAttributes = [];
+  let listOfattributes: { name: string; type: string; typeName: string }[];
+  listOfattributes = [];
   const entity = selectedEntity
     ? selectedEntity.charAt(0).toUpperCase() + selectedEntity.slice(1)
     : label.EMPTY;
@@ -76,19 +78,19 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
             element.type?.ofType?.kind === dataTypeLabel.NON_NULL
           )
             continue;
-          allAttributes.push({
+          listOfattributes.push({
             name: element.name,
             type: element.type?.ofType?.kind,
             typeName: element.type?.ofType?.name,
           });
         }
       }
-      if (allAttributes.length > 0) {
-        dispatch(setGraphAttributes(allAttributes));
+      if (listOfattributes.length > 0) {
+        dispatch(setGraphAttributes(listOfattributes));
 
         let myGlobalQuery: string = ` `;
 
-        for (let item of allAttributes) {
+        for (let item of listOfattributes) {
           // myGlobalQuery += item.name
 
           if (item.name === 'id') {
@@ -102,6 +104,9 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
         }
         dispatch(setGraphQuery(myGlobalQuery));
       }
+      if (listOfattributes.length === 0) {
+        dispatch(setDataLoading(false));
+      }
     }
   }
 
@@ -110,9 +115,11 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
       <div>{parsed.v !== undefined ? <ExportToCsv /> : null}</div>
       <Main open={drawerOpen}>
         <div className="tab-pane" id="tab0" role="tabpanel" aria-labelledby="tab_0">
-          {allAttributes.length !== 0 ? (
+          {listOfattributes.length !== 0 ? (
             <GraphDataTable drawerOpen={drawerOpen}></GraphDataTable>
-          ) : null}
+          ) : (
+            <NoRecords listOfattributes={listOfattributes} />
+          )}
         </div>
       </Main>
     </>
