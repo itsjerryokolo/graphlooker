@@ -72,6 +72,9 @@
         font-family: $primaryFontFamily;
         font-weight: $fontWeight400;
       }
+      .chip{
+        background-color: aliceblue;
+      }
       .theme-icon {
         // border: var(--themeIconBorder) solid 0.5px;
         padding: $size7;

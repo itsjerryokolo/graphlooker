@@ -26,7 +26,7 @@ import { Tooltip } from '@mui/material';
 import ErrorMessage from '../ErrorMessage/error-message';
 import { LoadingState } from '../../utility/redux/state';
 import humanizeString from 'humanize-string';
-
+import FilterData from '../FilterData/Chips';
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })<MuiAppBarProps>(() => ({
@@ -57,7 +57,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   } else {
     theme = label.DARK_THEME_LABEL;
   }
-
+console.log(parsed.i);
   React.useEffect(() => {
     if (parsed.uri && parsed.e) {
       const endpointEncoded = parsed.uri;
@@ -177,7 +177,9 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
             </div>
 
             <h2 className="graph-heading">{graphName}</h2>
-
+            
+            <FilterData className="filterChart" chipData={parsed} />
+               {/* Chips */}
             {/* <ExportButton /> */}
 
             <Tooltip title={label.SWITCH_THEME}>
