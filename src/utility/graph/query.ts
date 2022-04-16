@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import Constants from '../constant';
+import { ColumnProps } from '../interface/props';
 import Utility from '../utility';
 
 const label = Constants.FILTERLABELS.dataTypeLabels;
@@ -76,11 +77,7 @@ export const getAllAttributes = (entity: string) => {
 //     `;
 // };
 
-export const getGraphDataForID = (
-  columnNames: { name: string; type: string; typeName: string }[],
-  entity: string,
-  filterID: string
-) => {
+export const getGraphDataForID = (columnNames: ColumnProps[], entity: string, filterID: string) => {
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
   for (let index = 0; index < columnNames.length; ++index) {
@@ -145,7 +142,7 @@ export const getGraphDataForID = (
 
 //Query for Filter Menu
 export const getStringFilterGraphData = (
-  columnNames: { name: string; type: string; typeName: string }[],
+  columnNames: ColumnProps[],
   entity: string,
   filterOption: string,
   attributeName: string,
@@ -214,7 +211,7 @@ export const getStringFilterGraphData = (
 };
 
 export const getCsvDataQuery = (
-  columnNames: { name: string; type: string; typeName: string }[],
+  columnNames: ColumnProps[],
   entity: any,
   count: number,
   skip: number,
@@ -222,7 +219,6 @@ export const getCsvDataQuery = (
   whereId: any,
   errorMsg: string
 ) => {
-  // console.log(errorMsg);
   const selectedEntity = Utility.makePluralChanges(entity);
   let orderByColumnName = 'id';
   orderByColumnName = Utility.getColumnNameForOptimizeQuery(columnNames);
@@ -259,7 +255,7 @@ export const getCsvDataQuery = (
 // Query based on last ID and asc, desc
 
 export const getSortedCsvDataQuery = (
-  columnNames: { name: string; type: string; typeName: string }[],
+  columnNames: ColumnProps[],
   entity: string,
   sortType: string,
   attributeName: string,

@@ -34,9 +34,13 @@ export interface TimeFilterMenuProps {
 export interface LoaderProps {
   theme: string;
 }
-
 export interface ErrorProps {
   // theme: string;
   // message: string;
   type: string;
+}
+export interface ColumnProps {
+  name: string;
+  type: string;
+  typeName: string;
 }
