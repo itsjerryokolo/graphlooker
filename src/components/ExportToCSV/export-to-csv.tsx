@@ -2,9 +2,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { CSVLink } from 'react-csv';
 import {
-  getCsvDataQuery,
+  getDataQuery,
   getGraphDataForID,
-  getSortedCsvDataQuery,
+  getSortedDataQuery,
   getStringFilterGraphData,
 } from '../../utility/graph/query';
 import { useApolloClient } from '@apollo/client';
@@ -20,8 +20,8 @@ import Utility, { sortData } from '../../utility/utility';
 const ExportToCSV: React.FunctionComponent<any> = () => {
   const [entityId, setEntityId] = useState<any[]>([]);
   const [sortedDataState, setSortedDataState] = useState<any[]>([]);
-  const [clickRef, setClickRef] = useState<any>(null);
-  const [error, setError] = useState<any>(null);
+  const [downloadRef, setDownloadRef] = useState<any>(null);
+  const [errorMsg, setErrorMsg] = useState<any>(null);
   const CSV_LINK_REF = useRef<any>(null);
 
   const client = useApolloClient();
@@ -35,36 +35,33 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
 
   let selectedEntity: string = useSelector((state: EntityState) => state.selectedEntity.entity);
   const queryDataGlobalState = useSelector((state: QueryDataState) => state.queryState.query);
-  const allAttributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
+  const listOfattributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
 
   useEffect(() => {
-    if (selectedEntity && queryDataGlobalState && allAttributes) {
+    if (selectedEntity && queryDataGlobalState && listOfattributes) {
       exportClickHandler();
     }
-  }, [selectedEntity, queryDataGlobalState, allAttributes]);
+  }, [selectedEntity, queryDataGlobalState, listOfattributes]);
 
   //<------- functionality for dynamic query ------->
 
-  function getCsvDataResursively() {
-    if (parsed.id !== undefined) {
-      return getGraphDataForID(allAttributes, selectedEntity, `${parsed.id}`);
-    }
-
-    if (!parsed.f && !parsed.i && parsed.s) {
-      return getSortedCsvDataQuery(
-        queryDataGlobalState,
+  function getCsvDataResursively(error: string) {
+    if (parsed.id) {
+      return getGraphDataForID(listOfattributes, selectedEntity, `${parsed.id}`);
+    } else if (!parsed.f && !parsed.i && parsed.s) {
+      return getSortedDataQuery(
+        listOfattributes,
         selectedEntity,
         `${parsed.s}`,
         `${parsed.c}`,
         0,
         1000,
-        entityId.length > 0 ? entityId[entityId.length - 1] : ''
+        entityId.length > 0 ? entityId[entityId.length - 1] : '',
+        error
       );
-    }
-
-    if (parsed.c) {
+    } else if (parsed.c) {
       return getStringFilterGraphData(
-        allAttributes,
+        listOfattributes,
         selectedEntity,
         `${parsed.f}`,
         `${parsed.c}`,
@@ -72,17 +69,19 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
         0,
         `${parsed.s}`,
         1000,
-        entityId.length > 0 ? entityId[entityId.length - 1] : ''
+        entityId.length > 0 ? entityId[entityId.length - 1] : '',
+        error
       );
     }
 
-    return getCsvDataQuery(
-      allAttributes,
+    return getDataQuery(
+      listOfattributes,
       selectedEntity,
       1000,
       0,
       queryDataGlobalState,
-      entityId.length > 0 ? entityId[entityId.length - 1] : ''
+      entityId.length > 0 ? entityId[entityId.length - 1] : '',
+      error
     );
   }
 
@@ -92,14 +91,14 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     let data: any;
     try {
       data = await client.query({
-        query: getCsvDataResursively(),
+        query: getCsvDataResursively(errorMsg),
       });
     } catch (err) {
-      setError(err);
+      setErrorMsg(err);
     }
 
-    let entityData: any = await data.data;
-    entityData = data.data['entity'];
+    let entityData: any = await data?.data;
+    entityData = data?.data['entity'];
     rows = [...entityData];
 
     let sortedData = rows.map((item) => {
@@ -111,16 +110,25 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     sortedData = Utility.sortedTimeData(sortedData);
     sortedData = sortData(sortedData);
 
-    if (sortedData) {
+    if (sortedData && !sortedData.includes(sortedDataState[sortedDataState.length - 1]?.Id)) {
       setSortedDataState([...sortedDataState, ...sortedData]);
     }
 
-    if (rows.length === 0) {
+    if (sortedData.length === 0) {
       CSV_LINK_REF?.current?.link.click();
     }
 
-    setClickRef(true);
+    if (downloadRef === null) {
+      setDownloadRef(true);
+    }
   };
+
+  useEffect(() => {
+    if (errorMsg) {
+      setDownloadRef('');
+      exportClickHandler();
+    }
+  }, [errorMsg]);
 
   useEffect(() => {
     if (
@@ -129,11 +137,11 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       regex.test(sortedDataState.length / 1000)
     ) {
       exportClickHandler();
-    } else if (clickRef) {
+    } else if (downloadRef && !errorMsg) {
       CSV_LINK_REF?.current?.link.click();
-      setClickRef(false);
+      setDownloadRef(false);
     }
-  }, [entityId]);
+  }, [entityId, downloadRef, errorMsg]);
 
   useEffect(() => {
     if (
@@ -142,6 +150,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     ) {
       setEntityId([...entityId, sortedDataState[sortedDataState.length - 1].Id]);
     }
+    setErrorMsg('');
   }, [sortedDataState]);
 
   let fileName = `${selectedEntity}_Dapplooker.csv`;
@@ -156,7 +165,11 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
         asyncOnClick={true}
       />
 
-      <DownloadPage sortedDataState={sortedDataState} clickRef={clickRef} error={error} />
+      <DownloadPage
+        sortedDataState={sortedDataState}
+        downloadRef={downloadRef}
+        errorMsg={errorMsg}
+      />
     </>
   );
 };

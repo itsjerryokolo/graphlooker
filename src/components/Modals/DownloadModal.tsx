@@ -4,7 +4,7 @@ import Constants from '../../utility/constant';
 import './modals.scss';
 
 const DownloadModal = (props: any) => {
-  const { sortedDataState, clickRef } = props;
+  const { sortedDataState, downloadRef } = props;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [open, setOpen] = React.useState(true);
 
@@ -15,10 +15,10 @@ const DownloadModal = (props: any) => {
       <div className="modal-wrapper">
         <div className="modal-container">
           <h2 className="download-heading">
-            {clickRef === false ? exportLabels.DWNLD_STARTED : exportLabels.DWNLD_SOON}
+            {downloadRef === false ? exportLabels.DWNLD_STARTED : exportLabels.DWNLD_SOON}
           </h2>
 
-          {clickRef === false ? (
+          {downloadRef === false ? (
             <figure className="download-state">
               <img
                 // src={Constants.LABELS.imagePaths.FIREWORKS}
@@ -40,7 +40,7 @@ const DownloadModal = (props: any) => {
             </figure>
           )}
 
-          {clickRef && (
+          {downloadRef && (
             <h3 className="records-msg">
               {exportLabels.HOLD_MSG}
               <b>
@@ -50,7 +50,7 @@ const DownloadModal = (props: any) => {
             </h3>
           )}
 
-          {!(clickRef === false) && (
+          {!(downloadRef === false) && (
             <figure className="warning-container">
               <img
                 // src={Constants.LABELS.imagePaths.ERROR}

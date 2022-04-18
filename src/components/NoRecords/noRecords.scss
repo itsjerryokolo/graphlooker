@@ -1,0 +1,19 @@
+@import '../../utility/theme/variable.scss';
+
+.no-record-found {
+  display: block;
+  width: 250px;
+  margin: 50px auto;
+  text-align: center;
+  img {
+    width: 200px;
+    height: 200px;
+    margin: auto;
+  }
+
+  span {
+    font-family: $primaryFontFamily;
+    font-weight: $fontWeight500;
+    font-size: $size20;
+  }
+}

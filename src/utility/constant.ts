@@ -76,6 +76,7 @@ export default class Constants {
       SEARCH_BY_NUMBER: 'Search by Number',
       LOADING: `Don't worry - a few bits tried to escape, but we caught them.`,
       NO_RECORD: 'Oops!! No record found.',
+      NO_ATTRIBUTES: 'Oops!! No attributes found.',
       EXPLORE: 'Explore',
       LIGHT_THEME_LABEL: 'light',
       WHITE: 'white',
