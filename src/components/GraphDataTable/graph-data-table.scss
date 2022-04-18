@@ -1,4 +1,9 @@
 @import '../../utility/theme/variable.scss';
+.FilterData{
+ 
+  padding: 2px;
+  margin: 2px;
+}
 .all-graph-data {
   box-sizing: border-box;
   .table-conatiner {
@@ -75,6 +80,7 @@
       }
     }
   }
+  
 
   .next-previous-option {
     max-width: calc(100vw - 10px);

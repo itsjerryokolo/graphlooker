@@ -3,7 +3,6 @@ export default class Constants {
     DEV: {},
     PROD: {},
   };
-
   public static FILTERLABELS = {
     dataTypeLabels: {
       LIST: 'LIST',
@@ -186,6 +185,43 @@ export default class Constants {
       { menuItem: 'Not Empty', menuValue: '_not' },
     ],
   };
+  public static filterData() {
+    let ListOfFiltersWithMsg = new Map<string, string>([
+      ["_is", "Is Equals to"],
+      ["_not", "Is Not Equals to"],
+      ["_contains", "Contains"],
+      ["does_not_contain", "does not contain"],
+      ["starts_with","Starts with"  ],
+      ["ends_with","Ends with"],
+      ["_gt","From The Date of " ],
+      ["_lt","Less than" ],
+      ["_gte,_lte","Between the values" ],
+      ["_gte","Greater than or equal to" ],
+      ["_lte","Less than or equal to" ],
+      ['asc', "Ascending Order"],
+      ["desc", "Descending Order"],
+     
+
+  ]);
+  return ListOfFiltersWithMsg;
+ };
+ public static filterDataOfTime() {
+  let mapOfTime = new Map<string, string>([
+    ["_is", "Is Empty"],
+    ["_not", "Is Not Empty"],
+    ["_gt","From The Date of " ],
+    ["_gte,_lte","Between the dates" ],
+    ["_gte","Greater than or equal to" ],
+    ["_lte","Less than or equal to" ],
+   
+   
+
+]);
+return mapOfTime;
+};
+
+
+  
   public static NUMBERS = {
     CSV_Data: 100000,
   };
@@ -204,4 +240,11 @@ export default class Constants {
   public static ROUTES = {
     HOME_ROUTE: '/',
   };
+
+  
+  
+  
+
+
 }
+  

@@ -43,6 +43,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
+
 const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location }) => {
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
@@ -57,7 +58,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   } else {
     theme = label.DARK_THEME_LABEL;
   }
-console.log(parsed.i);
+console.log(parsed);
   React.useEffect(() => {
     if (parsed.uri && parsed.e) {
       const endpointEncoded = parsed.uri;
@@ -178,7 +179,7 @@ console.log(parsed.i);
 
             <h2 className="graph-heading">{graphName}</h2>
             
-            <FilterData className="filterChart" chipData={parsed} />
+            
                {/* Chips */}
             {/* <ExportButton /> */}
 
