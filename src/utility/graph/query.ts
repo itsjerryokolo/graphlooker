@@ -39,44 +39,6 @@ export const getAllAttributes = (entity: string) => {
     `;
 };
 
-// export const getGraphData = (
-//   columnNames: { name: string; type: string; typeName: string }[],
-//   entity: string,
-//   count: number,
-//   skip: number
-// ) => {
-//   console.log('get graph data');
-//   let queryData = ` `;
-//   const selectedEntity = Utility.makePluralChanges(entity);
-//   let orderByColumnName = commonLables.ID;
-//   for (let index = 0; index < columnNames.length; ++index) {
-//     const element = columnNames[index];
-//     if (element.name === commonLables.ID) {
-//       continue;
-//     }
-//     if (
-//       element.type === label.LIST ||
-//       element.type === label.OBJECT ||
-//       element.type === label.NON_NULL
-//     ) {
-//       queryData = queryData + `${element.name} { id } `;
-//     } else {
-//       queryData = queryData + `${element.name} `;
-//     }
-//   }
-
-//   orderByColumnName = Utility.getColumnNameForOptimizeQuery(columnNames);
-
-//   return gql`
-//     query {
-//       entity: ${selectedEntity}(first:${count},skip:${skip}, orderBy:${orderByColumnName}, orderDirection: desc){
-//         id
-//         ${queryData}
-//         }
-//     }
-//     `;
-// };
-
 export const getGraphDataForID = (columnNames: ColumnProps[], entity: string, filterID: string) => {
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
@@ -106,41 +68,21 @@ export const getGraphDataForID = (columnNames: ColumnProps[], entity: string, fi
       `;
 };
 
-// export const getSortedGraphData = (
-//   columnNames: { name: string; type: string; typeName: string }[],
-//   entity: string,
-//   sortType: string,
-//   attributeName: string,
-//   skip: number
-// ) => {
-//   let queryData = ` `;
-//   const selectedEntity = Utility.makePluralChanges(entity);
-//   for (let index = 0; index < columnNames.length; ++index) {
-//     const element = columnNames[index];
-//     if (element.name === commonLables.ID) {
-//       continue;
-//     }
-//     if (
-//       element.type === label.LIST ||
-//       element.type === label.OBJECT ||
-//       element.type === label.NON_NULL
-//     ) {
-//       queryData = queryData + `${element.name} { id } `;
-//     } else {
-//       queryData = queryData + `${element.name} `;
-//     }
-//   }
-//   return gql`
-//       query {
-//         entity: ${selectedEntity}(first:100, skip:${skip}, orderBy: ${attributeName}, orderDirection: ${sortType} ){
-//           id
-//           ${queryData}
-//           }
-//       }
-//       `;
-// };
+/*
+function to get Query based on last ID and applied filter.
 
-//Query for Filter Menu
+columnNames = name of perticular column in table .
+entity = selected entity.
+filterOption = applied filter ex: is, isNot
+attributeName = attribute name or column name.
+userInputValue = user input for specific filter
+skip = number of records to skip
+sortType = sorting type : asc or desc
+count = required number of records
+whereId = ID from where we need data
+errorMsg = specific error msg
+*/
+
 export const getStringFilterGraphData = (
   columnNames: ColumnProps[],
   entity: string,
@@ -210,7 +152,19 @@ export const getStringFilterGraphData = (
       `;
 };
 
-export const getCsvDataQuery = (
+/*
+function to get Query based on last ID and skip.
+
+columnNames = name of perticular column in table .
+entity = selected entity.
+attributeName = attribute name or column name.
+skip = number of records to skip
+count = required number of records
+whereId = ID from where we need data
+errorMsg = specific error msg
+*/
+
+export const getDataQuery = (
   columnNames: ColumnProps[],
   entity: any,
   count: number,
@@ -252,9 +206,20 @@ export const getCsvDataQuery = (
     `;
 };
 
-// Query based on last ID and asc, desc
+/*
+function to get Query based on last ID and sort type : asc, desc.
 
-export const getSortedCsvDataQuery = (
+columnNames = name of perticular column in table .
+entity = selected entity.
+sortType = sorting type : asc or desc
+attributeName = attribute name or column name.
+skip = number of records to skip
+count = required number of records
+whereId = ID from where we need data
+errorMsg = specific error msg
+*/
+
+export const getSortedDataQuery = (
   columnNames: ColumnProps[],
   entity: string,
   sortType: string,

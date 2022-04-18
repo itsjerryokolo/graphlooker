@@ -94,7 +94,6 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
               ) : (
                 ''
               )}
-              {/* {error && <Error type="message"></Error>} */}
             </form>
           </div>
         </div>

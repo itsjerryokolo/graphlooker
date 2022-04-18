@@ -10,11 +10,9 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  getCsvDataQuery,
-  // getGraphData,
+  getDataQuery,
   getGraphDataForID,
-  getSortedCsvDataQuery,
-  // getSortedGraphData,
+  getSortedDataQuery,
   getStringFilterGraphData,
 } from '../../utility/graph/query';
 import Table from '@mui/material/Table';
@@ -68,8 +66,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     }
     if (!parsed.f && !parsed.i && parsed.s) {
       const skip = checkForPagination();
-      // return getSortedGraphData(allAttributes, selectedEntity, `${parsed.s}`, `${parsed.c}`, skip);
-      return getSortedCsvDataQuery(
+      return getSortedDataQuery(
         listOfattributes,
         selectedEntity,
         `${parsed.s}`,
@@ -102,7 +99,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         isPrevDisable = false;
       }
       const skip = 100 * (pageNumber - 1);
-      return getCsvDataQuery(
+      return getDataQuery(
         listOfattributes,
         selectedEntity,
         100,
@@ -112,15 +109,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         error
       );
     }
-    return getCsvDataQuery(
-      listOfattributes,
-      selectedEntity,
-      100,
-      0,
-      queryDataGlobalState,
-      '',
-      error
-    );
+    return getDataQuery(listOfattributes, selectedEntity, 100, 0, queryDataGlobalState, '', error);
   };
   useEffect(() => {
     getBoardData();

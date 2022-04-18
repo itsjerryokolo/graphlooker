@@ -2,9 +2,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { CSVLink } from 'react-csv';
 import {
-  getCsvDataQuery,
+  getDataQuery,
   getGraphDataForID,
-  getSortedCsvDataQuery,
+  getSortedDataQuery,
   getStringFilterGraphData,
 } from '../../utility/graph/query';
 import { useApolloClient } from '@apollo/client';
@@ -49,7 +49,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     if (parsed.id) {
       return getGraphDataForID(listOfattributes, selectedEntity, `${parsed.id}`);
     } else if (!parsed.f && !parsed.i && parsed.s) {
-      return getSortedCsvDataQuery(
+      return getSortedDataQuery(
         listOfattributes,
         selectedEntity,
         `${parsed.s}`,
@@ -74,7 +74,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       );
     }
 
-    return getCsvDataQuery(
+    return getDataQuery(
       listOfattributes,
       selectedEntity,
       1000,
