@@ -26,7 +26,7 @@ import { Tooltip } from '@mui/material';
 import ErrorMessage from '../ErrorMessage/error-message';
 import { LoadingState } from '../../utility/redux/state';
 import humanizeString from 'humanize-string';
-import FilterData from '../FilterData/Chips';
+
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })<MuiAppBarProps>(() => ({
