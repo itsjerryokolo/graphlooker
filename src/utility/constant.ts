@@ -207,7 +207,7 @@ export default class Constants {
  };
  public static filterDataOfTime() {
   let mapOfTime = new Map<string, string>([
-    ["_is", "Is Empty"],
+    ["_is", "Is Empty "],
     ["_not", "Is Not Empty"],
     ["_gt","From The Date of " ],
     ["_gte,_lte","Between the dates" ],

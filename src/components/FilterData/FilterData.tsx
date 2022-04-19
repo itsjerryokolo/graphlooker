@@ -17,7 +17,6 @@ type PropData = {
 };
 
 const FilterData: FC<UserProps> = ({ props }): JSX.Element => {
-  
   return (
     <>
       {props.f == undefined ? (
@@ -28,21 +27,15 @@ const FilterData: FC<UserProps> = ({ props }): JSX.Element => {
           label={
             props.c == 'timestamp'
               ? `${listOfFiltersTime.get(props.f)} ${
-                  (props.i != undefined && props.i!=null) && props.i.length < 21 ? (
-                   
-                    moment.unix(props.i).format('LL') 
-                  ) : (
-                    ""
-                  )
+                  props.i != undefined && props.i != 'null' && props.i.length < 21
+                    ? moment.unix(props.i).format('LL')
+                    : ''
                 }
        ${
-         props.i != undefined && props.i.length == 21 ? (
-           `${moment.unix(props.i.substring(0, 10)).format('LL')} 
+         props.i != undefined && props.i.length == 21
+           ? `${moment.unix(props.i.substring(0, 10)).format('LL')} 
           ${moment.unix(props.i.substring(11, 21)).format('LL')}`
-        
-         ) : (
-           ""
-         )
+           : ''
        }`
               : `${props.c.toUpperCase()} 
     ${listOfFilters.get(props.f)}
