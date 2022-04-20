@@ -210,6 +210,7 @@ export default class Constants {
     ["_is", "Is Empty "],
     ["_not", "Is Not Empty"],
     ["_gt","From The Date of " ],
+    ["_lt","Before the Date of"],
     ["_gte,_lte","Between the dates" ],
     ["_gte","Greater than or equal to" ],
     ["_lte","Less than or equal to" ],

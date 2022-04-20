@@ -44,3 +44,6 @@ export interface ColumnProps {
   type: string;
   typeName: string;
 }
+export interface UserProps {
+  props: any;
+}
