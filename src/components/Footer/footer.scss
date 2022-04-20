@@ -1,0 +1,48 @@
+@import '../../utility/theme/variable.scss';
+footer {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: $primaryColor;
+  color: $colorWhite;
+  margin-top: 10px;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 10000;
+
+  .footer-left-info {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    a {
+      margin: auto 5px;
+    }
+  }
+
+  .social-icons-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    .icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      margin-right: 10px;
+      padding: 2px;
+      background-color: #fff;
+    }
+  }
+
+  .copyright-info {
+    margin-right: 20px;
+
+    a {
+      margin: auto 8px;
+      text-decoration: none;
+      color: blue;
+    }
+  }
+}

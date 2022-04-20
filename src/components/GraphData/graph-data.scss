@@ -55,24 +55,38 @@
         .toggle-drawer-icon {
           color: var(--drawerIconColour);
           font-size: 1.8rem;
+          padding: $size7;
           background: var(--drawerToggleIconBackground);
-          height: 40px;
-          width: 38px;
+          height: 24px;
+          width: 24px;
           border-radius: 5px;
           cursor: pointer;
-
-          cursor: pointer;
-
           &:hover {
             box-shadow: #00a1ff 0px 7px 29px 0px;
           }
+        }
+      }
+      .social-icons {
+        position: absolute;
+        left: 310px;
+        display: flex;
+        justify-content: space-around;
+        box-sizing: border-box;
+        padding: $size7;
+        .icon {
+          width: 24px;
+          height: 24px;
+          border-radius: 6px;
+          margin-right: 10px;
+          padding: 2px;
+          background-color: #fff;
         }
       }
       .graph-heading {
         font-family: $primaryFontFamily;
         font-weight: $fontWeight400;
       }
-      .chip{
+      .chip {
         background-color: aliceblue;
       }
       .theme-icon {
