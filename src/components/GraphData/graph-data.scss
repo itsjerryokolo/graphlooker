@@ -54,15 +54,15 @@
 
         .toggle-drawer-icon {
           color: var(--drawerIconColour);
-          font-size: 1.8rem;
+          font-size: 28px;
           padding: $size7;
           background: var(--drawerToggleIconBackground);
           height: 24px;
           width: 24px;
-          border-radius: 5px;
+          border-radius: $size5;
           cursor: pointer;
           &:hover {
-            box-shadow: #00a1ff 0px 7px 29px 0px;
+            box-shadow: $colorCyan $size0 $size7 29px $size0;
           }
         }
       }

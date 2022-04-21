@@ -6,13 +6,14 @@ import { ReactComponent as MediumSVG } from '../../svg/medium.svg';
 import { ReactComponent as TelegramSVG } from '../../svg/telegram.svg';
 import { ReactComponent as GithubSVG } from '../../svg/github.svg';
 import { ReactComponent as DapplookerSVG } from '../../svg/dapplooker-logo.svg';
+import Constants from '../../utility/constant';
 
 const Footer: React.FunctionComponent<any> = () => {
   return (
     <>
       <footer>
         <div className="footer-left-info">
-          Built with
+          {Constants.LABELS.commonLables.BUILT_WITH}
           <a
             href="https://dapplooker.com/"
             target="_blank"
@@ -21,7 +22,7 @@ const Footer: React.FunctionComponent<any> = () => {
           >
             <DapplookerSVG />
           </a>
-          Graph protocol
+          {Constants.LABELS.commonLables.GRAPH_PROTOCOL}
         </div>
         <div className="social-icons-footer">
           <div className="icon">
@@ -56,11 +57,11 @@ const Footer: React.FunctionComponent<any> = () => {
         </div>
 
         <div className="copyright-info">
-          © 2022 made with ❤️ by
+          {Constants.LABELS.commonLables.COPYRIGHT}
           <a href="https://dapplooker.com/" target="_blank" rel="noreferrer">
-            DappLooker
+            {Constants.LABELS.commonLables.DAPPLOOKER}
           </a>
-          team.
+          {Constants.LABELS.commonLables.TEAM}
         </div>
       </footer>
     </>
