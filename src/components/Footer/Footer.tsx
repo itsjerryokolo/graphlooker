@@ -6,6 +6,7 @@ import { ReactComponent as MediumSVG } from '../../svg/medium.svg';
 import { ReactComponent as TelegramSVG } from '../../svg/telegram.svg';
 import { ReactComponent as GithubSVG } from '../../svg/github.svg';
 import { ReactComponent as DapplookerSVG } from '../../svg/dapplooker-logo.svg';
+import { ReactComponent as YoutubeSVG } from '../../svg/youtube.svg';
 import Constants from '../../utility/constant';
 
 const Footer: React.FunctionComponent<any> = () => {
@@ -52,6 +53,16 @@ const Footer: React.FunctionComponent<any> = () => {
           <div className="icon">
             <a href="https://github.com/dapplooker" target="_blank" rel="noreferrer">
               <GithubSVG />
+            </a>
+          </div>
+
+          <div className="icon">
+            <a
+              href="https://www.youtube.com/channel/UC1KJmtb3UhnWSN_sDv71_fg"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <YoutubeSVG />
             </a>
           </div>
         </div>
