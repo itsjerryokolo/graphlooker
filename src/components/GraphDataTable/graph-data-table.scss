@@ -3,7 +3,7 @@
   box-sizing: border-box;
   .table-conatiner {
     max-width: calc(100vw - 10px);
-    height: 88vh;
+    height: calc(88vh - 76px);
     border-radius: 5px;
     box-sizing: border-box;
     overflow-x: auto;

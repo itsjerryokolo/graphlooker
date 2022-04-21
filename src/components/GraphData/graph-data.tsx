@@ -27,6 +27,11 @@ import ErrorMessage from '../ErrorMessage/error-message';
 import { LoadingState } from '../../utility/redux/state';
 import humanizeString from 'humanize-string';
 import FilterData from '../FilterData/Chips';
+import Footer from '../Footer/Footer';
+import { ReactComponent as DiscordSVG } from '../../svg/discord.svg';
+import { ReactComponent as TwitterSVG } from '../../svg/twitter.svg';
+import { ReactComponent as TelegramSVG } from '../../svg/telegram.svg';
+
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })<MuiAppBarProps>(() => ({
@@ -57,7 +62,6 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   } else {
     theme = label.DARK_THEME_LABEL;
   }
-console.log(parsed.i);
   React.useEffect(() => {
     if (parsed.uri && parsed.e) {
       const endpointEncoded = parsed.uri;
@@ -176,11 +180,29 @@ console.log(parsed.i);
               )}
             </div>
 
+            <div className="social-icons">
+              <div className="icon">
+                <a href="https://discord.com/invite/FWyNJtEyxa" target="_blank" rel="noreferrer">
+                  <DiscordSVG />
+                </a>
+              </div>
+
+              <div className="icon">
+                <a href="https://t.me/dapplooker" target="_blank" rel="noreferrer">
+                  <TelegramSVG />
+                </a>
+              </div>
+
+              <div className="icon">
+                <a href="https://twitter.com/dapplooker" target="_blank" rel="noreferrer">
+                  <TwitterSVG />
+                </a>
+              </div>
+            </div>
+
             <h2 className="graph-heading">{graphName}</h2>
-            
+
             <FilterData className="filterChart" chipData={parsed} />
-               {/* Chips */}
-            {/* <ExportButton /> */}
 
             <Tooltip title={label.SWITCH_THEME}>
               <div className="theme-icon" onClick={handleToggleTheme}>
@@ -243,6 +265,9 @@ console.log(parsed.i);
           </Drawer>
         </Box>
         <DataBoard drawerOpen={drawerOpen}></DataBoard>
+      </div>
+      <div>
+        <Footer />
       </div>
     </>
   );
