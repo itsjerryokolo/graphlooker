@@ -17,8 +17,13 @@ footer {
     margin-left: 20px;
     display: flex;
     align-items: center;
-    a {
+    a.icon {
       margin: auto 5px;
+
+      svg {
+        width: 30px;
+        height: 30px;
+      }
     }
   }
 
@@ -43,7 +48,7 @@ footer {
     a {
       margin: auto 8px;
       text-decoration: none;
-      color: #0000ee;
+      color: $colorCyan;
     }
   }
 }

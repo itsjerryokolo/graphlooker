@@ -5,7 +5,7 @@ import { ReactComponent as TwitterSVG } from '../../svg/twitter.svg';
 import { ReactComponent as MediumSVG } from '../../svg/medium.svg';
 import { ReactComponent as TelegramSVG } from '../../svg/telegram.svg';
 import { ReactComponent as GithubSVG } from '../../svg/github.svg';
-import { ReactComponent as DapplookerSVG } from '../../svg/dapplooker-logo.svg';
+import { ReactComponent as GraphProtocolSVG } from '../../svg/graph-protocol.svg';
 import { ReactComponent as YoutubeSVG } from '../../svg/youtube.svg';
 import Constants from '../../utility/constant';
 
@@ -15,13 +15,8 @@ const Footer: React.FunctionComponent<any> = () => {
       <footer>
         <div className="footer-left-info">
           {Constants.LABELS.commonLables.BUILT_WITH}
-          <a
-            href="https://dapplooker.com/"
-            target="_blank"
-            rel="noreferrer"
-            className="icon icn-dapplooker"
-          >
-            <DapplookerSVG />
+          <a href="https://dapplooker.com/" target="_blank" rel="noreferrer" className="icon">
+            <GraphProtocolSVG />
           </a>
           {Constants.LABELS.commonLables.GRAPH_PROTOCOL}
         </div>
