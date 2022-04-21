@@ -188,7 +188,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               </div>
 
               <div className="icon">
-                <a href="https://dapplooker.medium.com/" target="_blank" rel="noreferrer">
+                <a href="https://t.me/dapplooker" target="_blank" rel="noreferrer">
                   <TelegramSVG />
                 </a>
               </div>
