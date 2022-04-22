@@ -104,6 +104,7 @@ export default class Constants {
       COPYRIGHT: '© 2022 made with ❤️ by',
       DAPPLOOKER: 'DappLooker',
       TEAM: 'team.',
+      NULL_VALUE: 'Null value resolved',
     },
     commonUrls: {
       BASE_URL:
@@ -183,7 +184,7 @@ export default class Constants {
       { menuItem: 'Is', menuValue: '_is' },
       { menuItem: 'Is not', menuValue: '_not' },
       { menuItem: 'Contains', menuValue: '_contains' },
-      { menuItem: 'Does not contain', menuValue: 'does_not_contain' },
+      { menuItem: 'Does not contain', menuValue: '_not_contains' },
       { menuItem: 'Starts with', menuValue: 'starts_with' },
       { menuItem: 'Ends with', menuValue: 'ends_with' },
       { menuItem: 'Is Empty', menuValue: '_is' },

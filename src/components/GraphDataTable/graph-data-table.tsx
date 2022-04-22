@@ -185,6 +185,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   if (loading) {
   }
   if (error) {
+    if (errorMsg && !data && !errorMsg.includes(Constants.LABELS.commonLables.NULL_VALUE)) {
+      dispatch(setDataLoading(false));
+    }
   }
   if (data) {
     let queryData: any[];
