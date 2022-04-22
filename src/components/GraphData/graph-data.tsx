@@ -26,6 +26,10 @@ import { Tooltip } from '@mui/material';
 import ErrorMessage from '../ErrorMessage/error-message';
 import { LoadingState } from '../../utility/redux/state';
 import humanizeString from 'humanize-string';
+import Footer from '../Footer/Footer';
+import { ReactComponent as DiscordSVG } from '../../svg/discord.svg';
+import { ReactComponent as TwitterSVG } from '../../svg/twitter.svg';
+import { ReactComponent as TelegramSVG } from '../../svg/telegram.svg';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -177,11 +181,30 @@ console.log(parsed);
               )}
             </div>
 
+            <div className="social-icons">
+              <div className="icon">
+                <a href="https://discord.com/invite/FWyNJtEyxa" target="_blank" rel="noreferrer">
+                  <DiscordSVG />
+                </a>
+              </div>
+
+              <div className="icon">
+                <a href="https://t.me/dapplooker" target="_blank" rel="noreferrer">
+                  <TelegramSVG />
+                </a>
+              </div>
+
+              <div className="icon">
+                <a href="https://twitter.com/dapplooker" target="_blank" rel="noreferrer">
+                  <TwitterSVG />
+                </a>
+              </div>
+            </div>
+
             <h2 className="graph-heading">{graphName}</h2>
             
             
-               {/* Chips */}
-            {/* <ExportButton /> */}
+             
 
             <Tooltip title={label.SWITCH_THEME}>
               <div className="theme-icon" onClick={handleToggleTheme}>
@@ -244,6 +267,9 @@ console.log(parsed);
           </Drawer>
         </Box>
         <DataBoard drawerOpen={drawerOpen}></DataBoard>
+      </div>
+      <div>
+        <Footer />
       </div>
     </>
   );
