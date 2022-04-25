@@ -132,12 +132,26 @@ export default class Utility {
     ["_gte,_lte","Between the dates" ],
     ["_gte","Greater than or equal to" ],
     ["_lte","Less than or equal to" ],
+    ["_gte","Greater than or equal to" ],
+    ["_lte","Less than or equal to" ],
    
    
 
 ]);
 return mapOfTime;
 };
+public static filterDataOfString(){
+  let mapForString = new Map<string, string>([
+    ["_is", "Is Empty "],
+    ["_not", "Is Not Empty"],
+    ["_contains", "Contains"],
+    ["does_not_contain", "does not contain"],
+    ["starts_with","Starts with"],
+    ["_lt","Less than" ],
+  ]);
+return mapForString;
+}
+
 
 
   public static checkAttributeIsEntity = (

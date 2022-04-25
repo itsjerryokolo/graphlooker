@@ -14,7 +14,7 @@ import queryString from 'query-string';
 import ExportToCsv from '../ExportToCSV/export-to-csv';
 import { setDataLoading } from '../../redux/actions/loading-action';
 import NoRecords from '../NoRecords/NoRecords';
-import FilterData from '../FilterData/FilterData';
+
 
 const drawerWidth = 300;
 

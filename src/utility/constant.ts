@@ -105,6 +105,7 @@ export default class Constants {
       DAPPLOOKER: 'DappLooker',
       TEAM: 'team.',
       NULL_VALUE: 'Null value resolved',
+      
     },
     commonUrls: {
       BASE_URL:
@@ -213,7 +214,9 @@ export default class Constants {
     HOME_ROUTE: '/',
   };
 
-  
+  public static LENGTH_OF_STRING={
+    VALUE:21,
+  }
   
   
 
