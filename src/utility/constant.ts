@@ -184,49 +184,14 @@ export default class Constants {
       { menuItem: 'Is', menuValue: '_is' },
       { menuItem: 'Is not', menuValue: '_not' },
       { menuItem: 'Contains', menuValue: '_contains' },
-      { menuItem: 'Does not contain', menuValue: '_not_contains' },
+      { menuItem: 'Does not contain', menuValue: 'does_not_contain' },
       { menuItem: 'Starts with', menuValue: 'starts_with' },
       { menuItem: 'Ends with', menuValue: 'ends_with' },
       { menuItem: 'Is Empty', menuValue: '_is' },
       { menuItem: 'Not Empty', menuValue: '_not' },
     ],
   };
-  public static filterData() {
-    let ListOfFiltersWithMsg = new Map<string, string>([
-      ["_is", "Is Equals to"],
-      ["_not", "Is Not Equals to"],
-      ["_contains", "Contains"],
-      ["does_not_contain", "does not contain"],
-      ["starts_with","Starts with"  ],
-      ["ends_with","Ends with"],
-      ["_gt","From The Date of " ],
-      ["_lt","Less than" ],
-      ["_gte,_lte","Between the values" ],
-      ["_gte","Greater than or equal to" ],
-      ["_lte","Less than or equal to" ],
-      ['asc', "Ascending Order"],
-      ["desc", "Descending Order"],
-     
-
-  ]);
-  return ListOfFiltersWithMsg;
- };
- public static filterDataOfTime() {
-  let mapOfTime = new Map<string, string>([
-    ["_is", "Is Empty "],
-    ["_not", "Is Not Empty"],
-    ["_gt","From The Date of " ],
-    ["_lt","Before the Date of"],
-    ["_gte,_lte","Between the dates" ],
-    ["_gte","Greater than or equal to" ],
-    ["_lte","Less than or equal to" ],
-   
-   
-
-]);
-return mapOfTime;
-};
-
+ 
 
   
   public static NUMBERS = {
