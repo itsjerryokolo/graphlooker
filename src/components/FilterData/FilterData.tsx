@@ -18,10 +18,7 @@ const FilterData: React.FunctionComponent<UserProps> = ({ props }): JSX.Element 
 
   function checkForBetweenAndOr() {
     return props.i !== undefined && props.i.length === Constants.LENGTH_OF_STRING.VALUE
-      ? `${moment.unix(props.i.substring(0, 10)).format('LL')}` !==
-        `${moment.unix(props.i.substring(11, 21)).format('LL')}`
-        ? `${time}`
-        : `${moment.unix(props.i.substring(0, 10)).format('LL')}`
+      ? `${time}`
       : '';
   }
   function checkForEmpty() {
@@ -33,12 +30,12 @@ const FilterData: React.FunctionComponent<UserProps> = ({ props }): JSX.Element 
     //In case,when {prop.i} has timestamp.
     props.i !== undefined && props.i.length === Constants.LENGTH_OF_STRING.VALUE
       ? settime(
-          `${moment.unix(props.i.substring(0, 10)).format('LL')} ${moment
+          `${moment.unix(props.i.substring(0, 10)).format('LLL')} and ${moment
             .unix(props.i.substring(11, 21))
-            .format('LL')}`
+            .format('LLL')}`
         )
-      : settime(moment.unix(props.i).format('LL'));
-  },[props.i]);
+      : settime(moment.unix(props.i).format('LLL'));
+  }, [props.i]);
 
   return (
     <>
@@ -52,7 +49,13 @@ const FilterData: React.FunctionComponent<UserProps> = ({ props }): JSX.Element 
           label={
             isTimeStampColumn.length
               ? `${listOfFiltersTime.get(props.f)}
-               ${props.i !== undefined && props.i !== 'null' && props.i.length < 21 ? time : ''}
+               ${
+                 props.i !== undefined &&
+                 props.i !== 'null' &&
+                 props.i.length < Constants.LENGTH_OF_STRING.VALUE
+                   ? time
+                   : ''
+               }
                ${checkForBetweenAndOr()}`
               : `${props.c} ${checkForEmpty()} ${props.i} `
           }

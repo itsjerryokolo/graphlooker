@@ -54,7 +54,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const theme = parsed.th;
   const dispatch = useDispatch();
 
-
+  
 
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;

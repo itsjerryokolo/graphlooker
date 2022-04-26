@@ -105,54 +105,47 @@ export default class Utility {
   };
   public static filterData() {
     let ListOfFiltersWithMsg = new Map<string, string>([
-      ["_is", "Is Equals to"],
-      ["_not", "Is Not Equals to"],
-      ["_contains", "Contains"],
-      ["does_not_contain", "does not contain"],
-      ["starts_with","Starts with"  ],
-      ["ends_with","Ends with"],
-      ["_gt","From The Date of " ],
-      ["_lt","Less than" ],
-      ["_gte,_lte","Between the values" ],
-      ["_gte","Greater than or equal to" ],
-      ["_lte","Less than or equal to" ],
-      ['asc', "Ascending Order"],
-      ["desc", "Descending Order"],
-     
-
-  ]);
-  return ListOfFiltersWithMsg;
- };
- public static filterDataOfTime() {
-  let mapOfTime = new Map<string, string>([
-    ["_is", "Is Empty "],
-    ["_not", "Is Not Empty"],
-    ["_gt","From The Date of " ],
-    ["_lt","Before the Date of"],
-    ["_gte,_lte","Between the dates" ],
-    ["_gte","Greater than or equal to" ],
-    ["_lte","Less than or equal to" ],
-    ["_gte","Greater than or equal to" ],
-    ["_lte","Less than or equal to" ],
-   
-   
-
-]);
-return mapOfTime;
-};
-public static filterDataOfString(){
-  let mapForString = new Map<string, string>([
-    ["_is", "Is Empty "],
-    ["_not", "Is Not Empty"],
-    ["_contains", "Contains"],
-    ["does_not_contain", "does not contain"],
-    ["starts_with","Starts with"],
-    ["_lt","Less than" ],
-  ]);
-return mapForString;
-}
-
-
+      ['_is', 'Is Equals to'],
+      ['_not', 'Is Not Equals to'],
+      ['_contains', 'Contains'],
+      ['does_not_contain', 'does not contain'],
+      ['starts_with', 'Starts with'],
+      ['ends_with', 'Ends with'],
+      ['_gt', 'Greater than'],
+      ['_lt', 'Less than'],
+      ['_gte,_lte', 'Between the values'],
+      ['_gte', 'Greater than or equal to'],
+      ['_lte', 'Less than or equal to'],
+      ['asc', 'Ascending Order'],
+      ['desc', 'Descending Order'],
+    ]);
+    return ListOfFiltersWithMsg;
+  }
+  public static filterDataOfTime() {
+    let mapOfTime = new Map<string, string>([
+      ['_is', 'Is Empty '],
+      ['_not', 'Is Not Empty'],
+      ['_gt', 'From The Date of '],
+      ['_lt', 'Before the Date of'],
+      ['_gte,_lte', 'From'],
+      ['_gte', 'Greater than or equal to'],
+      ['_lte', 'Less than or equal to'],
+      ['_gte', 'Greater than or equal to'],
+      ['_lte', 'Less than or equal to'],
+    ]);
+    return mapOfTime;
+  }
+  public static filterDataOfString() {
+    let mapForString = new Map<string, string>([
+      ['_is', 'Is Empty '],
+      ['_not', 'Is Not Empty'],
+      ['_contains', 'Contains'],
+      ['does_not_contain', 'does not contain'],
+      ['starts_with', 'Starts with'],
+      ['_lt', 'Less than'],
+    ]);
+    return mapForString;
+  }
 
   public static checkAttributeIsEntity = (
     entity: string,
@@ -263,7 +256,6 @@ return mapForString;
     return sortedByTime;
   };
 }
-
 
 export const sortData = (sortedData: object[]) => {
   sortedData = sortedData.map((item: object) => {

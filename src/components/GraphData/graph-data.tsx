@@ -184,19 +184,19 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
             <div className="social-icons">
               <div className="icon">
                 <a href="https://discord.com/invite/FWyNJtEyxa" target="_blank" rel="noreferrer">
-                  <DiscordSVG />
+                  <DiscordSVG height={30} width={35}/>
                 </a>
               </div>
 
               <div className="icon">
                 <a href="https://t.me/dapplooker" target="_blank" rel="noreferrer">
-                  <TelegramSVG />
+                  <TelegramSVG height={30} width={35} />
                 </a>
               </div>
 
               <div className="icon">
                 <a href="https://twitter.com/dapplooker" target="_blank" rel="noreferrer">
-                  <TwitterSVG />
+                  <TwitterSVG height={30} width={35}/>
                 </a>
               </div>
             </div>
