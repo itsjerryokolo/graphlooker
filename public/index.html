@@ -13,6 +13,28 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <script>
+    var hostName = window.location.hostname;
+    var hostWithSubdomain = hostName.split(".")[1];
+    var host = "dapplooker";
+    if (hostName === host || hostWithSubdomain === host) {
+      // Checking hostname
+      var script = document.createElement("script"); // Creating a script tag
+      script.setAttribute("type", "text/javascript"); // Setting type of script
+      script.setAttribute("defer", "");
+      script.setAttribute(
+        "src",
+        "https://www.googletagmanager.com/gtag/js?id=UA-197948260-1"
+      ); // Setting src URL
+      document.head.appendChild(script); // Loading script under head
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-197948260-1");
+    }
+  </script>
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.

@@ -36,6 +36,7 @@ import ErrorMessage from '../ErrorMessage/error-message';
 import ExportButton from '../ExportToCSV/ExportButton';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import NoRecords from '../NoRecords/NoRecords';
+import FilterData from '../FilterData/FilterData';
 
 const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteComponentProps<any>> = ({
   drawerOpen,
@@ -52,6 +53,8 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   let listOfattributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
   const theme = parsed.th;
   const dispatch = useDispatch();
+
+
 
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
@@ -236,6 +239,10 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
 
   return (
     <>
+     <div className='FilterData'>
+     <FilterData  props={parsed} />
+     </div>
+     {/* Chip  */}
       <ExportButton rows={rows} />
       <div className="all-graph-data">
         <div className={`table-conatiner ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`}>

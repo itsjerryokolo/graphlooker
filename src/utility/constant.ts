@@ -3,7 +3,6 @@ export default class Constants {
     DEV: {},
     PROD: {},
   };
-
   public static FILTERLABELS = {
     dataTypeLabels: {
       LIST: 'LIST',
@@ -106,6 +105,7 @@ export default class Constants {
       DAPPLOOKER: 'DappLooker',
       TEAM: 'team.',
       NULL_VALUE: 'Null value resolved',
+      
     },
     commonUrls: {
       BASE_URL:
@@ -185,13 +185,16 @@ export default class Constants {
       { menuItem: 'Is', menuValue: '_is' },
       { menuItem: 'Is not', menuValue: '_not' },
       { menuItem: 'Contains', menuValue: '_contains' },
-      { menuItem: 'Does not contain', menuValue: '_not_contains' },
+      { menuItem: 'Does not contain', menuValue: 'does_not_contain' },
       { menuItem: 'Starts with', menuValue: 'starts_with' },
       { menuItem: 'Ends with', menuValue: 'ends_with' },
       { menuItem: 'Is Empty', menuValue: '_is' },
       { menuItem: 'Not Empty', menuValue: '_not' },
     ],
   };
+ 
+
+  
   public static NUMBERS = {
     CSV_Data: 100000,
   };
@@ -210,4 +213,13 @@ export default class Constants {
   public static ROUTES = {
     HOME_ROUTE: '/',
   };
+
+  public static LENGTH_OF_STRING={
+    VALUE:21,
+  }
+  
+  
+
+
 }
+  

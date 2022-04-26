@@ -15,6 +15,7 @@ import ExportToCsv from '../ExportToCSV/export-to-csv';
 import { setDataLoading } from '../../redux/actions/loading-action';
 import NoRecords from '../NoRecords/NoRecords';
 
+
 const drawerWidth = 300;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -112,8 +113,10 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
 
   return (
     <>
+
       <div>{parsed.v !== undefined ? <ExportToCsv /> : null}</div>
-      <Main open={drawerOpen}>
+     
+           <Main open={drawerOpen}>
         <div className="tab-pane" id="tab0" role="tabpanel" aria-labelledby="tab_0">
           {listOfattributes.length !== 0 ? (
             <GraphDataTable drawerOpen={drawerOpen}></GraphDataTable>
@@ -121,6 +124,7 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
             <NoRecords listOfattributes={listOfattributes} />
           )}
         </div>
+
       </Main>
     </>
   );

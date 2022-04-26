@@ -26,7 +26,6 @@ import { Tooltip } from '@mui/material';
 import ErrorMessage from '../ErrorMessage/error-message';
 import { LoadingState } from '../../utility/redux/state';
 import humanizeString from 'humanize-string';
-import FilterData from '../FilterData/Chips';
 import Footer from '../Footer/Footer';
 import { ReactComponent as DiscordSVG } from '../../svg/discord.svg';
 import { ReactComponent as TwitterSVG } from '../../svg/twitter.svg';
@@ -48,6 +47,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
+
 const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location }) => {
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
@@ -62,6 +62,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   } else {
     theme = label.DARK_THEME_LABEL;
   }
+
   React.useEffect(() => {
     if (parsed.uri && parsed.e) {
       const endpointEncoded = parsed.uri;
@@ -201,8 +202,9 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
             </div>
 
             <h2 className="graph-heading">{graphName}</h2>
-
-            <FilterData className="filterChart" chipData={parsed} />
+            
+            
+             
 
             <Tooltip title={label.SWITCH_THEME}>
               <div className="theme-icon" onClick={handleToggleTheme}>
