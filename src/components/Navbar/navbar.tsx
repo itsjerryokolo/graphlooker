@@ -33,13 +33,13 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
                 <img
                   src="/images/cosmoDapp_theme_color_text.png"
                   height="47px"
-                  alt="dapplooker-icon"
+                  alt="cosmodapp-icon"
                 ></img>
               ) : (
                 <img
                   src="/images/cosmoDapp_white_text.png"
                   height="50px"
-                  alt="dapplooker-icon"
+                  alt="cosmodapp-icon"
                 ></img>
               )}
               <div className="social-icons">

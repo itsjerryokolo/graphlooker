@@ -153,7 +153,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     setErrorMsg('');
   }, [sortedDataState]);
 
-  let fileName = `${selectedEntity}_Dapplooker.csv`;
+  let fileName = `${selectedEntity}_cosmodapp.csv`;
 
   return (
     <>

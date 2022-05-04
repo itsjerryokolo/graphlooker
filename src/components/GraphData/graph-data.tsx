@@ -159,7 +159,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                   <img
                     src="/images/cosmoDapp_white_text.png"
                     height="50px"
-                    alt="dapplooker-icon"
+                    alt="cosmodapp-icon"
                   ></img>
                 </a>
               </Box>
@@ -235,7 +235,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                   <img
                     src="/images/cosmoDapp_theme_color_text.png"
                     height="33px"
-                    alt="dapplooker-icon"
+                    alt="cosmodapp-icon"
                   ></img>
                 </a>
               </Box>
