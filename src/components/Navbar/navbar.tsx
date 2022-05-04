@@ -9,6 +9,9 @@ import { ThemeState } from './../../utility/redux/state';
 import './navbar.scss';
 import { toggleTheme } from '../../redux/actions/theme-action';
 import Constants from '../../utility/constant';
+import { ReactComponent as DiscordSVG } from '../../svg/discord.svg';
+import { ReactComponent as TwitterSVG } from '../../svg/twitter.svg';
+import { ReactComponent as TelegramSVG } from '../../svg/telegram.svg';
 
 const Navbar: React.FunctionComponent<{}> = (props) => {
   const dispatch = useDispatch();
@@ -21,30 +24,51 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar className="toolbar toolbar-padding">
-          <div className="menu-items">
-            {theme === label.LIGHT_THEME_LABEL ? (
-              <img
-                src="https://dapplooker.s3.amazonaws.com/assets/img/Dapplooker_light_theme_logo.png"
-                height="47px"
-                alt="dapplooker-icon"
-              ></img>
-            ) : (
-              <img
-                src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
-                height="43px"
-                alt="dapplooker-icon"
-              ></img>
-            )}
-            <div className="theme-icon" onClick={handleToggleTheme}>
-              {theme === label.LIGHT_THEME_LABEL ? <DarkModeIcon /> : <LightModeIcon />}
+    <>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar className="toolbar toolbar-padding">
+            <div className="menu-items">
+              {theme === label.LIGHT_THEME_LABEL ? (
+                <img
+                  src="/images/cosmoDapp_theme_color_text.png"
+                  height="47px"
+                  alt="dapplooker-icon"
+                ></img>
+              ) : (
+                <img
+                  src="/images/cosmoDapp_white_text.png"
+                  height="50px"
+                  alt="dapplooker-icon"
+                ></img>
+              )}
+              <div className="social-icons">
+                <div className="icon">
+                  <a href="https://discord.com/invite/FWyNJtEyxa" target="_blank" rel="noreferrer">
+                    <DiscordSVG height={30} width={35} />
+                  </a>
+                </div>
+
+                <div className="icon">
+                  <a href="https://t.me/dapplooker" target="_blank" rel="noreferrer">
+                    <TelegramSVG height={30} width={35} />
+                  </a>
+                </div>
+
+                <div className="icon">
+                  <a href="https://twitter.com/dapplooker" target="_blank" rel="noreferrer">
+                    <TwitterSVG height={30} width={35} />
+                  </a>
+                </div>
+              </div>
+              <div className="theme-icon" onClick={handleToggleTheme}>
+                {theme === label.LIGHT_THEME_LABEL ? <DarkModeIcon /> : <LightModeIcon />}
+              </div>
             </div>
-          </div>
-        </Toolbar>
-      </AppBar>
-    </Box>
+          </Toolbar>
+        </AppBar>
+      </Box>
+    </>
   );
 };
 

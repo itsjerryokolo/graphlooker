@@ -47,7 +47,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-
 const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location }) => {
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
@@ -158,8 +157,8 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               >
                 <a href={Constants.ROUTES.HOME_ROUTE}>
                   <img
-                    src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
-                    height="43px"
+                    src="/images/cosmoDapp_white_text.png"
+                    height="50px"
                     alt="dapplooker-icon"
                   ></img>
                 </a>
@@ -184,7 +183,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
             <div className="social-icons">
               <div className="icon">
                 <a href="https://discord.com/invite/FWyNJtEyxa" target="_blank" rel="noreferrer">
-                  <DiscordSVG height={30} width={35}/>
+                  <DiscordSVG height={30} width={35} />
                 </a>
               </div>
 
@@ -196,15 +195,12 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
 
               <div className="icon">
                 <a href="https://twitter.com/dapplooker" target="_blank" rel="noreferrer">
-                  <TwitterSVG height={30} width={35}/>
+                  <TwitterSVG height={30} width={35} />
                 </a>
               </div>
             </div>
 
             <h2 className="graph-heading">{graphName}</h2>
-            
-            
-             
 
             <Tooltip title={label.SWITCH_THEME}>
               <div className="theme-icon" onClick={handleToggleTheme}>
@@ -237,7 +233,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               <Box>
                 <a href={Constants.ROUTES.HOME_ROUTE}>
                   <img
-                    src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/Dapplooker.svg"
+                    src="/images/cosmoDapp_theme_color_text.png"
                     height="33px"
                     alt="dapplooker-icon"
                   ></img>

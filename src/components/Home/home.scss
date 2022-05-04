@@ -21,11 +21,11 @@
     align-items: center;
     height: 500px;
     .search-box-form {
-      display: flex;
-      justify-content: flex-start;
-      max-width: 850px;
+      // display: flex;
+      // justify-content: flex-start;
+      width: 850px;
       margin: 2.5rem auto 0;
-      flex-wrap: wrap;
+      // flex-wrap: wrap;
       .search-input {
         border: var(--searchBoxBorder);
         box-sizing: border-box;
@@ -50,11 +50,15 @@
         transition: 0.4s;
         cursor: pointer;
         border: none;
+        height: 70px;
+        position: relative;
+        top: 1px;
       }
       .explore-msg {
         font-size: $size18;
         font-family: $primaryFontFamily;
         margin: 0;
+        text-align: left;
       }
       .search-button:disabled {
         // background: #fd2121;

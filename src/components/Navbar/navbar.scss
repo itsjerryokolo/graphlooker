@@ -15,7 +15,7 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    margin: 0 3rem;
+    margin: 0 20px;
     .theme-icon {
       border: var(--primaryBorderColor) solid 0.5px;
       padding: $size7;
@@ -28,6 +28,22 @@
         font-size: 1.7rem;
         color: var(--iconColour);
       }
+    }
+  }
+  .social-icons {
+    position: absolute;
+    left: 258px;
+    display: flex;
+    justify-content: space-around;
+    box-sizing: border-box;
+    padding: $size7;
+    .icon {
+      width: 33px;
+      height: 33px;
+      border-radius: 6px;
+      margin-right: 10px;
+      padding: 2px;
+      background-color: #fff;
     }
   }
 }
