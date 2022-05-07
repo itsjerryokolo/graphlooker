@@ -62,7 +62,7 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
                   </a>
                 </div>
                 <div>
-                  <img className='beta-item' src={`/images/beta.png`} />
+                  <img className='beta-icon' src={`/images/beta.png`} />
                 </div>
               </div>
               <div className="theme-icon" onClick={handleToggleTheme}>

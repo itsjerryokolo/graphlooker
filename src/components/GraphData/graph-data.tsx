@@ -168,7 +168,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               </Box>
 
               {drawerOpen ? (
-                <div className='beta-1'>
+                <div className='beta-tag'>
                   <img src={`./images/beta.png`}></img>
                   <Tooltip title={label.COLLAPSE}>
                     <KeyboardDoubleArrowLeftIcon
@@ -178,7 +178,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                   </Tooltip>
                 </div>
               ) : (
-                <div className='beta-1'>
+                <div className='beta-tag'>
                   <img src={`./images/beta.png`}></img>
                   <Tooltip title={label.EXPAND}>
                     <KeyboardDoubleArrowRightIcon
@@ -210,9 +210,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                   <TwitterSVG height={30} width={35} />
                 </a>
               </div>
-
             </div>
-
             <h2 className="graph-heading">{graphName}</h2>
 
             <Tooltip title={label.SWITCH_THEME}>
