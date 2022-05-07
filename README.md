@@ -1,12 +1,12 @@
 # CosmoDapp
 
 
-## Live application
+## LIVE APPLICATION
 
 Check out our live application : [here](https://cosmodapp.com/).
 
 
-## Steps for installation 
+## STEPS FOR INSTALLATION
 
 How to fork subgraph-explorer
 
@@ -23,18 +23,18 @@ Step3:-
 Install the dependencies
 $ npm install
 ```
-## Run the application for development
+## COMMAND TO RUN THE APPLICATION
 ```
 $ npm start
 ```
-## Simple build for production
+## COMMAND TO RUN THE PRODUCTION URL
 
 ```
 $ npm run production
 ```
 
 
-## Setup your enviornment
+## SETTING UP OF THE ENVIORNMENT
 
 ```
  Create .env file in the subgraph-explorer folder that includes:
@@ -48,5 +48,7 @@ $ npm run production
 
      REACT_APP_TNX_URL = 'https://etherscan.io/tx/'
 ```
+
+
 
 
