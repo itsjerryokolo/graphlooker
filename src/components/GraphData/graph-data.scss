@@ -1,9 +1,11 @@
 @import '../../utility/theme/variable.scss';
+
 .loader {
   width: 100%;
   height: 100vh;
   background-color: $primaryColor;
   display: flex;
+
   span {
     font-size: 2rem;
     color: $colorCyan;
@@ -11,6 +13,9 @@
     margin: auto;
   }
 }
+
+
+
 .error-screen {
   width: 100%;
   height: 100vh;
@@ -19,6 +24,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   // position: relative;
   img {
     width: 200px;
@@ -26,12 +32,22 @@
     // margin: auto;
   }
 }
+
+.beta-item {
+
+  padding-bottom: 20px;
+
+}
+
 .card-container {
   display: flex;
+
   .app-bar {
     padding-right: 0 !important;
+
     .toolbar {
       display: flex;
+
       justify-content: space-between;
       align-items: center;
       height: 100%;
@@ -40,6 +56,8 @@
       &.toolbar-padding {
         padding: 0;
       }
+
+
 
       .menu-container {
         width: 280px;
@@ -52,6 +70,13 @@
         margin-left: $size20;
         height: 100%;
 
+        .beta-1 img {
+          height: 20px;
+          width: 22px;
+          margin-left: -5px;
+          margin-bottom: -18px;
+        }
+
         .toggle-drawer-icon {
           color: var(--drawerIconColour);
           font-size: 28px;
@@ -59,20 +84,32 @@
           background: var(--drawerToggleIconBackground);
           height: 24px;
           width: 24px;
+          margin-left: 65px;
+          margin-bottom: 14px;
+
+
           border-radius: $size5;
           cursor: pointer;
+
           &:hover {
             box-shadow: $colorCyan $size0 $size7 29px $size0;
           }
         }
       }
+
+
+
       .social-icons {
+
         position: absolute;
-        left: 310px;
+        left: 350px;
         display: flex;
+        flex-direction: row-reverse;
         justify-content: space-around;
         box-sizing: border-box;
         padding: $size7;
+
+
         .icon {
           width: 33px;
           height: 33px;
@@ -82,13 +119,16 @@
           background-color: #fff;
         }
       }
+
       .graph-heading {
         font-family: $primaryFontFamily;
         font-weight: $fontWeight400;
       }
+
       .chip {
         background-color: aliceblue;
       }
+
       .theme-icon {
         // border: var(--themeIconBorder) solid 0.5px;
         padding: $size7;
@@ -98,6 +138,7 @@
         margin-right: $size20;
         background-color: var(--iconBackgroundColor);
         cursor: pointer;
+
         svg {
           color: var(--iconColour);
           height: 24px;
@@ -105,6 +146,7 @@
       }
     }
   }
+
   .drawer-first {
     &.MuiDrawer-paper {
       box-sizing: border-box;
@@ -112,12 +154,14 @@
       padding-bottom: 8rem;
       color: $colorWhite;
     }
+
     .list-drawer {
       width: 100%;
       max-width: 360;
       background-color: 'background.paper';
     }
   }
+
   .drawer-two {
     width: 300px;
     flex-shrink: 0;
@@ -129,6 +173,7 @@
     .menu-container {
       width: 60px;
     }
+
     .left-header-part {
       width: calc(100% - 60px);
     }

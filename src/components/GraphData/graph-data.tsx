@@ -156,31 +156,43 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                 }}
               >
                 <a href={Constants.ROUTES.HOME_ROUTE}>
+
                   <img
                     src="/images/cosmoDapp_white_text.png"
                     height="50px"
                     alt="cosmodapp-icon"
                   ></img>
+
                 </a>
+
               </Box>
+
               {drawerOpen ? (
-                <Tooltip title={label.COLLAPSE}>
-                  <KeyboardDoubleArrowLeftIcon
-                    className="toggle-drawer-icon"
-                    onClick={handleToggleDrawer}
-                  />
-                </Tooltip>
+                <div className='beta-1'>
+                  <img src={`./images/beta.png`}></img>
+                  <Tooltip title={label.COLLAPSE}>
+                    <KeyboardDoubleArrowLeftIcon
+                      className="toggle-drawer-icon"
+                      onClick={handleToggleDrawer}
+                    />
+                  </Tooltip>
+                </div>
               ) : (
-                <Tooltip title={label.EXPAND}>
-                  <KeyboardDoubleArrowRightIcon
-                    className="toggle-drawer-icon"
-                    onClick={handleToggleDrawer}
-                  />
-                </Tooltip>
+                <div className='beta-1'>
+                  <img src={`./images/beta.png`}></img>
+                  <Tooltip title={label.EXPAND}>
+                    <KeyboardDoubleArrowRightIcon
+                      className="toggle-drawer-icon"
+                      onClick={handleToggleDrawer}
+                    />
+
+                  </Tooltip>
+                </div>
+
               )}
             </div>
-
             <div className="social-icons">
+
               <div className="icon">
                 <a href="https://discord.com/invite/FWyNJtEyxa" target="_blank" rel="noreferrer">
                   <DiscordSVG height={30} width={35} />
@@ -198,6 +210,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                   <TwitterSVG height={30} width={35} />
                 </a>
               </div>
+
             </div>
 
             <h2 className="graph-heading">{graphName}</h2>
@@ -208,7 +221,9 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               </div>
             </Tooltip>
           </Toolbar>
+
         </AppBar>
+
         <Box>
           <Drawer
             variant="temporary"

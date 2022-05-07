@@ -6,8 +6,16 @@
   width: 100%;
   background-color: var(--baseColor);
   box-shadow: var(--navbarBoxShadow);
+
   &.toolbar-padding {
     padding: 0;
+  }
+
+  .beta-item {
+    height: 20px;
+    width: 22px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   .menu-items {
@@ -16,6 +24,7 @@
     justify-content: space-between;
     align-items: center;
     margin: 0 20px;
+
     .theme-icon {
       border: var(--primaryBorderColor) solid 0.5px;
       padding: $size7;
@@ -24,19 +33,24 @@
       align-items: center;
       background-color: var(--themeIconBackground);
       cursor: pointer;
+
       svg {
         font-size: 1.7rem;
         color: var(--iconColour);
       }
     }
   }
+
   .social-icons {
+    display: flex;
+    flex-direction: row-reverse;
     position: absolute;
-    left: 258px;
+    left: 210px;
     display: flex;
     justify-content: space-around;
     box-sizing: border-box;
     padding: $size7;
+
     .icon {
       width: 33px;
       height: 33px;
