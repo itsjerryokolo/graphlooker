@@ -38,7 +38,6 @@ $ npm run production
 
 ```
  Create .env file in the subgraph-explorer folder that includes:
-
      REACT_APP_BASE_URL_DEVELOPMENT = 'http://localhost:3000/explore?'
      (`you can change the domain according to your need`)
 
