@@ -1,6 +1,7 @@
 import React from 'react';
 import Constants from '../../utility/constant';
 import '../NoRecords/noRecords.scss';
+
 const NoRecords = (props: { listOfattributes: object[] }) => {
   const { listOfattributes } = props;
   return (
@@ -14,4 +15,5 @@ const NoRecords = (props: { listOfattributes: object[] }) => {
     </div>
   );
 };
+
 export default NoRecords;

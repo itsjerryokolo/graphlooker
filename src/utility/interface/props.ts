@@ -9,6 +9,7 @@ export interface ListItemProps {
 export interface DataBoardProps {
   drawerOpen: boolean;
 }
+
 export interface GraphDataTableProps {
   drawerOpen: boolean;
 }

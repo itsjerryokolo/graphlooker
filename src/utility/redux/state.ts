@@ -22,6 +22,7 @@ interface AllAttributes {
 export interface AttributesState {
   allAttributes: AllAttributes;
 }
+
 interface QueryData {
   query: string;
 }

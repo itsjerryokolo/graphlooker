@@ -21,11 +21,13 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
       theme === label.LIGHT_THEME_LABEL ? label.DARK_THEME_LABEL : label.LIGHT_THEME_LABEL;
     dispatch(toggleTheme(newTheme));
   };
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar className="toolbar toolbar-padding">
+
             <div className="menu-items">
               {theme === label.LIGHT_THEME_LABEL ? (
                 <img
@@ -40,24 +42,27 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
                   alt="cosmodapp-icon"
                 ></img>
               )}
+
               <div className="social-icons">
                 <div className="icon">
                   <a href="https://discord.com/invite/FWyNJtEyxa" target="_blank" rel="noreferrer">
                     <DiscordSVG height={30} width={35} />
                   </a>
                 </div>
+
                 <div className="icon">
                   <a href="https://t.me/dapplooker" target="_blank" rel="noreferrer">
                     <TelegramSVG height={30} width={35} />
                   </a>
                 </div>
+
                 <div className="icon">
                   <a href="https://twitter.com/dapplooker" target="_blank" rel="noreferrer">
                     <TwitterSVG height={30} width={35} />
                   </a>
                 </div>
                 <div>
-                  <img className='beta-icon' src={`/images/beta.png`} />
+                  <img className='beta-item' src={`/images/beta.png`} />
                 </div>
               </div>
               <div className="theme-icon" onClick={handleToggleTheme}>
@@ -70,4 +75,5 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
     </>
   );
 };
+
 export default Navbar;

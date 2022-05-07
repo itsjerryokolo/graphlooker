@@ -60,6 +60,7 @@ export default class Constants {
       'endTime',
     ],
   };
+
   public static LABELS = {
     commonLables: {
       TITLE: 'Subgraph Explorer',
@@ -104,6 +105,7 @@ export default class Constants {
       DAPPLOOKER: 'DappLooker',
       TEAM: 'team.',
       NULL_VALUE: 'Null value resolved',
+      
     },
     commonUrls: {
       BASE_URL:
@@ -115,8 +117,8 @@ export default class Constants {
     },
     exportLabels: {
       DWNLD_STARTED: 'Download Completed, you can close the tab.',
-      DWNLD_SOON: 'Download is in Progress',
-      HOLD_MSG: 'The bits are breeding',
+      DWNLD_SOON: 'Download is in Progress...',
+      HOLD_MSG: 'The bits are breeding...',
       RECORDS_MSG: 'RECORDS DOWNLOADED.',
       CLOSE_TAB_MSG: 'IF YOU WISH TO STOP DOWNLOAD, CLOSE THE TAB.',
     },
@@ -129,11 +131,13 @@ export default class Constants {
       ERROR: '/images/error-outline.gif',
     },
   };
+
   public static REGEX = {
     TXHASH_REGEX: /[0-9A-Fa-f]{6}/g,
     CHECK_NUMBER_REGEX: /^\d*(\.\d+)?$/,
     urlRegex: /^(https:\/\/api\.|http:\/\/api\.)[a-zA-Z0-9\-_$]+\.[a-zA-Z]{2,5}/g,
   };
+
   public static TIMESTAMP_MENU = {
     timestampFilter: [
       { menuItem: 'Previous' },
@@ -162,6 +166,7 @@ export default class Constants {
       { menuItem: 'Year' },
     ],
   };
+
   public static INT_TYPE_MENU = {
     intFilter: [
       { menuItem: 'Equal to', menuValue: '_is' },
@@ -187,6 +192,9 @@ export default class Constants {
       { menuItem: 'Not Empty', menuValue: '_not' },
     ],
   };
+ 
+
+  
   public static NUMBERS = {
     CSV_Data: 100000,
   };
@@ -201,10 +209,17 @@ export default class Constants {
       'Unexpected error encountered, please check if you are entering correct subgraph endpoint.',
     INVALID: 'Subgraph endpoint you are entering is invalid or not allowed',
   };
+
   public static ROUTES = {
     HOME_ROUTE: '/',
   };
-  public static LENGTH_OF_STRING = {
-    VALUE: 21,
+
+  public static LENGTH_OF_STRING={
+    VALUE:21,
   }
+  
+  
+
+
 }
+  

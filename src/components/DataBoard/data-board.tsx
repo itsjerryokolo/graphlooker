@@ -14,7 +14,10 @@ import queryString from 'query-string';
 import ExportToCsv from '../ExportToCSV/export-to-csv';
 import { setDataLoading } from '../../redux/actions/loading-action';
 import NoRecords from '../NoRecords/NoRecords';
+
+
 const drawerWidth = 300;
+
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean;
 }>(({ theme, open }) => ({
@@ -27,6 +30,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     duration: 'width 2s',
   }),
   marginLeft: `-${drawerWidth}px`,
+
   ...(open && {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
@@ -42,6 +46,7 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
 }) => {
   const label = Constants.LABELS.commonLables;
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
+
   const selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   const dispatch = useDispatch();
   let listOfattributes: { name: string; type: string; typeName: string }[];
@@ -49,7 +54,9 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
   const entity = selectedEntity
     ? selectedEntity.charAt(0).toUpperCase() + selectedEntity.slice(1)
     : label.EMPTY;
+
   const parsed = queryString.parse(window.location.search);
+
   useEffect(() => {
     getAttributes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,9 +88,12 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
       }
       if (listOfattributes.length > 0) {
         dispatch(setGraphAttributes(listOfattributes));
+
         let myGlobalQuery: string = ` `;
+
         for (let item of listOfattributes) {
           // myGlobalQuery += item.name
+
           if (item.name === 'id') {
             continue;
           }
@@ -100,11 +110,13 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
       }
     }
   }
+
   return (
     <>
-      <div>{parsed.v !== undefined ? <ExportToCsv /> : null}</div>
 
-      <Main open={drawerOpen}>
+      <div>{parsed.v !== undefined ? <ExportToCsv /> : null}</div>
+     
+           <Main open={drawerOpen}>
         <div className="tab-pane" id="tab0" role="tabpanel" aria-labelledby="tab_0">
           {listOfattributes.length !== 0 ? (
             <GraphDataTable drawerOpen={drawerOpen}></GraphDataTable>
@@ -112,8 +124,10 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
             <NoRecords listOfattributes={listOfattributes} />
           )}
         </div>
+
       </Main>
     </>
   );
 };
+
 export default withRouter(DataBoard);

@@ -2,10 +2,12 @@ import React from 'react';
 import Modal from '@mui/material/Modal';
 import ErrorMessage from '../ErrorMessage/error-message';
 import './modals.scss';
+
 const ErrorModal = (props: any) => {
   const { error } = props;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [open, setOpen] = React.useState(true);
+
   return (
     <Modal open={open}>
       <div className="modal-wrapper">
@@ -16,4 +18,5 @@ const ErrorModal = (props: any) => {
     </Modal>
   );
 };
+
 export default ErrorModal;

@@ -30,7 +30,7 @@ import Footer from '../Footer/Footer';
 import { ReactComponent as DiscordSVG } from '../../svg/discord.svg';
 import { ReactComponent as TwitterSVG } from '../../svg/twitter.svg';
 import { ReactComponent as TelegramSVG } from '../../svg/telegram.svg';
-import swal from 'sweetalert';
+
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })<MuiAppBarProps>(() => ({
@@ -46,6 +46,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
+
 const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location }) => {
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
@@ -60,6 +61,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   } else {
     theme = label.DARK_THEME_LABEL;
   }
+
   React.useEffect(() => {
     if (parsed.uri && parsed.e) {
       const endpointEncoded = parsed.uri;
@@ -77,6 +79,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
     window.location.href = Constants.ROUTES.HOME_ROUTE;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const [drawerOpen, setDrawerOpen] = React.useState(true);
   const loadingScreen = useSelector((state: LoadingState) => state.dataLoading.loading);
   const handleToggleTheme = () => {
@@ -129,6 +132,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
       </List>
     </div>
   );
+
   return (
     <>
       {error ? (
@@ -139,7 +143,9 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
           </div>
         </div>
       ) : null}
+
       {loadingScreen ? <Loader theme={theme} /> : ''}
+
       <div className="card-container" theme-selector={theme}>
         <AppBar position="fixed" className="app-bar">
           <Toolbar className="toolbar toolbar-padding">
@@ -150,15 +156,19 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                 }}
               >
                 <a href={Constants.ROUTES.HOME_ROUTE}>
+
                   <img
                     src="/images/cosmoDapp_white_text.png"
                     height="50px"
                     alt="cosmodapp-icon"
                   ></img>
+
                 </a>
+
               </Box>
+
               {drawerOpen ? (
-                <div className='beta-icon'>
+                <div className='beta-1'>
                   <img src={`./images/beta.png`}></img>
                   <Tooltip title={label.COLLAPSE}>
                     <KeyboardDoubleArrowLeftIcon
@@ -168,42 +178,52 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                   </Tooltip>
                 </div>
               ) : (
-                <div className='beta-icon'>
+                <div className='beta-1'>
                   <img src={`./images/beta.png`}></img>
                   <Tooltip title={label.EXPAND}>
                     <KeyboardDoubleArrowRightIcon
                       className="toggle-drawer-icon"
                       onClick={handleToggleDrawer}
                     />
+
                   </Tooltip>
                 </div>
+
               )}
             </div>
             <div className="social-icons">
+
               <div className="icon">
                 <a href="https://discord.com/invite/FWyNJtEyxa" target="_blank" rel="noreferrer">
                   <DiscordSVG height={30} width={35} />
                 </a>
               </div>
+
               <div className="icon">
                 <a href="https://t.me/dapplooker" target="_blank" rel="noreferrer">
                   <TelegramSVG height={30} width={35} />
                 </a>
               </div>
+
               <div className="icon">
                 <a href="https://twitter.com/dapplooker" target="_blank" rel="noreferrer">
                   <TwitterSVG height={30} width={35} />
                 </a>
               </div>
+
             </div>
+
             <h2 className="graph-heading">{graphName}</h2>
+
             <Tooltip title={label.SWITCH_THEME}>
               <div className="theme-icon" onClick={handleToggleTheme}>
                 {theme === label.LIGHT_THEME_LABEL ? <DarkModeIcon /> : <LightModeIcon />}
               </div>
             </Tooltip>
           </Toolbar>
+
         </AppBar>
+
         <Box>
           <Drawer
             variant="temporary"
@@ -265,4 +285,5 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
     </>
   );
 };
+
 export default withRouter(GraphData);

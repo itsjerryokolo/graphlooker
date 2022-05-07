@@ -1,8 +1,10 @@
 import { ThemeActionObjectTypes } from "../../utility/redux/action-object-type";
 import { ThemeActionTypes } from "../../utility/redux/action-types";
+
 const INITIAL_STATE = {
   theme: "dark",
 };
+
 export const themeReducer = (
   state = INITIAL_STATE,
   { type, payload }: ThemeActionObjectTypes

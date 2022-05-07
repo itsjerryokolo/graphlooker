@@ -10,6 +10,7 @@ const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
   type,
 }) => {
   let customMessage: string = customMessages(errorMessage, endpoint);
+
   return (
     <>
       {type === 'message' ? (
@@ -25,4 +26,5 @@ const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
     </>
   );
 };
+
 export default ErrorMessage;
