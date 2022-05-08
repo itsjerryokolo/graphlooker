@@ -163,23 +163,29 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                   ></img>
                 </a>
               </Box>
+
               {drawerOpen ? (
-                <Tooltip title={label.COLLAPSE}>
-                  <KeyboardDoubleArrowLeftIcon
-                    className="toggle-drawer-icon"
-                    onClick={handleToggleDrawer}
-                  />
-                </Tooltip>
+                <div className="beta-tag">
+                  <img src="./images/beta.png" alt="beta version"></img>
+                  <Tooltip title={label.COLLAPSE}>
+                    <KeyboardDoubleArrowLeftIcon
+                      className="toggle-drawer-icon"
+                      onClick={handleToggleDrawer}
+                    />
+                  </Tooltip>
+                </div>
               ) : (
-                <Tooltip title={label.EXPAND}>
-                  <KeyboardDoubleArrowRightIcon
-                    className="toggle-drawer-icon"
-                    onClick={handleToggleDrawer}
-                  />
-                </Tooltip>
+                <div className="beta-tag">
+                  <img src="./images/beta.png" alt="beta version"></img>
+                  <Tooltip title={label.EXPAND}>
+                    <KeyboardDoubleArrowRightIcon
+                      className="toggle-drawer-icon"
+                      onClick={handleToggleDrawer}
+                    />
+                  </Tooltip>
+                </div>
               )}
             </div>
-
             <div className="social-icons">
               <div className="icon">
                 <a href="https://discord.com/invite/FWyNJtEyxa" target="_blank" rel="noreferrer">
@@ -199,7 +205,6 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                 </a>
               </div>
             </div>
-
             <h2 className="graph-heading">{graphName}</h2>
 
             <Tooltip title={label.SWITCH_THEME}>
@@ -209,6 +214,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
             </Tooltip>
           </Toolbar>
         </AppBar>
+
         <Box>
           <Drawer
             variant="temporary"

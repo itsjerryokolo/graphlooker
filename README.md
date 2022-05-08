@@ -1,46 +1,77 @@
-# Getting Started with Create React App
+# What is CosmoDapp? 🧠
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Currently, there is no generic subgraph frontend Dapp to explore, browse and filter on subgraphs data. Our mission is empower Graph different actors like indexers, delegators, curators, users to easily understand subgraph data. The tool helps indexers, delegators, curators and TheGraph users easily browse subgraph data, download data to CSV and perform simple to complex operations like sorting, filtering with simplest of UX.
 
-## Available Scripts
+# Target Audience 👑 🏫
 
-In the project directory, you can run:
+- The Dapp is specially helpful for non tech users who can do simple to complex operations on network subgraphs just from UI.
+- Users can download subgraph data in CSV.
+- Delegators/Curators/Subgraph developers who are relatively less technical can browse and explore subgraph data from the UI.
 
-### `npm start`
+# Features ❤️ ⚡
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Browse and explore subgraph entity data in tabular form in UI.
+- Export the subgraph data to CSV.
+- Sort any particular column in ascending/descending order
+- Apply filters on entity attribute data e g. Display latest 100 Uniswap records
+- Pagination feature that enables user to focus on the particular range of datasets
+- Share sorted, filtered data views using public url
+- Applying filter based on the type of the data of that particular column. Different type of filters are supported based on data type of attribute.
+- Switch theme feature that enables users to select their own theme either dark or light according to their convenience.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Checkout https://cosmodapp.com/ and let us know your views and valuable feedbacks.
 
-### `npm test`
+## How to fork subgraph-explorer
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Step1:-
 
-### `npm run build`
+Open git bash or terminal
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+$ git clone https://github.com/dapplooker/subgraph-explorer.git
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Step2:-
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Now move into the project
 
-### `npm run eject`
+```
+$ cd subgraph-explorer
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Step3:-
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Install the dependencies
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+$ npm install
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Comman to run application in local
 
-## Learn More
+```
+$ npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Application will be hosted on http://localhost:3000/
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Command TO create Production build
+
+```
+$ npm run build
+```
+
+## SETTING UP OF THE ENVIORNMENT
+
+Create .env file in the subgraph-explorer folder that includes:
+
+```
+REACT_APP_BASE_URL_DEVELOPMENT = 'http://localhost:3000/explore?'
+
+REACT_APP_BASE_URL_PRODUCTION = 'https://cosmodapp.com/explore?'
+(`you can change the domain according to your need`)
+
+REACT_APP_ADDRESS_URL = 'https://etherscan.io/address'
+
+REACT_APP_TNX_URL = 'https://etherscan.io/tx/'
+```
