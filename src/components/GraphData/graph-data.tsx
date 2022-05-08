@@ -156,20 +156,17 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                 }}
               >
                 <a href={Constants.ROUTES.HOME_ROUTE}>
-
                   <img
                     src="/images/cosmoDapp_white_text.png"
                     height="50px"
                     alt="cosmodapp-icon"
                   ></img>
-
                 </a>
-
               </Box>
 
               {drawerOpen ? (
-                <div className='beta-tag'>
-                  <img src={`./images/beta.png`}></img>
+                <div className="beta-tag">
+                  <img src="./images/beta.png" alt="beta version"></img>
                   <Tooltip title={label.COLLAPSE}>
                     <KeyboardDoubleArrowLeftIcon
                       className="toggle-drawer-icon"
@@ -178,21 +175,18 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                   </Tooltip>
                 </div>
               ) : (
-                <div className='beta-tag'>
-                  <img src={`./images/beta.png`}></img>
+                <div className="beta-tag">
+                  <img src="./images/beta.png" alt="beta version"></img>
                   <Tooltip title={label.EXPAND}>
                     <KeyboardDoubleArrowRightIcon
                       className="toggle-drawer-icon"
                       onClick={handleToggleDrawer}
                     />
-
                   </Tooltip>
                 </div>
-
               )}
             </div>
             <div className="social-icons">
-
               <div className="icon">
                 <a href="https://discord.com/invite/FWyNJtEyxa" target="_blank" rel="noreferrer">
                   <DiscordSVG height={30} width={35} />
@@ -219,7 +213,6 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               </div>
             </Tooltip>
           </Toolbar>
-
         </AppBar>
 
         <Box>

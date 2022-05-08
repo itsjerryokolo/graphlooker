@@ -32,9 +32,7 @@
 }
 
 .beta-item {
-
   padding-bottom: 20px;
-
 }
 
 .card-container {
@@ -54,8 +52,6 @@
       &.toolbar-padding {
         padding: 0;
       }
-
-
 
       .menu-container {
         width: 280px;
@@ -85,7 +81,6 @@
           margin-left: 65px;
           margin-bottom: 14px;
 
-
           border-radius: $size5;
           cursor: pointer;
 
@@ -95,10 +90,7 @@
         }
       }
 
-
-
       .social-icons {
-
         position: absolute;
         left: 350px;
         display: flex;
@@ -106,7 +98,6 @@
         justify-content: space-around;
         box-sizing: border-box;
         padding: $size7;
-
 
         .icon {
           width: 33px;

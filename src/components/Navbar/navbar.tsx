@@ -27,7 +27,6 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar className="toolbar toolbar-padding">
-
             <div className="menu-items">
               {theme === label.LIGHT_THEME_LABEL ? (
                 <img
@@ -62,7 +61,7 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
                   </a>
                 </div>
                 <div>
-                  <img className='beta-icon' src={`/images/beta.png`} />
+                  <img className="beta-icon" src="/images/beta.png" alt="beta version" />
                 </div>
               </div>
               <div className="theme-icon" onClick={handleToggleTheme}>
