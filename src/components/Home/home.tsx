@@ -69,7 +69,7 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
                 id="endpoint"
                 name="endpoint"
                 type="text"
-                placeholder="Input Subgraph Endpoint"
+                placeholder="Input Subgraph API Endpoint"
                 value={endpoint}
                 onChange={(e) => onChangeHandler(e.target.value)}
               ></input>

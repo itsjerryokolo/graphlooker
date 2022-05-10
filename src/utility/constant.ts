@@ -90,7 +90,7 @@ export default class Constants {
       DOWNLOAD: 'Download to CSV',
       SORT_ASC: 'Sort Ascending',
       SORT_DESC: 'Sort Descending',
-      DESC_TITLE: 'Explore & Browse Universe of Blockchain.',
+      DESC_TITLE: 'Browse, filter and export subgraph data.',
       ENTITY_REFERENCE: 'This column is a reference of',
       NULL: 'null',
       DOUBLE_QUOTES: '"',
@@ -105,7 +105,7 @@ export default class Constants {
       DAPPLOOKER: 'DappLooker',
       TEAM: 'team.',
       NULL_VALUE: 'Null value resolved',
-      
+
     },
     commonUrls: {
       BASE_URL:
@@ -192,9 +192,9 @@ export default class Constants {
       { menuItem: 'Not Empty', menuValue: '_not' },
     ],
   };
- 
 
-  
+
+
   public static NUMBERS = {
     CSV_Data: 100000,
   };
@@ -206,8 +206,8 @@ export default class Constants {
     FAILED_TO_FETCH: 'Unable to fetch this Subgraph, Please try again!',
     INDEXING_ERROR: 'Subgraph is facing indexing error.',
     UNEXPECTED:
-      'Unexpected error encountered, please check if you are entering correct subgraph endpoint.',
-    INVALID: 'Subgraph endpoint you are entering is invalid or not allowed',
+      'Unexpected error encountered, please check if you are entering correct subgraph api endpoint.',
+    INVALID: 'Subgraph api endpoint you are entering is invalid or not allowed',
   };
 
   public static ROUTES = {
@@ -217,9 +217,8 @@ export default class Constants {
   public static LENGTH_OF_STRING={
     VALUE:21,
   }
-  
-  
+
+
 
 
 }
-  
