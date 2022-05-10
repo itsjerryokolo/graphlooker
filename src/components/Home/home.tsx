@@ -9,6 +9,7 @@ import './home.scss';
 import Navbar from '../Navbar/navbar';
 import Constants from '../../utility/constant';
 import { ThemeState } from '../../utility/redux/state';
+import Footer from '../Footer/Footer';
 
 const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) => {
   const commonLables = Constants.LABELS.commonLables;
@@ -97,6 +98,7 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
             </form>
           </div>
         </div>
+        <Footer></Footer>
       </div>
     </>
   );

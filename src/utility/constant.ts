@@ -2,6 +2,14 @@ export default class Constants {
   public static URL = {
     DEV: {},
     PROD: {},
+    THEGRAPH: 'https://thegraph.com/',
+    GITHUB: 'https://github.com/dapplooker',
+    TELEGRAM: 'https://t.me/dapplooker',
+    YOUTUBE: 'https://www.youtube.com/channel/UC1KJmtb3UhnWSN_sDv71_fg',
+    DISCORD: 'https://dapplooker.com/community',
+    MEDIUM_BLOG: 'https://dapplooker.medium.com/',
+    TWITTER: 'https://twitter.com/dapplooker',
+    DAPPLOOKER: 'https://dapplooker.com',
   };
   public static FILTERLABELS = {
     dataTypeLabels: {
@@ -105,7 +113,6 @@ export default class Constants {
       DAPPLOOKER: 'DappLooker',
       TEAM: 'team.',
       NULL_VALUE: 'Null value resolved',
-
     },
     commonUrls: {
       BASE_URL:
@@ -180,6 +187,7 @@ export default class Constants {
       { menuItem: 'Not Empty', menuValue: '_not' },
     ],
   };
+
   public static STRING_TYPE_MENU = {
     stringFilter: [
       { menuItem: 'Is', menuValue: '_is' },
@@ -192,8 +200,6 @@ export default class Constants {
       { menuItem: 'Not Empty', menuValue: '_not' },
     ],
   };
-
-
 
   public static NUMBERS = {
     CSV_Data: 100000,
@@ -214,11 +220,7 @@ export default class Constants {
     HOME_ROUTE: '/',
   };
 
-  public static LENGTH_OF_STRING={
-    VALUE:21,
-  }
-
-
-
-
+  public static LENGTH_OF_STRING = {
+    VALUE: 21,
+  };
 }

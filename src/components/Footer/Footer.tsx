@@ -15,48 +15,49 @@ const Footer: React.FunctionComponent<any> = () => {
       <footer>
         <div className="footer-left-info">
           {Constants.LABELS.commonLables.BUILT_WITH}
-          <a href="https://dapplooker.com/" target="_blank" rel="noreferrer" className="icon">
+          <a
+            href={Constants.URL.THEGRAPH}
+            target="_blank"
+            rel="noreferrer"
+            className="icon footer-left-info"
+          >
             <GraphProtocolSVG />
+            {Constants.LABELS.commonLables.GRAPH_PROTOCOL}
           </a>
-          {Constants.LABELS.commonLables.GRAPH_PROTOCOL}
         </div>
         <div className="social-icons-footer">
           <div className="icon">
-            <a href="https://discord.com/invite/FWyNJtEyxa" target="_blank" rel="noreferrer">
+            <a href={Constants.URL.DISCORD} target="_blank" rel="noreferrer">
               <DiscordSVG />
             </a>
           </div>
 
           <div className="icon">
-            <a href="https://twitter.com/dapplooker" target="_blank" rel="noreferrer">
+            <a href={Constants.URL.TWITTER} target="_blank" rel="noreferrer">
               <TwitterSVG />
             </a>
           </div>
 
           <div className="icon">
-            <a href="https://dapplooker.medium.com/" target="_blank" rel="noreferrer">
+            <a href={Constants.URL.MEDIUM_BLOG} target="_blank" rel="noreferrer">
               <MediumSVG />
             </a>
           </div>
 
           <div className="icon">
-            <a href="https://t.me/dapplooker" target="_blank" rel="noreferrer">
+            <a href={Constants.URL.TELEGRAM} target="_blank" rel="noreferrer">
               <TelegramSVG />
             </a>
           </div>
 
           <div className="icon">
-            <a href="https://github.com/dapplooker" target="_blank" rel="noreferrer">
+            <a href={Constants.URL.GITHUB} target="_blank" rel="noreferrer">
               <GithubSVG />
             </a>
           </div>
 
           <div className="icon">
-            <a
-              href="https://www.youtube.com/channel/UC1KJmtb3UhnWSN_sDv71_fg"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={Constants.URL.YOUTUBE} target="_blank" rel="noreferrer">
               <YoutubeSVG />
             </a>
           </div>
@@ -64,7 +65,7 @@ const Footer: React.FunctionComponent<any> = () => {
 
         <div className="copyright-info">
           {Constants.LABELS.commonLables.COPYRIGHT}
-          <a href="https://dapplooker.com/" target="_blank" rel="noreferrer">
+          <a href={Constants.URL.DAPPLOOKER} target="_blank" rel="noreferrer">
             {Constants.LABELS.commonLables.DAPPLOOKER}
           </a>
           {Constants.LABELS.commonLables.TEAM}
