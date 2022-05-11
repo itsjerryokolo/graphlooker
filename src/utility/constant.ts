@@ -71,7 +71,7 @@ export default class Constants {
 
   public static LABELS = {
     commonLables: {
-      TITLE: 'Subgraph Explorer',
+      TITLE: 'CosmoDapp - Browse, Filter, Export Subgraph Data',
       FILTER_BY_COL: 'Filter by column',
       ASC: 'asc',
       DESC: 'desc',
@@ -98,7 +98,7 @@ export default class Constants {
       DOWNLOAD: 'Download to CSV',
       SORT_ASC: 'Sort Ascending',
       SORT_DESC: 'Sort Descending',
-      DESC_TITLE: 'Browse, filter and export subgraph data.',
+      DESC_TITLE: 'Browse, filter, export subgraph data.',
       ENTITY_REFERENCE: 'This column is a reference of',
       NULL: 'null',
       DOUBLE_QUOTES: '"',
@@ -107,8 +107,8 @@ export default class Constants {
       DOWNLOADING: 'Downloading...',
       AND: 'and',
       UNDERSCORE_IS: '_is',
-      BUILT_WITH: 'Supported By',
-      GRAPH_PROTOCOL: 'Graph protocol',
+      BUILT_WITH: 'Supported by',
+      GRAPH_PROTOCOL: 'Graph Protocol',
       COPYRIGHT: '© 2022 made with ❤️ by',
       DAPPLOOKER: 'DappLooker',
       TEAM: 'team.',
