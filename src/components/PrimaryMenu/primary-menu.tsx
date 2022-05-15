@@ -32,11 +32,11 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
   const sortDataAscDesc = (sortType: string, columnName: string) => {
     const URI = encodeURIComponent(endpoint);
     const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    if (parsed.f && parsed.i) {
-      return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&s=${sortType}&f=${parsed.f}&i=${parsed.i}&c=${columnName}`);
-    } else {
-      return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&s=${sortType}&c=${columnName}`);
-    }
+    // if (parsed.f && parsed.i) {
+    return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&s=${sortType}&c=${columnName}`);
+    // } else {
+    //   return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&s=${sortType}&c=${columnName}`);
+    // }
   };
 
   const [anchorFiterEl, setAnchorFiterEl] = useState<null | HTMLElement>(null);

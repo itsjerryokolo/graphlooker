@@ -126,7 +126,8 @@ export const getStringFilterGraphData = (
     let splitInputValues = userInputValue.split(',');
     return gql`
       query {
-        entity: ${selectedEntity}(first:${count}, skip:${skip},orderBy:${attributeName}, orderDirection: ${sortType},where: {${attributeName}_gte :${splitInputValues[0]}, ${attributeName}_lte :${splitInputValues[1]}, id_gt:"${whereId}"}){
+        entity: ${selectedEntity}(first:${count}, skip:${skip},orderBy:${attributeName}, orderDirection: ${sortType},
+          where: {${attributeName}_gte :${splitInputValues[0]}, ${attributeName}_lte :${splitInputValues[1]}, id_gt:"${whereId}"}){
           id      
           ${queryData}
           }
@@ -198,7 +199,8 @@ export const getDataQuery = (
 
   return gql`
     query {
-      entity: ${selectedEntity}(first:${count}, skip:${skip}, orderBy: ${orderByColumnName}, orderDirection: desc, where: {id_gt:"${whereId}" } ){
+      entity: ${selectedEntity}(first:${count}, skip:${skip}, orderBy: ${orderByColumnName}, 
+        orderDirection: desc, where: {id_gt:"${whereId}" } ){
         id      
         ${queryData}
         }
