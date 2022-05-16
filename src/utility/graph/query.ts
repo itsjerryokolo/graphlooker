@@ -139,6 +139,8 @@ export const getStringFilterGraphData = (
     userInputValue = commonLables.NULL;
   } else if (regex.CHECK_NUMBER_REGEX.test(userInputValue)) {
     userInputValue = Number(userInputValue);
+  } else if (userInputValue === 'true' || userInputValue === 'false') {
+    userInputValue = userInputValue === 'true';
   } else {
     userInputValue = commonLables.DOUBLE_QUOTES + userInputValue + commonLables.DOUBLE_QUOTES;
   }
