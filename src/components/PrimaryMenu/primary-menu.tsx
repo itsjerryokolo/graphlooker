@@ -9,9 +9,14 @@ import { EndpointState, EntityState } from '../../utility/redux/state';
 import { useSelector } from 'react-redux';
 import FilterMenu from '../FilterMenu/filter-menu';
 import Constants from '../../utility/constant';
+import Utility from '../../utility/utility';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import queryString from 'query-string';
-
+import { Allfilters } from '../../utility/interface/props';
+import {
+  getCombinedFilterData,
+} from '../../utility/graph/query';
+import getAllFilters from '../../utility/utility'
 const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProps<any>> = ({
   attributeName,
   attributeType,
@@ -30,13 +35,16 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
 
   //Sort Data (Ascending /Descending) when Attribute Clicked
   const sortDataAscDesc = (sortType: string, columnName: string) => {
+    let s: string = "";
+    let filterObj: number = 0;
     const URI = encodeURIComponent(endpoint);
     const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    // if (parsed.f && parsed.i) {
-    return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&s=${sortType}&c=${columnName}`);
-    // } else {
-    //   return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&s=${sortType}&c=${columnName}`);
-    // }
+    let allFilters: Allfilters[] = Utility.getAllFilters("sort", columnName, sortType);
+    getCombinedFilterData(allFilters);
+    filterObj = window.location.href.lastIndexOf('&')
+    console.log(filterObj);
+    s += JSON.stringify(allFilters)
+    return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${s}`);
   };
 
   const [anchorFiterEl, setAnchorFiterEl] = useState<null | HTMLElement>(null);
