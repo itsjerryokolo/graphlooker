@@ -5,6 +5,7 @@ import {
   EntityState,
   AttributesState,
   QueryDataState,
+  GraphNameState,
 } from '../../utility/redux/state';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
@@ -49,12 +50,11 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   let isPrevDisable: boolean = true;
   const parsed = queryString.parse(location.search);
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
+  const graphName = useSelector((state: GraphNameState) => state.graphName.nameOfGraph);
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   let listOfattributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
   const theme = parsed.th;
   const dispatch = useDispatch();
-
-  
 
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
@@ -239,10 +239,10 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
 
   return (
     <>
-     <div className='FilterData'>
-     <FilterData  props={parsed} />
-     </div>
-     {/* Chip  */}
+      <div className="FilterData">
+        <FilterData props={parsed} />
+      </div>
+      {/* Chip  */}
       <ExportButton rows={rows} />
       <div className="all-graph-data">
         <div className={`table-conatiner ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`}>
@@ -308,6 +308,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                               item.name,
                               item.type,
                               endpoint,
+                              graphName,
                               String(theme)
                             );
                             setOpen(Boolean(openCloseSnackbar));

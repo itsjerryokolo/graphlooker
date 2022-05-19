@@ -74,10 +74,10 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
                 value={endpoint}
                 onChange={(e) => onChangeHandler(e.target.value)}
               ></input>
-              <button className="search-button" type="submit" disabled={isError}>
+              <button className="search-button" type="submit">
                 {commonLables.EXPLORE}
               </button>
-
+              {/* disabled={isError} */}
               <p className="explore-msg">{Constants.LABELS.commonLables.DESC_TITLE}</p>
 
               {isError && endpoint.length > 0 ? (
