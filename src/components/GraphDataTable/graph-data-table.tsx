@@ -54,7 +54,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const theme = parsed.th;
   const dispatch = useDispatch();
 
-  
+
 
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
@@ -64,6 +64,13 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const [errorMsg, setErrorMsg] = useState('');
 
   const getBoardDataAsQuery = (error: string) => {
+    let test = parsed.filterObj;
+    if (parsed && parsed.filterObj && typeof (test) === 'string') {
+
+      // if (typeof (test) === 'string')
+      console.log(JSON.parse(test)[0])
+    }
+
     if (parsed.id) {
       return getGraphDataForID(listOfattributes, selectedEntity, `${parsed.id}`);
     }
@@ -136,45 +143,37 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     if (isNextDisable) return;
     const URI = encodeURIComponent(endpoint);
     if (!parsed.f && !parsed.i && parsed.s) {
-      return (window.location.href = `${
-        urlLabels.BASE_URL
-      }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&c=${parsed.c}&p=${pageNumber + 1}`);
+      return (window.location.href = `${urlLabels.BASE_URL
+        }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&c=${parsed.c}&p=${pageNumber + 1}`);
     }
     if (parsed.c) {
       if (!parsed.s) {
         parsed.s = label.DESC;
       }
-      return (window.location.href = `${
-        urlLabels.BASE_URL
-      }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&f=${parsed.f}&i=${parsed.i}&c=${
-        parsed.c
-      }&p=${pageNumber + 1}`);
+      return (window.location.href = `${urlLabels.BASE_URL
+        }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&f=${parsed.f}&i=${parsed.i}&c=${parsed.c
+        }&p=${pageNumber + 1}`);
     }
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&p=${
-      pageNumber + 1
-    }`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&p=${pageNumber + 1
+      }`;
   };
   const goToPrev = () => {
     if (isPrevDisable) return;
     const URI = encodeURIComponent(endpoint);
     if (!parsed.f && !parsed.i && parsed.s) {
-      return (window.location.href = `${
-        urlLabels.BASE_URL
-      }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&c=${parsed.c}&p=${pageNumber - 1}`);
+      return (window.location.href = `${urlLabels.BASE_URL
+        }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&c=${parsed.c}&p=${pageNumber - 1}`);
     }
     if (parsed.c) {
       if (!parsed.s) {
         parsed.s = label.DESC;
       }
-      return (window.location.href = `${
-        urlLabels.BASE_URL
-      }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&f=${parsed.f}&i=${parsed.i}&c=${
-        parsed.c
-      }&p=${pageNumber - 1}`);
+      return (window.location.href = `${urlLabels.BASE_URL
+        }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&f=${parsed.f}&i=${parsed.i}&c=${parsed.c
+        }&p=${pageNumber - 1}`);
     }
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&p=${
-      pageNumber - 1
-    }`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&p=${pageNumber - 1
+      }`;
   };
 
   //Get Table Data
@@ -239,10 +238,10 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
 
   return (
     <>
-     <div className='FilterData'>
-     <FilterData  props={parsed} />
-     </div>
-     {/* Chip  */}
+      <div className='FilterData'>
+        <FilterData props={parsed} />
+      </div>
+      {/* Chip  */}
       <ExportButton rows={rows} />
       <div className="all-graph-data">
         <div className={`table-conatiner ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`}>
@@ -253,11 +252,10 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                   listOfattributes.map((item, i) => (
                     <TableCell
                       key={i}
-                      className={`${
-                        theme === label.LIGHT_THEME_LABEL
-                          ? 'table-head-cell-light'
-                          : 'table-head-cell'
-                      }`}
+                      className={`${theme === label.LIGHT_THEME_LABEL
+                        ? 'table-head-cell-light'
+                        : 'table-head-cell'
+                        }`}
                     >
                       <div className="attribute-columns-cell">
                         <Button
@@ -293,53 +291,51 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
             <TableBody>
               {rows.length !== 0
                 ? rows.map((row, i) => (
-                    <TableRow className="tabledata-row" key={i}>
-                      {listOfattributes.map((item, key) => (
-                        <TableCell
-                          key={key}
-                          className={`${
-                            Utility.linkToAddressAndTxHash(row, item.name, item.type)
-                              ? 'tablerow-data-css address-data-css'
-                              : 'tablerow-data-css'
+                  <TableRow className="tabledata-row" key={i}>
+                    {listOfattributes.map((item, key) => (
+                      <TableCell
+                        key={key}
+                        className={`${Utility.linkToAddressAndTxHash(row, item.name, item.type)
+                          ? 'tablerow-data-css address-data-css'
+                          : 'tablerow-data-css'
                           }`}
-                          onClick={() => {
-                            let openCloseSnackbar = Utility.verifyAddress(
-                              row,
-                              item.name,
-                              item.type,
-                              endpoint,
-                              String(theme)
-                            );
-                            setOpen(Boolean(openCloseSnackbar));
-                          }}
-                        >{`${
-                          item.type === dataTypeLabel.LIST ||
-                          item.type === dataTypeLabel.OBJECT ||
-                          item.type === dataTypeLabel.NON_NULL
-                            ? row[`${item.name}`] !== undefined
-                              ? row[`${item.name}`].id
-                              : label.EMPTY
-                            : Utility.getTimestampColumns(item.name)
-                            ? row[`${item.name}`] !== undefined
-                              ? moment(new Date(row[`${item.name}`] * 1000)).format(
-                                  label.TIME_FORMAT
-                                )
-                              : label.EMPTY
-                            : item.typeName === dataTypeLabel.BIGINT ||
-                              item.typeName === dataTypeLabel.BIGDECIMAL ||
-                              item.typeName === dataTypeLabel.INT
+                        onClick={() => {
+                          let openCloseSnackbar = Utility.verifyAddress(
+                            row,
+                            item.name,
+                            item.type,
+                            endpoint,
+                            String(theme)
+                          );
+                          setOpen(Boolean(openCloseSnackbar));
+                        }}
+                      >{`${item.type === dataTypeLabel.LIST ||
+                        item.type === dataTypeLabel.OBJECT ||
+                        item.type === dataTypeLabel.NON_NULL
+                        ? row[`${item.name}`] !== undefined
+                          ? row[`${item.name}`].id
+                          : label.EMPTY
+                        : Utility.getTimestampColumns(item.name)
+                          ? row[`${item.name}`] !== undefined
+                            ? moment(new Date(row[`${item.name}`] * 1000)).format(
+                              label.TIME_FORMAT
+                            )
+                            : label.EMPTY
+                          : item.typeName === dataTypeLabel.BIGINT ||
+                            item.typeName === dataTypeLabel.BIGDECIMAL ||
+                            item.typeName === dataTypeLabel.INT
                             ? Utility.getIntUptoTwoDecimal(row, item.name)
                               ? parseInt(row[`${item.name}`]).toFixed(2)
                               : row[`${item.name}`] !== undefined
+                                ? row[`${item.name}`]
+                                : label.EMPTY
+                            : row[`${item.name}`] !== undefined
                               ? row[`${item.name}`]
                               : label.EMPTY
-                            : row[`${item.name}`] !== undefined
-                            ? row[`${item.name}`]
-                            : label.EMPTY
                         }`}</TableCell>
-                      ))}
-                    </TableRow>
-                  ))
+                    ))}
+                  </TableRow>
+                ))
                 : label.EMPTY}
             </TableBody>
           </Table>
@@ -376,9 +372,8 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         </div>
         {parsed.id === undefined && rows.length > 0 ? (
           <div
-            className={`next-previous-option ${
-              drawerOpen ? 'drawer-open-next-previous-option' : label.EMPTY
-            }`}
+            className={`next-previous-option ${drawerOpen ? 'drawer-open-next-previous-option' : label.EMPTY
+              }`}
           >
             <Tooltip title="Previous">
               <NavigateBeforeIcon

@@ -157,7 +157,7 @@ export default class Utility {
     const selectedEntity = entity.charAt(0).toLowerCase() + entity.slice(1);
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&id=${id}`;
   };
-  public static getAllFilters = (filterName: string | (string | null)[] | null, columnName: string | (string | null)[] | null, inputName: string | (string | null)[] | null | number) => {
+  public static getAllFilters = (filterName: string, columnName: string | null, inputName: string | null | number) => {
     let values: Allfilters[] = [];
     let checkobj = { filterName: filterName, columnName: columnName, inputName: inputName };
     if (values.indexOf(checkobj) == -1)

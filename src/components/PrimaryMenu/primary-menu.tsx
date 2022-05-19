@@ -5,7 +5,7 @@ import { PrimaryMenuProps } from '../../utility/interface/props';
 import ArrowDownwardTwoToneIcon from '@mui/icons-material/ArrowDownwardTwoTone';
 import ArrowUpwardTwoToneIcon from '@mui/icons-material/ArrowUpwardTwoTone';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { EndpointState, EntityState } from '../../utility/redux/state';
+import { EndpointState, EntityState, AttributesState } from '../../utility/redux/state';
 import { useSelector } from 'react-redux';
 import FilterMenu from '../FilterMenu/filter-menu';
 import Constants from '../../utility/constant';
@@ -14,7 +14,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import { Allfilters } from '../../utility/interface/props';
 import {
-  getCombinedFilterData,
+  getSortedentity,
 } from '../../utility/graph/query';
 import getAllFilters from '../../utility/utility'
 const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProps<any>> = ({
@@ -28,24 +28,12 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
   const filterLabels = Constants.FILTERLABELS.dataTypeLabels;
-
+  let listOfattributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
   let selectedEntity: string;
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
 
-  //Sort Data (Ascending /Descending) when Attribute Clicked
-  const sortDataAscDesc = (sortType: string, columnName: string) => {
-    let s: string = "";
-    let filterObj: number = 0;
-    const URI = encodeURIComponent(endpoint);
-    const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    let allFilters: Allfilters[] = Utility.getAllFilters("sort", columnName, sortType);
-    getCombinedFilterData(allFilters);
-    filterObj = window.location.href.lastIndexOf('&')
-    console.log(filterObj);
-    s += JSON.stringify(allFilters)
-    return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${s}`);
-  };
+
 
   const [anchorFiterEl, setAnchorFiterEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorFiterEl);
@@ -54,6 +42,21 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
   };
   const handleCloseMenu = () => {
     setAnchorFiterEl(null);
+  };
+  //Sort Data (Ascending /Descending) when Attribute Clicked
+  debugger
+  const sortDataAscDesc = async (sortType: string, columnName: string) => {
+    let s: string = "";
+    let filterObj: number = 0;
+    const URI = encodeURIComponent(endpoint);
+    console.log(parsed.id)
+    const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
+    let allFilters: Allfilters[] = Utility.getAllFilters("sort", columnName, sortType);
+    console.log(await getSortedentity(listOfattributes, entity, allFilters));
+    filterObj = window.location.href.lastIndexOf('&')
+    // console.log(filterObj);
+    s += JSON.stringify(allFilters)
+    return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${s}`);
   };
 
   const getSortingMenu = () => {

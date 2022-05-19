@@ -39,7 +39,9 @@ export const getAllAttributes = (entity: string) => {
     `;
 };
 
-export const getGraphDataForID = (columnNames: ColumnProps[], entity: string, filterID: string) => {
+export const getGraphDataForID = (
+  columnNames: ColumnProps[], entity: string, filterID: string
+) => {
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
   for (let index = 0; index < columnNames.length; ++index) {
@@ -66,6 +68,7 @@ export const getGraphDataForID = (columnNames: ColumnProps[], entity: string, fi
           }
       }
       `;
+
 };
 
 /*
@@ -94,6 +97,15 @@ export const getStringFilterGraphData = (
   count: number,
   whereId: string,
   errorMsg: string
+
+  // export const getSortedentity = (
+  //   columnNames: ColumnProps[],
+  //   entity: string,
+  //   allFilters: Allfilters[],
+  //   error?: String,
+  //   globalQuery?: string,
+  //   count?: number,
+  //   skip?: number,
 ) => {
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
@@ -154,17 +166,25 @@ export const getStringFilterGraphData = (
       }
       `;
 };
-export const getCombinedFilterData = (
+//updated one:-
+export const getSortedentity = (
+  columnNames: ColumnProps[],
+  entity: string,
   allFilters: Allfilters[],
+  error?: String,
+  globalQuery?: string,
+  count?: number,
+  skip?: number,
 ) => {
-  // const selectedEntity = Utility.makePluralChanges(entity);
-  // let columnNameWithFilter: string = "";
-  // let inputValue: any = "";
+  let columnNameWithFilter: string = "";
+  let inputValue: any = "";
 
-  // allFilters[0].columnName && allFilters[0].filterName ? columnNameWithFilter = JSON.stringify(allFilters[0].columnName) + JSON.stringify(allFilters[0].filterName) : columnNameWithFilter = "";
-  // columnNameWithFilter = columnNameWithFilter.replaceAll('""', '')
-  // inputValue = allFilters[0].inputName;
-  // // columnNameWithFilter = JSON.stringify(columnNameWithFilter)
+  allFilters[0].columnName && allFilters[0].filterName ? columnNameWithFilter = JSON.stringify(allFilters[0].columnName) + JSON.stringify(allFilters[0].filterName) : columnNameWithFilter = "";
+  columnNameWithFilter = columnNameWithFilter.replaceAll('""', '')
+  inputValue = allFilters[0].inputName;
+  console.log(columnNameWithFilter)
+  columnNameWithFilter = JSON.stringify(columnNameWithFilter)
+
   // let queryData = ` `;
   // for (let index = 0; index < columnNames.length; ++index) {
   //   const element = columnNames[index];
@@ -183,14 +203,36 @@ export const getCombinedFilterData = (
   //   }
   // }
   // console.log(`${selectedEntity}(where: {${columnNameWithFilter.slice(1, -1)}:${inputValue}}  )`)
-  // return gql`
-  //   query {
-  //     entity: ${selectedEntity}(where: {${columnNameWithFilter.slice(1, -1)}:${inputValue}}  ){
-  //       id      
-  //       ${queryData}
-  //       }
-  //   }
-  //   `;
+  const selectedEntity = Utility.makePluralChanges(entity);
+  let orderByColumnName = allFilters[0].columnName;
+  orderByColumnName = Utility.getColumnNameForOptimizeQuery(columnNames);
+
+  let queryData = ` `;
+
+  for (let index = 0; index < columnNames.length; ++index) {
+    const element = columnNames[index];
+    if (element.name === commonLables.ID) {
+      continue;
+    }
+    if (
+      (element.type === label.LIST ||
+        element.type === label.OBJECT ||
+        element.type === label.NON_NULL)
+    ) {
+      queryData = queryData + `${element.name} { ${commonLables.ID} } `;
+    } else if (element.type !== label.OBJECT) {
+      queryData = queryData + `${element.name} `;
+    }
+  }
+  return gql`
+    query {
+      entity: ${entity}(first:${count}, skip:${skip}, orderBy: ${allFilters[0].columnName}, 
+        orderDirection: ${allFilters[0].inputName} ){
+        id      
+        ${queryData}
+        }
+    }
+    `;
   // // return ()
 };
 /*
