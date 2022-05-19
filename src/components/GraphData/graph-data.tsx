@@ -238,7 +238,8 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               </div>
             </div>
             <h2 className="graph-heading">
-              {graphName} ({subgraphNetworkName})
+              {graphName}
+              {subgraphNetworkName ? `(${subgraphNetworkName})` : ''}
             </h2>
 
             <Tooltip title={label.SWITCH_THEME}>

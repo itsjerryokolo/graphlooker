@@ -13,8 +13,7 @@ const columnLabels = Constants.FILTERLABELS.columnNameLabels;
 const timestampColumnNames = Constants.FILTERLABELS.timestampColumnNames;
 
 export default class Utility {
-
-
+  
   
   public static getColumnNameForOptimizeQuery = (columnNames: any) => {
     let columnName = columnLabels.ID;
@@ -158,6 +157,7 @@ export default class Utility {
     ]);
     return mapForString;
   }
+  // Map For the Address and Transaction URL
   public static getNetworkDetails() {
     let mapOfNetworkNames = new Map<string, any>([
       [
@@ -212,10 +212,8 @@ export default class Utility {
     ]);
     return mapOfNetworkNames;
   }
-  // const graphName = useSelector((state: GraphNameState) => state.graphName.nameOfGraph);
   
-
-  public static checkAttributeIsEntity = (
+   public static checkAttributeIsEntity = (
     entity: string,
     id: string,
     endpoint: string,
