@@ -20,7 +20,11 @@ import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import ListItem from '../ListItem/list-item';
 import queryString from 'query-string';
-import { setGraphEntity, setGraphEndpoint } from '../../redux/actions/endpoint-action';
+import {
+  setGraphEntity,
+  setGraphEndpoint,
+  setGraphName,
+} from '../../redux/actions/endpoint-action';
 import DataBoard from '../DataBoard/data-board';
 import Constants from '../../utility/constant';
 import Loader from '../Loader/loader';
@@ -115,7 +119,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
         setSubgraphNetworkName(networkName.indexingStatuses[0].chains[0].network.toUpperCase());
         const graphNameForDispatch =
           networkName.indexingStatuses[0].chains[0].network.toUpperCase();
-        // dispatch(setGraphName(graphNameForDispatch));
+        dispatch(setGraphName(graphNameForDispatch));
       }
     }
   }, [networkName]);
@@ -235,7 +239,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               </div>
             </div>
             <h2 className="graph-heading">
-              {graphName}({subgraphNetworkName})
+              {graphName} 2nd({subgraphNetworkName})
             </h2>
 
             <Tooltip title={label.SWITCH_THEME}>

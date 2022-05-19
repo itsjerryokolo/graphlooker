@@ -1,5 +1,12 @@
 import { EndpointActionTypes } from "../../utility/redux/action-types";
 
+// Action for the name of  the graph
+export const setGraphName=(nameOfGraph:string)=>{
+  return {
+    type:EndpointActionTypes.SET_GRAPHNAME,
+    payload:nameOfGraph,
+  }
+  }
 export const setGraphEndpoint = (endpoint: string) => {
   return {
     type: EndpointActionTypes.SET_ENDPOINT,

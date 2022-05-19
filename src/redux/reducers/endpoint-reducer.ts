@@ -3,13 +3,24 @@ import {
   EntityActionObjectTypes,
   AttributesActionObjectTypes,
   QueryActionObjectTypes,
+  GraphNameActionObjectTypes,
 } from '../../utility/redux/action-object-type';
 import { EndpointActionTypes } from '../../utility/redux/action-types';
 
 const ENDPOINT_INITIAL_STATE = {
   endpoint: '',
 };
-
+export const graphNameReducer=(
+  state = ENDPOINT_INITIAL_STATE,
+  { type, payload }: GraphNameActionObjectTypes
+) => {
+  switch (type) {
+    case EndpointActionTypes.SET_GRAPHNAME:
+      return { ...state, nameOfGraph: payload };
+    default:
+      return state;
+  }
+}
 export const endpointReducer = (
   state = ENDPOINT_INITIAL_STATE,
   { type, payload }: EndpointActionObjectTypes
