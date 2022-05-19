@@ -173,15 +173,15 @@ export default class Utility {
         {
           DISPLAY_VALUE: 'Moonriver',
         transactionBaseurl: 'https://moonriver.moonscan.io/tx/',
-        addressBaseurl:'https://etherscan.io/address/',
+        addressBaseurl:'https://moonriver.moonscan.io/address/',
         },
       ],
       [
         'MOONBEAM',
         {
           DISPLAY_VALUE: 'Moonbeam',
-          transactionBaseurl: 'https://moonriver.moonscan.io/tx/',
-          addressBaseurl:'https://moonriver.moonscan.io/address/',
+          transactionBaseurl: 'https://moonbeam.moonscan.io/tx/',
+          addressBaseurl:'https://moonbeam.moonscan.io/address/',
         },
       ],
       [
@@ -189,7 +189,7 @@ export default class Utility {
         {
           DISPLAY_VALUE: 'Celo',
         transactionBaseurl: 'https://celoscan.xyz/tx/',
-        addressBaseurl:'https://etherscan.io/address/',
+        addressBaseurl:'https://celoscan.xyz/address/',
         },
       ],
       [
@@ -197,7 +197,7 @@ export default class Utility {
         {
           DISPLAY_VALUE: 'Avalanche',
         transactionBaseurl: 'https://explorer.avax.network/tx/',
-        addressBaseurl:'https://etherscan.io/address/',
+        addressBaseurl:'https://explorer.avax.network/address/',
         },
       ],
 
@@ -206,7 +206,7 @@ export default class Utility {
         {
           DISPLAY_VALUE: 'Polygon',
         transactionBaseurl: 'https://polygonscan.com/tx/',
-        addressBaseurl:'https://etherscan.io/address/',
+        addressBaseurl:'https://polygonscan.com/address/',
         },
       ],
     ]);
