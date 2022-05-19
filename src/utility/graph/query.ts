@@ -7,6 +7,26 @@ const label = Constants.FILTERLABELS.dataTypeLabels;
 const commonLables = Constants.LABELS.commonLables;
 const regex = Constants.REGEX;
 
+export const getDeploymentId=gql`
+query {
+  _meta {
+    deployment
+  }
+}
+`
+export const getNetworkName = (DeploymentId: any) => {
+  
+  return gql`
+    query {
+      indexingStatuses(subgraphs:["${DeploymentId}"]) {
+        chains {
+          network
+        }
+      }
+    }
+  `;
+};
+
 export const getAllEntities = gql`
   query {
     __schema {
