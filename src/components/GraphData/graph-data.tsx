@@ -103,6 +103,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   };
   const { data, error, loading } = useQuery(getAllEntities);
 
+  //Fetching SubGraphNetwork Name & passing it into global state with redux.
   useEffect(() => {
     if (deploymentData) {
       setDeploymentId(deploymentData._meta.deployment);
@@ -123,8 +124,6 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
       }
     }
   }, [networkName]);
-
-  // --------------
 
   let allEntities: string[];
   allEntities = [];
@@ -239,7 +238,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               </div>
             </div>
             <h2 className="graph-heading">
-              {graphName} 2nd({subgraphNetworkName})
+              {graphName} ({subgraphNetworkName})
             </h2>
 
             <Tooltip title={label.SWITCH_THEME}>

@@ -242,7 +242,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
       <div className="FilterData">
         <FilterData props={parsed} />
       </div>
-      {/* Chip  */}
+
       <ExportButton rows={rows} />
       <div className="all-graph-data">
         <div className={`table-conatiner ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`}>
@@ -299,8 +299,10 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                           key={key}
                           className={`${
                             Utility.linkToAddressAndTxHash(row, item.name, item.type)
-                              ? 'tablerow-data-css address-data-css'
-                              : 'tablerow-data-css'
+                              ? endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH)
+                                ? 'tablerow-data-css address-data-css '
+                                : 'tablerow-data-css tabledata-click-endpoint'
+                              : 'tablerow-data-css '
                           }`}
                           onClick={() => {
                             let openCloseSnackbar = Utility.verifyAddress(

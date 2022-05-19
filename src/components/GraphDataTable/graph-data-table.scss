@@ -22,6 +22,9 @@
         background-color: #e2e2e2;
       }
     }
+    .tabledata-click-endpoint{
+      pointer-events:none;
+    }
     .tablerow-data-css {
       font-family: $primaryFontFamily;
       font-weight: $fontWeight400;
