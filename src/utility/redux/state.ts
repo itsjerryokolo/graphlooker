@@ -11,7 +11,7 @@ export interface EndpointState {
   graphEndpoint: GraphEndpoint;
 }
 interface GraphName {
-  nameOfGraph: string;
+  subgraphName: string;
 }
 
 export interface GraphNameState {

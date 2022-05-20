@@ -50,7 +50,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   let isPrevDisable: boolean = true;
   const parsed = queryString.parse(location.search);
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
-  const graphName = useSelector((state: GraphNameState) => state.graphName.nameOfGraph);
+  const subgraphNetworkName = useSelector((state: GraphNameState) => state.graphName.subgraphName);
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   let listOfattributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
   const theme = parsed.th;
@@ -310,7 +310,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                               item.name,
                               item.type,
                               endpoint,
-                              graphName,
+                              subgraphNetworkName,
                               String(theme)
                             );
                             setOpen(Boolean(openCloseSnackbar));

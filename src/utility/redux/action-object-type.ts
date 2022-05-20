@@ -1,4 +1,4 @@
-export interface GraphNameActionObjectTypes {
+export interface SubgraphNetworkActionObjectTypes {
   type: string;
   payload: string;
 }

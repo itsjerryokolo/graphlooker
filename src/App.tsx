@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { EndpointState } from './utility/redux/state';
 import GraphData from './components/GraphData/graph-data';
 import queryString from 'query-string';
+import Constants from './utility/constant';
 import {
   ApolloLink,
   ApolloClient,
@@ -22,7 +23,7 @@ const App: React.FunctionComponent<RouteComponentProps<any>> = ({ location }) =>
     cache: new InMemoryCache(),
     link: ApolloLink.split(
       (operation) => operation.getContext().clientName === 'subgraph-network',
-      createHttpLink({ uri: 'https://api.thegraph.com/index-node/graphql' }),
+      createHttpLink({ uri: Constants.QUERY_REQUEST_INDEXNODE.URL }),
       createHttpLink({ uri: endpoint })
     ),
   });

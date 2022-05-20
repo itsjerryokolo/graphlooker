@@ -4,7 +4,7 @@ import './graph-data.scss';
 import { useQuery } from '@apollo/client';
 import { getAllEntities, getNetworkName } from '../../utility/graph/query';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { getDeploymentId } from '../../utility/graph/query';
+import { queryToGetDeploymentId } from '../../utility/graph/query';
 import Toolbar from '@mui/material/Toolbar';
 import { styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -23,7 +23,7 @@ import queryString from 'query-string';
 import {
   setGraphEntity,
   setGraphEndpoint,
-  setGraphName,
+  setSubgraphName,
 } from '../../redux/actions/endpoint-action';
 import DataBoard from '../DataBoard/data-board';
 import Constants from '../../utility/constant';
@@ -88,7 +88,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
 
   const [deploymentId, setDeploymentId] = useState('');
   const [subgraphNetworkName, setSubgraphNetworkName] = useState('');
-  const { data: deploymentData } = useQuery(getDeploymentId);
+  const { data: deploymentData } = useQuery(queryToGetDeploymentId);
   const [drawerOpen, setDrawerOpen] = React.useState(true);
   const loadingScreen = useSelector((state: LoadingState) => state.dataLoading.loading);
   const handleToggleTheme = () => {
@@ -116,11 +116,10 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
 
   useEffect(() => {
     if (networkName) {
-      if (networkName.indexingStatuses.length !== 0) {
+      if (networkName.indexingStatuses.length) {
         setSubgraphNetworkName(networkName.indexingStatuses[0].chains[0].network.toUpperCase());
-        const graphNameForDispatch =
-          networkName.indexingStatuses[0].chains[0].network.toUpperCase();
-        dispatch(setGraphName(graphNameForDispatch));
+        const subgraphNetwork = networkName.indexingStatuses[0].chains[0].network.toUpperCase();
+        dispatch(setSubgraphName(subgraphNetwork));
       }
     }
   }, [networkName]);

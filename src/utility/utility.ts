@@ -4,7 +4,6 @@ import pluralizer from 'pluralize';
 import humanizeString from 'humanize-string';
 import moment from 'moment';
 
-
 const urlLabels = Constants.LABELS.commonUrls;
 const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
 const entityArray = Constants.FILTERLABELS.checkProperEntityName;
@@ -13,8 +12,6 @@ const columnLabels = Constants.FILTERLABELS.columnNameLabels;
 const timestampColumnNames = Constants.FILTERLABELS.timestampColumnNames;
 
 export default class Utility {
-  
-  
   public static getColumnNameForOptimizeQuery = (columnNames: any) => {
     let columnName = columnLabels.ID;
     for (let index = 0; index < columnNames.length; ++index) {
@@ -74,18 +71,14 @@ export default class Utility {
     columnName: string,
     columnType: string,
     endpoint: string,
-    graphName:string,
-    theme: string,
-    
+    subgraphNetworkName: string,
+    theme: string
   ) => {
-   
     let inputValue = row[`${columnName}`];
     let address = ethers.utils.isAddress(inputValue);
-   
+
     let verifyTxHash = Boolean(regex.TXHASH_REGEX.test(inputValue));
-    // if(endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH)){
-    //   return false;
-    // }
+
     if (columnType === dataTypeLabel.OBJECT) {
       Utility.checkAttributeIsEntity(inputValue.__typename, inputValue.id, endpoint, theme);
     } else if (columnName === columnLabels.ID) {
@@ -98,19 +91,43 @@ export default class Utility {
         }
       });
       if (addressFound !== '') {
-        let openCloseSnackbar = Utility.checkAddressValidity(columnName, addressFound, columnType,graphName,endpoint);
-       
+        let openCloseSnackbar = Utility.checkAddressValidity(
+          columnName,
+          addressFound,
+          columnType,
+          subgraphNetworkName,
+          endpoint
+        );
+
         return openCloseSnackbar;
       } else if (verifyTxHash) {
-        let openCloseSnackbar = Utility.checkAddressValidity(columnName, inputValue, columnType,graphName,endpoint);
+        let openCloseSnackbar = Utility.checkAddressValidity(
+          columnName,
+          inputValue,
+          columnType,
+          subgraphNetworkName,
+          endpoint
+        );
         return openCloseSnackbar;
       }
     } else if (address) {
-      let openCloseSnackbar = Utility.checkAddressValidity(columnName, inputValue, columnType,graphName,endpoint);
-     
+      let openCloseSnackbar = Utility.checkAddressValidity(
+        columnName,
+        inputValue,
+        columnType,
+        subgraphNetworkName,
+        endpoint
+      );
+
       return openCloseSnackbar;
     } else if (verifyTxHash) {
-      let openCloseSnackbar = Utility.checkAddressValidity(columnName, inputValue, columnType,graphName,endpoint);
+      let openCloseSnackbar = Utility.checkAddressValidity(
+        columnName,
+        inputValue,
+        columnType,
+        subgraphNetworkName,
+        endpoint
+      );
       return openCloseSnackbar;
     }
   };
@@ -165,15 +182,15 @@ export default class Utility {
         {
           DISPLAY_VALUE: 'Ethereum',
           transactionBaseurl: 'https://etherscan.io/tx/',
-          addressBaseurl:'https://etherscan.io/address/',
+          addressBaseurl: 'https://etherscan.io/address/',
         },
       ],
       [
         'MOONRIVER',
         {
           DISPLAY_VALUE: 'Moonriver',
-        transactionBaseurl: 'https://moonriver.moonscan.io/tx/',
-        addressBaseurl:'https://moonriver.moonscan.io/address/',
+          transactionBaseurl: 'https://moonriver.moonscan.io/tx/',
+          addressBaseurl: 'https://moonriver.moonscan.io/address/',
         },
       ],
       [
@@ -181,23 +198,23 @@ export default class Utility {
         {
           DISPLAY_VALUE: 'Moonbeam',
           transactionBaseurl: 'https://moonbeam.moonscan.io/tx/',
-          addressBaseurl:'https://moonbeam.moonscan.io/address/',
+          addressBaseurl: 'https://moonbeam.moonscan.io/address/',
         },
       ],
       [
-        ' CELO',
+        'CELO',
         {
           DISPLAY_VALUE: 'Celo',
-        transactionBaseurl: 'https://celoscan.xyz/tx/',
-        addressBaseurl:'https://celoscan.xyz/address/',
+          transactionBaseurl: 'https://celoscan.xyz/tx/',
+          addressBaseurl: 'https://celoscan.xyz/address/',
         },
       ],
       [
         'AVALANCHE',
         {
           DISPLAY_VALUE: 'Avalanche',
-        transactionBaseurl: 'https://explorer.avax.network/tx/',
-        addressBaseurl:'https://explorer.avax.network/address/',
+          transactionBaseurl: 'https://explorer.avax.network/tx/',
+          addressBaseurl: 'https://explorer.avax.network/address/',
         },
       ],
 
@@ -205,44 +222,49 @@ export default class Utility {
         'POLYGON',
         {
           DISPLAY_VALUE: 'Polygon',
-        transactionBaseurl: 'https://polygonscan.com/tx/',
-        addressBaseurl:'https://polygonscan.com/address/',
+          transactionBaseurl: 'https://polygonscan.com/tx/',
+          addressBaseurl: 'https://polygonscan.com/address/',
         },
       ],
     ]);
     return mapOfNetworkNames;
   }
-  
-   public static checkAttributeIsEntity = (
+
+  public static checkAttributeIsEntity = (
     entity: string,
     id: string,
     endpoint: string,
-    theme: any,
-   
+    theme: any
   ) => {
-    
     const URI = encodeURIComponent(endpoint);
     const selectedEntity = entity.charAt(0).toLowerCase() + entity.slice(1);
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&id=${id}`;
   };
 
-  public static checkAddressValidity = (entity: string, id: string, type: string,graphName:string,endpoint:string) => {
- 
-   const mapForUrlAddress= Utility.getNetworkDetails().get(graphName);
-  
-
+  public static checkAddressValidity = (
+    entity: string,
+    id: string,
+    type: string,
+    subgraphNetworkName: string,
+    endpoint: string
+  ) => {
+    const subgraphNetworkNameUrl = Utility.getNetworkDetails().get(subgraphNetworkName);
 
     let verifyAddress = ethers.utils.isAddress(id);
-   
-    if (verifyAddress && endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH) && graphName!==null) {
+
+    if (
+      verifyAddress &&
+      endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH) &&
+      subgraphNetworkName !== null
+    ) {
       window.open(
-        `${mapForUrlAddress.addressBaseurl}${id}`,
+        `${subgraphNetworkNameUrl.addressBaseurl}${id}`,
         '_blank' // <- This is what makes it open in a new window.
       );
     } else if (id && id.length === 66 && regex.TXHASH_REGEX.test(id)) {
       window.open(
-         // `${urlLabels.TNX_URL}${id}`,
-        `${mapForUrlAddress.transactionBaseurl}${id}`,
+        // `${urlLabels.TNX_URL}${id}`,
+        `${subgraphNetworkNameUrl.transactionBaseurl}${id}`,
         '_blank' // <- This is what makes it open in a new window.
       );
     } else {
@@ -352,7 +374,7 @@ export const sortData = (sortedData: object[]) => {
 
 export const customMessages = (message: string | any, endpoint: string) => {
   let customMessage: string = message;
-   
+
   try {
     if (endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH)) {
       if (message.includes('Subgraph' && 'not found')) {
@@ -373,7 +395,3 @@ export const customMessages = (message: string | any, endpoint: string) => {
   } catch (err) {}
   return customMessage;
 };
-function ADDRESS_URL(ADDRESS_URL: any) {
-  throw new Error('Function not implemented.');
-}
-

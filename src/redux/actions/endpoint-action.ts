@@ -1,10 +1,10 @@
 import { EndpointActionTypes } from "../../utility/redux/action-types";
 
 // Action for the name of  the sub-graph
-export const setGraphName=(nameOfGraph:string)=>{
+export const setSubgraphName=(subgraphName:string)=>{
   return {
-    type:EndpointActionTypes.SET_GRAPHNAME,
-    payload:nameOfGraph,
+    type:EndpointActionTypes. SET_SUBGRAPH_NETWORKNAME,
+    payload:subgraphName,
   }
   }
 export const setGraphEndpoint = (endpoint: string) => {

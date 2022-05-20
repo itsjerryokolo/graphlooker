@@ -7,7 +7,7 @@ const label = Constants.FILTERLABELS.dataTypeLabels;
 const commonLables = Constants.LABELS.commonLables;
 const regex = Constants.REGEX;
 
-export const getDeploymentId=gql`
+export const queryToGetDeploymentId=gql`
 query {
   _meta {
     deployment
