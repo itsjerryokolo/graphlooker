@@ -13,6 +13,7 @@ import Utility from '../../utility/utility';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import { Allfilters } from '../../utility/interface/props';
+
 import {
   getSortedentity,
 } from '../../utility/graph/query';
@@ -46,17 +47,14 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
   //Sort Data (Ascending /Descending) when Attribute Clicked
   debugger
   const sortDataAscDesc = async (sortType: string, columnName: string) => {
-    let s: string = "";
+    let allFilterString: string = "";
     let filterObj: number = 0;
     const URI = encodeURIComponent(endpoint);
-    console.log(parsed.id)
     const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    let allFilters: Allfilters[] = Utility.getAllFilters("sort", columnName, sortType);
-    console.log(await getSortedentity(listOfattributes, entity, allFilters));
+    let allFilters: Allfilters[] = Utility.getAllFilters(Constants.LABELS.commonLables.SORT, columnName, sortType);
     filterObj = window.location.href.lastIndexOf('&')
-    // console.log(filterObj);
-    s += JSON.stringify(allFilters)
-    return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${s}`);
+    allFilterString += JSON.stringify(allFilters)
+    return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${allFilterString}`);
   };
 
   const getSortingMenu = () => {

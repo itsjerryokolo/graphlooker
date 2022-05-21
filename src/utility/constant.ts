@@ -102,6 +102,7 @@ export default class Constants {
       ENTITY_REFERENCE: 'This column is a reference of',
       NULL: 'null',
       DOUBLE_QUOTES: '"',
+      SORT: "sort",
       ID: 'id',
       UNDEFINED: 'undefined',
       DOWNLOADING: 'Downloading...',

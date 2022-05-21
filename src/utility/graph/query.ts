@@ -182,27 +182,7 @@ export const getSortedentity = (
   allFilters[0].columnName && allFilters[0].filterName ? columnNameWithFilter = JSON.stringify(allFilters[0].columnName) + JSON.stringify(allFilters[0].filterName) : columnNameWithFilter = "";
   columnNameWithFilter = columnNameWithFilter.replaceAll('""', '')
   inputValue = allFilters[0].inputName;
-  console.log(columnNameWithFilter)
   columnNameWithFilter = JSON.stringify(columnNameWithFilter)
-
-  // let queryData = ` `;
-  // for (let index = 0; index < columnNames.length; ++index) {
-  //   const element = columnNames[index];
-  //   if (element.name === commonLables.ID) {
-  //     continue;
-  //   }
-  //   if (
-  //     (element.type === label.LIST ||
-  //       element.type === label.OBJECT ||
-  //       element.type === label.NON_NULL)
-  //   ) {
-  //     //element.name = column name
-  //     queryData = queryData + `${element.name} { ${commonLables.ID} } `;
-  //   } else {
-  //     queryData = queryData + `${element.name} `;
-  //   }
-  // }
-  // console.log(`${selectedEntity}(where: {${columnNameWithFilter.slice(1, -1)}:${inputValue}}  )`)
   const selectedEntity = Utility.makePluralChanges(entity);
   let orderByColumnName = allFilters[0].columnName;
   orderByColumnName = Utility.getColumnNameForOptimizeQuery(columnNames);

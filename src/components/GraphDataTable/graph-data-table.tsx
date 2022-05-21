@@ -65,22 +65,22 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
 
   const getBoardDataAsQuery = (error: string) => {
     let test = parsed.filterObj;
+    let ObjectFromUrl: any = {};
     if (parsed && parsed.filterObj && typeof (test) === 'string') {
-
-      // if (typeof (test) === 'string')
-      console.log(JSON.parse(test)[0])
+      if (typeof (test) === 'string') {
+        ObjectFromUrl = JSON.parse(test)[0];
+      }
     }
-
     if (parsed.id) {
       return getGraphDataForID(listOfattributes, selectedEntity, `${parsed.id}`);
     }
-    if (!parsed.f && !parsed.i && parsed.s) {
+    if (!parsed.f && !parsed.i && (ObjectFromUrl.inputName && (ObjectFromUrl.inputName == 'desc' || ObjectFromUrl.inputName == 'asc')) && (ObjectFromUrl.columnName)) {
       const skip = checkForPagination();
       return getSortedDataQuery(
         listOfattributes,
         selectedEntity,
-        `${parsed.s}`,
-        `${parsed.c}`,
+        `${ObjectFromUrl.inputName}`,
+        `${ObjectFromUrl.columnName}`,
         skip,
         100,
         '',

@@ -162,7 +162,6 @@ export default class Utility {
     let checkobj = { filterName: filterName, columnName: columnName, inputName: inputName };
     if (values.indexOf(checkobj) == -1)
       values.push({ filterName: filterName, columnName: columnName, inputName: inputName });
-    console.log(JSON.stringify(values));
     return values;
   }
 
