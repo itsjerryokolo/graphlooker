@@ -19,9 +19,11 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
   const { data, error, loading } = useQuery(getAllEntities);
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
   const dispatch = useDispatch();
-  const urlRegex = /^(https:\/\/api\.|http:\/\/api\.)[a-zA-Z0-9\-_$]+\.[a-zA-Z]{2,5}/g;
+  const urlRegex = /^(https:\/\/.|http:\/\/.)[a-zA-Z0-9\-_$]+\.[a-zA-Z]{2,5}/g;
   let isendpointCorrect = urlRegex.test(endpoint);
-
+  //   /^(https:\/\/.|http:\/\/.)[a-zA-Z0-9\-_$]+\.[a-zA-Z]{2,5}/g ----> REGEX FOR BOTH
+  console.log(error);
+  console.log(errorMsg);
   const searchEndpoint = (e: any) => {
     e.preventDefault();
     dispatch(setGraphEndpoint(endpoint));
@@ -74,10 +76,10 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
                 value={endpoint}
                 onChange={(e) => onChangeHandler(e.target.value)}
               ></input>
-              <button className="search-button" type="submit">
+              <button className="search-button" type="submit" disabled={isError}>
                 {commonLables.EXPLORE}
               </button>
-              {/* disabled={isError} */}
+
               <p className="explore-msg">{Constants.LABELS.commonLables.DESC_TITLE}</p>
 
               {isError && endpoint.length > 0 ? (
