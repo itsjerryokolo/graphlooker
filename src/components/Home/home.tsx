@@ -22,8 +22,6 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
   const urlRegex = /^(https:\/\/.|http:\/\/.)[a-zA-Z0-9\-_$]+\.[a-zA-Z]{2,5}/g;
   let isendpointCorrect = urlRegex.test(endpoint);
   //   /^(https:\/\/.|http:\/\/.)[a-zA-Z0-9\-_$]+\.[a-zA-Z]{2,5}/g ----> REGEX FOR BOTH
-  console.log(error);
-  console.log(errorMsg);
   const searchEndpoint = (e: any) => {
     e.preventDefault();
     dispatch(setGraphEndpoint(endpoint));
