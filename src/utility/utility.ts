@@ -91,7 +91,7 @@ export default class Utility {
         }
       });
       if (addressFound !== '') {
-        let openCloseSnackbar = Utility.checkAddressValidity(
+        let isOpenSnackbar = Utility.checkAddressValidity(
           columnName,
           addressFound,
           columnType,
@@ -99,19 +99,19 @@ export default class Utility {
           endpoint
         );
 
-        return openCloseSnackbar;
+        return isOpenSnackbar;
       } else if (verifyTxHash) {
-        let openCloseSnackbar = Utility.checkAddressValidity(
+        let openSnackbar = Utility.checkAddressValidity(
           columnName,
           inputValue,
           columnType,
           subgraphNetworkName,
           endpoint
         );
-        return openCloseSnackbar;
+        return openSnackbar;
       }
     } else if (address) {
-      let openCloseSnackbar = Utility.checkAddressValidity(
+      let openSnackbar = Utility.checkAddressValidity(
         columnName,
         inputValue,
         columnType,
@@ -119,16 +119,16 @@ export default class Utility {
         endpoint
       );
 
-      return openCloseSnackbar;
+      return openSnackbar;
     } else if (verifyTxHash) {
-      let openCloseSnackbar = Utility.checkAddressValidity(
+      let openSnackbar = Utility.checkAddressValidity(
         columnName,
         inputValue,
         columnType,
         subgraphNetworkName,
         endpoint
       );
-      return openCloseSnackbar;
+      return openSnackbar;
     }
   };
   public static filterData() {
@@ -376,7 +376,7 @@ export const customMessages = (message: string | any, endpoint: string) => {
   let customMessage: string = message;
 
   try {
-    if (endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH)) {
+    if (endpoint) {
       if (message.includes('Subgraph' && 'not found')) {
         return (customMessage = Constants.ERROR_MESSAGES.NOT_FOUND);
       }

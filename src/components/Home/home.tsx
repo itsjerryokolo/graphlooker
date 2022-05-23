@@ -16,12 +16,13 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
   const [endpoint, setEndpoint] = React.useState(commonLables.EMPTY);
   const [errorMsg, setErrorMsg] = useState('');
   const [isError, setIsError] = useState(true);
-  const { data, error, loading } = useQuery(getAllEntities);
+  const { data, error, loading } = useQuery(getAllEntities); //condition-based
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
   const dispatch = useDispatch();
-  const urlRegex = /^(https:\/\/.|http:\/\/.)[a-zA-Z0-9\-_$]+\.[a-zA-Z]{2,5}/g;
+  const urlRegex =
+    /^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,5})/g;
   let isendpointCorrect = urlRegex.test(endpoint);
-  //   /^(https:\/\/.|http:\/\/.)[a-zA-Z0-9\-_$]+\.[a-zA-Z]{2,5}/g ----> REGEX FOR BOTH
+
   const searchEndpoint = (e: any) => {
     e.preventDefault();
     dispatch(setGraphEndpoint(endpoint));
