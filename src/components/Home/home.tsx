@@ -29,7 +29,7 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
   };
 
   useEffect(() => {
-    if (error) {
+    if (error && endpoint) {
       setErrorMsg(error?.message);
     }
   }, [error]);
