@@ -138,7 +138,9 @@ export default class Constants {
       ERROR: '/images/error-outline.gif',
     },
   };
-
+  public static QUERY_REQUEST_INDEXNODE={
+    URL:'https://api.thegraph.com/index-node/graphql',
+  }
   public static REGEX = {
     TXHASH_REGEX: /[0-9A-Fa-f]{6}/g,
     CHECK_NUMBER_REGEX: /^\d*(\.\d+)?$/,

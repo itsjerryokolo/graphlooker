@@ -1,3 +1,7 @@
+export interface SubgraphNetworkActionObjectTypes {
+  type: string;
+  payload: string;
+}
 export interface ThemeActionObjectTypes {
   type: string;
   payload: string;

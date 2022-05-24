@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import './graph-data.scss';
 import { useQuery } from '@apollo/client';
-import { getAllEntities } from '../../utility/graph/query';
+import { getAllEntities, getNetworkName } from '../../utility/graph/query';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { queryToGetDeploymentId } from '../../utility/graph/query';
 import Toolbar from '@mui/material/Toolbar';
 import { styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -18,7 +20,11 @@ import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import ListItem from '../ListItem/list-item';
 import queryString from 'query-string';
-import { setGraphEntity, setGraphEndpoint } from '../../redux/actions/endpoint-action';
+import {
+  setGraphEntity,
+  setGraphEndpoint,
+  setSubgraphName,
+} from '../../redux/actions/endpoint-action';
 import DataBoard from '../DataBoard/data-board';
 import Constants from '../../utility/constant';
 import Loader from '../Loader/loader';
@@ -80,6 +86,9 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const [deploymentId, setDeploymentId] = useState('');
+  const [subgraphNetworkName, setSubgraphNetworkName] = useState('');
+  const { data: deploymentData } = useQuery(queryToGetDeploymentId);
   const [drawerOpen, setDrawerOpen] = React.useState(true);
   const loadingScreen = useSelector((state: LoadingState) => state.dataLoading.loading);
   const handleToggleTheme = () => {
@@ -93,6 +102,28 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
     setDrawerOpen(!drawerOpen);
   };
   const { data, error, loading } = useQuery(getAllEntities);
+
+  //Fetching SubGraphNetwork Name & passing it into global state with redux.
+  useEffect(() => {
+    if (deploymentData) {
+      setDeploymentId(deploymentData._meta.deployment);
+    }
+  }, [deploymentData]);
+
+  const { data: networkName } = useQuery(getNetworkName(deploymentId), {
+    context: { clientName: 'subgraph-network' },
+  });
+
+  useEffect(() => {
+    if (networkName) {
+      if (networkName.indexingStatuses.length) {
+        setSubgraphNetworkName(networkName.indexingStatuses[0].chains[0].network.toUpperCase());
+        const subgraphNetwork = networkName.indexingStatuses[0].chains[0].network.toUpperCase();
+        dispatch(setSubgraphName(subgraphNetwork));
+      }
+    }
+  }, [networkName]);
+
   let allEntities: string[];
   allEntities = [];
   if (loading) {
@@ -205,7 +236,10 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                 </a>
               </div>
             </div>
-            <h2 className="graph-heading">{graphName}</h2>
+            <h2 className="graph-heading">
+              {graphName}
+              {subgraphNetworkName ? `(${subgraphNetworkName})` : ''}
+            </h2>
 
             <Tooltip title={label.SWITCH_THEME}>
               <div className="theme-icon" onClick={handleToggleTheme}>

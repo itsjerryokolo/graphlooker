@@ -71,10 +71,12 @@ export default class Utility {
     columnName: string,
     columnType: string,
     endpoint: string,
+    subgraphNetworkName: string,
     theme: string
   ) => {
     let inputValue = row[`${columnName}`];
     let address = ethers.utils.isAddress(inputValue);
+
     let verifyTxHash = Boolean(regex.TXHASH_REGEX.test(inputValue));
 
     if (columnType === dataTypeLabel.OBJECT) {
@@ -89,18 +91,44 @@ export default class Utility {
         }
       });
       if (addressFound !== '') {
-        let openCloseSnackbar = Utility.checkAddressValidity(columnName, addressFound, columnType);
-        return openCloseSnackbar;
+        let isOpenSnackbar = Utility.checkAddressValidity(
+          columnName,
+          addressFound,
+          columnType,
+          subgraphNetworkName,
+          endpoint
+        );
+
+        return isOpenSnackbar;
       } else if (verifyTxHash) {
-        let openCloseSnackbar = Utility.checkAddressValidity(columnName, inputValue, columnType);
-        return openCloseSnackbar;
+        let openSnackbar = Utility.checkAddressValidity(
+          columnName,
+          inputValue,
+          columnType,
+          subgraphNetworkName,
+          endpoint
+        );
+        return openSnackbar;
       }
     } else if (address) {
-      let openCloseSnackbar = Utility.checkAddressValidity(columnName, inputValue, columnType);
-      return openCloseSnackbar;
+      let openSnackbar = Utility.checkAddressValidity(
+        columnName,
+        inputValue,
+        columnType,
+        subgraphNetworkName,
+        endpoint
+      );
+
+      return openSnackbar;
     } else if (verifyTxHash) {
-      let openCloseSnackbar = Utility.checkAddressValidity(columnName, inputValue, columnType);
-      return openCloseSnackbar;
+      let openSnackbar = Utility.checkAddressValidity(
+        columnName,
+        inputValue,
+        columnType,
+        subgraphNetworkName,
+        endpoint
+      );
+      return openSnackbar;
     }
   };
   public static filterData() {
@@ -146,6 +174,61 @@ export default class Utility {
     ]);
     return mapForString;
   }
+  // Map For the Address and Transaction URL
+  public static getNetworkDetails() {
+    let mapOfNetworkNames = new Map<string, any>([
+      [
+        'MAINNET',
+        {
+          DISPLAY_VALUE: 'Ethereum',
+          transactionBaseurl: 'https://etherscan.io/tx/',
+          addressBaseurl: 'https://etherscan.io/address/',
+        },
+      ],
+      [
+        'MOONRIVER',
+        {
+          DISPLAY_VALUE: 'Moonriver',
+          transactionBaseurl: 'https://moonriver.moonscan.io/tx/',
+          addressBaseurl: 'https://moonriver.moonscan.io/address/',
+        },
+      ],
+      [
+        'MOONBEAM',
+        {
+          DISPLAY_VALUE: 'Moonbeam',
+          transactionBaseurl: 'https://moonbeam.moonscan.io/tx/',
+          addressBaseurl: 'https://moonbeam.moonscan.io/address/',
+        },
+      ],
+      [
+        'CELO',
+        {
+          DISPLAY_VALUE: 'Celo',
+          transactionBaseurl: 'https://celoscan.xyz/tx/',
+          addressBaseurl: 'https://celoscan.xyz/address/',
+        },
+      ],
+      [
+        'AVALANCHE',
+        {
+          DISPLAY_VALUE: 'Avalanche',
+          transactionBaseurl: 'https://explorer.avax.network/tx/',
+          addressBaseurl: 'https://explorer.avax.network/address/',
+        },
+      ],
+
+      [
+        'POLYGON',
+        {
+          DISPLAY_VALUE: 'Polygon',
+          transactionBaseurl: 'https://polygonscan.com/tx/',
+          addressBaseurl: 'https://polygonscan.com/address/',
+        },
+      ],
+    ]);
+    return mapOfNetworkNames;
+  }
 
   public static checkAttributeIsEntity = (
     entity: string,
@@ -158,17 +241,30 @@ export default class Utility {
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&id=${id}`;
   };
 
-  public static checkAddressValidity = (entity: string, id: string, type: string) => {
+  public static checkAddressValidity = (
+    entity: string,
+    id: string,
+    type: string,
+    subgraphNetworkName: string,
+    endpoint: string
+  ) => {
+    const subgraphNetworkNameUrl = Utility.getNetworkDetails().get(subgraphNetworkName);
+
     let verifyAddress = ethers.utils.isAddress(id);
 
-    if (verifyAddress) {
+    if (
+      verifyAddress &&
+      endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH) &&
+      subgraphNetworkName !== null
+    ) {
       window.open(
-        `${urlLabels.ADDRESS_URL}${id}`,
+        `${subgraphNetworkNameUrl.addressBaseurl}${id}`,
         '_blank' // <- This is what makes it open in a new window.
       );
     } else if (id && id.length === 66 && regex.TXHASH_REGEX.test(id)) {
       window.open(
-        `${urlLabels.TNX_URL}${id}`,
+        // `${urlLabels.TNX_URL}${id}`,
+        `${subgraphNetworkNameUrl.transactionBaseurl}${id}`,
         '_blank' // <- This is what makes it open in a new window.
       );
     } else {
@@ -205,7 +301,7 @@ export default class Utility {
     }
   };
 
-  //Function to make of entities plural
+  // Function to make of entities plural
   public static makePluralChanges = (normalStr: string) => {
     let pluralStr = pluralizer(normalStr);
     if (pluralStr === normalStr) {
@@ -280,7 +376,7 @@ export const customMessages = (message: string | any, endpoint: string) => {
   let customMessage: string = message;
 
   try {
-    if (endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH)) {
+    if (endpoint) {
       if (message.includes('Subgraph' && 'not found')) {
         return (customMessage = Constants.ERROR_MESSAGES.NOT_FOUND);
       }

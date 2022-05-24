@@ -5,6 +5,7 @@ import {
   EntityState,
   AttributesState,
   QueryDataState,
+  GraphNameState,
 } from '../../utility/redux/state';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
@@ -49,12 +50,11 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   let isPrevDisable: boolean = true;
   const parsed = queryString.parse(location.search);
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
+  const subgraphNetworkName = useSelector((state: GraphNameState) => state.graphName.subgraphName);
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   let listOfattributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
   const theme = parsed.th;
   const dispatch = useDispatch();
-
-  
 
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
@@ -239,10 +239,10 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
 
   return (
     <>
-     <div className='FilterData'>
-     <FilterData  props={parsed} />
-     </div>
-     {/* Chip  */}
+      <div className="FilterData">
+        <FilterData props={parsed} />
+      </div>
+
       <ExportButton rows={rows} />
       <div className="all-graph-data">
         <div className={`table-conatiner ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`}>
@@ -299,8 +299,10 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                           key={key}
                           className={`${
                             Utility.linkToAddressAndTxHash(row, item.name, item.type)
-                              ? 'tablerow-data-css address-data-css'
-                              : 'tablerow-data-css'
+                              ? endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH)
+                                ? 'tablerow-data-css address-data-css '
+                                : 'tablerow-data-css tabledata-click-endpoint'
+                              : 'tablerow-data-css '
                           }`}
                           onClick={() => {
                             let openCloseSnackbar = Utility.verifyAddress(
@@ -308,6 +310,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                               item.name,
                               item.type,
                               endpoint,
+                              subgraphNetworkName,
                               String(theme)
                             );
                             setOpen(Boolean(openCloseSnackbar));

@@ -16,10 +16,11 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
   const [endpoint, setEndpoint] = React.useState(commonLables.EMPTY);
   const [errorMsg, setErrorMsg] = useState('');
   const [isError, setIsError] = useState(true);
-  const { data, error, loading } = useQuery(getAllEntities);
+  const { data, error, loading } = useQuery(getAllEntities); //condition-based
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
   const dispatch = useDispatch();
-  const urlRegex = /^(https:\/\/api\.|http:\/\/api\.)[a-zA-Z0-9\-_$]+\.[a-zA-Z]{2,5}/g;
+  const urlRegex =
+    /^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,5})/g;
   let isendpointCorrect = urlRegex.test(endpoint);
 
   const searchEndpoint = (e: any) => {
@@ -28,7 +29,7 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
   };
 
   useEffect(() => {
-    if (error) {
+    if (error && endpoint) {
       setErrorMsg(error?.message);
     }
   }, [error]);

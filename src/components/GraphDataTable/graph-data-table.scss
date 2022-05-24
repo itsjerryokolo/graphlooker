@@ -22,6 +22,7 @@
         background-color: #e2e2e2;
       }
     }
+    
     .tablerow-data-css {
       font-family: $primaryFontFamily;
       font-weight: $fontWeight400;
@@ -30,6 +31,9 @@
       min-width: 170px;
       &.address-data-css {
         color: $colorCyan;
+      }
+      &.tabledata-click-endpoint{
+        pointer-events:none;
       }
     }
     .table-head-cell {
