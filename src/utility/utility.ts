@@ -226,6 +226,14 @@ export default class Utility {
           addressBaseurl: 'https://polygonscan.com/address/',
         },
       ],
+      [
+        'ROPSTEN',
+        {
+          DISPLAY_VALUE: 'ROPSTEN',
+          transactionBaseurl: 'https://ropsten.etherscan.io/tx',
+          addressBaseurl: 'https://ropsten.etherscan.io/address/',
+        },
+      ],
     ]);
     return mapOfNetworkNames;
   }
