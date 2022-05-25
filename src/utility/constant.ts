@@ -138,9 +138,9 @@ export default class Constants {
       ERROR: '/images/error-outline.gif',
     },
   };
-  public static QUERY_REQUEST_INDEXNODE={
-    URL:'https://api.thegraph.com/index-node/graphql',
-  }
+  public static QUERY_REQUEST_INDEXNODE = {
+    URL: 'https://api.thegraph.com/index-node/graphql',
+  };
   public static REGEX = {
     TXHASH_REGEX: /[0-9A-Fa-f]{6}/g,
     CHECK_NUMBER_REGEX: /^\d*(\.\d+)?$/,
@@ -195,7 +195,7 @@ export default class Constants {
       { menuItem: 'Is', menuValue: '_is' },
       { menuItem: 'Is not', menuValue: '_not' },
       { menuItem: 'Contains', menuValue: '_contains' },
-      { menuItem: 'Does not contain', menuValue: 'does_not_contain' },
+      { menuItem: 'Does not contain', menuValue: '_not' },
       { menuItem: 'Starts with', menuValue: 'starts_with' },
       { menuItem: 'Ends with', menuValue: 'ends_with' },
       { menuItem: 'Is Empty', menuValue: '_is' },
