@@ -1,8 +1,7 @@
 @import '../../utility/theme/variable.scss';
-.FilterData{
+.FilterData {
   padding: $size3;
   margin: $size3;
-  
 }
 .all-graph-data {
   box-sizing: border-box;
@@ -17,25 +16,26 @@
     &.drawer-open-table-length {
       max-width: calc(100vw - 310px);
     }
-    .tabledata-row {
+
+    .tablerow-data-css {
+       font-family: $primaryFontFamily;
+      font-weight: $fontWeight400;
+      cursor: default;
+      pointer-events: none;
+      font-size: $size14;
+      min-width: 170px;
       &:hover {
         background-color: #e2e2e2;
       }
-    }
-    
-    .tablerow-data-css {
-      font-family: $primaryFontFamily;
-      font-weight: $fontWeight400;
-      cursor: pointer;
-      font-size: $size14;
-      min-width: 170px;
       &.address-data-css {
+        pointer-events:auto;
+        cursor: pointer;
         color: $colorCyan;
       }
-      &.tabledata-click-endpoint{
-        pointer-events:none;
-      }
-    }
+     }
+
+   
+   
     .table-head-cell {
       color: $colorWhite;
       background-color: $primaryColor;
@@ -84,7 +84,6 @@
       }
     }
   }
-  
 
   .next-previous-option {
     max-width: calc(100vw - 10px);

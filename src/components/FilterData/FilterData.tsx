@@ -64,7 +64,9 @@ const FilterData: React.FunctionComponent<UserProps> = ({ props }): JSX.Element 
         />
       )}
 
-      {!props.s ? null : <Chip label={`${listOfFilters.get(props.s)}`} color="info" size="small" />}
+      {!props.s ? null : (
+        <Chip label={` ${props.c} in ${listOfFilters.get(props.s)}`} color="info" size="small" />
+      )}
     </>
   );
 };

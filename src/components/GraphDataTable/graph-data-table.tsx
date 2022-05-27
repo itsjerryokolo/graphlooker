@@ -301,7 +301,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                             Utility.linkToAddressAndTxHash(row, item.name, item.type)
                               ? endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH)
                                 ? 'tablerow-data-css address-data-css '
-                                : 'tablerow-data-css tabledata-click-endpoint'
+                                : 'tablerow-data-css'
                               : 'tablerow-data-css '
                           }`}
                           onClick={() => {
