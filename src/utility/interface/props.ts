@@ -48,7 +48,7 @@ export interface UserProps {
   props: any;
 }
 export interface Allfilters {
-  filterName: string | (string | null)[] | null,
-  columnName: string | (string | null)[] | null,
-  inputName: string | (string | null)[] | null | number
+  filterName: string;
+  columnName: string;
+  inputName: string | number;
 }

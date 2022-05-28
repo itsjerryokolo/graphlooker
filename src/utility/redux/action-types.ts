@@ -7,6 +7,7 @@ export const EndpointActionTypes = {
   SET_ENTITY: 'SET_ENTITY',
   SET_ATTRIBUTES: 'SET_ATTRIBUTES',
   SET_QUERY: 'SET_QUERY',
+  SET_SUBGRAPH_NETWORKNAME:'SET_SUBGRAPH_NETWORKNAME',
 };
 
 export const LoadingActionTypes = {

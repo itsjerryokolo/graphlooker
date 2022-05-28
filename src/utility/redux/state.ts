@@ -10,6 +10,14 @@ interface GraphEndpoint {
 export interface EndpointState {
   graphEndpoint: GraphEndpoint;
 }
+interface GraphName {
+  subgraphName: string;
+}
+
+export interface GraphNameState {
+  graphName: GraphName;
+}
+
 interface SelectedEntity {
   entity: string;
 }

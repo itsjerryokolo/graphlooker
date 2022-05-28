@@ -1,11 +1,30 @@
 import { gql } from '@apollo/client';
 import Constants from '../constant';
-import { ColumnProps, Allfilters } from '../interface/props';
+import { ColumnProps } from '../interface/props';
 import Utility from '../utility';
 
 const label = Constants.FILTERLABELS.dataTypeLabels;
 const commonLables = Constants.LABELS.commonLables;
 const regex = Constants.REGEX;
+
+export const queryToGetDeploymentId = gql`
+  query {
+    _meta {
+      deployment
+    }
+  }
+`;
+export const getNetworkName = (DeploymentId: any) => {
+  return gql`
+    query {
+      indexingStatuses(subgraphs:["${DeploymentId}"]) {
+        chains {
+          network
+        }
+      }
+    }
+  `;
+};
 
 export const getAllEntities = gql`
   query {
@@ -39,9 +58,7 @@ export const getAllAttributes = (entity: string) => {
     `;
 };
 
-export const getGraphDataForID = (
-  columnNames: ColumnProps[], entity: string, filterID: string
-) => {
+export const getGraphDataForID = (columnNames: ColumnProps[], entity: string, filterID: string) => {
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
   for (let index = 0; index < columnNames.length; ++index) {
@@ -68,7 +85,6 @@ export const getGraphDataForID = (
           }
       }
       `;
-
 };
 
 /*
@@ -97,15 +113,6 @@ export const getStringFilterGraphData = (
   count: number,
   whereId: string,
   errorMsg: string
-
-  // export const getSortedentity = (
-  //   columnNames: ColumnProps[],
-  //   entity: string,
-  //   allFilters: Allfilters[],
-  //   error?: String,
-  //   globalQuery?: string,
-  //   count?: number,
-  //   skip?: number,
 ) => {
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
@@ -166,55 +173,7 @@ export const getStringFilterGraphData = (
       }
       `;
 };
-//updated one:-
-export const getSortedentity = (
-  columnNames: ColumnProps[],
-  entity: string,
-  allFilters: Allfilters[],
-  error?: String,
-  globalQuery?: string,
-  count?: number,
-  skip?: number,
-) => {
-  let columnNameWithFilter: string = "";
-  let inputValue: any = "";
 
-  allFilters[0].columnName && allFilters[0].filterName ? columnNameWithFilter = JSON.stringify(allFilters[0].columnName) + JSON.stringify(allFilters[0].filterName) : columnNameWithFilter = "";
-  columnNameWithFilter = columnNameWithFilter.replaceAll('""', '')
-  inputValue = allFilters[0].inputName;
-  columnNameWithFilter = JSON.stringify(columnNameWithFilter)
-  const selectedEntity = Utility.makePluralChanges(entity);
-  let orderByColumnName = allFilters[0].columnName;
-  orderByColumnName = Utility.getColumnNameForOptimizeQuery(columnNames);
-
-  let queryData = ` `;
-
-  for (let index = 0; index < columnNames.length; ++index) {
-    const element = columnNames[index];
-    if (element.name === commonLables.ID) {
-      continue;
-    }
-    if (
-      (element.type === label.LIST ||
-        element.type === label.OBJECT ||
-        element.type === label.NON_NULL)
-    ) {
-      queryData = queryData + `${element.name} { ${commonLables.ID} } `;
-    } else if (element.type !== label.OBJECT) {
-      queryData = queryData + `${element.name} `;
-    }
-  }
-  return gql`
-    query {
-      entity: ${entity}(first:${count}, skip:${skip}, orderBy: ${allFilters[0].columnName}, 
-        orderDirection: ${allFilters[0].inputName} ){
-        id      
-        ${queryData}
-        }
-    }
-    `;
-  // // return ()
-};
 /*
 function to get Query based on last ID and skip.
 
@@ -286,8 +245,8 @@ errorMsg = specific error msg
 export const getSortedDataQuery = (
   columnNames: ColumnProps[],
   entity: string,
-  sortType: string,
-  attributeName: string,
+  sortType: string | (string | null)[] | null | number,
+  attributeName: string | (string | null)[] | null | number,
   skip: number,
   count: number,
   whereId: string,

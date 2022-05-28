@@ -5,7 +5,7 @@ import { PrimaryMenuProps } from '../../utility/interface/props';
 import ArrowDownwardTwoToneIcon from '@mui/icons-material/ArrowDownwardTwoTone';
 import ArrowUpwardTwoToneIcon from '@mui/icons-material/ArrowUpwardTwoTone';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { EndpointState, EntityState, AttributesState } from '../../utility/redux/state';
+import { EndpointState, EntityState } from '../../utility/redux/state';
 import { useSelector } from 'react-redux';
 import FilterMenu from '../FilterMenu/filter-menu';
 import Constants from '../../utility/constant';
@@ -14,10 +14,6 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import { Allfilters } from '../../utility/interface/props';
 
-import {
-  getSortedentity,
-} from '../../utility/graph/query';
-import getAllFilters from '../../utility/utility'
 const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProps<any>> = ({
   attributeName,
   attributeType,
@@ -29,12 +25,9 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
   const filterLabels = Constants.FILTERLABELS.dataTypeLabels;
-  let listOfattributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
   let selectedEntity: string;
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
-
-
 
   const [anchorFiterEl, setAnchorFiterEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorFiterEl);
@@ -45,15 +38,17 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
     setAnchorFiterEl(null);
   };
   //Sort Data (Ascending /Descending) when Attribute Clicked
-  debugger
+  debugger;
   const sortDataAscDesc = async (sortType: string, columnName: string) => {
-    let allFilterString: string = "";
-    let filterObj: number = 0;
+    let allFilterString: string = '';
     const URI = encodeURIComponent(endpoint);
     const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    let allFilters: Allfilters[] = Utility.getAllFilters(Constants.LABELS.commonLables.SORT, columnName, sortType);
-    filterObj = window.location.href.lastIndexOf('&')
-    allFilterString += JSON.stringify(allFilters)
+    let allFilters: Allfilters[] = Utility.getAllFilters(
+      Constants.LABELS.commonLables.SORT,
+      columnName,
+      sortType
+    );
+    allFilterString += JSON.stringify(allFilters);
     return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${allFilterString}`);
   };
 
