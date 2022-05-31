@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import './graph-data.scss';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import { getAllEntities, getNetworkName } from '../../utility/graph/query';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { queryToGetDeploymentId } from '../../utility/graph/query';
@@ -60,6 +60,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   const parsed = queryString.parse(location.search);
   let theme: any = parsed.th;
   let graphName: string | any = parsed.uri?.slice(parsed.uri?.lastIndexOf('/') + 1);
+  console.log(graphName);
   if (parsed.uri) {
     graphName = humanizeString(graphName)?.toUpperCase();
   }
@@ -103,16 +104,26 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   };
   const { data, error, loading } = useQuery(getAllEntities);
 
-  //Fetching SubGraphNetwork Name & passing it into global state with redux.
+  // ----------NetworkName Lazy Query Implementation--------------------
+
+  useEffect(() => {
+    if (deploymentId.length) {
+      getEndpoint();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deploymentId]);
+
+  const [getEndpoint, { data: networkName }] = useLazyQuery(getNetworkName(deploymentId), {
+    context: { clientName: 'subgraph-network' },
+  });
+  // ----------------------------------------------
+
+  // Fetching SubGraphNetwork Name & passing it into global state with redux.
   useEffect(() => {
     if (deploymentData) {
       setDeploymentId(deploymentData._meta.deployment);
     }
   }, [deploymentData]);
-
-  const { data: networkName } = useQuery(getNetworkName(deploymentId), {
-    context: { clientName: 'subgraph-network' },
-  });
 
   useEffect(() => {
     if (networkName) {
@@ -122,7 +133,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
         dispatch(setSubgraphName(subgraphNetwork));
       }
     }
-  }, [networkName]);
+  }, [dispatch, networkName]);
 
   let allEntities: string[];
   allEntities = [];
