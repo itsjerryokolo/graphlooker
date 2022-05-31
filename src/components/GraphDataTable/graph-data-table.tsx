@@ -177,7 +177,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
       pageNumber - 1
     }`;
   };
-  console.log(errorMsg);
+
   //Get Table Data
   const [getBoardData, { error, loading, data }] = useLazyQuery(getBoardDataAsQuery(errorMsg));
 

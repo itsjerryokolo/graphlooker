@@ -60,7 +60,6 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   const parsed = queryString.parse(location.search);
   let theme: any = parsed.th;
   let graphName: string | any = parsed.uri?.slice(parsed.uri?.lastIndexOf('/') + 1);
-  console.log(graphName);
   if (parsed.uri) {
     graphName = humanizeString(graphName)?.toUpperCase();
   }
@@ -104,19 +103,19 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   };
   const { data, error, loading } = useQuery(getAllEntities);
 
-  // ----------NetworkName Lazy Query Implementation--------------------
-
   useEffect(() => {
     if (deploymentId.length) {
-      getEndpoint();
+      getNetworkNameforQuery();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deploymentId]);
 
-  const [getEndpoint, { data: networkName }] = useLazyQuery(getNetworkName(deploymentId), {
-    context: { clientName: 'subgraph-network' },
-  });
-  // ----------------------------------------------
+  const [getNetworkNameforQuery, { data: networkName }] = useLazyQuery(
+    getNetworkName(deploymentId),
+    {
+      context: { clientName: 'subgraph-network' },
+    }
+  );
 
   // Fetching SubGraphNetwork Name & passing it into global state with redux.
   useEffect(() => {
