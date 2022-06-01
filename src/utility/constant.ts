@@ -50,6 +50,8 @@ export default class Constants {
       DAY: 'Day',
     },
     timestampColumnNames: [
+      'preparedTimestamp',
+      'blockTimestamp',
       'date',
       'timestamp',
       'createdAtTimestamp',
