@@ -283,11 +283,10 @@ export default class Utility {
   public static getTimestampColumns = (columnName: string) => {
     let isColumnExist = false;
     // eslint-disable-next-line array-callback-return
-   
+
     timestampColumnNames.map((items: string) => {
-      
       if (items === columnName) {
-       isColumnExist = true;
+        isColumnExist = true;
       }
     });
     return isColumnExist;
@@ -357,7 +356,7 @@ export default class Utility {
         }
       });
       let sortedObj = Object.fromEntries(array);
-      console.log(sortedObj);
+
       return sortedObj;
     });
     return sortedByTime;
