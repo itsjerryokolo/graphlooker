@@ -16,8 +16,6 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
   const [endpoint, setEndpoint] = React.useState(commonLables.EMPTY);
   const [errorMsg, setErrorMsg] = useState('');
   const [isError, setIsError] = useState(true);
-  // const { data, error, loading } = useQuery(getAllEntities); //condition-based
-  //condition-based
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
   const dispatch = useDispatch();
   const urlRegex =
