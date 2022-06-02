@@ -12,7 +12,6 @@ import Constants from '../../utility/constant';
 import Utility from '../../utility/utility';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import queryString from 'query-string';
-import { Allfilters } from '../../utility/interface/props';
 
 const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProps<any>> = ({
   attributeName,
@@ -38,18 +37,17 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
     setAnchorFiterEl(null);
   };
   //Sort Data (Ascending /Descending) when Attribute Clicked
-  debugger;
   const sortDataAscDesc = async (sortType: string, columnName: string) => {
-    let allFilterString: string = '';
     const URI = encodeURIComponent(endpoint);
     const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    let allFilters: Allfilters[] = Utility.getAllFilters(
-      Constants.LABELS.commonLables.SORT,
+    return (window.location.href = `${
+      urlLabels.BASE_URL
+    }uri=${URI}&e=${entity}&th=${theme}&filterObj=${Utility.getAllFilters(
+      Constants.LABELS.filterTypes.SORT,
       columnName,
-      sortType
-    );
-    allFilterString += JSON.stringify(allFilters);
-    return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${allFilterString}`);
+      sortType,
+      parsed.filterObj
+    )}`);
   };
 
   const getSortingMenu = () => {

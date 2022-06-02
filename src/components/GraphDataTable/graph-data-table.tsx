@@ -64,7 +64,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const [errorMsg, setErrorMsg] = useState('');
 
   const getBoardDataAsQuery = (error: string) => {
-    let listOfFilters: Allfilters[];
+    let listOfFilters: Allfilters[] = [];
     let sortFilter: Allfilters[] = [];
     if (parsed && parsed.filterObj && typeof parsed.filterObj === 'string') {
       listOfFilters = JSON.parse(parsed.filterObj);
@@ -73,20 +73,20 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     if (parsed.id) {
       return getGraphDataForID(listOfattributes, selectedEntity, `${parsed.id}`);
     }
-    if (!parsed.f && !parsed.i && sortFilter.length) {
+    //if only sorting fiilter is available
+    if (listOfFilters && listOfFilters.length === 1 && sortFilter && sortFilter.length) {
       const skip = checkForPagination();
       return getSortedDataQuery(
         listOfattributes,
         selectedEntity,
-        sortFilter[0].inputName,
+        sortFilter[0].inputValue,
         sortFilter[0].columnName,
         skip,
         100,
         '',
         error
       );
-    }
-    if (parsed.c) {
+    } else if (listOfFilters.length) {
       const skip = checkForPagination();
       return getStringFilterGraphData(
         listOfattributes,
@@ -98,7 +98,8 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         `${parsed.s}`,
         100,
         '',
-        error
+        error,
+        listOfFilters
       );
     }
     if (parsed.p) {

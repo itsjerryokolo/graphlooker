@@ -50,5 +50,5 @@ export interface UserProps {
 export interface Allfilters {
   filterName: string;
   columnName: string;
-  inputName: string | number;
+  inputValue: any;
 }

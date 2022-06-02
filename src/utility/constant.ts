@@ -102,7 +102,7 @@ export default class Constants {
       ENTITY_REFERENCE: 'This column is a reference of',
       NULL: 'null',
       DOUBLE_QUOTES: '"',
-      SORT: "sort",
+      SORT: 'sort',
       ID: 'id',
       UNDEFINED: 'undefined',
       DOWNLOADING: 'Downloading...',
@@ -138,6 +138,13 @@ export default class Constants {
       DOWNLOAD: '/images/document-outline.gif',
       ERROR: '/images/error-outline.gif',
     },
+    filterTypes: {
+      SORT: 'sort',
+      GREATERTHAN: '_gt',
+      LESSTHAN: '_lt',
+      GREATERTHAN_AND_LESSTHAN: '_gte,_lte',
+      IS: '_is',
+    },
   };
   public static QUERY_REQUEST_INDEXNODE = {
     URL: 'https://api.thegraph.com/index-node/graphql',
@@ -156,8 +163,8 @@ export default class Constants {
       { menuItem: 'After' },
       { menuItem: 'On' },
       { menuItem: 'Between' },
-      { menuItem: 'Is Empty' },
-      { menuItem: 'Not Empty' },
+      // { menuItem: 'Is Empty' },
+      // { menuItem: 'Not Empty' },
     ],
     timeFilter: [
       { menuItem: 'Minutes' },

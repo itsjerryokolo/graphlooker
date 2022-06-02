@@ -248,19 +248,62 @@ export default class Utility {
     const selectedEntity = entity.charAt(0).toLowerCase() + entity.slice(1);
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&id=${id}`;
   };
+
+  /*
+  This method recived all filter and combine them and return a list of Filters in stringify form
+  - For same column two filters cannot be applied. The latest one will apply.
+  - For each column one filter can be applied.
+  - For any column, sorting and any one filter can be applied.
+  - Sorting can be only for one column at a time, the latest will apply.
+  */
   public static getAllFilters = (
     filterName: string,
     columnName: string,
-    inputName: string | number
+    inputName: string | number | string[] | null,
+    listOfFilterInStrigify?: any
   ) => {
     let listOfFilters: Allfilters[] = [];
     let filterObj: Allfilters = {
       filterName: filterName,
       columnName: columnName,
-      inputName: inputName,
+      inputValue: inputName,
     };
-    listOfFilters.push(filterObj);
-    return listOfFilters;
+
+    if (listOfFilterInStrigify !== 'undefined') {
+      let oldFilters: Allfilters[] = listOfFilterInStrigify && JSON.parse(listOfFilterInStrigify);
+
+      if (!oldFilters) {
+        listOfFilters.push(filterObj);
+      } else if (oldFilters && oldFilters.length && filterName === 'sort') {
+        let noSortFilterList = oldFilters.filter((val) => val.filterName !== 'sort');
+        if (noSortFilterList && noSortFilterList.length) {
+          listOfFilters = [...noSortFilterList];
+          listOfFilters.push(filterObj);
+        } else {
+          listOfFilters.push(filterObj);
+        }
+      } else {
+        let isColumnExist = oldFilters.filter(
+          (val) => val.columnName === columnName && val.filterName !== 'sort'
+        );
+        if (isColumnExist && isColumnExist.length) {
+          let noSameColumnList = oldFilters.filter(
+            (val) => val.columnName !== columnName || val.filterName === 'sort'
+          );
+          if (noSameColumnList && noSameColumnList.length) {
+            listOfFilters = [...noSameColumnList];
+            listOfFilters.push(filterObj);
+          }
+        } else {
+          listOfFilters = [...oldFilters];
+          listOfFilters.push(filterObj);
+        }
+      }
+    } else {
+      listOfFilters.push(filterObj);
+    }
+
+    return JSON.stringify(listOfFilters);
   };
 
   public static checkAddressValidity = (
