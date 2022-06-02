@@ -293,6 +293,8 @@ export default class Utility {
           if (noSameColumnList && noSameColumnList.length) {
             listOfFilters = [...noSameColumnList];
             listOfFilters.push(filterObj);
+          } else {
+            listOfFilters.push(filterObj);
           }
         } else {
           listOfFilters = [...oldFilters];

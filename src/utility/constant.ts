@@ -202,7 +202,7 @@ export default class Constants {
     stringFilter: [
       { menuItem: 'Is', menuValue: '_is' },
       { menuItem: 'Is not', menuValue: '_not' },
-      { menuItem: 'Contains', menuValue: '_contains' },
+      // { menuItem: 'Contains', menuValue: '_contains' },
       { menuItem: 'Does not contain', menuValue: '_not' },
       { menuItem: 'Starts with', menuValue: 'starts_with' },
       { menuItem: 'Ends with', menuValue: 'ends_with' },

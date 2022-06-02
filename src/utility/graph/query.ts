@@ -117,9 +117,7 @@ export const getStringFilterGraphData = (
 ) => {
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
-  if (filterOption === commonLables.UNDERSCORE_IS) {
-    filterOption = commonLables.EMPTY;
-  }
+
   // let columnNameWithFilter = attributeName.concat(filterOption);
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
@@ -144,6 +142,9 @@ export const getStringFilterGraphData = (
 
   let filterQuery = ``;
   listOfFilters?.forEach((filters) => {
+    if (filters.filterName === commonLables.UNDERSCORE_IS) {
+      filters.filterName = commonLables.EMPTY;
+    }
     if (filters.filterName.includes(',')) {
       if (typeof filters.inputValue === 'string') {
       }
