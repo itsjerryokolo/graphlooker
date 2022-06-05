@@ -67,6 +67,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     if (parsed.id) {
       return getGraphDataForID(listOfattributes, selectedEntity, `${parsed.id}`);
     }
+
     if (!parsed.f && !parsed.i && parsed.s) {
       const skip = checkForPagination();
       return getSortedDataQuery(
