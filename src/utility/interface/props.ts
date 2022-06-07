@@ -48,7 +48,7 @@ export interface UserProps {
   props: any;
 }
 export interface Allfilters {
-  filterName: string;
-  columnName: string;
+  filterName: string | null;
+  columnName: string | null;
   inputValue: any;
 }

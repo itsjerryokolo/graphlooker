@@ -21,10 +21,10 @@ export default class Timestamp {
     let filtersInStringify = Utility.getAllFilters(
       Constants.LABELS.filterTypes.GREATERTHAN,
       columnName,
-      generatedUnixTime,
+      generatedUnixTime.toString(),
       listOFFiltersInStringify
     );
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&f=_gt&i=${generatedUnixTime}&c=${columnName}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 
   public static currentFilter = (
@@ -42,10 +42,10 @@ export default class Timestamp {
     let filtersInStringify = Utility.getAllFilters(
       Constants.LABELS.filterTypes.GREATERTHAN,
       columnName,
-      generatedUnixTime,
+      generatedUnixTime.toString(),
       listOFFiltersInStringify
     );
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&f=_gt&i=${generatedUnixTime}&c=${columnName}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 
   public static beforeFilter = (
@@ -60,12 +60,12 @@ export default class Timestamp {
     let filtersInStringify = Utility.getAllFilters(
       Constants.LABELS.filterTypes.LESSTHAN,
       columnName,
-      generatedUnixTime,
+      generatedUnixTime.toString(),
       listOFFiltersInStringify
     );
     const URI = encodeURIComponent(endpoint);
     const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&f=_lt&i=${generatedUnixTime}&c=${columnName}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 
   public static afterFilter = (
@@ -80,12 +80,12 @@ export default class Timestamp {
     let filtersInStringify = Utility.getAllFilters(
       Constants.LABELS.filterTypes.GREATERTHAN,
       columnName,
-      generatedUnixTime,
+      generatedUnixTime.toString(),
       listOFFiltersInStringify
     );
     const URI = encodeURIComponent(endpoint);
     const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&f=_gt&i=${generatedUnixTime}&c=${columnName}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 
   public static onFilter = (
@@ -109,7 +109,7 @@ export default class Timestamp {
     );
     const URI = encodeURIComponent(endpoint);
     const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&f=_gte,_lte&i=${generatedUnixTime}&c=${columnName}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 
   public static isEmptyNotEmptyFilter = (
@@ -123,7 +123,7 @@ export default class Timestamp {
     const URI = encodeURIComponent(endpoint);
     const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
     let filtersInStringify = Utility.getAllFilters('', columnName, null, listOFFiltersInStringify);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&f=${appliedFilter}&i=null&c=${columnName}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 
   public static betweenFilter = (
@@ -147,6 +147,6 @@ export default class Timestamp {
       generatedUnixTime,
       listOFFiltersInStringify
     );
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&f=_gte,_lte&i=${generatedUnixTime}&c=${columnName}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 }

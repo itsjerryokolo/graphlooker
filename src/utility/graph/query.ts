@@ -105,16 +105,14 @@ errorMsg = specific error msg
 export const getStringFilterGraphData = (
   columnNames: ColumnProps[],
   entity: string,
-  filterOption: string,
-  attributeName: string,
-  userInputValue: any,
   skip: number,
-  sortType: string,
   count: number,
   whereId: string,
   errorMsg: string,
-  listOfFilters?: Allfilters[]
+  listOfFilters: Allfilters[]
 ) => {
+  let attributeName: string = ``;
+  let sortType: string = ``;
   let queryData = ` `;
   const selectedEntity = Utility.makePluralChanges(entity);
 
@@ -135,17 +133,13 @@ export const getStringFilterGraphData = (
       queryData = queryData + `${element.name} `;
     }
   }
-  //if sort type is undefined set to desc by default
-  if (sortType === commonLables.UNDEFINED) {
-    sortType = commonLables.DESC;
-  }
 
   let filterQuery = ``;
   listOfFilters?.forEach((filters) => {
     if (filters.filterName === commonLables.UNDERSCORE_IS) {
       filters.filterName = commonLables.EMPTY;
     }
-    if (filters.filterName.includes(',')) {
+    if (filters.filterName && filters.filterName.includes(',')) {
       if (typeof filters.inputValue === 'string') {
       }
       if (filters.inputValue.length) {
@@ -158,23 +152,39 @@ export const getStringFilterGraphData = (
       filters.inputValue = Number(filters.inputValue);
     } else if (filters.inputValue === 'true' || filters.inputValue === 'false') {
       filters.inputValue = filters.inputValue === 'true';
-    } else if (filters.filterName === 'sort') {
+    } else if (filters.columnName && filters.filterName === 'sort') {
       attributeName = filters.columnName;
       sortType = filters.inputValue;
     } else {
       filters.inputValue =
         commonLables.DOUBLE_QUOTES + filters.inputValue + commonLables.DOUBLE_QUOTES;
     }
-    if (filters.filterName !== 'sort' && !filters.filterName.includes(',')) {
-      filterQuery = `${filterQuery} ${filters.columnName.concat(filters.filterName)} :${
-        filters.inputValue
-      }`;
+    if (
+      (filters.columnName &&
+        filters.filterName !== 'sort' &&
+        filters.filterName &&
+        !filters.filterName.includes(',')) ||
+      filters.filterName === ''
+    ) {
+      filterQuery = `${filterQuery} ${
+        filters.columnName && filters.columnName.concat(filters.filterName)
+      } :${filters.inputValue}`;
     }
   });
+  //if sort type is undefined set to desc by default
+  if (sortType === commonLables.UNDEFINED) {
+    sortType = commonLables.DESC;
+  }
+
+  //if columnName or attribute is not present
+  let sortQuery =
+    !(attributeName === 'undefined') && attributeName
+      ? `orderBy:${attributeName}, orderDirection: ${sortType}`
+      : ``;
 
   return gql`
       query {
-        entity: ${selectedEntity}(first:${count}, skip:${skip},orderBy:${attributeName}, orderDirection: ${sortType},where: {${filterQuery}, id_gt:"${whereId}"}){
+        entity: ${selectedEntity}(first:${count}, skip:${skip},${sortQuery},where: {${filterQuery}, id_gt:"${whereId}"}){
           id      
           ${queryData}
           }

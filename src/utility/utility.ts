@@ -257,9 +257,9 @@ export default class Utility {
   - Sorting can be only for one column at a time, the latest will apply.
   */
   public static getAllFilters = (
-    filterName: string,
-    columnName: string,
-    inputName: string | number | string[] | null,
+    filterName: string | null,
+    columnName: string | null,
+    inputName: string | string[] | null,
     listOfFilterInStrigify?: any
   ) => {
     let listOfFilters: Allfilters[] = [];
@@ -268,10 +268,12 @@ export default class Utility {
       columnName: columnName,
       inputValue: inputName,
     };
-
-    if (listOfFilterInStrigify !== 'undefined') {
+    //This is for pagination
+    if (!filterName || !columnName) {
       let oldFilters: Allfilters[] = listOfFilterInStrigify && JSON.parse(listOfFilterInStrigify);
-
+      listOfFilters = [...oldFilters];
+    } else if (listOfFilterInStrigify !== 'undefined') {
+      let oldFilters: Allfilters[] = listOfFilterInStrigify && JSON.parse(listOfFilterInStrigify);
       if (!oldFilters) {
         listOfFilters.push(filterObj);
       } else if (oldFilters && oldFilters.length && filterName === 'sort') {

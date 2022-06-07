@@ -19,5 +19,5 @@ export const filterStringIs = (
     stringInputValue,
     listOFFiltersInStringify
   );
-  window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&f=${selectedFilter}&i=${stringInputValue}&c=${columnName}&filterObj=${filtersInStringify}`;
+  window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
 };
