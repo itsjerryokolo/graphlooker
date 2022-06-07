@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ErrorMessage from '../ErrorMessage/error-message';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllEntities } from '../../utility/graph/query';
 import { setGraphEndpoint, setGraphEntity } from '../../redux/actions/endpoint-action';
@@ -16,7 +16,6 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
   const [endpoint, setEndpoint] = React.useState(commonLables.EMPTY);
   const [errorMsg, setErrorMsg] = useState('');
   const [isError, setIsError] = useState(true);
-  const { data, error, loading } = useQuery(getAllEntities); //condition-based
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
   const dispatch = useDispatch();
   const urlRegex =
@@ -27,9 +26,10 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
     e.preventDefault();
     dispatch(setGraphEndpoint(endpoint));
   };
+  const [getEndpoint, { error, loading, data }] = useLazyQuery(getAllEntities);
 
   useEffect(() => {
-    if (error && endpoint) {
+    if (error) {
       setErrorMsg(error?.message);
     }
   }, [error]);
@@ -75,7 +75,14 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
                 value={endpoint}
                 onChange={(e) => onChangeHandler(e.target.value)}
               ></input>
-              <button className="search-button" type="submit" disabled={isError}>
+              <button
+                className="search-button"
+                type="submit"
+                disabled={isError}
+                onClick={() => {
+                  getEndpoint();
+                }}
+              >
                 {commonLables.EXPLORE}
               </button>
 

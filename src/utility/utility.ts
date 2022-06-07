@@ -135,7 +135,7 @@ export default class Utility {
     let ListOfFiltersWithMsg = new Map<string, string>([
       ['_is', 'Is Equals to'],
       ['_not', 'Is Not Equals to'],
-      ['_contains', 'Contains'],
+      ['_includes', 'includes'],
       ['does_not_contain', 'does not contain'],
       ['starts_with', 'Starts with'],
       ['ends_with', 'Ends with'],
@@ -167,7 +167,7 @@ export default class Utility {
     let mapForString = new Map<string, string>([
       ['_is', 'Is Empty '],
       ['_not', 'Is Not Empty'],
-      ['_contains', 'Contains'],
+      ['_includes', 'includes'],
       ['does_not_contain', 'does not contain'],
       ['starts_with', 'Starts with'],
       ['_lt', 'Less than'],
@@ -344,6 +344,7 @@ export default class Utility {
   public static getTimestampColumns = (columnName: string) => {
     let isColumnExist = false;
     // eslint-disable-next-line array-callback-return
+
     timestampColumnNames.map((items: string) => {
       if (items === columnName) {
         isColumnExist = true;
@@ -416,6 +417,7 @@ export default class Utility {
         }
       });
       let sortedObj = Object.fromEntries(array);
+
       return sortedObj;
     });
     return sortedByTime;

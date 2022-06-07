@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import './graph-data.scss';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import { getAllEntities, getNetworkName } from '../../utility/graph/query';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { queryToGetDeploymentId } from '../../utility/graph/query';
@@ -103,16 +103,26 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   };
   const { data, error, loading } = useQuery(getAllEntities);
 
-  //Fetching SubGraphNetwork Name & passing it into global state with redux.
+  useEffect(() => {
+    if (deploymentId.length) {
+      getNetworkNameforQuery();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deploymentId]);
+
+  const [getNetworkNameforQuery, { data: networkName }] = useLazyQuery(
+    getNetworkName(deploymentId),
+    {
+      context: { clientName: 'subgraph-network' },
+    }
+  );
+
+  // Fetching SubGraphNetwork Name & passing it into global state with redux.
   useEffect(() => {
     if (deploymentData) {
       setDeploymentId(deploymentData._meta.deployment);
     }
   }, [deploymentData]);
-
-  const { data: networkName } = useQuery(getNetworkName(deploymentId), {
-    context: { clientName: 'subgraph-network' },
-  });
 
   useEffect(() => {
     if (networkName) {
@@ -122,7 +132,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
         dispatch(setSubgraphName(subgraphNetwork));
       }
     }
-  }, [networkName]);
+  }, [dispatch, networkName]);
 
   let allEntities: string[];
   allEntities = [];

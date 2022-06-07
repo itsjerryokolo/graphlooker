@@ -38,6 +38,7 @@ export const getAllEntities = gql`
   }
 `;
 
+
 export const getAllAttributes = (entity: string) => {
   entity = Utility.getProperEntity(entity);
   return gql`
