@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GraphDataTableProps } from './../../utility/interface/props';
+import { Allfilters, GraphDataTableProps } from './../../utility/interface/props';
 import {
   EndpointState,
   EntityState,
@@ -54,6 +54,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   let listOfattributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
   const theme = parsed.th;
+  let listOfFilters = String(parsed.filterObj);
   const dispatch = useDispatch();
 
   const label = Constants.LABELS.commonLables;
@@ -64,36 +65,38 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const [errorMsg, setErrorMsg] = useState('');
 
   const getBoardDataAsQuery = (error: string) => {
+    let listOfFilters: Allfilters[] = [];
+    let sortFilter: Allfilters[] = [];
+    if (parsed && parsed.filterObj && typeof parsed.filterObj === 'string') {
+      listOfFilters = JSON.parse(parsed.filterObj);
+      sortFilter = listOfFilters.filter((data) => data.filterName === 'sort');
+    }
     if (parsed.id) {
       return getGraphDataForID(listOfattributes, selectedEntity, `${parsed.id}`);
     }
-
-    if (!parsed.f && !parsed.i && parsed.s) {
+    //if only sorting fiilter is available
+    if (listOfFilters && listOfFilters.length === 1 && sortFilter && sortFilter.length) {
       const skip = checkForPagination();
       return getSortedDataQuery(
         listOfattributes,
         selectedEntity,
-        `${parsed.s}`,
-        `${parsed.c}`,
+        sortFilter[0].inputValue,
+        sortFilter[0].columnName,
         skip,
         100,
         '',
         error
       );
-    }
-    if (parsed.c) {
+    } else if (listOfFilters.length) {
       const skip = checkForPagination();
       return getStringFilterGraphData(
         listOfattributes,
         selectedEntity,
-        `${parsed.f}`,
-        `${parsed.c}`,
-        `${parsed.i}`,
         skip,
-        `${parsed.s}`,
         100,
         '',
-        error
+        error,
+        listOfFilters
       );
     }
     if (parsed.p) {
@@ -134,48 +137,52 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   };
 
   const goToNext = () => {
+    let filtersInStringify = Utility.getAllFilters(null, null, null, listOfFilters);
     if (isNextDisable) return;
     const URI = encodeURIComponent(endpoint);
-    if (!parsed.f && !parsed.i && parsed.s) {
-      return (window.location.href = `${
-        urlLabels.BASE_URL
-      }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&c=${parsed.c}&p=${pageNumber + 1}`);
-    }
-    if (parsed.c) {
-      if (!parsed.s) {
-        parsed.s = label.DESC;
-      }
-      return (window.location.href = `${
-        urlLabels.BASE_URL
-      }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&f=${parsed.f}&i=${parsed.i}&c=${
-        parsed.c
-      }&p=${pageNumber + 1}`);
-    }
+    // if (!parsed.f && !parsed.i && parsed.s) {
+    //   return (window.location.href = `${
+    //     urlLabels.BASE_URL
+    //   }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&c=${parsed.c}&p=${
+    //     pageNumber + 1
+    //   }&filterObj=${filtersInStringify}`);
+    // }
+    // if (parsed.c) {
+    //   if (!parsed.s) {
+    //     parsed.s = label.DESC;
+    //   }
+    //   return (window.location.href = `${
+    //     urlLabels.BASE_URL
+    //   }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&f=${parsed.f}&i=${parsed.i}&c=${
+    //     parsed.c
+    //   }&p=${pageNumber + 1}`);
+    // }
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&p=${
       pageNumber + 1
-    }`;
+    }&filterObj=${filtersInStringify}`;
   };
   const goToPrev = () => {
     if (isPrevDisable) return;
+    let filtersInStringify = Utility.getAllFilters(null, null, null, listOfFilters);
     const URI = encodeURIComponent(endpoint);
-    if (!parsed.f && !parsed.i && parsed.s) {
-      return (window.location.href = `${
-        urlLabels.BASE_URL
-      }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&c=${parsed.c}&p=${pageNumber - 1}`);
-    }
-    if (parsed.c) {
-      if (!parsed.s) {
-        parsed.s = label.DESC;
-      }
-      return (window.location.href = `${
-        urlLabels.BASE_URL
-      }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&f=${parsed.f}&i=${parsed.i}&c=${
-        parsed.c
-      }&p=${pageNumber - 1}`);
-    }
+    // if (!parsed.f && !parsed.i && parsed.s) {
+    //   return (window.location.href = `${
+    //     urlLabels.BASE_URL
+    //   }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&c=${parsed.c}&p=${pageNumber - 1}`);
+    // }
+    // if (parsed.c) {
+    //   if (!parsed.s) {
+    //     parsed.s = label.DESC;
+    //   }
+    //   return (window.location.href = `${
+    //     urlLabels.BASE_URL
+    //   }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&f=${parsed.f}&i=${parsed.i}&c=${
+    //     parsed.c
+    //   }&p=${pageNumber - 1}`);
+    // }
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&p=${
       pageNumber - 1
-    }`;
+    }&filterObj=${filtersInStringify}`;
   };
 
   //Get Table Data
