@@ -248,7 +248,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   return (
     <>
       <div className="FilterData">
-        <FilterData props={parsed} />
+        {listOfFilters !== 'undefined' ? <FilterData props={listOfFilters} /> : null}
       </div>
 
       <ExportButton rows={rows} />

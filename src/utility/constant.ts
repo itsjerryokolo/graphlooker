@@ -146,6 +146,7 @@ export default class Constants {
       LESSTHAN: '_lt',
       GREATERTHAN_AND_LESSTHAN: '_gte,_lte',
       IS: '_is',
+      NOT: '_not',
     },
   };
   public static QUERY_REQUEST_INDEXNODE = {
@@ -193,8 +194,8 @@ export default class Constants {
       { menuItem: 'Greater than', menuValue: '_gt' },
       { menuItem: 'Less than', menuValue: '_lt' },
       { menuItem: 'Between', menuValue: '_gte,_lte' },
-      { menuItem: 'Greater than or equal to', menuValue: '_gte' },
-      { menuItem: 'Less than or equal to', menuValue: '_lte' },
+      // { menuItem: 'Greater than or equal to', menuValue: '_gte' },
+      // { menuItem: 'Less than or equal to', menuValue: '_lte' },
       { menuItem: 'Is Empty', menuValue: '_is' },
       { menuItem: 'Not Empty', menuValue: '_not' },
     ],
