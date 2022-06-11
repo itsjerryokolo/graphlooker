@@ -140,23 +140,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     let filtersInStringify = Utility.getAllFilters(null, null, null, listOfFilters);
     if (isNextDisable) return;
     const URI = encodeURIComponent(endpoint);
-    // if (!parsed.f && !parsed.i && parsed.s) {
-    //   return (window.location.href = `${
-    //     urlLabels.BASE_URL
-    //   }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&c=${parsed.c}&p=${
-    //     pageNumber + 1
-    //   }&filterObj=${filtersInStringify}`);
-    // }
-    // if (parsed.c) {
-    //   if (!parsed.s) {
-    //     parsed.s = label.DESC;
-    //   }
-    //   return (window.location.href = `${
-    //     urlLabels.BASE_URL
-    //   }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&f=${parsed.f}&i=${parsed.i}&c=${
-    //     parsed.c
-    //   }&p=${pageNumber + 1}`);
-    // }
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&p=${
       pageNumber + 1
     }&filterObj=${filtersInStringify}`;
@@ -165,21 +148,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     if (isPrevDisable) return;
     let filtersInStringify = Utility.getAllFilters(null, null, null, listOfFilters);
     const URI = encodeURIComponent(endpoint);
-    // if (!parsed.f && !parsed.i && parsed.s) {
-    //   return (window.location.href = `${
-    //     urlLabels.BASE_URL
-    //   }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&c=${parsed.c}&p=${pageNumber - 1}`);
-    // }
-    // if (parsed.c) {
-    //   if (!parsed.s) {
-    //     parsed.s = label.DESC;
-    //   }
-    //   return (window.location.href = `${
-    //     urlLabels.BASE_URL
-    //   }uri=${URI}&e=${selectedEntity}&th=${theme}&s=${parsed.s}&f=${parsed.f}&i=${parsed.i}&c=${
-    //     parsed.c
-    //   }&p=${pageNumber - 1}`);
-    // }
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&p=${
       pageNumber - 1
     }&filterObj=${filtersInStringify}`;
