@@ -158,7 +158,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   }, [sortedDataState]);
 
   let fileName = `${selectedEntity}_cosmodapp.csv`;
-
+ console.log('test');
   return (
     <>
       <CSVLink
