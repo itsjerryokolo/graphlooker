@@ -121,7 +121,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     if (sortedData.length === 0) {
       CSV_LINK_REF?.current?.link.click();
     }
-
+     console.log('test');
     if (downloadRef === null) {
       setDownloadRef(true);
     }
