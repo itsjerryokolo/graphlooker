@@ -90,7 +90,8 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   }
 
   //<--------------- Export Handler --------------->
-
+  const[downloadOnce,setDownloadOnce]=useState(true);
+ 
   const exportClickHandler = async () => {
     let data: any;
     try {
@@ -118,12 +119,15 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       setSortedDataState([...sortedDataState, ...sortedData]);
     }
 
-    if (sortedData.length === 0) {
-      CSV_LINK_REF?.current?.link.click();
-    }
-     console.log('test');
+    // if (sortedData.length === 0) {
+    //   CSV_LINK_REF?.current?.link.click();
+    // }
+    
     if (downloadRef === null) {
       setDownloadRef(true);
+    }
+    if(downloadOnce===false){
+      setDownloadRef(false);
     }
   };
 
@@ -133,7 +137,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       exportClickHandler();
     }
   }, [errorMsg]);
-
+ 
   useEffect(() => {
     if (
       entityId.length > 0 &&
@@ -141,9 +145,11 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       regex.test(sortedDataState.length / 1000)
     ) {
       exportClickHandler();
-    } else if (downloadRef && !errorMsg) {
+    } else if (downloadRef && !errorMsg && downloadOnce) {
       CSV_LINK_REF?.current?.link.click();
       setDownloadRef(false);
+      setDownloadOnce(false);
+    
     }
   }, [entityId, downloadRef, errorMsg]);
 
@@ -158,7 +164,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   }, [sortedDataState]);
 
   let fileName = `${selectedEntity}_cosmodapp.csv`;
- console.log('test');
+   
   return (
     <>
       <CSVLink
@@ -173,6 +179,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
         sortedDataState={sortedDataState}
         downloadRef={downloadRef}
         errorMsg={errorMsg}
+        
       />
     </>
   );
