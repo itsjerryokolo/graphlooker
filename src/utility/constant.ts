@@ -6,7 +6,7 @@ export default class Constants {
     GITHUB: 'https://github.com/dapplooker',
     TELEGRAM: 'https://t.me/dapplooker',
     YOUTUBE: 'https://www.youtube.com/channel/UC1KJmtb3UhnWSN_sDv71_fg',
-    DISCORD: 'https://dapplooker.com/community',
+    DISCORD: 'https://discord.gg/uGQy8byW5T',
     MEDIUM_BLOG: 'https://dapplooker.medium.com/',
     TWITTER: 'https://twitter.com/dapplooker',
     DAPPLOOKER: 'https://dapplooker.com',

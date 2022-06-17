@@ -269,9 +269,9 @@ export default class Utility {
       inputValue: inputName,
     };
     //This is for pagination
-    if (!filterName || !columnName) {
+    if ((!filterName || !columnName) && listOfFilterInStrigify !== 'undefined') {
       let oldFilters: Allfilters[] = listOfFilterInStrigify && JSON.parse(listOfFilterInStrigify);
-      listOfFilters = [...oldFilters];
+      listOfFilters = oldFilters.length ? [...oldFilters] : [];
     } else if (listOfFilterInStrigify !== 'undefined') {
       let oldFilters: Allfilters[] = listOfFilterInStrigify && JSON.parse(listOfFilterInStrigify);
       if (!oldFilters) {
@@ -304,7 +304,7 @@ export default class Utility {
         }
       }
     } else {
-      listOfFilters.push(filterObj);
+      if (filterName || columnName) listOfFilters.push(filterObj);
     }
 
     return JSON.stringify(listOfFilters);

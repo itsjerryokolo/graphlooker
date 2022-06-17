@@ -38,7 +38,6 @@ export const getAllEntities = gql`
   }
 `;
 
-
 export const getAllAttributes = (entity: string) => {
   entity = Utility.getProperEntity(entity);
   return gql`
@@ -191,37 +190,6 @@ export const getStringFilterGraphData = (
           }
       }
       `;
-  // if (userInputValue.includes(',')) {
-  //   let splitInputValues = userInputValue.split(',');
-  //   return gql`
-  //     query {
-  //       entity: ${selectedEntity}(first:${count}, skip:${skip},orderBy:${attributeName}, orderDirection: ${sortType},
-  //         where: {${attributeName}_gte :${splitInputValues[0]}, ${attributeName}_lte :${splitInputValues[1]}, id_gt:"${whereId}"}){
-  //         id
-  //         ${queryData}
-  //         }
-  //     }
-  //     `;
-  // }
-
-  // if (userInputValue === commonLables.EMPTY || userInputValue === commonLables.NULL) {
-  //   userInputValue = commonLables.NULL;
-  // } else if (regex.CHECK_NUMBER_REGEX.test(userInputValue)) {
-  //   userInputValue = Number(userInputValue);
-  // } else if (userInputValue === 'true' || userInputValue === 'false') {
-  //   userInputValue = userInputValue === 'true';
-  // } else {
-  //   userInputValue = commonLables.DOUBLE_QUOTES + userInputValue + commonLables.DOUBLE_QUOTES;
-  // }
-
-  // return gql`
-  //     query {
-  //       entity: ${selectedEntity}(first:${count}, skip:${skip},orderBy:${attributeName}, orderDirection: ${sortType},where: {${columnNameWithFilter} :${userInputValue}, id_gt:"${whereId}"}){
-  //         id
-  //         ${queryData}
-  //         }
-  //     }
-  //     `;
 };
 
 /*
