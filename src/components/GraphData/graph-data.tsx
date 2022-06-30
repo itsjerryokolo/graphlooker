@@ -227,7 +227,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                 </div>
               )}
             </div>
-            <div className="social-icons">
+            {/* <div className="social-icons">
               <div className="icon">
                 <a href="https://discord.com/invite/FWyNJtEyxa" target="_blank" rel="noreferrer">
                   <DiscordSVG height={30} width={35} />
@@ -245,7 +245,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                   <TwitterSVG height={30} width={35} />
                 </a>
               </div>
-            </div>
+            </div> */}
             <h2 className="graph-heading">
               {graphName}
               {subgraphNetworkName ? `(${subgraphNetworkName})` : ''}

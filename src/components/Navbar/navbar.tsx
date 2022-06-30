@@ -42,7 +42,7 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
                 ></img>
               )}
 
-              <div className="social-icons">
+              {/* <div className="social-icons">
                 <div className="icon">
                   <a href="https://discord.com/invite/FWyNJtEyxa" target="_blank" rel="noreferrer">
                     <DiscordSVG height={30} width={35} />
@@ -63,7 +63,7 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
                 <div>
                   <img className="beta-icon" src="/images/beta.png" alt="beta version" />
                 </div>
-              </div>
+              </div> */}
               <div className="theme-icon" onClick={handleToggleTheme}>
                 {theme === label.LIGHT_THEME_LABEL ? <DarkModeIcon /> : <LightModeIcon />}
               </div>
