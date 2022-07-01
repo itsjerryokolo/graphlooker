@@ -33,9 +33,6 @@ import ErrorMessage from '../ErrorMessage/error-message';
 import { LoadingState } from '../../utility/redux/state';
 import humanizeString from 'humanize-string';
 import Footer from '../Footer/Footer';
-import { ReactComponent as DiscordSVG } from '../../svg/discord.svg';
-import { ReactComponent as TwitterSVG } from '../../svg/twitter.svg';
-import { ReactComponent as TelegramSVG } from '../../svg/telegram.svg';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
