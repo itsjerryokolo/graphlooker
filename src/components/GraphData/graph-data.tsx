@@ -195,9 +195,9 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               >
                 <a href={Constants.ROUTES.HOME_ROUTE}>
                   <img
-                    src="/images/cosmoDapp_white_text.png"
+                    src="/images/GraphLooker_white_text.png"
                     height="50px"
-                    alt="cosmodapp-icon"
+                    alt="GraphLooker-icon"
                   ></img>
                 </a>
               </Box>
@@ -280,9 +280,9 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               <Box>
                 <a href={Constants.ROUTES.HOME_ROUTE}>
                   <img
-                    src="/images/cosmoDapp_theme_color_text.png"
+                    src="/images/GraphLooker_theme_color_text.png"
                     height="33px"
-                    alt="cosmodapp-icon"
+                    alt="GraphLooker-icon"
                   ></img>
                 </a>
               </Box>
