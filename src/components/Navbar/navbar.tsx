@@ -27,13 +27,13 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
             <div className="menu-items">
               {theme === label.LIGHT_THEME_LABEL ? (
                 <img
-                  src="https://dapplooker.s3.amazonaws.com/assets/img/GraphLooker_theme_color_text.png"
+                  src="/images/GraphLooker_theme_color_text.png"
                   height="47px"
                   alt="GraphLooker-icon"
                 ></img>
               ) : (
                 <img
-                  src="https://dapplooker.s3.amazonaws.com/assets/img/GraphLooker_white_text.png"
+                  src="/images/img/GraphLooker_white_text.png"
                   height="50px"
                   alt="GraphLooker-icon"
                 ></img>
