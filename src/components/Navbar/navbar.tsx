@@ -33,7 +33,7 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
                 ></img>
               ) : (
                 <img
-                  src="/images/img/GraphLooker_white_text.png"
+                  src="/images/GraphLooker_white_text.png"
                   height="50px"
                   alt="GraphLooker-icon"
                 ></img>
