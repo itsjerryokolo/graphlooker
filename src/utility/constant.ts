@@ -100,7 +100,7 @@ export default class Constants {
       DOWNLOAD: 'Download to CSV',
       SORT_ASC: 'Sort Ascending',
       SORT_DESC: 'Sort Descending',
-      DESC_TITLE: 'GraphLooker - Real-time Subgraph Explorer & Visualizer',
+      DESC_TITLE: 'Real-time Subgraph Explorer & Visualizer',
       ENTITY_REFERENCE: 'This column is a reference of',
       NULL: 'null',
       DOUBLE_QUOTES: '"',
@@ -116,6 +116,7 @@ export default class Constants {
       DAPPLOOKER: 'DappLooker',
       TEAM: 'team.',
       NULL_VALUE: 'Null value resolved',
+      GRAPH_HEADING: 'SUBGRAPH STUDIO',
     },
     commonUrls: {
       BASE_URL:
