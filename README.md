@@ -12,7 +12,7 @@ GraphLooker is real-time subgraph explorer and visualizer. The Dapp helps indexe
 
 - Browse and explore subgraph entity data in tabular form in UI.
 - Export the subgraph data to CSV.
-- Support of subgraph studio subgraphs.
+- Support of subgraph studio.
 - Sort any particular column in ascending/descending order.
 - Apply filters on entity attribute data e g. Display latest 100 Uniswap records.
 - Pagination feature that enables user to focus on the particular range of datasets.
@@ -57,7 +57,7 @@ In case you are looking to host on production, create production build using bel
 $ npm run build
 ```
 
-## Hosting on Production
+### Hosting on Production
 
 Open `.env` file in the graphlooker folder. Update below variables with production host.
 
