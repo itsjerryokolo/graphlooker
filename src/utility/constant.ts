@@ -121,10 +121,8 @@ export default class Constants {
     commonUrls: {
       BASE_URL:
         process.env.NODE_ENV === 'development'
-          ? process.env.REACT_APP_BASE_URL_DEVELOPMENT
-          : process.env.REACT_APP_BASE_URL_PRODUCTION,
-      ADDRESS_URL: process.env.REACT_APP_ADDRESS_URL,
-      TNX_URL: process.env.REACT_APP_TNX_URL,
+          ? `${process.env.REACT_APP_BASE_URL_DEVELOPMENT}explore?`
+          : `${process.env.REACT_APP_BASE_URL_PRODUCTION}explore?`,
     },
     exportLabels: {
       DWNLD_STARTED: 'Download Completed, you can close the tab.',
