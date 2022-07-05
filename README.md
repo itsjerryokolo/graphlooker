@@ -59,8 +59,8 @@ $ npm run build
 
 ## Hosting on Production
 
-Open `.env` file in the graphlooker folder. Update below variables with production values.
+Open `.env` file in the graphlooker folder. Update below variables with production host.
 
 ```
-REACT_APP_BASE_URL_DEVELOPMENT = 'http://localhost:3000'
+REACT_APP_BASE_URL_PRODUCTION = 'https://graphlooker.com'
 ```
