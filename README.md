@@ -1,14 +1,14 @@
-# What is GraphLooker? 🧠
+# What is GraphLooker? ⚡
 
 GraphLooker is real-time subgraph explorer and visualizer. The Dapp helps indexers, delegators, curators and TheGraph users to easily browse subgraph data, download data to CSV and perform simple to complex operations like sorting, filtering with simplest of UX. Using the Dapp you can `look deeper` into your subgraphs.
 
-# Target Audience 👑 🏫
+# Target Audience 👑
 
 - The Dapp is specially helpful for non tech users who can do simple to complex operations on subgraphs just from UI.
-- Users can download subgraph data in CSV.
+- Users can filter and download subgraph data in CSV.
 - Delegators/Curators/Subgraph developers who are relatively less technical can browse and filter subgraph data from the UI.
 
-# Features ❤️ ⚡
+# Features ❤️
 
 - Browse and explore subgraph entity data in tabular form in UI.
 - Export the subgraph data to CSV.
