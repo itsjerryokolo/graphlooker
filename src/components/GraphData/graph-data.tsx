@@ -55,8 +55,6 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   const urlLabels = Constants.LABELS.commonUrls;
   const dispatch = useDispatch();
   const parsed = queryString.parse(location.search);
-  const themeFromRedux = useSelector((state: ThemeState) => state.themeSelector.theme);
-  console.log("themeFromRedux"+themeFromRedux);
   let graphName: string | any = parsed.uri?.slice(parsed.uri?.lastIndexOf('/') + 1);
   let url: string | any = parsed.uri;
   let urlCheck = new URL(url);
@@ -164,6 +162,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
     </div>
   );
   useEffect(()=>{
+    //For Changing the theme in the global state.
     dispatch(toggleTheme(theme));
   },[theme])  
 
