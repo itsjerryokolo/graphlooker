@@ -23,11 +23,11 @@ const FilterData: React.FunctionComponent<UserProps> = ({ props }): JSX.Element 
     }
     //making url from new filters array
     let remainingFilters = '';
-    function myFunction(item: any) {
-      const thisJSON = JSON.stringify(item);
-      remainingFilters = remainingFilters + ',' + thisJSON;
+    function stringConverter(item: any) {
+      const itemToString = JSON.stringify(item);
+      remainingFilters = remainingFilters + ',' + itemToString;
     }
-    listOfFilters.forEach(myFunction);
+    listOfFilters.forEach(stringConverter);
     url = `${url}&filterObj=[${remainingFilters.substring(1)}]`;
     window.location.href = url;
   };
