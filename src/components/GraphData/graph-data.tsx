@@ -58,7 +58,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   let theme: any = parsed.th;
   let graphName: string | any = parsed.uri?.slice(parsed.uri?.lastIndexOf('/') + 1);
   let url: string | any = parsed.uri;
-  let urlCheck = new URL(url);
+  let endPoint = new URL(url);
   if (parsed.uri) {
     graphName = humanizeString(graphName)?.toUpperCase();
   }
@@ -66,7 +66,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   } else {
     theme = label.DARK_THEME_LABEL;
   }
-  if (urlCheck.host === 'gateway.thegraph.com') {
+  if (endPoint.host === 'gateway.thegraph.com') {
     graphName = label.GRAPH_HEADING;
   }
 
