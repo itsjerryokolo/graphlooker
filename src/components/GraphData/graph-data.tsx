@@ -61,7 +61,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   if (parsed.uri) {
     graphName = humanizeString(graphName)?.toUpperCase();
   }
- 
+
   if (urlCheck.host === 'gateway.thegraph.com') {
     graphName = label.GRAPH_HEADING;
   }
@@ -75,17 +75,16 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
       dispatch(setGraphEndpoint(endpoint));
       return;
     }
-    
+
     window.location.href = Constants.ROUTES.HOME_ROUTE;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const[theme,setTheme]=useState('dark');
+  const [theme, setTheme] = useState('dark');
   const [deploymentId, setDeploymentId] = useState('');
   const [subgraphNetworkName, setSubgraphNetworkName] = useState('');
   const { data: deploymentData } = useQuery(queryToGetDeploymentId);
   const [drawerOpen, setDrawerOpen] = React.useState(true);
   const loadingScreen = useSelector((state: LoadingState) => state.dataLoading.loading);
-  console.log('theme = '+theme);
   const handleToggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
@@ -161,11 +160,10 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
       </List>
     </div>
   );
-  useEffect(()=>{
+  useEffect(() => {
     //For Changing the theme in the global state.
     dispatch(toggleTheme(theme));
-  },[theme])  
-
+  }, [theme]);
 
   return (
     <>
@@ -245,7 +243,10 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
             </h2>
 
             <Tooltip title={label.SWITCH_THEME}>
-              <div className="theme-icon" onClick={()=>theme==='dark'?setTheme('light'):setTheme('dark')}>
+              <div
+                className="theme-icon"
+                onClick={() => (theme === 'dark' ? setTheme('light') : setTheme('dark'))}
+              >
                 {theme === label.LIGHT_THEME_LABEL ? <DarkModeIcon /> : <LightModeIcon />}
               </div>
             </Tooltip>
