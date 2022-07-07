@@ -30,7 +30,7 @@ import Constants from '../../utility/constant';
 import Loader from '../Loader/loader';
 import { Tooltip } from '@mui/material';
 import ErrorMessage from '../ErrorMessage/error-message';
-import { LoadingState } from '../../utility/redux/state';
+import { LoadingState, ThemeState } from '../../utility/redux/state';
 import humanizeString from 'humanize-string';
 import Footer from '../Footer/Footer';
 
@@ -55,17 +55,15 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   const urlLabels = Constants.LABELS.commonUrls;
   const dispatch = useDispatch();
   const parsed = queryString.parse(location.search);
-  let theme: any = parsed.th;
+  const themeFromRedux = useSelector((state: ThemeState) => state.themeSelector.theme);
+  console.log("themeFromRedux"+themeFromRedux);
   let graphName: string | any = parsed.uri?.slice(parsed.uri?.lastIndexOf('/') + 1);
   let url: string | any = parsed.uri;
   let urlCheck = new URL(url);
   if (parsed.uri) {
     graphName = humanizeString(graphName)?.toUpperCase();
   }
-  if (theme === label.LIGHT_THEME_LABEL || theme === label.DARK_THEME_LABEL) {
-  } else {
-    theme = label.DARK_THEME_LABEL;
-  }
+ 
   if (urlCheck.host === 'gateway.thegraph.com') {
     graphName = label.GRAPH_HEADING;
   }
@@ -79,27 +77,17 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
       dispatch(setGraphEndpoint(endpoint));
       return;
     }
-    if (parsed.th !== undefined) {
-      const val =
-        parsed.th === label.LIGHT_THEME_LABEL ? label.DARK_THEME_LABEL : label.LIGHT_THEME_LABEL;
-      dispatch(toggleTheme(val));
-    }
+    
     window.location.href = Constants.ROUTES.HOME_ROUTE;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  const[theme,setTheme]=useState('dark');
   const [deploymentId, setDeploymentId] = useState('');
   const [subgraphNetworkName, setSubgraphNetworkName] = useState('');
   const { data: deploymentData } = useQuery(queryToGetDeploymentId);
   const [drawerOpen, setDrawerOpen] = React.useState(true);
   const loadingScreen = useSelector((state: LoadingState) => state.dataLoading.loading);
-  const handleToggleTheme = () => {
-    const newTheme =
-      theme === label.LIGHT_THEME_LABEL ? label.DARK_THEME_LABEL : label.LIGHT_THEME_LABEL;
-    dispatch(toggleTheme(newTheme));
-    theme = newTheme;
-    window.location.href = `${urlLabels.BASE_URL}uri=${parsed.uri}&e=${parsed.e}&th=${theme}`;
-  };
+  console.log('theme = '+theme);
   const handleToggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
@@ -175,6 +163,10 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
       </List>
     </div>
   );
+  useEffect(()=>{
+    dispatch(toggleTheme(theme));
+  },[theme])  
+
 
   return (
     <>
@@ -254,7 +246,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
             </h2>
 
             <Tooltip title={label.SWITCH_THEME}>
-              <div className="theme-icon" onClick={handleToggleTheme}>
+              <div className="theme-icon" onClick={()=>theme==='dark'?setTheme('light'):setTheme('dark')}>
                 {theme === label.LIGHT_THEME_LABEL ? <DarkModeIcon /> : <LightModeIcon />}
               </div>
             </Tooltip>
