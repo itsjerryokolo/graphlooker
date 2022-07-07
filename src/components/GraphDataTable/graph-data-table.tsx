@@ -141,7 +141,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     let filtersInStringify = Utility.getAllFilters(null, null, null, listOfFilters);
     if (isNextDisable) return;
     const URI = encodeURIComponent(endpoint);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&p=${
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&p=${
       pageNumber + 1
     }&filterObj=${filtersInStringify}`;
   };
@@ -149,7 +149,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     if (isPrevDisable) return;
     let filtersInStringify = Utility.getAllFilters(null, null, null, listOfFilters);
     const URI = encodeURIComponent(endpoint);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&p=${
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&p=${
       pageNumber - 1
     }&filterObj=${filtersInStringify}`;
   };

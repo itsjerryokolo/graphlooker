@@ -79,7 +79,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
     window.location.href = Constants.ROUTES.HOME_ROUTE;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState(Constants.LABELS.commonLables.DARK_THEME_LABEL);
   const [deploymentId, setDeploymentId] = useState('');
   const [subgraphNetworkName, setSubgraphNetworkName] = useState('');
   const { data: deploymentData } = useQuery(queryToGetDeploymentId);
@@ -245,7 +245,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
             <Tooltip title={label.SWITCH_THEME}>
               <div
                 className="theme-icon"
-                onClick={() => (theme === 'dark' ? setTheme('light') : setTheme('dark'))}
+                onClick={() => (theme === Constants.LABELS.commonLables.DARK_THEME_LABEL ? setTheme(Constants.LABELS.commonLables.LIGHT_THEME_LABEL) : setTheme(Constants.LABELS.commonLables.DARK_THEME_LABEL))}
               >
                 {theme === label.LIGHT_THEME_LABEL ? <DarkModeIcon /> : <LightModeIcon />}
               </div>
