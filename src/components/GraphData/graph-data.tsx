@@ -57,12 +57,12 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   const parsed = queryString.parse(location.search);
   let graphName: string | any = parsed.uri?.slice(parsed.uri?.lastIndexOf('/') + 1);
   let url: string | any = parsed.uri;
-  let urlCheck = new URL(url);
+  let endPoint = new URL(url);
   if (parsed.uri) {
     graphName = humanizeString(graphName)?.toUpperCase();
   }
 
-  if (urlCheck.host === 'gateway.thegraph.com') {
+  if (endPoint.host === 'gateway.thegraph.com') {
     graphName = label.GRAPH_HEADING;
   }
 
@@ -90,8 +90,6 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   };
   const { data, error, loading } = useQuery(getAllEntities);
 
-  const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
-
   const changetheme = () => {
     dispatch(toggleTheme(theme));
   };
@@ -109,6 +107,13 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
       context: { clientName: 'subgraph-network' },
     }
   );
+
+  let theme = useSelector((state: ThemeState) => state.themeSelector.theme);
+
+  if (theme === label.LIGHT_THEME_LABEL || theme === label.DARK_THEME_LABEL) {
+  } else {
+    theme = label.DARK_THEME_LABEL;
+  }
 
   // Fetching SubGraphNetwork Name & passing it into global state with redux.
   useEffect(() => {
