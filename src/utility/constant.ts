@@ -10,6 +10,7 @@ export default class Constants {
     MEDIUM_BLOG: 'https://dapplooker.medium.com/',
     TWITTER: 'https://twitter.com/dapplooker',
     DAPPLOOKER: 'https://dapplooker.com',
+    GRAPHLOOKER: 'https://www.notion.so/dapplooker/GraphLooker-07bc3adf176b488ca23059ddbd41387f',
   };
   public static FILTERLABELS = {
     dataTypeLabels: {
@@ -117,6 +118,7 @@ export default class Constants {
       TEAM: 'team.',
       NULL_VALUE: 'Null value resolved',
       GRAPH_HEADING: 'SUBGRAPH STUDIO',
+      MY_THEME: 'mytheme',
     },
     commonUrls: {
       BASE_URL:

@@ -9,17 +9,11 @@ import { ThemeState } from './../../utility/redux/state';
 import './navbar.scss';
 import { toggleTheme } from '../../redux/actions/theme-action';
 import Constants from '../../utility/constant';
-import { useState } from 'react';
 
 const Navbar: React.FunctionComponent<{}> = (props) => {
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
   const dispatch = useDispatch();
   const label = Constants.LABELS.commonLables;
-  const handleToggleTheme = () => {
-    const newTheme =
-      theme === label.LIGHT_THEME_LABEL ? label.DARK_THEME_LABEL : label.LIGHT_THEME_LABEL;
-    dispatch(toggleTheme(newTheme));
-  };
   const changetheme = () => {
     dispatch(toggleTheme(theme));
   };
