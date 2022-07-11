@@ -65,17 +65,11 @@ Open `.env` file in the graphlooker folder. Update below variables with producti
 REACT_APP_BASE_URL_PRODUCTION = 'https://graphlooker.com'
 ```
 
-### How to Use 
+### How to Use
 
-Below is the documentation for reference purpose.
-```
-Hosted Subgraphs :
-```
-Step by step guide:-https://www.notion.so/dapplooker/What-do-we-do-73aa1d887b54430e9e69a590f4668638
+Below is the step by step documentation:
+#### Hosted Subgraphs
+Step by step guide: https://www.notion.so/dapplooker/What-do-we-do-73aa1d887b54430e9e69a590f4668638
 
-```
-Subgraph Studio :
-```
-Step by step guide :- https://www.notion.so/dapplooker/GraphLooker-Documentation-07bc3adf176b488ca23059ddbd41387f
-
-
+#### Subgraph Studio
+Step by step guide: https://www.notion.so/dapplooker/GraphLooker-Documentation-07bc3adf176b488ca23059ddbd41387f
