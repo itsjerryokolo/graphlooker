@@ -31,8 +31,8 @@ import Loader from '../Loader/loader';
 import { Tooltip } from '@mui/material';
 import ErrorMessage from '../ErrorMessage/error-message';
 import { LoadingState, ThemeState } from '../../utility/redux/state';
-import humanizeString from 'humanize-string';
 import Footer from '../Footer/Footer';
+import { noCase } from 'change-case';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -59,7 +59,8 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
   let url: string | any = parsed.uri;
   let endPoint = new URL(url);
   if (parsed.uri) {
-    graphName = humanizeString(graphName)?.toUpperCase();
+    // graphName = humanizeString(graphName)?.toUpperCase();
+    graphName = noCase(graphName)?.toUpperCase();
   }
 
   if (endPoint.host === 'gateway.thegraph.com') {
