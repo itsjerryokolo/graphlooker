@@ -3,7 +3,7 @@ export default class Constants {
     DEV: {},
     PROD: {},
     THEGRAPH: 'https://thegraph.com/',
-    GITHUB: 'https://github.com/dapplooker',
+    GITHUB: 'https://github.com/dapplooker/graphlooker',
     TELEGRAM: 'https://t.me/dapplooker',
     YOUTUBE: 'https://www.youtube.com/channel/UC1KJmtb3UhnWSN_sDv71_fg',
     DISCORD: 'https://discord.gg/uGQy8byW5T',
