@@ -436,6 +436,7 @@ export const sortData = (sortedData: object[]) => {
       }
       // itm[0] = humanizeString(itm[0]);
       itm[0] = noCase(itm[0]);
+      itm[0] = itm[0].charAt(0).toUpperCase() + itm[0].slice(1);
     });
 
     let sortedObj = Object.fromEntries(array);
