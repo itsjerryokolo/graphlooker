@@ -1,9 +1,10 @@
 import { ethers } from 'ethers';
 import Constants from './constant';
 import pluralizer from 'pluralize';
-import humanizeString from 'humanize-string';
 import moment from 'moment';
 import { Allfilters } from '../utility/interface/props';
+import { noCase } from 'change-case';
+
 const urlLabels = Constants.LABELS.commonUrls;
 const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
 const entityArray = Constants.FILTERLABELS.checkProperEntityName;
@@ -433,7 +434,9 @@ export const sortData = (sortedData: object[]) => {
         itm[0] = `${itm[0]}_id`;
         itm[1] = itm[1]?.id;
       }
-      itm[0] = humanizeString(itm[0]);
+      // itm[0] = humanizeString(itm[0]);
+      itm[0] = noCase(itm[0]);
+      itm[0] = itm[0].charAt(0).toUpperCase() + itm[0].slice(1);
     });
 
     let sortedObj = Object.fromEntries(array);

@@ -31,7 +31,6 @@ import { Alert, Button, Menu, Snackbar, TableHead } from '@mui/material';
 import moment from 'moment';
 import PrimaryMenu from '../PrimaryMenu/primary-menu';
 import Constants from '../../utility/constant';
-import humanizeString from 'humanize-string';
 import { setDataLoading } from '../../redux/actions/loading-action';
 import Utility from '../../utility/utility';
 import ErrorMessage from '../ErrorMessage/error-message';
@@ -39,6 +38,7 @@ import ExportButton from '../ExportToCSV/ExportButton';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import NoRecords from '../NoRecords/NoRecords';
 import FilterData from '../FilterData/FilterData';
+import { noCase } from 'change-case';
 
 const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteComponentProps<any>> = ({
   drawerOpen,
@@ -248,8 +248,8 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                           className="table-column-btn"
                         >
                           {item.type === dataTypeLabel.OBJECT
-                            ? `${humanizeString(item.name)} Id`
-                            : `${humanizeString(item.name)}`}
+                            ? `${noCase(item.name)} Id`
+                            : `${noCase(item.name)}`}
                           {item.type === dataTypeLabel.OBJECT ? (
                             <Tooltip
                               title={
