@@ -72,4 +72,4 @@ Below is the step by step documentation:
 Step by step guide: https://www.notion.so/dapplooker/What-do-we-do-73aa1d887b54430e9e69a590f4668638
 
 #### Subgraph Studio
-Step by step guide: https://www.notion.so/dapplooker/GraphLooker-Documentation-07bc3adf176b488ca23059ddbd41387f
+Step by step guide: https://dapplooker.notion.site/Subgraph-Studio-Integration-69b801b67c094a2c96df73792186d71d
