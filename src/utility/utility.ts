@@ -68,6 +68,7 @@ export default class Utility {
   };
 
   public static verifyAddress = (
+    typename:string,
     row: any,
     columnName: string,
     columnType: string,
@@ -77,11 +78,11 @@ export default class Utility {
   ) => {
     let inputValue = row[`${columnName}`];
     let address = ethers.utils.isAddress(inputValue);
-
+  
     let verifyTxHash = Boolean(regex.TXHASH_REGEX.test(inputValue));
 
     if (columnType === dataTypeLabel.OBJECT) {
-      Utility.checkAttributeIsEntity(inputValue.__typename, inputValue.id, endpoint, theme);
+      Utility.checkAttributeIsEntity(typename, inputValue.id, endpoint, theme);
     } else if (columnName === columnLabels.ID) {
       let splitNumber = inputValue.split('-');
       let addressFound = '';
@@ -245,8 +246,10 @@ export default class Utility {
     endpoint: string,
     theme: any
   ) => {
+    console.log("before ="+entity);
     const URI = encodeURIComponent(endpoint);
     const selectedEntity = entity.charAt(0).toLowerCase() + entity.slice(1);
+    console.log(selectedEntity);
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&id=${id}`;
   };
 

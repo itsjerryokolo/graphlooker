@@ -272,6 +272,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                 ? rows.map((row, i) => (
                     <TableRow className="tabledata-row" key={i}>
                       {listOfattributes.map((item, key) => (
+              
                         <TableCell
                           key={key}
                           className={`${
@@ -282,7 +283,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                               : 'tablerow-data-css '
                           }`}
                           onClick={() => {
+                         
                             let openCloseSnackbar = Utility.verifyAddress(
+                              item.typeName,
                               row,
                               item.name,
                               item.type,
