@@ -26,7 +26,7 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
               {theme === label.LIGHT_THEME_LABEL ? (
                 <img
                   src="/images/GraphLooker_theme_color_text.png"
-                  height="47px"
+                  height="50px"
                   alt="GraphLooker-icon"
                 ></img>
               ) : (
@@ -37,28 +37,12 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
                 ></img>
               )}
 
-              {/* <div className="social-icons">
-                <div className="icon">
-                  <a href="https://discord.com/invite/FWyNJtEyxa" target="_blank" rel="noreferrer">
-                    <DiscordSVG height={30} width={35} />
-                  </a>
-                </div>
-
-                <div className="icon">
-                  <a href="https://t.me/dapplooker" target="_blank" rel="noreferrer">
-                    <TelegramSVG height={30} width={35} />
-                  </a>
-                </div>
-
-                <div className="icon">
-                  <a href="https://twitter.com/dapplooker" target="_blank" rel="noreferrer">
-                    <TwitterSVG height={30} width={35} />
-                  </a>
-                </div>
+               <div className="social-icons">
+                
                 <div>
                   <img className="beta-icon" src="/images/beta.png" alt="beta version" />
                 </div>
-              </div> */}
+              </div> 
               <div className="theme-icon" onClick={changetheme}>
                 {theme === label.LIGHT_THEME_LABEL ? <DarkModeIcon /> : <LightModeIcon />}
               </div>

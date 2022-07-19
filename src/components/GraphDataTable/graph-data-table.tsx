@@ -283,6 +283,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                           }`}
                           onClick={() => {
                             let openCloseSnackbar = Utility.verifyAddress(
+                              item.typeName,
                               row,
                               item.name,
                               item.type,
