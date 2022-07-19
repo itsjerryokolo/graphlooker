@@ -78,7 +78,6 @@ export default class Utility {
   ) => {
     let inputValue = row[`${columnName}`];
     let address = ethers.utils.isAddress(inputValue);
-
     let verifyTxHash = Boolean(regex.TXHASH_REGEX.test(inputValue));
 
     if (columnType === dataTypeLabel.OBJECT) {
@@ -247,9 +246,7 @@ export default class Utility {
     theme: any
   ) => {
     const URI = encodeURIComponent(endpoint);
-    
     const selectedEntity = entity && entity.charAt(0).toLowerCase() + entity.slice(1);
-   
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&id=${id}`;
   };
 
@@ -322,9 +319,7 @@ export default class Utility {
     endpoint: string
   ) => {
     const subgraphNetworkNameUrl = Utility.getNetworkDetails().get(subgraphNetworkName);
-
     let verifyAddress = ethers.utils.isAddress(id);
-
     if (
       verifyAddress &&
       endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH) &&
