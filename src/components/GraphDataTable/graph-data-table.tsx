@@ -213,7 +213,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   if (listOfattributes.length === 0) {
     dispatch(setDataLoading(false));
   }
-  console.log(`${listOfFilters!=='undefined'? 'table-conatiner' :'table-conatiner'} ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`);
+  
   return (
     <>
       <div className={drawerOpen ? 'FilterData' : 'FilterData-drawer-open'}>
@@ -223,7 +223,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
 
       <ExportButton rows={rows} />
       <div className="all-graph-data">
-        <div className={`${listOfFilters!=='undefined'? 'table-conatiner with-filters' :'table-conatiner'} ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`}>
+        <div className={`${listOfFilters!=='undefined'? 'table-conatiner filters-included' :'table-conatiner'} ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`}>
           <Table stickyHeader aria-label="sticky table" className="data-table">
             <TableHead>
               <TableRow>
