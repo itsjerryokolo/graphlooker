@@ -206,23 +206,24 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const handleCloseToast = () => {
     setOpen(false);
   };
-   
   if (errorMsg) {
     listOfattributes = listOfattributes.filter((item) => item.type !== dataTypeLabel.OBJECT);
   }
   if (listOfattributes.length === 0) {
     dispatch(setDataLoading(false));
   }
-  
   return (
     <>
       <div className={drawerOpen ? 'FilterData' : 'FilterData-drawer-open'}>
         {listOfFilters !== 'undefined' ? <FilterData props={listOfFilters} /> : null}
       </div>
-      
       <ExportButton rows={rows} />
       <div className="all-graph-data">
-        <div className={`${listOfFilters!=='undefined'? 'table-conatiner filters-included' :'table-conatiner'} ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`}>
+        <div
+          className={`${
+            listOfFilters !== 'undefined' ? 'table-conatiner filters-included' : 'table-conatiner'
+          } ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`}
+        >
           <Table stickyHeader aria-label="sticky table" className="data-table">
             <TableHead>
               <TableRow>
@@ -356,7 +357,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
           </Snackbar>
         </div>
         {parsed.id === undefined && rows.length > 0 ? (
-          
           <div
             className={`next-previous-option ${
               drawerOpen ? 'drawer-open-next-previous-option' : label.EMPTY
@@ -376,7 +376,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
               ></NavigateNextIcon>
             </Tooltip>
           </div>
-        
         ) : null}
       </div>
     </>

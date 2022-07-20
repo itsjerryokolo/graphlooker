@@ -19,7 +19,6 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
   attributeDataType,
   location,
 }) => {
-
   const parsed = queryString.parse(location.search);
   const theme = parsed.th;
   const label = Constants.LABELS.commonLables;
@@ -50,10 +49,14 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
       parsed.filterObj
     )}`);
   };
-  const checkForString=()=> {return  attributeDataType ===filterLabels.INT || 
-    attributeDataType ===filterLabels.BIGINT ||
-    attributeDataType ===filterLabels.BIGDECIMAL}
-    
+  const checkForString = () => {
+    return (
+      attributeDataType === filterLabels.INT ||
+      attributeDataType === filterLabels.BIGINT ||
+      attributeDataType === filterLabels.BIGDECIMAL
+    );
+  };
+
   const getSortingMenu = () => {
     if (
       attributeType === filterLabels.LIST ||
@@ -64,7 +67,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
       return (
         <>
           <MenuItem>
-            <Tooltip title={checkForString() ? label.SORT_ASC:label.SORT_BY_ALPHABETICAL}>
+            <Tooltip title={checkForString() ? label.SORT_ASC : label.SORT_BY_ALPHABETICAL}>
               <button className="sort-btn">
                 <ArrowUpwardTwoToneIcon
                   className="dropdown-arrow"
@@ -72,7 +75,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
                 />
               </button>
             </Tooltip>
-            <Tooltip title={checkForString() ? label.SORT_DESC:label.SORT_DESC_BY_ALPHA}>
+            <Tooltip title={checkForString() ? label.SORT_DESC : label.SORT_DESC_BY_ALPHA}>
               <button className="sort-btn">
                 <ArrowDownwardTwoToneIcon
                   className="dropdown-arrow"
