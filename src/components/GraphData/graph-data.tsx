@@ -167,7 +167,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
         aria-labelledby="nested-list-subheader"
       >
         {allEntities.map((item, index) => (
-          <ListItem key={index} entity={item}></ListItem>
+          <ListItem key={index} entity={noCase(item)}></ListItem>
         ))}
       </List>
     </div>
