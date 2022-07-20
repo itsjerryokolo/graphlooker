@@ -76,6 +76,8 @@ export default class Constants {
     commonLables: {
       TITLE: 'GraphLooker - Real-time Subgraph Explorer & Visualizer',
       FILTER_BY_COL: 'Filter by column',
+      SORT_BY_ALPHABETICAL:'A-Z',
+      SORT_DESC_BY_ALPHA:'Z-A',
       ASC: 'asc',
       DESC: 'desc',
       IS: 'Is',

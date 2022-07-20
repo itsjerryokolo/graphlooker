@@ -15,16 +15,18 @@
   box-sizing: border-box;
   .table-conatiner {
     max-width: calc(100vw - 10px);
-    height: calc(88vh - 76px);
+    height: calc(88vh - 76px);   //83vh
     border-radius: 5px;
     box-sizing: border-box;
     overflow-x: auto;
     overflow-y: auto;
     margin: $size4 auto 0;
+    &.filters-included{
+      height: calc(83vh - 76px);;
+    }
     &.drawer-open-table-length {
       max-width: calc(100vw - 310px);
-    }
-
+     }
     .tablerow-data-css {
       font-family: $primaryFontFamily;
       font-weight: $fontWeight400;
@@ -92,10 +94,11 @@
       }
     }
   }
-
+ 
   .next-previous-option {
     max-width: calc(100vw - 10px);
-    margin: 0 auto;
+    margin: -8px auto;
+    top: 100px;
     display: flex;
     justify-content: center;
     box-sizing: border-box;
