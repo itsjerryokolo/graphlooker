@@ -219,8 +219,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
       <div className={drawerOpen ? 'FilterData' : 'FilterData-drawer-open'}>
         {listOfFilters !== 'undefined' ? <FilterData props={listOfFilters} /> : null}
       </div>
-     
-
+      
       <ExportButton rows={rows} />
       <div className="all-graph-data">
         <div className={`${listOfFilters!=='undefined'? 'table-conatiner filters-included' :'table-conatiner'} ${drawerOpen ? 'drawer-open-table-length' : label.EMPTY}`}>

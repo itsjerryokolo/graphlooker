@@ -53,7 +53,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
   const checkForString=()=> {return  attributeDataType ===filterLabels.INT || 
     attributeDataType ===filterLabels.BIGINT ||
     attributeDataType ===filterLabels.BIGDECIMAL}
-  
+    
   const getSortingMenu = () => {
     if (
       attributeType === filterLabels.LIST ||
