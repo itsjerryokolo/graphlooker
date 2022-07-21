@@ -52,7 +52,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location }) => {
   const label = Constants.LABELS.commonLables;
-  const urlLabels = Constants.LABELS.commonUrls;
   const dispatch = useDispatch();
   const parsed = queryString.parse(location.search);
   let graphName: string | any = parsed.uri?.slice(parsed.uri?.lastIndexOf('/') + 1);
@@ -167,7 +166,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
         aria-labelledby="nested-list-subheader"
       >
         {allEntities.map((item, index) => (
-          <ListItem key={index} entity={item}></ListItem>
+          <ListItem key={index} entity={noCase(item)}></ListItem>
         ))}
       </List>
     </div>

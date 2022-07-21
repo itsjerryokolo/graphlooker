@@ -21,10 +21,12 @@
     overflow-x: auto;
     overflow-y: auto;
     margin: $size4 auto 0;
+    &.filters-included {
+      height: calc(83vh - 76px);
+    }
     &.drawer-open-table-length {
       max-width: calc(100vw - 310px);
     }
-
     .tablerow-data-css {
       font-family: $primaryFontFamily;
       font-weight: $fontWeight400;
@@ -40,10 +42,8 @@
         cursor: pointer;
         color: $colorCyan;
       }
-     }
+   }
 
-   
-   
     .table-head-cell {
       color: $colorWhite;
       background-color: $primaryColor;
@@ -95,7 +95,8 @@
 
   .next-previous-option {
     max-width: calc(100vw - 10px);
-    margin: 0 auto;
+    margin: -5px auto;
+    top: 100px;
     display: flex;
     justify-content: center;
     box-sizing: border-box;
