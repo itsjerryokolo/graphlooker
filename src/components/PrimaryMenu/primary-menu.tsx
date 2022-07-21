@@ -49,7 +49,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
       parsed.filterObj
     )}`);
   };
-  const checkForString = () => {
+  const isTypeString = () => {
     return (
       attributeDataType === filterLabels.INT ||
       attributeDataType === filterLabels.BIGINT ||
@@ -67,7 +67,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
       return (
         <>
           <MenuItem>
-            <Tooltip title={checkForString() ? label.SORT_ASC : label.SORT_BY_ALPHABETICAL}>
+            <Tooltip title={isTypeString() ? label.SORT_ASC : label.SORT_ASC_BY_ALPHABETICAL}>
               <button className="sort-btn">
                 <ArrowUpwardTwoToneIcon
                   className="dropdown-arrow"
@@ -75,7 +75,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
                 />
               </button>
             </Tooltip>
-            <Tooltip title={checkForString() ? label.SORT_DESC : label.SORT_DESC_BY_ALPHA}>
+            <Tooltip title={isTypeString() ? label.SORT_DESC : label.SORT_DESC_BY_ALPHABETICAL}>
               <button className="sort-btn">
                 <ArrowDownwardTwoToneIcon
                   className="dropdown-arrow"

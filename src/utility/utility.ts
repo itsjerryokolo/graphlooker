@@ -348,6 +348,7 @@ export default class Utility {
       if (items === columnName) {
         isColumnExist = true;
       }
+      return isColumnExist;
     });
     return isColumnExist;
   };
