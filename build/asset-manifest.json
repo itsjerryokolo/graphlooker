@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.52f95e98.css",
-    "main.js": "/static/js/main.bddb0ea9.js",
+    "main.css": "/static/css/main.d1049f12.css",
+    "main.js": "/static/js/main.a75a3323.js",
     "static/js/787.4baa31f8.chunk.js": "/static/js/787.4baa31f8.chunk.js",
     "static/media/graph-protocol.svg": "/static/media/graph-protocol.abe4f27c4dfc96f78794c291c755c386.svg",
     "static/media/twitter.svg": "/static/media/twitter.377862e352c63b8a9d922deb020f6e89.svg",
@@ -10,12 +10,12 @@
     "static/media/discord.svg": "/static/media/discord.91cddd1217cc05efc9b46c5b8492586c.svg",
     "static/media/github.svg": "/static/media/github.3cffb315a27d1de0c48e468ee2a6dd18.svg",
     "static/media/telegram.svg": "/static/media/telegram.937b374f4f03cd1392fe7e98c6387a53.svg",
-    "main.52f95e98.css.map": "/static/css/main.52f95e98.css.map",
-    "main.bddb0ea9.js.map": "/static/js/main.bddb0ea9.js.map",
+    "main.d1049f12.css.map": "/static/css/main.d1049f12.css.map",
+    "main.a75a3323.js.map": "/static/js/main.a75a3323.js.map",
     "787.4baa31f8.chunk.js.map": "/static/js/787.4baa31f8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.52f95e98.css",
-    "static/js/main.bddb0ea9.js"
+    "static/css/main.d1049f12.css",
+    "static/js/main.a75a3323.js"
   ]
 }
