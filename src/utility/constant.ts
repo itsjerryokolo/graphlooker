@@ -121,6 +121,7 @@ export default class Constants {
       NULL_VALUE: 'Null value resolved',
       GRAPH_HEADING: 'SUBGRAPH STUDIO',
       MY_THEME: 'mytheme',
+      BUTTON_TEXT_FOR_EMAIL:'INFORM US',
     },
     commonUrls: {
       BASE_URL:

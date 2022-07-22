@@ -3,7 +3,7 @@ import { ErrorMassageProps } from '../../utility/interface/props';
 import './error-message.scss';
 import { customMessages } from '../../utility/utility';
 import Constants from '../../utility/constant';
-import { Button, Tooltip } from '@mui/material';
+import { Button} from '@mui/material';
 import MailIcon from '@mui/icons-material/Mail';
 
 const errorLabels = Constants.LABELS.errorComponenet;
@@ -43,7 +43,7 @@ const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
           <span className="message">{errorLabels.queryFailedMsg}</span>
           <Button variant="contained" endIcon={<MailIcon />}>
             <a id="email-sender" target="_blank">
-              Inform Us
+              {Constants.LABELS.commonLables.BUTTON_TEXT_FOR_EMAIL}
             </a>
           </Button>
         </div>
