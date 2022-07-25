@@ -17,6 +17,7 @@ const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
   let customMessage: string = customMessages(errorMessage, endpoint);
 
   function getBodyForMail() {
+    // %0D is used for line breaking
     return `${Constants.MAIL_FORMAT.MAIL_GREETING} %0D%0D ${
       Constants.MAIL_FORMAT.MAIL_BODY
     } %0D%0D ${encodeURIComponent(URL)} %0D%0D ${Constants.MAIL_FORMAT.MAIL_ENDING_MESSAGE}`;
