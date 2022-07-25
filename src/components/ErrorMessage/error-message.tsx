@@ -7,6 +7,7 @@ import { Button} from '@mui/material';
 import MailIcon from '@mui/icons-material/Mail';
 
 const errorLabels = Constants.LABELS.errorComponenet;
+const mailAddress = Constants.CONTACT.EMAIL;
 const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
   errorMessage,
   endpoint,
@@ -20,17 +21,7 @@ const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
   function getSubjectForMail() {
     return `${Constants.ERROR_MESSAGES.MAIL_SUBJECT}`;
   }
-  React.useEffect(() => {
-    let mailHrefAttribute = document.getElementById('email-sender');
-    if (mailHrefAttribute) {
-      mailHrefAttribute.onclick = function () {
-        var mailAddress = Constants.CONTACT.EMAIL;
-        var linker =
-          'mailto:' + mailAddress + '?subject=' + getSubjectForMail() + '&body=' + getBodyForMail();
-        mailHrefAttribute?.setAttribute('href', linker);
-      };
-    }
-  }, []);
+  
   return (
     <>
       {type === 'message' ? (
@@ -42,7 +33,7 @@ const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
           <img className="icon" src="/images/error_icon.gif" alt="" />
           <span className="message">{errorLabels.queryFailedMsg}</span>
           <Button variant="contained" endIcon={<MailIcon />}>
-            <a id="email-sender" target="_blank">
+            <a id="email-sender" href={'mailto:' + mailAddress + '?subject=' + getSubjectForMail() + '&body=' + getBodyForMail()} target="_blank">
               {Constants.LABELS.commonLables.BUTTON_TEXT_FOR_EMAIL}
             </a>
           </Button>
