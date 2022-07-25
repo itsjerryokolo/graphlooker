@@ -48,6 +48,7 @@ const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
                 getBodyForMail()
               }
               target="_blank"
+              rel="noreferrer"
             >
               {Constants.LABELS.commonLables.BUTTON_TEXT_FOR_EMAIL}
             </a>
