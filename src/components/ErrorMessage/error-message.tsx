@@ -6,10 +6,9 @@ import Constants from '../../utility/constant';
 import { Button } from '@mui/material';
 import MailIcon from '@mui/icons-material/Mail';
 
-
 const errorLabels = Constants.LABELS.errorComponenet;
 const mailAddress = Constants.CONTACT.EMAIL;
-const URL=window.location.href;
+const URL = window.location.href;
 const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
   errorMessage,
   endpoint,
@@ -18,14 +17,16 @@ const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
   let customMessage: string = customMessages(errorMessage, endpoint);
 
   function getBodyForMail() {
-    return `${Constants.MAIL_FORMAT.MAIL_GREETING} %0D%0D ${Constants.MAIL_FORMAT.MAIL_BODY} %0D%0D ${encodeURIComponent(URL)} %0D%0D ${Constants.MAIL_FORMAT.MAIL_ENDING_MESSAGE}`;
- }
+    return `${Constants.MAIL_FORMAT.MAIL_GREETING} %0D%0D ${
+      Constants.MAIL_FORMAT.MAIL_BODY
+    } %0D%0D ${encodeURIComponent(URL)} %0D%0D ${Constants.MAIL_FORMAT.MAIL_ENDING_MESSAGE}`;
+  }
   function getSubjectForMail() {
     return `${Constants.MAIL_FORMAT.MAIL_SUBJECT}`;
   }
-        
+
   return (
-    <>                                               
+    <>
       {type === 'message' ? (
         <div className="error-message">
           <span>{customMessage}</span>
@@ -36,7 +37,7 @@ const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
           <span className="message">{errorLabels.queryFailedMsg}</span>
           <Button variant="contained" endIcon={<MailIcon />}>
             <a
-              id="email-sender"
+              id="email-sender-link"
               href={
                 'mailto:' +
                 mailAddress +
