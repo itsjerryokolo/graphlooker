@@ -3,10 +3,12 @@ import { ErrorMassageProps } from '../../utility/interface/props';
 import './error-message.scss';
 import { customMessages } from '../../utility/utility';
 import Constants from '../../utility/constant';
-import { Button, Tooltip } from '@mui/material';
+import { Button } from '@mui/material';
 import MailIcon from '@mui/icons-material/Mail';
 
 const errorLabels = Constants.LABELS.errorComponenet;
+const mailAddress = Constants.CONTACT.EMAIL;
+const URL = window.location.href;
 const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
   errorMessage,
   endpoint,
@@ -15,22 +17,15 @@ const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
   let customMessage: string = customMessages(errorMessage, endpoint);
 
   function getBodyForMail() {
-    return `${Constants.ERROR_MESSAGES.MAIL_BODY} ${window.location.href}`;
+    // %0D is used for line breaking
+    return `${Constants.MAIL_FORMAT.MAIL_GREETING} %0D%0D ${
+      Constants.MAIL_FORMAT.MAIL_BODY
+    } %0D%0D ${encodeURIComponent(URL)} %0D%0D ${Constants.MAIL_FORMAT.MAIL_ENDING_MESSAGE}`;
   }
   function getSubjectForMail() {
-    return `${Constants.ERROR_MESSAGES.MAIL_SUBJECT}`;
+    return `${Constants.MAIL_FORMAT.MAIL_SUBJECT}`;
   }
-  React.useEffect(() => {
-    let mailHrefAttribute = document.getElementById('email-sender');
-    if (mailHrefAttribute) {
-      mailHrefAttribute.onclick = function () {
-        var mailAddress = Constants.CONTACT.EMAIL;
-        var linker =
-          'mailto:' + mailAddress + '?subject=' + getSubjectForMail() + '&body=' + getBodyForMail();
-        mailHrefAttribute?.setAttribute('href', linker);
-      };
-    }
-  }, []);
+
   return (
     <>
       {type === 'message' ? (
@@ -42,8 +37,19 @@ const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
           <img className="icon" src="/images/error_icon.gif" alt="" />
           <span className="message">{errorLabels.queryFailedMsg}</span>
           <Button variant="contained" endIcon={<MailIcon />}>
-            <a id="email-sender" target="_blank">
-              Inform Us
+            <a
+              id="email-sender-link"
+              href={
+                'mailto:' +
+                mailAddress +
+                '?subject=' +
+                getSubjectForMail() +
+                '&body=' +
+                getBodyForMail()
+              }
+              target="_blank"
+            >
+              {Constants.LABELS.commonLables.BUTTON_TEXT_FOR_EMAIL}
             </a>
           </Button>
         </div>
