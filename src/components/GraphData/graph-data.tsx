@@ -204,25 +204,19 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               </Box>
 
               {drawerOpen ? (
-                <div className="beta-tag">
-                  {/* <img src="./images/beta.png" alt="beta version"></img> */}
-                  <Tooltip title={label.COLLAPSE}>
-                    <KeyboardDoubleArrowLeftIcon
-                      className="toggle-drawer-icon"
-                      onClick={handleToggleDrawer}
-                    />
-                  </Tooltip>
-                </div>
+                <Tooltip title={label.COLLAPSE}>
+                  <KeyboardDoubleArrowLeftIcon
+                    className="toggle-drawer-icon"
+                    onClick={handleToggleDrawer}
+                  />
+                </Tooltip>
               ) : (
-                <div className="beta-tag">
-                  {/* <img src="./images/beta.png" alt="beta version"></img> */}
-                  <Tooltip title={label.EXPAND}>
-                    <KeyboardDoubleArrowRightIcon
-                      className="toggle-drawer-icon"
-                      onClick={handleToggleDrawer}
-                    />
-                  </Tooltip>
-                </div>
+                <Tooltip title={label.EXPAND}>
+                  <KeyboardDoubleArrowRightIcon
+                    className="toggle-drawer-icon"
+                    onClick={handleToggleDrawer}
+                  />
+                </Tooltip>
               )}
             </div>
             {/* <div className="social-icons">

@@ -61,7 +61,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
-  // console.log(parsed);
   const queryDataGlobalState = useSelector((state: QueryDataState) => state.queryState.query);
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -75,8 +74,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     if (parsed.id) {
       return getGraphDataForID(listOfattributes, selectedEntity, `${parsed.id}`);
     }
-    //  console.log(listOfFilters);
-    //if only sorting fiilter is available
     if (listOfFilters && listOfFilters.length === 1 && sortFilter && sortFilter.length) {
       const skip = checkForPagination();
       return getSortedDataQuery(
@@ -213,6 +210,23 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   if (listOfattributes.length === 0) {
     dispatch(setDataLoading(false));
   }
+  // function to check that whether item's type is of List,Object Or Non-Null.
+  const checkForListObjectandNonNull = (type: string) => {
+    return (
+      type === dataTypeLabel.LIST ||
+      type === dataTypeLabel.OBJECT ||
+      type === dataTypeLabel.NON_NULL
+    );
+  };
+  // function to check that whether item's type is of Integers.
+  const checkForIntegers = (type: string) => {
+    return (
+      type === dataTypeLabel.BIGINT ||
+      type === dataTypeLabel.BIGDECIMAL ||
+      type === dataTypeLabel.INT
+    );
+  };
+
   return (
     <>
       <div className={drawerOpen ? 'FilterData' : 'FilterData-drawer-open'}>
@@ -296,15 +310,12 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                             setOpen(Boolean(openCloseSnackbar));
                           }}
                         >
-                          {/* {console.log(row[`${item.name}`])}  */}
-                          {console.log(item)}
-
                           {`${
-                            item.type === dataTypeLabel.LIST ||
-                            item.type === dataTypeLabel.OBJECT ||
-                            item.type === dataTypeLabel.NON_NULL
+                            checkForListObjectandNonNull(item.type)
                               ? row[`${item.name}`] !== undefined
-                                ? row[`${item.name}`].id==undefined ?label.EMPTY:row[`${item.name}`].id
+                                ? row[`${item.name}`].id == undefined
+                                  ? label.EMPTY
+                                  : row[`${item.name}`].id
                                 : label.EMPTY
                               : Utility.getTimestampColumns(item.name)
                               ? row[`${item.name}`] !== undefined
@@ -312,11 +323,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                                     label.TIME_FORMAT
                                   )
                                 : label.EMPTY
-                              : item.typeName === dataTypeLabel.BIGINT ||
-                                item.typeName === dataTypeLabel.BIGDECIMAL ||
-                                item.typeName === dataTypeLabel.INT ||
-                                (item.typeName === undefined && //for integers in undefined
-                                  row[`${item.name}`] !== null) // for null Values so the data is not 'NAN'
+                              : checkForIntegers(item.typeName) ||
+                                (item.typeName === undefined && // checking if the data has type of undefined or not.
+                                  row[`${item.name}`] !== null) // checking if the data is null Or not,so that it won't get parsed into Int.
                               ? Utility.getIntUptoTwoDecimal(row, item.name)
                                 ? parseInt(row[`${item.name}`]).toFixed(2)
                                 : row[`${item.name}`] !== undefined
@@ -326,9 +335,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                               ? row[`${item.name}`]
                               : label.EMPTY
                           }`}
-                          {/* {
-                            row[`${item.name}`].length==0?"h":""
-                          } */}
                         </TableCell>
                       ))}
                     </TableRow>

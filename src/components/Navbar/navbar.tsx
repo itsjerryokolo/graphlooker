@@ -37,12 +37,6 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
                 ></img>
               )}
 
-               {/* <div className="social-icons">
-                
-                <div>
-                  <img className="beta-icon" src="/images/beta.png" alt="beta version" />
-                </div>
-              </div>  */}
               <div className="theme-icon" onClick={changetheme}>
                 {theme === label.LIGHT_THEME_LABEL ? <DarkModeIcon /> : <LightModeIcon />}
               </div>

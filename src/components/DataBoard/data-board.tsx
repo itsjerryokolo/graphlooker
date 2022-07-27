@@ -61,7 +61,7 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const [getAttributes, { error, loading, data }] = useLazyQuery(getAllAttributes(entity));
-  
+
   if (loading) {
     if (error) {
     }
@@ -73,13 +73,7 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
       if (queryData !== undefined) {
         for (let index = 0; index < queryData.length; ++index) {
           const element = queryData[index];
-     
-          // if (
-          //   !element.type?.ofType ||
-          //   element.type?.ofType?.kind === dataTypeLabel.LIST ||
-          //   element.type?.ofType?.kind === dataTypeLabel.NON_NULL
-          // )
-          //   continue;
+
           listOfattributes.push({
             name: element.name,
             type: element.type?.ofType?.kind,
@@ -87,7 +81,6 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
           });
         }
       }
-      // console.log(listOfattributes)
       if (listOfattributes.length > 0) {
         dispatch(setGraphAttributes(listOfattributes));
 
