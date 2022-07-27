@@ -105,7 +105,7 @@ export default class Constants {
       DOWNLOAD: 'Download to CSV',
       SORT_ASC: 'Sort Ascending',
       SORT_DESC: 'Sort Descending',
-      DESC_TITLE: 'Real-time Subgraph Explorer & Visualizer',
+      DESC_TITLE: "Enables subgraph developers and TheGraph users to browse subgraph data, download data to CSV, sort and filter data in real-time with just a few clicks",
       ENTITY_REFERENCE: 'This column is a reference of',
       NULL: 'null',
       DOUBLE_QUOTES: '"',
