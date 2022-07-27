@@ -61,7 +61,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
-
+  // console.log(parsed);
   const queryDataGlobalState = useSelector((state: QueryDataState) => state.queryState.query);
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -75,6 +75,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     if (parsed.id) {
       return getGraphDataForID(listOfattributes, selectedEntity, `${parsed.id}`);
     }
+    //  console.log(listOfFilters);
     //if only sorting fiilter is available
     if (listOfFilters && listOfFilters.length === 1 && sortFilter && sortFilter.length) {
       const skip = checkForPagination();
@@ -294,31 +295,41 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                             );
                             setOpen(Boolean(openCloseSnackbar));
                           }}
-                        >{`${
-                          item.type === dataTypeLabel.LIST ||
-                          item.type === dataTypeLabel.OBJECT ||
-                          item.type === dataTypeLabel.NON_NULL
-                            ? row[`${item.name}`] !== undefined
-                              ? row[`${item.name}`].id
-                              : label.EMPTY
-                            : Utility.getTimestampColumns(item.name)
-                            ? row[`${item.name}`] !== undefined
-                              ? moment(new Date(row[`${item.name}`] * 1000)).format(
-                                  label.TIME_FORMAT
-                                )
-                              : label.EMPTY
-                            : item.typeName === dataTypeLabel.BIGINT ||
-                              item.typeName === dataTypeLabel.BIGDECIMAL ||
-                              item.typeName === dataTypeLabel.INT
-                            ? Utility.getIntUptoTwoDecimal(row, item.name)
-                              ? parseInt(row[`${item.name}`]).toFixed(2)
+                        >
+                          {/* {console.log(row[`${item.name}`])}  */}
+                          {console.log(item)}
+
+                          {`${
+                            item.type === dataTypeLabel.LIST ||
+                            item.type === dataTypeLabel.OBJECT ||
+                            item.type === dataTypeLabel.NON_NULL
+                              ? row[`${item.name}`] !== undefined
+                                ? row[`${item.name}`].id==undefined ?label.EMPTY:row[`${item.name}`].id
+                                : label.EMPTY
+                              : Utility.getTimestampColumns(item.name)
+                              ? row[`${item.name}`] !== undefined
+                                ? moment(new Date(row[`${item.name}`] * 1000)).format(
+                                    label.TIME_FORMAT
+                                  )
+                                : label.EMPTY
+                              : item.typeName === dataTypeLabel.BIGINT ||
+                                item.typeName === dataTypeLabel.BIGDECIMAL ||
+                                item.typeName === dataTypeLabel.INT ||
+                                (item.typeName === undefined && //for integers in undefined
+                                  row[`${item.name}`] !== null) // for null Values so the data is not 'NAN'
+                              ? Utility.getIntUptoTwoDecimal(row, item.name)
+                                ? parseInt(row[`${item.name}`]).toFixed(2)
+                                : row[`${item.name}`] !== undefined
+                                ? row[`${item.name}`]
+                                : label.EMPTY
                               : row[`${item.name}`] !== undefined
                               ? row[`${item.name}`]
                               : label.EMPTY
-                            : row[`${item.name}`] !== undefined
-                            ? row[`${item.name}`]
-                            : label.EMPTY
-                        }`}</TableCell>
+                          }`}
+                          {/* {
+                            row[`${item.name}`].length==0?"h":""
+                          } */}
+                        </TableCell>
                       ))}
                     </TableRow>
                   ))
