@@ -211,7 +211,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     dispatch(setDataLoading(false));
   }
   // function to check that whether item's type is of List,Object Or Non-Null.
-  const checkForListObjectandNonNull = (type: string) => {
+  const isTypeListObjectandNonNull = (type: string) => {
     return (
       type === dataTypeLabel.LIST ||
       type === dataTypeLabel.OBJECT ||
@@ -219,7 +219,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     );
   };
   // function to check that whether item's type is of Integers.
-  const checkForIntegers = (type: string) => {
+  const isTypeIntegers = (type: string) => {
     return (
       type === dataTypeLabel.BIGINT ||
       type === dataTypeLabel.BIGDECIMAL ||
@@ -311,7 +311,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                           }}
                         >
                           {`${
-                            checkForListObjectandNonNull(item.type)
+                            isTypeListObjectandNonNull(item.type)
                               ? row[`${item.name}`] !== undefined
                                 ? row[`${item.name}`].id == undefined
                                   ? label.EMPTY
@@ -323,7 +323,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                                     label.TIME_FORMAT
                                   )
                                 : label.EMPTY
-                              : checkForIntegers(item.typeName) ||
+                              : isTypeIntegers(item.typeName) ||
                                 (item.typeName === undefined && // checking if the data has type of undefined or not.
                                   row[`${item.name}`] !== null) // checking if the data is null Or not,so that it won't get parsed into Int.
                               ? Utility.getIntUptoTwoDecimal(row, item.name)

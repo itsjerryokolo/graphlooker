@@ -61,7 +61,6 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const [getAttributes, { error, loading, data }] = useLazyQuery(getAllAttributes(entity));
-
   if (loading) {
     if (error) {
     }
