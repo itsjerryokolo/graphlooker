@@ -17,7 +17,10 @@
     justify-content: space-between;
     align-items: center;
     margin: 0 20px;
-
+    
+    img{
+      margin-bottom: 4px;   
+    }
     .theme-icon {
       border: var(--primaryBorderColor) solid 0.5px;
       padding: $size7;

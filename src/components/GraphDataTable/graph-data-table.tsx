@@ -314,7 +314,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                           {`${
                             isTypeListObjectandNonNull(item.type)
                               ? row[`${item.name}`] !== undefined
-                                ? !row[`${item.name}`].id === undefined
+                                ? !row[`${item.name}`].id 
                                   ? label.EMPTY
                                   : row[`${item.name}`].id
                                 : label.EMPTY
