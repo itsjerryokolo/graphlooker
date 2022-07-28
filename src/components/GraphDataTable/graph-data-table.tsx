@@ -314,7 +314,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                           {`${
                             isTypeListObjectandNonNull(item.type)
                               ? row[`${item.name}`] !== undefined
-                                ? !row[`${item.name}`].id 
+                                ? !row[`${item.name}`].id
                                   ? label.EMPTY
                                   : row[`${item.name}`].id
                                 : label.EMPTY
@@ -324,9 +324,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                                     label.TIME_FORMAT
                                   )
                                 : label.EMPTY
-                              : isTypeIntegers(item.typeName) ||
-                                (item.typeName === undefined && // checking if the data has type of undefined or not.
-                                  row[`${item.name}`] !== null) // checking if the data is null Or not,so that it won't get parsed into Int.
+                              : isTypeIntegers(item.typeName)
                               ? Utility.getIntUptoTwoDecimal(row, item.name)
                                 ? parseInt(row[`${item.name}`]).toFixed(2)
                                 : row[`${item.name}`] !== undefined
