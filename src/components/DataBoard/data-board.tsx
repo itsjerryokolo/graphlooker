@@ -44,7 +44,6 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
   drawerOpen,
 }) => {
   const label = Constants.LABELS.commonLables;
-  const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
 
   const selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   const dispatch = useDispatch();
@@ -72,12 +71,7 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
       if (queryData !== undefined) {
         for (let index = 0; index < queryData.length; ++index) {
           const element = queryData[index];
-          if (
-            !element.type?.ofType ||
-            element.type?.ofType?.kind === dataTypeLabel.LIST ||
-            element.type?.ofType?.kind === dataTypeLabel.NON_NULL
-          )
-            continue;
+
           listOfattributes.push({
             name: element.name,
             type: element.type?.ofType?.kind,
@@ -91,8 +85,6 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
         let myGlobalQuery: string = ` `;
 
         for (let item of listOfattributes) {
-          // myGlobalQuery += item.name
-
           if (item.name === 'id') {
             continue;
           }

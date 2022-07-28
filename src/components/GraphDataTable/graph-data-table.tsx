@@ -61,7 +61,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
-
   const queryDataGlobalState = useSelector((state: QueryDataState) => state.queryState.query);
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -212,6 +211,23 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   if (listOfattributes.length === 0) {
     dispatch(setDataLoading(false));
   }
+  // function to check that whether item's type is of List,Object Or Non-Null.
+  const isTypeListObjectandNonNull = (type: string) => {
+    return (
+      type === dataTypeLabel.LIST ||
+      type === dataTypeLabel.OBJECT ||
+      type === dataTypeLabel.NON_NULL
+    );
+  };
+  // function to check that whether item's type is of Integers.
+  const isTypeIntegers = (type: string) => {
+    return (
+      type === dataTypeLabel.BIGINT ||
+      type === dataTypeLabel.BIGDECIMAL ||
+      type === dataTypeLabel.INT
+    );
+  };
+
   return (
     <>
       <div className={drawerOpen ? 'FilterData' : 'FilterData-drawer-open'}>
@@ -294,31 +310,31 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                             );
                             setOpen(Boolean(openCloseSnackbar));
                           }}
-                        >{`${
-                          item.type === dataTypeLabel.LIST ||
-                          item.type === dataTypeLabel.OBJECT ||
-                          item.type === dataTypeLabel.NON_NULL
-                            ? row[`${item.name}`] !== undefined
-                              ? row[`${item.name}`].id
-                              : label.EMPTY
-                            : Utility.getTimestampColumns(item.name)
-                            ? row[`${item.name}`] !== undefined
-                              ? moment(new Date(row[`${item.name}`] * 1000)).format(
-                                  label.TIME_FORMAT
-                                )
-                              : label.EMPTY
-                            : item.typeName === dataTypeLabel.BIGINT ||
-                              item.typeName === dataTypeLabel.BIGDECIMAL ||
-                              item.typeName === dataTypeLabel.INT
-                            ? Utility.getIntUptoTwoDecimal(row, item.name)
-                              ? parseInt(row[`${item.name}`]).toFixed(2)
+                        >
+                          {`${
+                            isTypeListObjectandNonNull(item.type)
+                              ? row[`${item.name}`] !== undefined
+                                ? !row[`${item.name}`].id
+                                  ? label.EMPTY
+                                  : row[`${item.name}`].id
+                                : label.EMPTY
+                              : Utility.getTimestampColumns(item.name)
+                              ? row[`${item.name}`] !== undefined
+                                ? moment(new Date(row[`${item.name}`] * 1000)).format(
+                                    label.TIME_FORMAT
+                                  )
+                                : label.EMPTY
+                              : isTypeIntegers(item.typeName)
+                              ? Utility.getIntUptoTwoDecimal(row, item.name)
+                                ? parseInt(row[`${item.name}`]).toFixed(2)
+                                : row[`${item.name}`] !== undefined
+                                ? row[`${item.name}`]
+                                : label.EMPTY
                               : row[`${item.name}`] !== undefined
                               ? row[`${item.name}`]
                               : label.EMPTY
-                            : row[`${item.name}`] !== undefined
-                            ? row[`${item.name}`]
-                            : label.EMPTY
-                        }`}</TableCell>
+                          }`}
+                        </TableCell>
                       ))}
                     </TableRow>
                   ))

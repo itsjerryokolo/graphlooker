@@ -17,7 +17,10 @@
     justify-content: space-between;
     align-items: center;
     margin: 0 20px;
-
+    
+    img{
+      margin-bottom: 4px;   
+    }
     .theme-icon {
       border: var(--primaryBorderColor) solid 0.5px;
       padding: $size7;
@@ -44,13 +47,7 @@
     box-sizing: border-box;
     padding: $size7;
     margin-bottom: 25px;
-    .beta-icon {
-      height: $size20;
-      width: $size22;
-      margin-left: $size10;
-      margin-right: $size10;
-      margin-top: -5px;
-    }
+
     .icon {
       width: 33px;
       height: 33px;
