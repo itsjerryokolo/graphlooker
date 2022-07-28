@@ -44,7 +44,6 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
   drawerOpen,
 }) => {
   const label = Constants.LABELS.commonLables;
-  const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
 
   const selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   const dispatch = useDispatch();
@@ -86,8 +85,6 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
         let myGlobalQuery: string = ` `;
 
         for (let item of listOfattributes) {
-          // myGlobalQuery += item.name
-
           if (item.name === 'id') {
             continue;
           }

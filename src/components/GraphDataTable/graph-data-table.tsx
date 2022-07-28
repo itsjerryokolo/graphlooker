@@ -74,6 +74,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     if (parsed.id) {
       return getGraphDataForID(listOfattributes, selectedEntity, `${parsed.id}`);
     }
+    //if only sorting fiilter is available
     if (listOfFilters && listOfFilters.length === 1 && sortFilter && sortFilter.length) {
       const skip = checkForPagination();
       return getSortedDataQuery(
@@ -313,7 +314,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                           {`${
                             isTypeListObjectandNonNull(item.type)
                               ? row[`${item.name}`] !== undefined
-                                ? row[`${item.name}`].id == undefined
+                                ? !row[`${item.name}`].id === undefined
                                   ? label.EMPTY
                                   : row[`${item.name}`].id
                                 : label.EMPTY
