@@ -113,7 +113,7 @@ export default class Constants {
       DOWNLOADING: 'Downloading...',
       AND: 'and',
       UNDERSCORE_IS: '_is',
-      BUILT_WITH: 'Funded by',
+      BUILT_WITH: 'Backed by',
       GRAPH_PROTOCOL: 'Graph Protocol',
       COPYRIGHT: '© 2022 made with ❤️ by',
       DAPPLOOKER: 'DappLooker',
