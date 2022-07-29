@@ -33,6 +33,7 @@ import ErrorMessage from '../ErrorMessage/error-message';
 import { LoadingState, ThemeState } from '../../utility/redux/state';
 import Footer from '../Footer/Footer';
 import { noCase } from 'change-case';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -242,6 +243,13 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               {graphName}
               {subgraphNetworkName ? `(${subgraphNetworkName})` : ''}
             </h2>
+
+            <div className="document-icons">
+              <a href={Constants.URL.GRAPHLOOKER} target="_blank" rel="noreferrer">
+                <FileCopyIcon />
+                <span>Read </span> Docs
+              </a>
+            </div>
 
             <Tooltip title={label.SWITCH_THEME}>
               <div className="theme-icon" onClick={changetheme}>
