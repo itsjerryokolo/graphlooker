@@ -164,12 +164,11 @@
     display: flex;
     font-weight: 700;
     line-height: 23px;
-   
   }
 
   span {
-    margin-left: 7px;
-    padding-right: 5px;
+    margin-left: $size7;
+    padding-right: $size5;
   }
   svg {
     height: 25px;
