@@ -18,24 +18,24 @@ const ListItem: React.FunctionComponent<ListItemProps & RouteComponentProps<any>
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
   const urlLabels = Constants.LABELS.commonUrls;
-  const handleEntityChange = (entity: string) => {
+  const handleEntityChange = (entity: any, entityForDataQuery: string) => {
     const URI = encodeURIComponent(endpoint);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&efd=${entityForDataQuery}`;
   };
   return (
     <React.Fragment>
       <div style={{ textDecoration: 'none' }} className="links">
         <ListItemButton
           className={
-            selectedEntity === entity
+            selectedEntity === entity.entity
               ? `list-item-selected selected-background`
               : `list-item margin-halfrem`
           }
-          onClick={() => handleEntityChange(entity)}
+          onClick={() => handleEntityChange(entity.entity, entity.entityForDataQuery)}
         >
           <TableChartIcon className="entity-logo"></TableChartIcon>
           <div style={{ display: 'flex', alignItems: 'center' }} className="entity-name">
-            <ListItemText className="list-item-text" primary={entity} />
+            <ListItemText className="list-item-text" primary={entity.entity} />
           </div>
         </ListItemButton>
         <Divider sx={{ borderBottomWidth: 0.01 }} color="#00A1FF" />

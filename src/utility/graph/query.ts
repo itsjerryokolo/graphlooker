@@ -32,6 +32,9 @@ export const getAllEntities = gql`
       queryType {
         fields {
           name
+          type {
+            name
+          }
         }
       }
     }
@@ -47,6 +50,7 @@ export const getAllAttributes = (entity: string) => {
           fields{
             name
             type{
+              name
               ofType{
                 name
                 kind
@@ -213,7 +217,8 @@ export const getDataQuery = (
   whereId: any,
   errorMsg: string
 ) => {
-  const selectedEntity = Utility.makePluralChanges(entity);
+  // const selectedEntity = Utility.makePluralChanges(entity).toLocaleLowerCase();
+  const selectedEntity = entity;
   let orderByColumnName = 'id';
   orderByColumnName = Utility.getColumnNameForOptimizeQuery(columnNames);
 

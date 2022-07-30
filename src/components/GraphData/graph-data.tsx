@@ -132,7 +132,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
     }
   }, [dispatch, networkName]);
 
-  let allEntities: string[];
+  let allEntities = [];
   allEntities = [];
   if (loading) {
     if (error) {
@@ -144,8 +144,12 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
       const queryData = data.__schema.queryType.fields;
       for (let index = 0; index < queryData.length; ++index) {
         const element = queryData[index];
+
         if (index % 2 === 0) {
-          allEntities.push(element.name);
+          allEntities.push({
+            entity: element.type.name,
+            entityForDataQuery: queryData[index + 1]?.name,
+          });
         }
       }
       allEntities.pop();
@@ -166,7 +170,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
         aria-labelledby="nested-list-subheader"
       >
         {allEntities.map((item, index) => (
-          <ListItem key={index} entity={noCase(item)}></ListItem>
+          <ListItem key={index} entity={item}></ListItem>
         ))}
       </List>
     </div>

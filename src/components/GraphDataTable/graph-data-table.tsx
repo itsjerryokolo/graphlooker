@@ -109,7 +109,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
       const skip = 100 * (pageNumber - 1);
       return getDataQuery(
         listOfattributes,
-        selectedEntity,
+        `${parsed.efd}`,
         100,
         skip,
         queryDataGlobalState,
@@ -117,7 +117,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         error
       );
     }
-    return getDataQuery(listOfattributes, selectedEntity, 100, 0, queryDataGlobalState, '', error);
+    return getDataQuery(listOfattributes, `${parsed.efd}`, 100, 0, queryDataGlobalState, '', error);
   };
   useEffect(() => {
     getBoardData();

@@ -50,9 +50,7 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
   const dispatch = useDispatch();
   let listOfattributes: { name: string; type: string; typeName: string }[];
   listOfattributes = [];
-  const entity = selectedEntity
-    ? selectedEntity.charAt(0).toUpperCase() + selectedEntity.slice(1)
-    : label.EMPTY;
+  const entity = selectedEntity ? selectedEntity : label.EMPTY;
 
   const parsed = queryString.parse(window.location.search);
 
