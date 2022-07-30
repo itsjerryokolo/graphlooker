@@ -6,6 +6,7 @@ import Constants from '../../utility/constant';
 import { Alert, Button } from '@mui/material';
 import MailIcon from '@mui/icons-material/Mail';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { useState } from 'react';
 
 const errorLabels = Constants.LABELS.errorComponenet;
 const mailAddress = Constants.CONTACT.EMAIL;
@@ -14,13 +15,14 @@ const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
   errorMessage,
   endpoint,
   type,
+
 }) => {
+  const [copyURLText, setcopyURLText] = useState(errorLabels.copyURL);
   let customMessage: string = customMessages(errorMessage, endpoint);
 
-  const copyURL=()=>{
-
-    navigator.clipboard.writeText(window.location.href);
-    
+  const copyURL = ()=>{
+     navigator.clipboard.writeText(window.location.href);
+    setcopyURLText(errorLabels.copiedURL);
   }
 
   return (
@@ -47,7 +49,7 @@ const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
             </a>
           </Button>
           <Button onClick={copyURL} variant="contained" endIcon={<ContentCopyIcon/>}>
-        Copy the URL
+        {copyURLText}
          </Button>
          </div>
         </div>

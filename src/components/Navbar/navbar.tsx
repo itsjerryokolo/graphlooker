@@ -37,12 +37,15 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
                   alt="GraphLooker-icon"
                 ></img>
               )}
-               <div className="document-icons">
+              <div className="docs-container">
               <a href={Constants.URL.GRAPHLOOKER} target="_blank" rel="noreferrer">
-            
-             <FileCopyIcon/>
-              <span>Read  </span>  Docs
-            </a>
+                <button type="button" className="button">
+                  <span className="button__text">{label.DOCS}</span>
+                  <span className="button__icon">
+                    <FileCopyIcon></FileCopyIcon>
+                  </span>
+                </button>
+                </a>
               </div>
               <div className="theme-icon" onClick={changetheme}>
                 {theme === label.LIGHT_THEME_LABEL ? <DarkModeIcon /> : <LightModeIcon />}

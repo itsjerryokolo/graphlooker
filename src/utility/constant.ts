@@ -122,6 +122,29 @@ export default class Constants {
       GRAPH_HEADING: 'SUBGRAPH STUDIO',
       MY_THEME: 'mytheme',
       BUTTON_TEXT_FOR_EMAIL: 'INFORM US',
+      DOCS: 'DOCS',
+      recentSubgraphs: [
+        {
+          NAME: 'Uniswap V3',
+          LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Funiswap%2Funiswap-v3&e=factory',
+        },
+        {
+          NAME: 'Livepeer',
+          LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Flivepeer%2Flivepeer&e=protocol',
+        },
+        {
+          NAME: 'Decentraland',
+          LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fdecentraland%2Fmarketplace&e=count',
+        },
+        {
+          NAME: 'Aave Gotchi',
+          LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Faavegotchi%2Faavegotchi-lending&e=aavegotchiOption',
+        },
+        {
+          NAME: 'Compound',
+          LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fmessari%2Fcompound-ethereum-extended&e=token',
+        },
+      ],
     },
     commonUrls: {
       BASE_URL:
@@ -138,6 +161,8 @@ export default class Constants {
     },
     errorComponenet: {
       queryFailedMsg: 'Unexpected error encountered. Please try again after sometime.',
+      copyURL: 'Copy URL',
+      copiedURL: 'Copied!',
     },
     imagePaths: {
       FIREWORKS: '/images/firework-outline.gif',
