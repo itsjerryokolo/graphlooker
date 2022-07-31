@@ -140,13 +140,13 @@ export default class Timestamp {
     let secondUnixTime = moment(date[1]).endOf('day').unix();
     generatedUnixTime.push(String(secondUnixTime));
     const URI = encodeURIComponent(endpoint);
-    const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
+    // const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
     let filtersInStringify = Utility.getAllFilters(
       Constants.LABELS.filterTypes.GREATERTHAN_AND_LESSTHAN,
       columnName,
       generatedUnixTime,
       listOFFiltersInStringify
     );
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 }

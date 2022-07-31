@@ -109,7 +109,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
       const skip = 100 * (pageNumber - 1);
       return getDataQuery(
         listOfattributes,
-        `${parsed.efd}`,
+        selectedEntity,
         100,
         skip,
         queryDataGlobalState,
@@ -117,7 +117,73 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         error
       );
     }
-    return getDataQuery(listOfattributes, `${parsed.efd}`, 100, 0, queryDataGlobalState, '', error);
+    return getDataQuery(listOfattributes, selectedEntity, 100, 0, queryDataGlobalState, '', error);
+  };
+
+  const showValuesBasedOnType = (row: any, item: any) => {
+    // item.type === dataTypeLabel.LIST ||
+    // item.type === dataTypeLabel.OBJECT ||
+    // item.type === dataTypeLabel.NON_NULL
+    //   ? row[`${item.name}`] !== undefined
+    //     ? row[`${item.name}`]?.id
+    //     : label.EMPTY
+    //   : Utility.getTimestampColumns(item.name)
+    //   ? row[`${item.name}`] !== undefined
+    //     ? moment(new Date(row[`${item.name}`] * 1000)).format(label.TIME_FORMAT)
+    //     : label.EMPTY
+    // : item.typeName === dataTypeLabel.BIGINT ||
+    //   item.typeName === dataTypeLabel.BIGDECIMAL ||
+    //   item.typeName === dataTypeLabel.INT
+    // ? Utility.getIntUptoTwoDecimal(row, item.name)
+    //   ? parseInt(row[`${item.name}`]).toFixed(2)
+    //   : row[`${item.name}`] !== undefined
+    //   ? row[`${item.name}`]
+    //   : label.EMPTY
+    // : row[`${item.name}`] !== undefined
+    // ? row[`${item.name}`]
+    // : label.EMPTY;
+
+    if (
+      item.type === dataTypeLabel.LIST ||
+      item.type === dataTypeLabel.OBJECT ||
+      item.type === dataTypeLabel.NON_NULL
+    ) {
+      if (row[`${item.name}`] !== undefined) {
+        if (row[`${item.name}`] && Array.isArray(row[`${item.name}`])) {
+          return JSON.stringify(row[`${item.name}`]);
+        } else {
+          return row[`${item.name}`]?.id;
+        }
+      } else {
+        return label.EMPTY;
+      }
+    } else if (Utility.getTimestampColumns(item.name)) {
+      if (row[`${item.name}`] !== undefined) {
+        return moment(new Date(row[`${item.name}`] * 1000)).format(label.TIME_FORMAT);
+      } else {
+        return label.EMPTY;
+      }
+    } else if (
+      item.typeName === dataTypeLabel.BIGINT ||
+      item.typeName === dataTypeLabel.BIGDECIMAL ||
+      item.typeName === dataTypeLabel.INT
+    ) {
+      if (Utility.getIntUptoTwoDecimal(row, item.name)) {
+        return parseInt(row[`${item.name}`]).toFixed(2);
+      } else {
+        if (row[`${item.name}`] !== undefined) {
+          return row[`${item.name}`];
+        } else {
+          return label.EMPTY;
+        }
+      }
+    } else {
+      if (row[`${item.name}`] !== undefined) {
+        return row[`${item.name}`];
+      } else {
+        return label.EMPTY;
+      }
+    }
   };
   useEffect(() => {
     getBoardData();
@@ -285,6 +351,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                           onClick={() => {
                             let openCloseSnackbar = Utility.verifyAddress(
                               item.typeName,
+                              `${parsed.efd}`,
                               row,
                               item.name,
                               item.type,
@@ -294,31 +361,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                             );
                             setOpen(Boolean(openCloseSnackbar));
                           }}
-                        >{`${
-                          item.type === dataTypeLabel.LIST ||
-                          item.type === dataTypeLabel.OBJECT ||
-                          item.type === dataTypeLabel.NON_NULL
-                            ? row[`${item.name}`] !== undefined
-                              ? row[`${item.name}`].id
-                              : label.EMPTY
-                            : Utility.getTimestampColumns(item.name)
-                            ? row[`${item.name}`] !== undefined
-                              ? moment(new Date(row[`${item.name}`] * 1000)).format(
-                                  label.TIME_FORMAT
-                                )
-                              : label.EMPTY
-                            : item.typeName === dataTypeLabel.BIGINT ||
-                              item.typeName === dataTypeLabel.BIGDECIMAL ||
-                              item.typeName === dataTypeLabel.INT
-                            ? Utility.getIntUptoTwoDecimal(row, item.name)
-                              ? parseInt(row[`${item.name}`]).toFixed(2)
-                              : row[`${item.name}`] !== undefined
-                              ? row[`${item.name}`]
-                              : label.EMPTY
-                            : row[`${item.name}`] !== undefined
-                            ? row[`${item.name}`]
-                            : label.EMPTY
-                        }`}</TableCell>
+                        >{`${showValuesBasedOnType(row, item)}`}</TableCell>
                       ))}
                     </TableRow>
                   ))

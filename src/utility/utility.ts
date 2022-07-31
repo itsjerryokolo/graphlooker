@@ -69,6 +69,7 @@ export default class Utility {
 
   public static verifyAddress = (
     typename: string,
+    entityForData: string,
     row: any,
     columnName: string,
     columnType: string,
@@ -81,7 +82,7 @@ export default class Utility {
     let verifyTxHash = Boolean(regex.TXHASH_REGEX.test(inputValue));
 
     if (columnType === dataTypeLabel.OBJECT) {
-      Utility.checkAttributeIsEntity(typename, inputValue.id, endpoint, theme);
+      Utility.checkAttributeIsEntity(typename, entityForData, inputValue.id, endpoint, theme);
     } else if (columnName === columnLabels.ID) {
       let splitNumber = inputValue.split('-');
       let addressFound = '';
@@ -241,13 +242,15 @@ export default class Utility {
 
   public static checkAttributeIsEntity = (
     entity: string,
+    entityForData: string,
     id: string,
     endpoint: string,
     theme: any
   ) => {
     const URI = encodeURIComponent(endpoint);
-    const selectedEntity = entity && entity.charAt(0).toLowerCase() + entity.slice(1);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&id=${id}`;
+    let selectedEntity = entity && entity.charAt(0).toLowerCase() + entity.slice(1); //To-D0: No need of this varible after adding entity ofr data(efd)
+    selectedEntity = Utility.makePluralChanges(selectedEntity);
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&id=${id}&efd=${selectedEntity}`;
   };
 
   /*
