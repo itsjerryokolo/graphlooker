@@ -71,7 +71,7 @@
 .subgraph-link-container{
   display: flex;
   margin: auto;
-  width: 920px;
+  width: 930px;
   margin-top: -180px;
 }
 .subgraph-link ul li{
@@ -87,6 +87,7 @@
     transition: 1s all ease-in-out;
   }
   li { 
+    padding-top: 5px;
     display: table-cell; 
     position: relative;
   }

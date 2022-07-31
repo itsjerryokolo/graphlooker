@@ -184,7 +184,7 @@ export const getStringFilterGraphData = (
 
   return gql`
       query {
-        entity: ${selectedEntity}(first:${count}, skip:${skip},${sortQuery},where: {${filterQuery}, id_g:"${whereId}"}){
+        entity: ${selectedEntity}(first:${count}, skip:${skip},${sortQuery},where: {${filterQuery}, id_gt:"${whereId}"}){
           id      
           ${queryData}
           }

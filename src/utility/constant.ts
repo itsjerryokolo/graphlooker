@@ -141,7 +141,7 @@ export default class Constants {
           LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Faavegotchi%2Faavegotchi-lending&e=aavegotchiOption',
         },
         {
-          NAME: 'Compound',
+          NAME: 'Compound V2',
           LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fmessari%2Fcompound-ethereum-extended&e=token',
         },
       ],
@@ -267,6 +267,7 @@ export default class Constants {
   };
   public static CONTACT = {
     EMAIL: 'help@dapplooker.com',
+    DAPPLOOKER_EMAIL_LINK: 'https://t.me/dapplooker',
   };
   public static MAIL_FORMAT = {
     MAIL_GREETING: 'Hi DappLooker Team,',
