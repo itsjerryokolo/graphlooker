@@ -119,7 +119,13 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     }
     return getDataQuery(listOfattributes, selectedEntity, 100, 0, queryDataGlobalState, '', error);
   };
-
+  const checkForEllipsis=(data:any)=>{
+    if(data.length >60){
+      return data.substring(0,60)+'....';
+    }
+    return data;
+    
+  }
   const showValuesBasedOnType = (row: any, item: any) => {
     // item.type === dataTypeLabel.LIST ||
     // item.type === dataTypeLabel.OBJECT ||
@@ -184,7 +190,8 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         columnData = label.EMPTY;
       }
     }
-    return columnData; //TO-DO: add elipses logic here
+    
+    return checkForEllipsis(columnData); //TO-DO: add elipses logic here
   };
   useEffect(() => {
     getBoardData();
@@ -362,7 +369,10 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                             );
                             setOpen(Boolean(openCloseSnackbar));
                           }}
-                        >{`${showValuesBasedOnType(row, item)}`}</TableCell> //TO-DO: show tooltip and copy logic
+                           
+                        >
+                          {console.log(row)}
+                          {`${showValuesBasedOnType(row, item)}`}</TableCell> //TO-DO: show tooltip and copy logic
                       ))}
                     </TableRow>
                   ))
