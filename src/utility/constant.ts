@@ -266,15 +266,4 @@ export default class Constants {
   public static LENGTH_OF_STRING = {
     VALUE: 21,
   };
-  public static CONTACT = {
-    EMAIL: 'help@dapplooker.com',
-    DAPPLOOKER_EMAIL_LINK: 'https://t.me/dapplooker',
-  };
-  public static MAIL_FORMAT = {
-    MAIL_GREETING: 'Hi DappLooker Team,',
-    MAIL_BODY:
-      'There is an issue with following subgraph data with GraphLooker. Can you please help to resolve ?',
-    MAIL_SUBJECT: 'This Query has been failed !',
-    MAIL_ENDING_MESSAGE: 'Thanks !',
-  };
 }

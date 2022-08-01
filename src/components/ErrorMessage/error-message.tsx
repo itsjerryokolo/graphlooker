@@ -38,7 +38,7 @@ const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
             <a
               id="email-sender-link"
               href={
-                Constants.CONTACT.DAPPLOOKER_EMAIL_LINK
+                Constants.URL.TELEGRAM
               }
               target="_blank"
               rel="noreferrer"
