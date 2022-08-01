@@ -11,6 +11,7 @@ import Constants from '../../utility/constant';
 import { ThemeState } from '../../utility/redux/state';
 import Footer from '../Footer/Footer';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { Tooltip } from '@mui/material';
 
 const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) => {
   const commonLables = Constants.LABELS.commonLables;
@@ -88,8 +89,22 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
                 {commonLables.EXPLORE}
               </button>
 
-              <p className="explore-msg">{Constants.LABELS.commonLables.DESC_TITLE}</p>
-              <InfoOutlinedIcon />
+              <p className="explore-msg">
+                {Constants.LABELS.commonLables.DESC_TITLE}
+                <span>
+                  <Tooltip
+                    placement="right"
+                    title={
+                      <h3 style={{ fontSize: '14px', color: '#fffff' }}>
+                        {commonLables.DOCS_INFO_REF}
+                      </h3>
+                    }
+                    arrow
+                  >
+                    <InfoOutlinedIcon />
+                  </Tooltip>
+                </span>
+              </p>
 
               {isError && endpoint.length > 0 ? (
                 <ErrorMessage

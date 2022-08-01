@@ -128,6 +128,8 @@ export default class Constants {
       MY_THEME: 'mytheme',
       BUTTON_TEXT_FOR_EMAIL: 'INFORM US',
       DOCS: 'DOCS',
+      DOCS_INFO_REF:
+        'First time using GraphLooker? Click Docs to learn how to export subgraph data',
       recentSubgraphs: [
         {
           NAME: 'Uniswap V3',
