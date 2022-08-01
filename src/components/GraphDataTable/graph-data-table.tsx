@@ -118,7 +118,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     return getDataQuery(listOfattributes, selectedEntity, 100, 0, queryDataGlobalState, '', error);
   };
   const checkForEllipsis = (data: any) => {
-    if (data.length > 60) {
+    if (data?.length > 60) {
       return data.substring(0, 60) + '...';
     }
     return data;
