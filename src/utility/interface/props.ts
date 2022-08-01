@@ -4,7 +4,7 @@ export interface ErrorMassageProps {
   type: string;
 }
 export interface ListItemProps {
-  entity: string;
+  entity: { entity: string; entityForDataQuery: string };
 }
 export interface DataBoardProps {
   drawerOpen: boolean;
