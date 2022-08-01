@@ -2,7 +2,6 @@ import React from 'react';
 import './footer.scss';
 import { ReactComponent as DiscordSVG } from '../../svg/discord.svg';
 import { ReactComponent as TwitterSVG } from '../../svg/twitter.svg';
-import { ReactComponent as DocumentationSVG } from '../../svg/documentation.svg';
 import { ReactComponent as TelegramSVG } from '../../svg/telegram.svg';
 import { ReactComponent as GithubSVG } from '../../svg/github.svg';
 import { ReactComponent as GraphProtocolSVG } from '../../svg/graph-protocol.svg';

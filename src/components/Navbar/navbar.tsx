@@ -9,7 +9,6 @@ import { ThemeState } from './../../utility/redux/state';
 import './navbar.scss';
 import { toggleTheme } from '../../redux/actions/theme-action';
 import Constants from '../../utility/constant';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
 
 const Navbar: React.FunctionComponent<{}> = (props) => {
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
@@ -38,10 +37,10 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
                 ></img>
               )}
               <div className="docs-container">
-              <a href={Constants.URL.GRAPHLOOKER} target="_blank" rel="noreferrer">
-                <button type="button" className="button">
-                  <span className="button__text">{label.DOCS}</span>
-                </button>
+                <a href={Constants.URL.GRAPHLOOKER} target="_blank" rel="noreferrer">
+                  <button type="button" className="button">
+                    <span className="button__text">{label.DOCS}</span>
+                  </button>
                 </a>
               </div>
               <div className="theme-icon" onClick={changetheme}>

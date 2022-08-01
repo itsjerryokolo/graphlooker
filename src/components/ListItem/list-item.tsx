@@ -9,7 +9,6 @@ import TableChartIcon from '@mui/icons-material/TableChart';
 import { EndpointState, EntityState } from '../../utility/redux/state';
 import Constants from '../../utility/constant';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { noCase } from 'change-case';
 
 const ListItem: React.FunctionComponent<ListItemProps & RouteComponentProps<any>> = ({
   entity,
