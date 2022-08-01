@@ -127,27 +127,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     return data;
   };
   const showValuesBasedOnType = (row: any, item: any) => {
-    // item.type === dataTypeLabel.LIST ||
-    // item.type === dataTypeLabel.OBJECT ||
-    // item.type === dataTypeLabel.NON_NULL
-    //   ? row[`${item.name}`] !== undefined
-    //     ? row[`${item.name}`]?.id
-    //     : label.EMPTY
-    //   : Utility.getTimestampColumns(item.name)
-    //   ? row[`${item.name}`] !== undefined
-    //     ? moment(new Date(row[`${item.name}`] * 1000)).format(label.TIME_FORMAT)
-    //     : label.EMPTY
-    // : item.typeName === dataTypeLabel.BIGINT ||
-    //   item.typeName === dataTypeLabel.BIGDECIMAL ||
-    //   item.typeName === dataTypeLabel.INT
-    // ? Utility.getIntUptoTwoDecimal(row, item.name)
-    //   ? parseInt(row[`${item.name}`]).toFixed(2)
-    //   : row[`${item.name}`] !== undefined
-    //   ? row[`${item.name}`]
-    //   : label.EMPTY
-    // : row[`${item.name}`] !== undefined
-    // ? row[`${item.name}`]
-    // : label.EMPTY;
+ 
     let columnData;
     if (
       item.type === dataTypeLabel.LIST ||
@@ -192,7 +172,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     }
    
     return { displayValue: checkForEllipsis(columnData), TooltipDisplayValue: columnData }; 
-    // return columnData;
+ 
   };
   useEffect(() => {
     getBoardData();
