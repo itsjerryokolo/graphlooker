@@ -69,6 +69,7 @@ export default class Constants {
       'updatedAt',
       '_timeStamp',
       'endTime',
+      'lastUpdateTimestamp',
     ],
   };
 

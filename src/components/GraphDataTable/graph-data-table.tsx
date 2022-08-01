@@ -142,7 +142,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     // : row[`${item.name}`] !== undefined
     // ? row[`${item.name}`]
     // : label.EMPTY;
-
+    let columnData;
     if (
       item.type === dataTypeLabel.LIST ||
       item.type === dataTypeLabel.OBJECT ||
@@ -150,40 +150,41 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     ) {
       if (row[`${item.name}`] !== undefined) {
         if (row[`${item.name}`] && Array.isArray(row[`${item.name}`])) {
-          return JSON.stringify(row[`${item.name}`]);
+          columnData = JSON.stringify(row[`${item.name}`]);
         } else {
-          return row[`${item.name}`]?.id;
+          columnData = row[`${item.name}`]?.id;
         }
       } else {
-        return label.EMPTY;
+        columnData = label.EMPTY;
       }
     } else if (Utility.getTimestampColumns(item.name)) {
       if (row[`${item.name}`] !== undefined) {
-        return moment(new Date(row[`${item.name}`] * 1000)).format(label.TIME_FORMAT);
+        columnData = moment(new Date(row[`${item.name}`] * 1000)).format(label.TIME_FORMAT);
       } else {
-        return label.EMPTY;
+        columnData = label.EMPTY;
       }
     } else if (
       item.typeName === dataTypeLabel.BIGINT ||
       item.typeName === dataTypeLabel.BIGDECIMAL ||
       item.typeName === dataTypeLabel.INT
     ) {
-      if (Utility.getIntUptoTwoDecimal(row, item.name)) {
-        return parseInt(row[`${item.name}`]).toFixed(2);
+      if (row[`${item.name}`] && Utility.getIntUptoTwoDecimal(row, item.name)) {
+        columnData = parseInt(row[`${item.name}`]).toFixed(2);
       } else {
         if (row[`${item.name}`] !== undefined) {
-          return row[`${item.name}`];
+          columnData = row[`${item.name}`];
         } else {
-          return label.EMPTY;
+          columnData = label.EMPTY;
         }
       }
     } else {
       if (row[`${item.name}`] !== undefined) {
-        return row[`${item.name}`];
+        columnData = row[`${item.name}`];
       } else {
-        return label.EMPTY;
+        columnData = label.EMPTY;
       }
     }
+    return columnData; //TO-DO: add elipses logic here
   };
   useEffect(() => {
     getBoardData();
@@ -361,7 +362,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                             );
                             setOpen(Boolean(openCloseSnackbar));
                           }}
-                        >{`${showValuesBasedOnType(row, item)}`}</TableCell>
+                        >{`${showValuesBasedOnType(row, item)}`}</TableCell> //TO-DO: show tooltip and copy logic
                       ))}
                     </TableRow>
                   ))

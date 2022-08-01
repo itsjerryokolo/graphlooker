@@ -280,7 +280,8 @@ export const getSortedDataQuery = (
   whereId: string,
   errorMsg: string
 ) => {
-  const selectedEntity = Utility.makePluralChanges(entity);
+  let selectedEntity = entity && entity.charAt(0).toLowerCase() + entity.slice(1); //To-D0: No need of this varible after adding entity ofr data(efd)
+  selectedEntity = Utility.makePluralChanges(selectedEntity);
 
   let queryData = ` `;
   for (let index = 0; index < columnNames.length; ++index) {

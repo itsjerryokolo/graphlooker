@@ -80,7 +80,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
 
     return getDataQuery(
       listOfattributes,
-      `${parsed.efd}`,
+      selectedEntity,
       1000,
       0,
       queryDataGlobalState,
