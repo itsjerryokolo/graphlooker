@@ -119,9 +119,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   };
   const checkForEllipsis = (data: any) => {
     if (data?.length > 60) {
-      return data.substring(0, 60) + '...';
+      return { data: data.substring(0, 60) + '...', isTooltipNeeded: true };
     }
-    return data;
+    return { data: data, isTooltipNeeded: false };
   };
   const showValuesBasedOnType = (row: any, item: any) => {
     let columnData;
@@ -166,8 +166,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         columnData = label.EMPTY;
       }
     }
+    let formattedData=checkForEllipsis(columnData);
 
-    return { displayValue: checkForEllipsis(columnData), TooltipDisplayValue: columnData };
+    return { displayValue: formattedData.data,isTooltipNeeded:formattedData.isTooltipNeeded, TooltipDisplayValue: columnData };
   };
   useEffect(() => {
     getBoardData();
@@ -325,7 +326,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                       {listOfattributes.map((item, key) => (
                         <Tooltip
                           title={
-                            Array.isArray(row[`${item.name}`])
+                            showValuesBasedOnType(row, item).isTooltipNeeded
                               ? `${showValuesBasedOnType(row, item).TooltipDisplayValue}`
                               : label.EMPTY
                           }

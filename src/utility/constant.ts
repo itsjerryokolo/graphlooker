@@ -69,6 +69,8 @@ export default class Constants {
       'updatedAt',
       '_timeStamp',
       'endTime',
+      'registrationDate',
+      'expiryDate',
       'lastUpdateTimestamp',
     ],
   };
@@ -77,8 +79,6 @@ export default class Constants {
     commonLables: {
       TITLE: 'GraphLooker - Real-time Subgraph Explorer & Visualizer',
       FILTER_BY_COL: 'Filter by column',
-      SORT_ASC_BY_ALPHABETICAL: 'A-Z',
-      SORT_DESC_BY_ALPHABETICAL: 'Z-A',
       ASC: 'asc',
       DESC: 'desc',
       IS: 'Is',
@@ -122,6 +122,30 @@ export default class Constants {
       NULL_VALUE: 'Null value resolved',
       GRAPH_HEADING: 'SUBGRAPH STUDIO',
       MY_THEME: 'mytheme',
+      BUTTON_TEXT_FOR_EMAIL: 'INFORM US',
+      DOCS: 'DOCS',
+      recentSubgraphs: [
+        {
+          NAME: 'Uniswap V3',
+          LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Funiswap%2Funiswap-v3&e=factory',
+        },
+        {
+          NAME: 'Livepeer',
+          LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Flivepeer%2Flivepeer&e=protocol',
+        },
+        {
+          NAME: 'Decentraland',
+          LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fdecentraland%2Fmarketplace&e=count',
+        },
+        {
+          NAME: 'Aave Gotchi',
+          LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Faavegotchi%2Faavegotchi-lending&e=aavegotchiOption',
+        },
+        {
+          NAME: 'Compound V2',
+          LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fmessari%2Fcompound-ethereum-extended&e=token',
+        },
+      ],
     },
     commonUrls: {
       BASE_URL:
@@ -138,6 +162,8 @@ export default class Constants {
     },
     errorComponenet: {
       queryFailedMsg: 'Unexpected error encountered. Please try again after sometime.',
+      copyURL: 'Copy URL',
+      copiedURL: 'Copied!',
     },
     imagePaths: {
       FIREWORKS: '/images/firework-outline.gif',

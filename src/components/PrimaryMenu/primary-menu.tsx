@@ -49,13 +49,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
       parsed.filterObj
     )}`);
   };
-  const isTypeString = () => {
-    return (
-      attributeDataType === filterLabels.INT ||
-      attributeDataType === filterLabels.BIGINT ||
-      attributeDataType === filterLabels.BIGDECIMAL
-    );
-  };
+
 
   const getSortingMenu = () => {
     if (
@@ -67,7 +61,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
       return (
         <>
           <MenuItem>
-            <Tooltip title={isTypeString() ? label.SORT_ASC : label.SORT_ASC_BY_ALPHABETICAL}>
+            <Tooltip title={label.SORT_ASC}>
               <button className="sort-btn">
                 <ArrowUpwardTwoToneIcon
                   className="dropdown-arrow"
@@ -75,7 +69,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
                 />
               </button>
             </Tooltip>
-            <Tooltip title={isTypeString() ? label.SORT_DESC : label.SORT_DESC_BY_ALPHABETICAL}>
+            <Tooltip title={label.SORT_DESC}>
               <button className="sort-btn">
                 <ArrowDownwardTwoToneIcon
                   className="dropdown-arrow"

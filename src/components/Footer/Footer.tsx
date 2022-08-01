@@ -7,6 +7,7 @@ import { ReactComponent as TelegramSVG } from '../../svg/telegram.svg';
 import { ReactComponent as GithubSVG } from '../../svg/github.svg';
 import { ReactComponent as GraphProtocolSVG } from '../../svg/graph-protocol.svg';
 import Constants from '../../utility/constant';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 
 const Footer: React.FunctionComponent<any> = () => {
   return (
@@ -56,7 +57,7 @@ const Footer: React.FunctionComponent<any> = () => {
           </div>
           <div className="icon">
             <a href={Constants.URL.GRAPHLOOKER} target="_blank" rel="noreferrer">
-              <DocumentationSVG />
+              <FileCopyIcon />
             </a>
           </div>
 

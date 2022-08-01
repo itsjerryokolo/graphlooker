@@ -106,6 +106,21 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
               )}
             </form>
           </div>
+
+          <div className='subgraph-link-container'>
+            {/* link logic */}
+            {commonLables.recentSubgraphs.map((item, i) => (
+              <div className="links-tab">
+                <div className="subgraph-link">
+                  <ul>
+                    <a href={item.LINK}>
+                      <li className='link-text'> {item.NAME}</li>
+                    </a>
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
         <Footer></Footer>
       </div>

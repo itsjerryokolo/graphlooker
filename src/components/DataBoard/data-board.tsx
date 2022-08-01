@@ -99,8 +99,6 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
         let myGlobalQuery: string = ` `;
 
         for (let item of listOfattributes) {
-          // myGlobalQuery += item.name
-
           if (item.name === 'id') {
             continue;
           }
