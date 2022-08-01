@@ -136,8 +136,8 @@ export default class Constants {
           LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Funiswap%2Funiswap-v3&e=Factory`,
         },
         {
-          NAME: 'Livepeer',
-          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Flivepeer%2Flivepeer&e=Protocol`,
+          NAME: 'ENS',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fensdomains%2Fens&e=Domain&efd=domains`,
         },
         {
           NAME: 'Decentraland',
