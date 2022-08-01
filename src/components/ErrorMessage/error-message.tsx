@@ -13,7 +13,6 @@ const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
   errorMessage,
   endpoint,
   type,
-
 }) => {
   const [copyURLText, setcopyURLText] = useState(errorLabels.copyURL);
   let customMessage: string = customMessages(errorMessage, endpoint);
