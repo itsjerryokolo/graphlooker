@@ -191,7 +191,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         columnData = label.EMPTY;
       }
     }
-  
+    if(columnData.length<50) {
+      return {displayValue: columnData};
+    } 
      return {displayValue:checkForEllipsis(columnData),TooltipDisplayValue:columnData}; //TO-DO: add elipses logic here
     // return columnData;
   };
@@ -352,7 +354,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                         
                       
                     <Tooltip
-                    title= {`${showValuesBasedOnType(row, item).TooltipDisplayValue}`}>
+                    title= {showValuesBasedOnType(row, item).TooltipDisplayValue===undefined? "" :`${showValuesBasedOnType(row, item).TooltipDisplayValue}`}>
                      <TableCell
                           key={key}
                           className={`${
