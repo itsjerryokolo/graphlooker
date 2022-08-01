@@ -89,20 +89,39 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
     }
   };
 
+  const getStringMenu = () => {
+    if (!(attributeType === filterLabels.LIST)) {
+      return (
+        <>
+          <MenuItem>
+            <button
+              aria-controls="filter_menu"
+              onClick={handleFilterOpen}
+              className="filter-menu-button"
+            >
+              <FilterListIcon color="primary" className="filter-list-icon" />
+              <span className="filter-by-col-label">{label.FILTER_BY_COL}</span>
+            </button>
+          </MenuItem>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <MenuItem>
+            <button aria-controls="filter_menu" className="filter-menu-button">
+              <span className="filter-by-col-label">No Filter Applicable</span>
+            </button>
+          </MenuItem>
+        </>
+      );
+    }
+  };
+
   return (
     <>
       {getSortingMenu()}
-      <MenuItem>
-        <button
-          aria-controls="filter_menu"
-          onClick={handleFilterOpen}
-          className="filter-menu-button"
-        >
-          <FilterListIcon color="primary" className="filter-list-icon" />
-          <span className="filter-by-col-label">{label.FILTER_BY_COL}</span>
-        </button>
-      </MenuItem>
-
+      {getStringMenu()}
       <Menu
         id="filter_menu"
         onClose={handleCloseMenu}
