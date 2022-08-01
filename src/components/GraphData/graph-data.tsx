@@ -33,7 +33,6 @@ import ErrorMessage from '../ErrorMessage/error-message';
 import { LoadingState, ThemeState } from '../../utility/redux/state';
 import Footer from '../Footer/Footer';
 import { noCase } from 'change-case';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',

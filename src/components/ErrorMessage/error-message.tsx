@@ -3,14 +3,12 @@ import { ErrorMassageProps } from '../../utility/interface/props';
 import './error-message.scss';
 import { customMessages } from '../../utility/utility';
 import Constants from '../../utility/constant';
-import { Alert, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import MailIcon from '@mui/icons-material/Mail';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useState } from 'react';
 
 const errorLabels = Constants.LABELS.errorComponenet;
-const mailAddress = Constants.CONTACT.EMAIL;
-const URL = window.location.href;
 const ErrorMessage: React.FunctionComponent<ErrorMassageProps> = ({
   errorMessage,
   endpoint,
