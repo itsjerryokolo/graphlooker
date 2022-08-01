@@ -61,11 +61,8 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
-
   const queryDataGlobalState = useSelector((state: QueryDataState) => state.queryState.query);
   const [errorMsg, setErrorMsg] = useState('');
-
-
   const getBoardDataAsQuery = (error: string) => {
     let listOfFilters: Allfilters[] = [];
     let sortFilter: Allfilters[] = [];
@@ -122,12 +119,11 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   };
   const checkForEllipsis = (data: any) => {
     if (data.length > 60) {
-      return data.substring(0, 60) + '....';
+      return data.substring(0, 60) + '...';
     }
     return data;
   };
   const showValuesBasedOnType = (row: any, item: any) => {
- 
     let columnData;
     if (
       item.type === dataTypeLabel.LIST ||
@@ -170,9 +166,8 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         columnData = label.EMPTY;
       }
     }
-   
-    return { displayValue: checkForEllipsis(columnData), TooltipDisplayValue: columnData }; 
- 
+
+    return { displayValue: checkForEllipsis(columnData), TooltipDisplayValue: columnData };
   };
   useEffect(() => {
     getBoardData();
