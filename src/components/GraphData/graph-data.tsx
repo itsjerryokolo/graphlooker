@@ -243,31 +243,15 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               {graphName}
               {subgraphNetworkName ? `(${subgraphNetworkName})` : ''}
             </h2>
-
-<div className='doc-container'>
-<a href={Constants.URL.GRAPHLOOKER} target="_blank" rel="noreferrer">
-<div>
-<button type="button" className="button">
-  <span className="button__text">{label.DOCS}</span>
-  <span className="button__icon">
-    <FileCopyIcon></FileCopyIcon>
-    </span>
-</button>
-</div>
-</a>
-</div>
-
-{/* <div className='.document-icons'>
-<button type="button" className="button">
-  <span className="button__text">Download</span>
-  <span className="button__icon">
-    <FileCopyIcon></FileCopyIcon>
-    </span>
-</button>
-
-</div> */}
-            
-
+            <div className="doc-container">
+              <a href={Constants.URL.GRAPHLOOKER} target="_blank" rel="noreferrer">
+                <div>
+                  <button type="button" className="button">
+                    <span className="button__text">{label.DOCS}</span>
+                  </button>
+                </div>
+              </a>
+            </div>
             <Tooltip title={label.SWITCH_THEME}>
               <div className="theme-icon" onClick={changetheme}>
                 {theme === label.LIGHT_THEME_LABEL ? <DarkModeIcon /> : <LightModeIcon />}

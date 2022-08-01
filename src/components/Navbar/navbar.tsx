@@ -41,9 +41,6 @@ const Navbar: React.FunctionComponent<{}> = (props) => {
               <a href={Constants.URL.GRAPHLOOKER} target="_blank" rel="noreferrer">
                 <button type="button" className="button">
                   <span className="button__text">{label.DOCS}</span>
-                  <span className="button__icon">
-                    <FileCopyIcon></FileCopyIcon>
-                  </span>
                 </button>
                 </a>
               </div>

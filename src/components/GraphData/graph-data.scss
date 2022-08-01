@@ -146,39 +146,6 @@
     flex-shrink: 0;
   }
 }
-.document-icons {
-  cursor: pointer;
-  border: none;
-  position: absolute;
-  right: 218px;
-  top: 23px;
-  width: 26px;
-  height: 26px;
-
-  a {
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    background: transparent;
-    outline: none;
-    font-size: 1rem;
-    display: flex;
-    font-weight: 700;
-    line-height: 23px;
-  }
-
-  span {
-    margin-left: $size7;
-    padding-right: $size5;
-  }
-  svg {
-    height: 25px;
-    width: 25px;
-    background: transparent;
-  }
-  &:hover {
-    text-shadow: 2px 2px 10px #fff;
-  }
-}
 
 @media screen and (max-width: 600px) {
   .toolbar {
@@ -197,7 +164,7 @@
     text-decoration: none;
   }
   position: absolute;
-  right: 285px;
+  right: 216px;
   top: 12px;
   width: 26px;
   height: 26px;

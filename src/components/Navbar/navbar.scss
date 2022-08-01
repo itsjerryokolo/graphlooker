@@ -65,10 +65,14 @@
 
 
 .docs-container {
-  margin-left: 1340px;
   a{
     text-decoration: none;
   }
+  position: absolute;
+  right: 160px;
+  top: 12px;
+  width: 26px;
+  height: 26px;
 
   .button {
     display: flex;
