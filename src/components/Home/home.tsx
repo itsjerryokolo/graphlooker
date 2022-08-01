@@ -10,6 +10,7 @@ import Navbar from '../Navbar/navbar';
 import Constants from '../../utility/constant';
 import { ThemeState } from '../../utility/redux/state';
 import Footer from '../Footer/Footer';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) => {
   const commonLables = Constants.LABELS.commonLables;
@@ -88,6 +89,7 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
               </button>
 
               <p className="explore-msg">{Constants.LABELS.commonLables.DESC_TITLE}</p>
+              <InfoOutlinedIcon />
 
               {isError && endpoint.length > 0 ? (
                 <ErrorMessage
@@ -107,14 +109,14 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
             </form>
           </div>
 
-          <div className='subgraph-link-container'>
+          <div className="subgraph-link-container">
             {/* link logic */}
             {commonLables.recentSubgraphs.map((item, i) => (
               <div className="links-tab">
                 <div className="subgraph-link">
                   <ul>
                     <a href={item.LINK}>
-                      <li className='link-text'> {item.NAME}</li>
+                      <li className="link-text"> {item.NAME}</li>
                     </a>
                   </ul>
                 </div>

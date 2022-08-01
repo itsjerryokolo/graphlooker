@@ -1,5 +1,9 @@
 export default class Constants {
   public static URL = {
+    BASE_URL:
+      process.env.NODE_ENV === 'development'
+        ? `${process.env.REACT_APP_BASE_URL_DEVELOPMENT}explore?`
+        : `${process.env.REACT_APP_BASE_URL_PRODUCTION}explore?`,
     DEV: {},
     PROD: {},
     THEGRAPH: 'https://thegraph.com/',
@@ -127,23 +131,23 @@ export default class Constants {
       recentSubgraphs: [
         {
           NAME: 'Uniswap V3',
-          LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Funiswap%2Funiswap-v3&e=factory',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Funiswap%2Funiswap-v3&e=Factory`,
         },
         {
           NAME: 'Livepeer',
-          LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Flivepeer%2Flivepeer&e=protocol',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Flivepeer%2Flivepeer&e=Protocol`,
         },
         {
           NAME: 'Decentraland',
-          LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fdecentraland%2Fmarketplace&e=count',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fdecentraland%2Fmarketplace&e=Count`,
         },
         {
           NAME: 'Aave Gotchi',
-          LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Faavegotchi%2Faavegotchi-lending&e=aavegotchiOption',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Faavegotchi%2Faavegotchi-lending&e=AavegotchiOption`,
         },
         {
           NAME: 'Compound V2',
-          LINK: 'https://graphlooker.com/explore?uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fmessari%2Fcompound-ethereum-extended&e=token',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fmessari%2Fcompound-ethereum-extended&e=Token`,
         },
       ],
     },
