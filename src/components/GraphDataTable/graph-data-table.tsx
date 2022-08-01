@@ -64,6 +64,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
 
   const queryDataGlobalState = useSelector((state: QueryDataState) => state.queryState.query);
   const [errorMsg, setErrorMsg] = useState('');
+  const [columnData,setcolumnData]=useState('');
 
   const getBoardDataAsQuery = (error: string) => {
     let listOfFilters: Allfilters[] = [];
@@ -190,8 +191,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         columnData = label.EMPTY;
       }
     }
-    
-    return checkForEllipsis(columnData); //TO-DO: add elipses logic here
+  
+     return {displayValue:checkForEllipsis(columnData),TooltipDisplayValue:columnData}; //TO-DO: add elipses logic here
+    // return columnData;
   };
   useEffect(() => {
     getBoardData();
@@ -347,7 +349,11 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                 ? rows.map((row, i) => (
                     <TableRow className="tabledata-row" key={i}>
                       {listOfattributes.map((item, key) => (
-                        <TableCell
+                        
+                      
+                    <Tooltip
+                    title= {`${showValuesBasedOnType(row, item).TooltipDisplayValue}`}>
+                     <TableCell
                           key={key}
                           className={`${
                             Utility.linkToAddressAndTxHash(row, item.name, item.type)
@@ -371,8 +377,14 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                           }}
                            
                         >
-                          {console.log(row)}
-                          {`${showValuesBasedOnType(row, item)}`}</TableCell> //TO-DO: show tooltip and copy logic
+                          
+                            
+                             
+                          
+                          {`${showValuesBasedOnType(row, item).displayValue}`}
+                          </TableCell>
+                          </Tooltip>
+                           
                       ))}
                     </TableRow>
                   ))
