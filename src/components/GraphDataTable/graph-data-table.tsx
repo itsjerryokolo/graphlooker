@@ -61,10 +61,8 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
-
   const queryDataGlobalState = useSelector((state: QueryDataState) => state.queryState.query);
   const [errorMsg, setErrorMsg] = useState('');
-
   const getBoardDataAsQuery = (error: string) => {
     let listOfFilters: Allfilters[] = [];
     let sortFilter: Allfilters[] = [];
@@ -119,29 +117,13 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     }
     return getDataQuery(listOfattributes, selectedEntity, 100, 0, queryDataGlobalState, '', error);
   };
-
+  const checkForEllipsis = (data: any) => {
+    if (data.length > 60) {
+      return data.substring(0, 60) + '...';
+    }
+    return data;
+  };
   const showValuesBasedOnType = (row: any, item: any) => {
-    // item.type === dataTypeLabel.LIST ||
-    // item.type === dataTypeLabel.OBJECT ||
-    // item.type === dataTypeLabel.NON_NULL
-    //   ? row[`${item.name}`] !== undefined
-    //     ? row[`${item.name}`]?.id
-    //     : label.EMPTY
-    //   : Utility.getTimestampColumns(item.name)
-    //   ? row[`${item.name}`] !== undefined
-    //     ? moment(new Date(row[`${item.name}`] * 1000)).format(label.TIME_FORMAT)
-    //     : label.EMPTY
-    // : item.typeName === dataTypeLabel.BIGINT ||
-    //   item.typeName === dataTypeLabel.BIGDECIMAL ||
-    //   item.typeName === dataTypeLabel.INT
-    // ? Utility.getIntUptoTwoDecimal(row, item.name)
-    //   ? parseInt(row[`${item.name}`]).toFixed(2)
-    //   : row[`${item.name}`] !== undefined
-    //   ? row[`${item.name}`]
-    //   : label.EMPTY
-    // : row[`${item.name}`] !== undefined
-    // ? row[`${item.name}`]
-    // : label.EMPTY;
     let columnData;
     if (
       item.type === dataTypeLabel.LIST ||
@@ -184,7 +166,8 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         columnData = label.EMPTY;
       }
     }
-    return columnData; //TO-DO: add elipses logic here
+
+    return { displayValue: checkForEllipsis(columnData), TooltipDisplayValue: columnData };
   };
   useEffect(() => {
     getBoardData();
@@ -340,29 +323,39 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                 ? rows.map((row, i) => (
                     <TableRow className="tabledata-row" key={i}>
                       {listOfattributes.map((item, key) => (
-                        <TableCell
-                          key={key}
-                          className={`${
-                            Utility.linkToAddressAndTxHash(row, item.name, item.type)
-                              ? endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH)
-                                ? 'tablerow-data-css address-data-css '
-                                : 'tablerow-data-css'
-                              : 'tablerow-data-css '
-                          }`}
-                          onClick={() => {
-                            let openCloseSnackbar = Utility.verifyAddress(
-                              item.typeName,
-                              `${parsed.efd}`,
-                              row,
-                              item.name,
-                              item.type,
-                              endpoint,
-                              subgraphNetworkName,
-                              String(theme)
-                            );
-                            setOpen(Boolean(openCloseSnackbar));
-                          }}
-                        >{`${showValuesBasedOnType(row, item)}`}</TableCell> //TO-DO: show tooltip and copy logic
+                        <Tooltip
+                          title={
+                            Array.isArray(row[`${item.name}`])
+                              ? `${showValuesBasedOnType(row, item).TooltipDisplayValue}`
+                              : label.EMPTY
+                          }
+                        >
+                          <TableCell
+                            key={key}
+                            className={`${
+                              Utility.linkToAddressAndTxHash(row, item.name, item.type)
+                                ? endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH)
+                                  ? 'tablerow-data-css address-data-css '
+                                  : 'tablerow-data-css'
+                                : 'tablerow-data-css '
+                            }`}
+                            onClick={() => {
+                              let openCloseSnackbar = Utility.verifyAddress(
+                                item.typeName,
+                                `${parsed.efd}`,
+                                row,
+                                item.name,
+                                item.type,
+                                endpoint,
+                                subgraphNetworkName,
+                                String(theme)
+                              );
+                              setOpen(Boolean(openCloseSnackbar));
+                            }}
+                          >
+                            {`${showValuesBasedOnType(row, item).displayValue}`}
+                          </TableCell>
+                        </Tooltip>
                       ))}
                     </TableRow>
                   ))
