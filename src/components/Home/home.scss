@@ -98,7 +98,7 @@
     position: relative;
   }
   a {
-    color: #fff;
+    color: var(--fontPrimaryColor);
     text-transform: uppercase;
     text-decoration: none;
     letter-spacing: 0.15em;
@@ -114,7 +114,7 @@
     height: 2px;
     left: 50%;
     position: absolute;
-    background: #fff;
+    background: var(--fontPrimaryColor);
     transition: width 0.3s ease 0s, left 0.3s ease 0s;
     width: 0;
   }
@@ -130,12 +130,13 @@
 }
 
 .redirect-to-docs{
-  text-decoration: none;
   color: #fff;
   font-size: 12px;
   text-transform: uppercase;
   svg{
-    margin-bottom:-7px;
+    height: 15px;
+    margin-bottom: -4px;
+    margin-left: -4px;
   }
 }
 

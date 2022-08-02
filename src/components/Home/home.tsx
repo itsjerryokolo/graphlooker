@@ -14,6 +14,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material';
+import CallMadeIcon from '@mui/icons-material/CallMade'
 
 const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) => {
   const commonLables = Constants.LABELS.commonLables;
@@ -76,6 +77,7 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
     [`& .${tooltipClasses.tooltip}`]: {
       backgroundColor: theme.palette.common.black,
     },
+   width:'290px',
   }));
  
 
@@ -114,9 +116,9 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
                     title={
                       <>
                       <h3 style={{ fontSize: '14px', color: '#fffff' }}>
-                        {commonLables.DOCS_INFO_REF}
+                      {commonLables.DOCS_INFO_REF_FIRST} <a className='redirect-to-docs' target='_blank' href={Constants.URL.GRAPHLOOKER} rel="noreferrer"> {commonLables.DOCS}<CallMadeIcon/></a>{commonLables.DOCS_INFO_REF_SECOND}
                       </h3>
-                      <a className='redirect-to-docs' target='_blank' href={Constants.URL.GRAPHLOOKER}>click here <DoubleArrowIcon></DoubleArrowIcon> </a>
+                      
                       </>
                     }
                     arrow
