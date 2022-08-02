@@ -11,8 +11,9 @@ import Constants from '../../utility/constant';
 import { ThemeState } from '../../utility/redux/state';
 import Footer from '../Footer/Footer';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { Tooltip } from '@mui/material';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import { styled } from '@mui/material';
 
 const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) => {
   const commonLables = Constants.LABELS.commonLables;
@@ -65,6 +66,19 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
     setEndpoint(e);
     setErrorMsg('');
   };
+
+  const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
+    <Tooltip {...props} arrow classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.arrow}`]: {
+      color: theme.palette.common.black,
+    },
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: theme.palette.common.black,
+    },
+  }));
+ 
+
   return (
     <>
       <div theme-selector={theme}>
@@ -91,24 +105,24 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
               >
                 {commonLables.EXPLORE}
               </button>
-
+              
               <p className="explore-msg">
                 {Constants.LABELS.commonLables.DESC_TITLE}
                 <span>
-                  <Tooltip style={{ backgroundColor: 'info'}}
+                <CustomTooltip 
                     placement="right"
                     title={
                       <>
                       <h3 style={{ fontSize: '14px', color: '#fffff' }}>
                         {commonLables.DOCS_INFO_REF}
                       </h3>
-                      <a className='redirect-to-docs' href={Constants.LABELS.commonLables.DOCS}>click here <DoubleArrowIcon></DoubleArrowIcon> </a>
+                      <a className='redirect-to-docs' target='_blank' href={Constants.URL.GRAPHLOOKER}>click here <DoubleArrowIcon></DoubleArrowIcon> </a>
                       </>
                     }
                     arrow
                   >
                     <InfoOutlinedIcon />
-                  </Tooltip>
+                    </CustomTooltip>
                 </span>
               </p>
 
