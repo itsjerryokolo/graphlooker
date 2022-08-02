@@ -109,19 +109,12 @@
   }
   li:hover{
     box-shadow: none;
-    color: black;
+    color: var(--iconColour);
   }
   a {
     color: var(--fontPrimaryColor);
-    text-transform: uppercase;
-    text-decoration: none;
     letter-spacing: 0.10em;
     display: inline-block;
-    position: relative;
-  }
-  a:hover:after {
-    width: 100%;
-    left: 0;
   }
   @media screen and (max-height: 300px) {
     ul {
