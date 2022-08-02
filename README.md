@@ -23,6 +23,7 @@ GraphLooker is real-time subgraph explorer and visualizer. The Dapp helps indexe
 The Dapp is live at https://graphlooker.com/
 
 ## Steps to Run GraphLooker
+
 Follow below steps to run GraphLooker:
 
 ### Open git bash or terminal
@@ -44,7 +45,9 @@ $ npm install
 ```
 
 ### Start server
+
 There should not be any other process running on port 3000.
+
 ```sh
 $ npm start
 ```
@@ -52,7 +55,9 @@ $ npm start
 Application will be running on http://localhost:3000/
 
 ### Create Production build
+
 In case you are looking to host on production, create production build using below command.
+
 ```sh
 $ npm run build
 ```
@@ -68,8 +73,11 @@ REACT_APP_BASE_URL_PRODUCTION = 'https://graphlooker.com'
 ### How to Use
 
 Below is the step by step documentation:
+
 #### Hosted Subgraphs
-Step by step guide: https://notion.so/dapplooker/What-do-we-do-73aa1d887b54430e9e69a590f4668638
+
+Step by step guide: https://dapplooker.notion.site/dapplooker/GraphLooker-07bc3adf176b488ca23059ddbd41387f
 
 #### Subgraph Studio
+
 Step by step guide: https://dapplooker.notion.site/Subgraph-Studio-Integration-69b801b67c094a2c96df73792186d71d
