@@ -14,7 +14,7 @@ export default class Constants {
     MEDIUM_BLOG: 'https://dapplooker.medium.com/',
     TWITTER: 'https://twitter.com/dapplooker',
     DAPPLOOKER: 'https://dapplooker.com',
-    GRAPHLOOKER: 'https://www.notion.so/dapplooker/GraphLooker-07bc3adf176b488ca23059ddbd41387f',
+    GRAPHLOOKER: 'https://notion.so/dapplooker/GraphLooker-07bc3adf176b488ca23059ddbd41387f',
   };
   public static FILTERLABELS = {
     dataTypeLabels: {
@@ -109,7 +109,7 @@ export default class Constants {
       SORT_ASC: 'Sort Ascending',
       SORT_DESC: 'Sort Descending',
       DESC_TITLE: 'Real-time Subgraph Explorer & Visualizer',
-      ENTITY_REFERENCE: 'This column is a reference of',
+      ENTITY_REFERENCE: 'This column is nested type of',
       NULL: 'null',
       DOUBLE_QUOTES: '"',
       SORT: 'sort',
