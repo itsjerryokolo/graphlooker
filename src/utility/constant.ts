@@ -14,7 +14,8 @@ export default class Constants {
     MEDIUM_BLOG: 'https://dapplooker.medium.com/',
     TWITTER: 'https://twitter.com/dapplooker',
     DAPPLOOKER: 'https://dapplooker.com',
-    GRAPHLOOKER: 'https://notion.so/dapplooker/GraphLooker-07bc3adf176b488ca23059ddbd41387f',
+    GRAPHLOOKER:
+      'https://dapplooker.notion.site/dapplooker/GraphLooker-07bc3adf176b488ca23059ddbd41387f',
   };
   public static FILTERLABELS = {
     dataTypeLabels: {
@@ -128,9 +129,8 @@ export default class Constants {
       MY_THEME: 'mytheme',
       BUTTON_TEXT_FOR_EMAIL: 'INFORM US',
       DOCS: 'DOCS',
-      DOCS_INFO_REF_FIRST:
-        'First time using GraphLooker? Click',
-      DOCS_INFO_REF_SECOND:'to learn how to export subgraph data',
+      DOCS_INFO_REF_FIRST: 'First time using GraphLooker? Click',
+      DOCS_INFO_REF_SECOND: 'to learn how to export subgraph data',
       recentSubgraphs: [
         {
           NAME: 'Uniswap V3',

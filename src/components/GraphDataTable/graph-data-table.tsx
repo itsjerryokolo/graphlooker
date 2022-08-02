@@ -166,9 +166,13 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         columnData = label.EMPTY;
       }
     }
-    let formattedData=checkForEllipsis(columnData);
+    let formattedData = checkForEllipsis(columnData);
 
-    return { displayValue: formattedData.data,isTooltipNeeded:formattedData.isTooltipNeeded, TooltipDisplayValue: columnData };
+    return {
+      displayValue: formattedData.data,
+      isTooltipNeeded: formattedData.isTooltipNeeded,
+      TooltipDisplayValue: columnData,
+    };
   };
   useEffect(() => {
     getBoardData();
