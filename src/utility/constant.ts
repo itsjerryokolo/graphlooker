@@ -1,5 +1,9 @@
 export default class Constants {
   public static URL = {
+    BASE_URL:
+      process.env.NODE_ENV === 'development'
+        ? `${process.env.REACT_APP_BASE_URL_DEVELOPMENT}explore?`
+        : `${process.env.REACT_APP_BASE_URL_PRODUCTION}explore?`,
     DEV: {},
     PROD: {},
     THEGRAPH: 'https://thegraph.com/',
@@ -10,7 +14,7 @@ export default class Constants {
     MEDIUM_BLOG: 'https://dapplooker.medium.com/',
     TWITTER: 'https://twitter.com/dapplooker',
     DAPPLOOKER: 'https://dapplooker.com',
-    GRAPHLOOKER: 'https://www.notion.so/dapplooker/GraphLooker-07bc3adf176b488ca23059ddbd41387f',
+    GRAPHLOOKER: 'https://notion.so/dapplooker/GraphLooker-07bc3adf176b488ca23059ddbd41387f',
   };
   public static FILTERLABELS = {
     dataTypeLabels: {
@@ -69,6 +73,9 @@ export default class Constants {
       'updatedAt',
       '_timeStamp',
       'endTime',
+      'registrationDate',
+      'expiryDate',
+      'lastUpdateTimestamp',
     ],
   };
 
@@ -76,8 +83,6 @@ export default class Constants {
     commonLables: {
       TITLE: 'GraphLooker - Real-time Subgraph Explorer & Visualizer',
       FILTER_BY_COL: 'Filter by column',
-      SORT_ASC_BY_ALPHABETICAL: 'A-Z',
-      SORT_DESC_BY_ALPHABETICAL: 'Z-A',
       ASC: 'asc',
       DESC: 'desc',
       IS: 'Is',
@@ -104,7 +109,7 @@ export default class Constants {
       SORT_ASC: 'Sort Ascending',
       SORT_DESC: 'Sort Descending',
       DESC_TITLE: 'Real-time Subgraph Explorer & Visualizer',
-      ENTITY_REFERENCE: 'This column is a reference of',
+      ENTITY_REFERENCE: 'This column is nested type of',
       NULL: 'null',
       DOUBLE_QUOTES: '"',
       SORT: 'sort',
@@ -113,7 +118,7 @@ export default class Constants {
       DOWNLOADING: 'Downloading...',
       AND: 'and',
       UNDERSCORE_IS: '_is',
-      BUILT_WITH: 'Supported by',
+      BUILT_WITH: 'Backed by',
       GRAPH_PROTOCOL: 'Graph Protocol',
       COPYRIGHT: '© 2022 made with ❤️ by',
       DAPPLOOKER: 'DappLooker',
@@ -121,6 +126,33 @@ export default class Constants {
       NULL_VALUE: 'Null value resolved',
       GRAPH_HEADING: 'SUBGRAPH STUDIO',
       MY_THEME: 'mytheme',
+      BUTTON_TEXT_FOR_EMAIL: 'INFORM US',
+      DOCS: 'DOCS',
+      DOCS_INFO_REF_FIRST:
+        'First time using GraphLooker? Click',
+      DOCS_INFO_REF_SECOND:'to learn how to export subgraph data',
+      recentSubgraphs: [
+        {
+          NAME: 'Uniswap V3',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Funiswap%2Funiswap-v3&e=Factory`,
+        },
+        {
+          NAME: 'ENS',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fensdomains%2Fens&e=Domain&efd=domains`,
+        },
+        {
+          NAME: 'Decentraland',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fdecentraland%2Fmarketplace&e=Count`,
+        },
+        {
+          NAME: 'Aave Gotchi',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Faavegotchi%2Faavegotchi-lending&e=AavegotchiOption`,
+        },
+        {
+          NAME: 'Compound V2',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fmessari%2Fcompound-ethereum-extended&e=Token`,
+        },
+      ],
     },
     commonUrls: {
       BASE_URL:
@@ -137,6 +169,8 @@ export default class Constants {
     },
     errorComponenet: {
       queryFailedMsg: 'Unexpected error encountered. Please try again after sometime.',
+      copyURL: 'Copy URL',
+      copiedURL: 'Copied!',
     },
     imagePaths: {
       FIREWORKS: '/images/firework-outline.gif',

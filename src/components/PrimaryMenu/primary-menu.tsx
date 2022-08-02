@@ -39,22 +39,14 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
   //Sort Data (Ascending /Descending) when Attribute Clicked
   const sortDataAscDesc = async (sortType: string, columnName: string) => {
     const URI = encodeURIComponent(endpoint);
-    const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
     return (window.location.href = `${
       urlLabels.BASE_URL
-    }uri=${URI}&e=${entity}&th=${theme}&filterObj=${Utility.getAllFilters(
+    }uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${Utility.getAllFilters(
       Constants.LABELS.filterTypes.SORT,
       columnName,
       sortType,
       parsed.filterObj
     )}`);
-  };
-  const isTypeString = () => {
-    return (
-      attributeDataType === filterLabels.INT ||
-      attributeDataType === filterLabels.BIGINT ||
-      attributeDataType === filterLabels.BIGDECIMAL
-    );
   };
 
   const getSortingMenu = () => {
@@ -67,7 +59,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
       return (
         <>
           <MenuItem>
-            <Tooltip title={isTypeString() ? label.SORT_ASC : label.SORT_ASC_BY_ALPHABETICAL}>
+            <Tooltip title={label.SORT_ASC}>
               <button className="sort-btn">
                 <ArrowUpwardTwoToneIcon
                   className="dropdown-arrow"
@@ -75,7 +67,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
                 />
               </button>
             </Tooltip>
-            <Tooltip title={isTypeString() ? label.SORT_DESC : label.SORT_DESC_BY_ALPHABETICAL}>
+            <Tooltip title={label.SORT_DESC}>
               <button className="sort-btn">
                 <ArrowDownwardTwoToneIcon
                   className="dropdown-arrow"
@@ -89,20 +81,39 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
     }
   };
 
+  const getStringMenu = () => {
+    if (!(attributeType === filterLabels.LIST)) {
+      return (
+        <>
+          <MenuItem>
+            <button
+              aria-controls="filter_menu"
+              onClick={handleFilterOpen}
+              className="filter-menu-button"
+            >
+              <FilterListIcon color="primary" className="filter-list-icon" />
+              <span className="filter-by-col-label">{label.FILTER_BY_COL}</span>
+            </button>
+          </MenuItem>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <MenuItem>
+            <button aria-controls="filter_menu" className="filter-menu-button">
+              <span className="filter-by-col-label">No Filter Applicable</span>
+            </button>
+          </MenuItem>
+        </>
+      );
+    }
+  };
+
   return (
     <>
       {getSortingMenu()}
-      <MenuItem>
-        <button
-          aria-controls="filter_menu"
-          onClick={handleFilterOpen}
-          className="filter-menu-button"
-        >
-          <FilterListIcon color="primary" className="filter-list-icon" />
-          <span className="filter-by-col-label">{label.FILTER_BY_COL}</span>
-        </button>
-      </MenuItem>
-
+      {getStringMenu()}
       <Menu
         id="filter_menu"
         onClose={handleCloseMenu}

@@ -44,18 +44,24 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
   drawerOpen,
 }) => {
   const label = Constants.LABELS.commonLables;
-  const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
 
   const selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   const dispatch = useDispatch();
   let listOfattributes: { name: string; type: string; typeName: string }[];
   listOfattributes = [];
-  const entity = selectedEntity
-    ? selectedEntity.charAt(0).toUpperCase() + selectedEntity.slice(1)
-    : label.EMPTY;
+  const entity = selectedEntity ? selectedEntity : label.EMPTY;
 
   const parsed = queryString.parse(window.location.search);
-
+  const isTypeObject = (objectName: string): string => {
+    let type = ['BigInt', 'BigDecimal', 'String', 'Boolean', 'Bytes', 'Int'].filter(
+      (val) => val === objectName
+    );
+    if (type.length) {
+      return type[0];
+    } else {
+      return 'OBJECT';
+    }
+  };
   useEffect(() => {
     getAttributes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,16 +78,12 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
       if (queryData !== undefined) {
         for (let index = 0; index < queryData.length; ++index) {
           const element = queryData[index];
-          if (
-            !element.type?.ofType ||
-            element.type?.ofType?.kind === dataTypeLabel.LIST ||
-            element.type?.ofType?.kind === dataTypeLabel.NON_NULL
-          )
-            continue;
           listOfattributes.push({
             name: element.name,
-            type: element.type?.ofType?.kind,
-            typeName: element.type?.ofType?.name,
+            type: element.type?.ofType
+              ? element.type?.ofType?.kind
+              : isTypeObject(element.type?.name),
+            typeName: element.type?.ofType ? element.type?.ofType?.name : element.type?.name,
           });
         }
       }
@@ -91,8 +93,6 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
         let myGlobalQuery: string = ` `;
 
         for (let item of listOfattributes) {
-          // myGlobalQuery += item.name
-
           if (item.name === 'id') {
             continue;
           }

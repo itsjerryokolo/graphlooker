@@ -2,11 +2,11 @@ import React from 'react';
 import './footer.scss';
 import { ReactComponent as DiscordSVG } from '../../svg/discord.svg';
 import { ReactComponent as TwitterSVG } from '../../svg/twitter.svg';
-import { ReactComponent as DocumentationSVG } from '../../svg/documentation.svg';
 import { ReactComponent as TelegramSVG } from '../../svg/telegram.svg';
 import { ReactComponent as GithubSVG } from '../../svg/github.svg';
 import { ReactComponent as GraphProtocolSVG } from '../../svg/graph-protocol.svg';
 import Constants from '../../utility/constant';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 
 const Footer: React.FunctionComponent<any> = () => {
   return (
@@ -56,7 +56,7 @@ const Footer: React.FunctionComponent<any> = () => {
           </div>
           <div className="icon">
             <a href={Constants.URL.GRAPHLOOKER} target="_blank" rel="noreferrer">
-              <DocumentationSVG />
+              <FileCopyIcon />
             </a>
           </div>
 
