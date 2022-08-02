@@ -132,7 +132,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
     }
   }, [dispatch, networkName]);
 
-  let allEntities: string[];
+  let allEntities = [];
   allEntities = [];
   if (loading) {
     if (error) {
@@ -144,8 +144,12 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
       const queryData = data.__schema.queryType.fields;
       for (let index = 0; index < queryData.length; ++index) {
         const element = queryData[index];
+
         if (index % 2 === 0) {
-          allEntities.push(element.name);
+          allEntities.push({
+            entity: element.type.name,
+            entityForDataQuery: queryData[index + 1]?.name,
+          });
         }
       }
       allEntities.pop();
@@ -242,7 +246,15 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               {graphName}
               {subgraphNetworkName ? `(${subgraphNetworkName})` : ''}
             </h2>
-
+            <div className="doc-container">
+              <a href={Constants.URL.GRAPHLOOKER} target="_blank" rel="noreferrer">
+                <div>
+                  <button type="button" className="button">
+                    <span className="button__text">{label.DOCS}</span>
+                  </button>
+                </div>
+              </a>
+            </div>
             <Tooltip title={label.SWITCH_THEME}>
               <div className="theme-icon" onClick={changetheme}>
                 {theme === label.LIGHT_THEME_LABEL ? <DarkModeIcon /> : <LightModeIcon />}

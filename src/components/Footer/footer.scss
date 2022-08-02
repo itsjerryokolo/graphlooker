@@ -21,14 +21,12 @@ footer {
     text-decoration: none;
     a.icon {
       margin: auto 5px;
-
       svg {
         width: 30px;
         height: 30px;
       }
     }
   }
-
   .social-icons-footer {
     display: flex;
     justify-content: center;
@@ -42,11 +40,12 @@ footer {
       padding: 2px;
       background-color: #fff;
     }
+    svg{
+      fill: $colorBlack;
+    }
   }
-
   .copyright-info {
     margin-right: 20px;
-
     a {
       margin: auto 8px;
       text-decoration: none;

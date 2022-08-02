@@ -10,6 +10,10 @@ import Navbar from '../Navbar/navbar';
 import Constants from '../../utility/constant';
 import { ThemeState } from '../../utility/redux/state';
 import Footer from '../Footer/Footer';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import { styled } from '@mui/material';
+import CallMadeIcon from '@mui/icons-material/CallMade';
 
 const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) => {
   const commonLables = Constants.LABELS.commonLables;
@@ -47,10 +51,11 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
     if (error) {
     }
     if (data) {
-      const firstEntity = data.__schema.queryType.fields[0].name;
+      const firstEntity = data.__schema.queryType.fields[0].type.name;
+      const entityForDataQuery = data.__schema.queryType.fields[1].name;
       const url = encodeURIComponent(endpoint);
       dispatch(setGraphEntity(firstEntity));
-      return <Redirect push to={`explore?uri=${url}&e=${firstEntity}`} />;
+      return <Redirect push to={`explore?uri=${url}&e=${firstEntity}&efd=${entityForDataQuery}`} />;
     }
   }
 
@@ -58,6 +63,18 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
     setEndpoint(e);
     setErrorMsg('');
   };
+
+  const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
+    <Tooltip {...props} arrow classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.arrow}`]: {
+      color: theme.palette.common.black,
+    },
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: theme.palette.common.black,
+    },
+    width: '290px',
+  }));
 
   return (
     <>
@@ -86,7 +103,35 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
                 {commonLables.EXPLORE}
               </button>
 
-              <p className="explore-msg">{Constants.LABELS.commonLables.DESC_TITLE}</p>
+              <p className="explore-msg">
+                {Constants.LABELS.commonLables.DESC_TITLE}
+                <span>
+                  <CustomTooltip
+                    placement="right"
+                    title={
+                      <>
+                        <h3 style={{ fontSize: '14px', color: '#fffff' }}>
+                          {commonLables.DOCS_INFO_REF_FIRST}{' '}
+                          <a
+                            className="redirect-to-docs"
+                            target="_blank"
+                            href={Constants.URL.GRAPHLOOKER}
+                            rel="noreferrer"
+                          >
+                            {' '}
+                            {commonLables.DOCS}
+                            <CallMadeIcon />
+                          </a>
+                          {commonLables.DOCS_INFO_REF_SECOND}
+                        </h3>
+                      </>
+                    }
+                    arrow
+                  >
+                    <InfoOutlinedIcon />
+                  </CustomTooltip>
+                </span>
+              </p>
 
               {isError && endpoint.length > 0 ? (
                 <ErrorMessage
@@ -104,6 +149,21 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
                 ''
               )}
             </form>
+          </div>
+
+          <div className="subgraph-link-container">
+            {/* link logic */}
+            {commonLables.recentSubgraphs.map((item, i) => (
+              <div className="links-tab">
+                <div className="subgraph-link">
+                  <ul>
+                    <a href={item.LINK}>
+                      <li className="link-text"> {item.NAME}</li>
+                    </a>
+                  </ul>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
         <Footer></Footer>

@@ -63,7 +63,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;
   const queryDataGlobalState = useSelector((state: QueryDataState) => state.queryState.query);
   const [errorMsg, setErrorMsg] = useState('');
-
   const getBoardDataAsQuery = (error: string) => {
     let listOfFilters: Allfilters[] = [];
     let sortFilter: Allfilters[] = [];
@@ -117,6 +116,63 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
       );
     }
     return getDataQuery(listOfattributes, selectedEntity, 100, 0, queryDataGlobalState, '', error);
+  };
+  const checkForEllipsis = (data: any) => {
+    if (data?.length > 60) {
+      return { data: data.substring(0, 60) + '...', isTooltipNeeded: true };
+    }
+    return { data: data, isTooltipNeeded: false };
+  };
+  const showValuesBasedOnType = (row: any, item: any) => {
+    let columnData;
+    if (
+      item.type === dataTypeLabel.LIST ||
+      item.type === dataTypeLabel.OBJECT ||
+      item.type === dataTypeLabel.NON_NULL
+    ) {
+      if (row[`${item.name}`] !== undefined) {
+        if (row[`${item.name}`] && Array.isArray(row[`${item.name}`])) {
+          columnData = JSON.stringify(row[`${item.name}`]);
+        } else {
+          columnData = row[`${item.name}`]?.id;
+        }
+      } else {
+        columnData = label.EMPTY;
+      }
+    } else if (Utility.getTimestampColumns(item.name)) {
+      if (row[`${item.name}`] !== undefined) {
+        columnData = moment(new Date(row[`${item.name}`] * 1000)).format(label.TIME_FORMAT);
+      } else {
+        columnData = label.EMPTY;
+      }
+    } else if (
+      item.typeName === dataTypeLabel.BIGINT ||
+      item.typeName === dataTypeLabel.BIGDECIMAL ||
+      item.typeName === dataTypeLabel.INT
+    ) {
+      if (row[`${item.name}`] && Utility.getIntUptoTwoDecimal(row, item.name)) {
+        columnData = parseInt(row[`${item.name}`]).toFixed(2);
+      } else {
+        if (row[`${item.name}`] !== undefined) {
+          columnData = row[`${item.name}`];
+        } else {
+          columnData = label.EMPTY;
+        }
+      }
+    } else {
+      if (row[`${item.name}`] !== undefined) {
+        columnData = row[`${item.name}`];
+      } else {
+        columnData = label.EMPTY;
+      }
+    }
+    let formattedData = checkForEllipsis(columnData);
+
+    return {
+      displayValue: formattedData.data,
+      isTooltipNeeded: formattedData.isTooltipNeeded,
+      TooltipDisplayValue: columnData,
+    };
   };
   useEffect(() => {
     getBoardData();
@@ -211,23 +267,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   if (listOfattributes.length === 0) {
     dispatch(setDataLoading(false));
   }
-  // function to check that whether item's type is of List,Object Or Non-Null.
-  const isTypeListObjectandNonNull = (type: string) => {
-    return (
-      type === dataTypeLabel.LIST ||
-      type === dataTypeLabel.OBJECT ||
-      type === dataTypeLabel.NON_NULL
-    );
-  };
-  // function to check that whether item's type is of Integers.
-  const isTypeIntegers = (type: string) => {
-    return (
-      type === dataTypeLabel.BIGINT ||
-      type === dataTypeLabel.BIGDECIMAL ||
-      type === dataTypeLabel.INT
-    );
-  };
-
   return (
     <>
       <div className={drawerOpen ? 'FilterData' : 'FilterData-drawer-open'}>
@@ -289,52 +328,39 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                 ? rows.map((row, i) => (
                     <TableRow className="tabledata-row" key={i}>
                       {listOfattributes.map((item, key) => (
-                        <TableCell
-                          key={key}
-                          className={`${
-                            Utility.linkToAddressAndTxHash(row, item.name, item.type)
-                              ? endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH)
-                                ? 'tablerow-data-css address-data-css '
-                                : 'tablerow-data-css'
-                              : 'tablerow-data-css '
-                          }`}
-                          onClick={() => {
-                            let openCloseSnackbar = Utility.verifyAddress(
-                              item.typeName,
-                              row,
-                              item.name,
-                              item.type,
-                              endpoint,
-                              subgraphNetworkName,
-                              String(theme)
-                            );
-                            setOpen(Boolean(openCloseSnackbar));
-                          }}
-                        >
-                          {`${
-                            isTypeListObjectandNonNull(item.type)
-                              ? row[`${item.name}`] !== undefined
-                                ? !row[`${item.name}`].id
-                                  ? label.EMPTY
-                                  : row[`${item.name}`].id
-                                : label.EMPTY
-                              : Utility.getTimestampColumns(item.name)
-                              ? row[`${item.name}`] !== undefined
-                                ? moment(new Date(row[`${item.name}`] * 1000)).format(
-                                    label.TIME_FORMAT
-                                  )
-                                : label.EMPTY
-                              : isTypeIntegers(item.typeName)
-                              ? Utility.getIntUptoTwoDecimal(row, item.name)
-                                ? parseInt(row[`${item.name}`]).toFixed(2)
-                                : row[`${item.name}`] !== undefined
-                                ? row[`${item.name}`]
-                                : label.EMPTY
-                              : row[`${item.name}`] !== undefined
-                              ? row[`${item.name}`]
+                        <Tooltip
+                          title={
+                            showValuesBasedOnType(row, item).isTooltipNeeded
+                              ? `${showValuesBasedOnType(row, item).TooltipDisplayValue}`
                               : label.EMPTY
-                          }`}
-                        </TableCell>
+                          }
+                        >
+                          <TableCell
+                            key={key}
+                            className={`${
+                              Utility.linkToAddressAndTxHash(row, item.name, item.type)
+                                ? endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH)
+                                  ? 'tablerow-data-css address-data-css '
+                                  : 'tablerow-data-css'
+                                : 'tablerow-data-css '
+                            }`}
+                            onClick={() => {
+                              let openCloseSnackbar = Utility.verifyAddress(
+                                item.typeName,
+                                `${parsed.efd}`,
+                                row,
+                                item.name,
+                                item.type,
+                                endpoint,
+                                subgraphNetworkName,
+                                String(theme)
+                              );
+                              setOpen(Boolean(openCloseSnackbar));
+                            }}
+                          >
+                            {`${showValuesBasedOnType(row, item).displayValue}`}
+                          </TableCell>
+                        </Tooltip>
                       ))}
                     </TableRow>
                   ))

@@ -17,14 +17,13 @@ export default class Timestamp {
     unitsOfTime = String(unitsOfTime.toLowerCase());
     let generatedUnixTime = moment().subtract(inputNumber, unitsOfTime).unix();
     const URI = encodeURIComponent(endpoint);
-    const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
     let filtersInStringify = Utility.getAllFilters(
       Constants.LABELS.filterTypes.GREATERTHAN,
       columnName,
       generatedUnixTime.toString(),
       listOFFiltersInStringify
     );
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 
   public static currentFilter = (
@@ -38,14 +37,13 @@ export default class Timestamp {
     unitsOfTime = String(unitsOfTime.toLowerCase());
     let generatedUnixTime = moment().startOf(unitsOfTime).unix();
     const URI = encodeURIComponent(endpoint);
-    const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
     let filtersInStringify = Utility.getAllFilters(
       Constants.LABELS.filterTypes.GREATERTHAN,
       columnName,
       generatedUnixTime.toString(),
       listOFFiltersInStringify
     );
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 
   public static beforeFilter = (
@@ -64,8 +62,8 @@ export default class Timestamp {
       listOFFiltersInStringify
     );
     const URI = encodeURIComponent(endpoint);
-    const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
+    // const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 
   public static afterFilter = (
@@ -84,8 +82,7 @@ export default class Timestamp {
       listOFFiltersInStringify
     );
     const URI = encodeURIComponent(endpoint);
-    const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 
   public static onFilter = (
@@ -108,8 +105,7 @@ export default class Timestamp {
       listOFFiltersInStringify
     );
     const URI = encodeURIComponent(endpoint);
-    const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 
   public static isEmptyNotEmptyFilter = (
@@ -121,9 +117,8 @@ export default class Timestamp {
     listOFFiltersInStringify: string
   ) => {
     const URI = encodeURIComponent(endpoint);
-    const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
     let filtersInStringify = Utility.getAllFilters('', columnName, null, listOFFiltersInStringify);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 
   public static betweenFilter = (
@@ -140,13 +135,13 @@ export default class Timestamp {
     let secondUnixTime = moment(date[1]).endOf('day').unix();
     generatedUnixTime.push(String(secondUnixTime));
     const URI = encodeURIComponent(endpoint);
-    const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
+    // const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
     let filtersInStringify = Utility.getAllFilters(
       Constants.LABELS.filterTypes.GREATERTHAN_AND_LESSTHAN,
       columnName,
       generatedUnixTime,
       listOFFiltersInStringify
     );
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 }
