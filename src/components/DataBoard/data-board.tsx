@@ -78,12 +78,6 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
       if (queryData !== undefined) {
         for (let index = 0; index < queryData.length; ++index) {
           const element = queryData[index];
-          // if (
-          //   !element.type?.ofType ||
-          //   element.type?.ofType?.kind === dataTypeLabel.LIST ||
-          //   element.type?.ofType?.kind === dataTypeLabel.NON_NULL
-          // )
-          //   continue;
           listOfattributes.push({
             name: element.name,
             type: element.type?.ofType
@@ -104,7 +98,6 @@ const DataBoard: React.FunctionComponent<DataBoardProps & RouteComponentProps> =
           }
           if (item.type === 'LIST' || item.type === 'OBJECT' || item.type === 'NON_NULL') {
             myGlobalQuery = myGlobalQuery + `${item.name} { id } `;
-            // } else if (item.type && !item.type?.ofType && item.type?.name) {
           } else {
             myGlobalQuery = myGlobalQuery + `${item.name} `;
           }

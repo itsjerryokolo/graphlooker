@@ -24,7 +24,6 @@ export const filterNumberIs = (
   }
 
   const URI = encodeURIComponent(endpoint);
-  // const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
   let filtersInStringify = Utility.getAllFilters(
     selectedFilter,
     columnName,

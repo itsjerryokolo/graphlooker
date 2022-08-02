@@ -39,7 +39,6 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
   //Sort Data (Ascending /Descending) when Attribute Clicked
   const sortDataAscDesc = async (sortType: string, columnName: string) => {
     const URI = encodeURIComponent(endpoint);
-    // const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
     return (window.location.href = `${
       urlLabels.BASE_URL
     }uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${Utility.getAllFilters(
@@ -49,7 +48,6 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
       parsed.filterObj
     )}`);
   };
-
 
   const getSortingMenu = () => {
     if (

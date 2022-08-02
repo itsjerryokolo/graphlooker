@@ -12,7 +12,6 @@ export const filterStringIs = (
   listOFFiltersInStringify: string
 ) => {
   const URI = encodeURIComponent(endpoint);
-  // const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
   let filtersInStringify = Utility.getAllFilters(
     selectedFilter,
     columnName,

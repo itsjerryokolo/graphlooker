@@ -11,10 +11,9 @@ import Constants from '../../utility/constant';
 import { ThemeState } from '../../utility/redux/state';
 import Footer from '../Footer/Footer';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material';
-import CallMadeIcon from '@mui/icons-material/CallMade'
+import CallMadeIcon from '@mui/icons-material/CallMade';
 
 const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) => {
   const commonLables = Constants.LABELS.commonLables;
@@ -26,9 +25,6 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
   const urlRegex =
     /^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,5})/g;
   let isendpointCorrect = urlRegex.test(endpoint);
-
- 
-  
 
   const searchEndpoint = (e: any) => {
     e.preventDefault();
@@ -77,9 +73,8 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
     [`& .${tooltipClasses.tooltip}`]: {
       backgroundColor: theme.palette.common.black,
     },
-   width:'290px',
+    width: '290px',
   }));
- 
 
   return (
     <>
@@ -107,24 +102,34 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
               >
                 {commonLables.EXPLORE}
               </button>
-              
+
               <p className="explore-msg">
                 {Constants.LABELS.commonLables.DESC_TITLE}
                 <span>
-                <CustomTooltip 
+                  <CustomTooltip
                     placement="right"
                     title={
                       <>
-                      <h3 style={{ fontSize: '14px', color: '#fffff' }}>
-                      {commonLables.DOCS_INFO_REF_FIRST} <a className='redirect-to-docs' target='_blank' href={Constants.URL.GRAPHLOOKER} rel="noreferrer"> {commonLables.DOCS}<CallMadeIcon/></a>{commonLables.DOCS_INFO_REF_SECOND}
-                      </h3>
-                      
+                        <h3 style={{ fontSize: '14px', color: '#fffff' }}>
+                          {commonLables.DOCS_INFO_REF_FIRST}{' '}
+                          <a
+                            className="redirect-to-docs"
+                            target="_blank"
+                            href={Constants.URL.GRAPHLOOKER}
+                            rel="noreferrer"
+                          >
+                            {' '}
+                            {commonLables.DOCS}
+                            <CallMadeIcon />
+                          </a>
+                          {commonLables.DOCS_INFO_REF_SECOND}
+                        </h3>
                       </>
                     }
                     arrow
                   >
                     <InfoOutlinedIcon />
-                    </CustomTooltip>
+                  </CustomTooltip>
                 </span>
               </p>
 

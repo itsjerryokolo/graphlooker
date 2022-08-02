@@ -17,7 +17,6 @@ export default class Timestamp {
     unitsOfTime = String(unitsOfTime.toLowerCase());
     let generatedUnixTime = moment().subtract(inputNumber, unitsOfTime).unix();
     const URI = encodeURIComponent(endpoint);
-    // const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
     let filtersInStringify = Utility.getAllFilters(
       Constants.LABELS.filterTypes.GREATERTHAN,
       columnName,
@@ -38,7 +37,6 @@ export default class Timestamp {
     unitsOfTime = String(unitsOfTime.toLowerCase());
     let generatedUnixTime = moment().startOf(unitsOfTime).unix();
     const URI = encodeURIComponent(endpoint);
-    // const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
     let filtersInStringify = Utility.getAllFilters(
       Constants.LABELS.filterTypes.GREATERTHAN,
       columnName,
@@ -84,7 +82,6 @@ export default class Timestamp {
       listOFFiltersInStringify
     );
     const URI = encodeURIComponent(endpoint);
-    // const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 
@@ -108,7 +105,6 @@ export default class Timestamp {
       listOFFiltersInStringify
     );
     const URI = encodeURIComponent(endpoint);
-    // const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
 
@@ -121,7 +117,6 @@ export default class Timestamp {
     listOFFiltersInStringify: string
   ) => {
     const URI = encodeURIComponent(endpoint);
-    // const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
     let filtersInStringify = Utility.getAllFilters('', columnName, null, listOFFiltersInStringify);
     window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
   };
