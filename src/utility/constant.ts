@@ -14,7 +14,8 @@ export default class Constants {
     MEDIUM_BLOG: 'https://dapplooker.medium.com/',
     TWITTER: 'https://twitter.com/dapplooker',
     DAPPLOOKER: 'https://dapplooker.com',
-    GRAPHLOOKER: 'https://notion.so/dapplooker/GraphLooker-07bc3adf176b488ca23059ddbd41387f',
+    GRAPHLOOKER:
+      'https://dapplooker.notion.site/dapplooker/GraphLooker-07bc3adf176b488ca23059ddbd41387f',
   };
   public static FILTERLABELS = {
     dataTypeLabels: {
