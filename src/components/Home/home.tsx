@@ -11,7 +11,8 @@ import Constants from '../../utility/constant';
 import { ThemeState } from '../../utility/redux/state';
 import Footer from '../Footer/Footer';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { Tooltip } from '@mui/material';
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import { styled } from '@mui/material';
 
 const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) => {
   const commonLables = Constants.LABELS.commonLables;
@@ -62,6 +63,18 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
     setErrorMsg('');
   };
 
+  const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
+    <Tooltip {...props} arrow classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.arrow}`]: {
+      color: theme.palette.common.black,
+    },
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: theme.palette.common.black,
+    },
+  }));
+ 
+
   return (
     <>
       <div theme-selector={theme}>
@@ -88,11 +101,11 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
               >
                 {commonLables.EXPLORE}
               </button>
-
+              
               <p className="explore-msg">
                 {Constants.LABELS.commonLables.DESC_TITLE}
                 <span>
-                  <Tooltip
+                <CustomTooltip 
                     placement="right"
                     title={
                       <h3 style={{ fontSize: '14px', color: '#fffff' }}>
@@ -102,7 +115,7 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
                     arrow
                   >
                     <InfoOutlinedIcon />
-                  </Tooltip>
+                    </CustomTooltip>
                 </span>
               </p>
 
