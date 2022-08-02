@@ -12,6 +12,7 @@ import { ThemeState } from '../../utility/redux/state';
 import Footer from '../Footer/Footer';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Tooltip } from '@mui/material';
+import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
 const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) => {
   const commonLables = Constants.LABELS.commonLables;
@@ -23,6 +24,9 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
   const urlRegex =
     /^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,5})/g;
   let isendpointCorrect = urlRegex.test(endpoint);
+
+ 
+  
 
   const searchEndpoint = (e: any) => {
     e.preventDefault();
@@ -61,7 +65,6 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
     setEndpoint(e);
     setErrorMsg('');
   };
-
   return (
     <>
       <div theme-selector={theme}>
@@ -92,12 +95,15 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
               <p className="explore-msg">
                 {Constants.LABELS.commonLables.DESC_TITLE}
                 <span>
-                  <Tooltip
+                  <Tooltip style={{ backgroundColor: 'info'}}
                     placement="right"
                     title={
+                      <>
                       <h3 style={{ fontSize: '14px', color: '#fffff' }}>
                         {commonLables.DOCS_INFO_REF}
                       </h3>
+                      <a className='redirect-to-docs' href={Constants.LABELS.commonLables.DOCS}>click here <DoubleArrowIcon></DoubleArrowIcon> </a>
+                      </>
                     }
                     arrow
                   >
