@@ -78,7 +78,7 @@
   display: flex;
   margin: auto;
   width: 930px;
-  margin-top: -180px;
+  margin-top: -167px;
 }
 .subgraph-link ul li {
   list-style: none;
@@ -132,5 +132,101 @@
     height: 15px;
     margin-bottom: -4px;
     margin-left: -4px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .search-box{
+    margin: auto;
+    width: 700px;
+  }
+  .subgraph-link-container{
+    margin-left: 18px;
+    width: 750px;
+    li{
+      min-width: 60px;
+      font-size: 10px;
+    }
+  }
+}
+@media screen and (max-width: 800px) {
+  .search-box{
+    margin: auto;
+    width: 700px;
+  }
+  .subgraph-link-container{
+    margin-left: -5px;
+    width: 700px;
+    li{
+      min-width: 50px;
+      font-size: 8px;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .search-box {
+    width: 600px;
+  }
+  .subgraph-link-container{
+    flex-wrap: wrap;
+    width: 600px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .search-box {
+    width: 500px;
+  }
+  .subgraph-link-container{
+    flex-wrap: wrap;
+    width: 500px;
+  }
+  .error-message span{
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .search-box {
+    width: 400px;
+  }
+  .subgraph-link-container{
+    flex-wrap: wrap;
+    width: 420px;
+  }
+  .explore-msg{
+    font-size: 15px !important;
+  }
+  .error-message span{
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 400px) {
+  
+  .search-box {
+    width: 365px;
+    .search-input{
+    }
+    button{
+      padding-right: 10px;
+    }
+  }
+  .subgraph-link-container{
+    flex-wrap: wrap;
+    width: 370px;
+  }
+  .subgraph-link ul {
+    margin-left: -20px;
+    width: 80px;
+    margin: 10px 0px 10px -20px;
+    li{
+      font-size: 5px;
+    }
+  }
+  .explore-msg{
+    font-size: 12px !important;
+  }
+  .error-message span{
+    font-size: 10px;
   }
 }

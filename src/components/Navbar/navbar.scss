@@ -19,7 +19,7 @@
     margin: 0 20px;
     
     img{
-      margin-bottom: 4px;   
+      margin-bottom: 4px
     }
     .document-icons{
       right: 170px;
@@ -78,7 +78,7 @@
     height: 42px;
     padding: 0;
     background: rgb(23,188,250);
-  background: linear-gradient(90deg, rgba(23,188,250,1) 0%, rgba(218,25,223,1) 100%);
+    background: linear-gradient(90deg, rgba(23,188,250,1) 0%, rgba(218,25,223,1) 100%);
     border: none;
     outline: none;
     border-radius: 5px;
@@ -108,9 +108,32 @@
     color: #fff;
     height: 100%;
     font-weight: 700;
-  
   }  
 }
+
+@media screen and (max-width: 600px) {
+  .menu-items{
+    img{
+      transform: scale(0.8);
+      margin-left: -40px;
+    }
+  }
+  .docs-container {
+    .button {
+      margin-left: 30px !important;
+      margin-top: -4px;
+    }
+    .button__text{
+      padding: 0px 12px !important;
+    }
+  }
+  .theme-icon{
+    margin-top: -4px;
+  }
+  
+}
+
+
 
 
 

@@ -71,10 +71,8 @@
           height: 24px;
           width: 24px;
           margin-left: 65px;
-          margin-bottom: 14px;
           border-radius: $size5;
           cursor: pointer;
-
           &:hover {
             box-shadow: $colorCyan $size0 $size7 29px $size0;
           }
@@ -209,12 +207,23 @@
     font-weight: 700;
   
   }
-  
   .button__icon {
     font-size: 1.5em;
     background: rgba(0, 0, 0, 0.08);
   }
-  
 }
 
+@media screen and (max-width: 1075px) {
+  .graph-heading {
+    display: none;
+  }
+}
 
+@media screen and (max-width: 600px) {
+  .toggle-drawer-icon {
+    margin-bottom: -5px;
+  }
+  .theme-icon {
+    margin-bottom: -5px;
+  }
+}
