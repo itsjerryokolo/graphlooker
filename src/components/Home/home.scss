@@ -204,7 +204,7 @@
 @media screen and (max-width: 400px) {
   
   .search-box {
-    width: 365px;
+    width: 360px;
     .search-input{
     }
     button{
@@ -228,5 +228,13 @@
   }
   .error-message span{
     font-size: 10px;
+  }
+  .search-input{
+    height: 52px !important;
+    border-radius: 7px 0 0 7px !important; 
+  }
+  .search-button {
+    height: 52px !important;
+    border-radius: 0 5px 5px 0 !important; 
   }
 }
