@@ -353,9 +353,7 @@ export default class Utility {
         `${subgraphNetworkNameUrl.addressBaseurl}${id}`,
         '_blank' // <- This is what makes it open in a new window.
       );
-    }
-    //else if ((id )  && regex.TXHASH_REGEX.test(id) && subgraphNetworkName) {
-    else if (Utility.checkIfAddressIsValidTransaction(id)) {
+    } else if (Utility.checkIfAddressIsValidTransaction(id)) {
       window.open(
         // `${urlLabels.TNX_URL}${id}`,
         `${subgraphNetworkNameUrl.transactionBaseurl}${id}`,
