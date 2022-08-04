@@ -267,18 +267,16 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   if (listOfattributes.length === 0) {
     dispatch(setDataLoading(false));
   }
-  const getClassNameBasedOnEntity=(row:any,itemName:any,itemType:any)=>{
-    if(Utility.linkToAddressAndTxHash(row, itemName, itemType) && subgraphNetworkName ){
-
+  const getClassNameBasedOnEntity = (row: any, itemName: any, itemType: any) => {
+    if (Utility.linkToAddressAndTxHash(row, itemName, itemType) && subgraphNetworkName) {
       return 'tablerow-data-css address-data-css';
     }
-    if(itemType===dataTypeLabel.OBJECT){
+    if (itemType === dataTypeLabel.OBJECT) {
       return 'tablerow-data-css address-data-css';
-    }
-    else{
+    } else {
       return 'tablerow-data-css';
     }
-  }
+  };
   return (
     <>
       <div className={drawerOpen ? 'FilterData' : 'FilterData-drawer-open'}>
@@ -349,7 +347,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                         >
                           <TableCell
                             key={key}
-                            className={getClassNameBasedOnEntity(row,item.name,item.type)}
+                            className={getClassNameBasedOnEntity(row, item.name, item.type)}
                             onClick={() => {
                               // eslint-disable-next-line @typescript-eslint/no-unused-vars
                               let openCloseSnackbar = Utility.verifyAddress(
@@ -362,7 +360,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                                 subgraphNetworkName,
                                 String(theme)
                               );
-                             // setOpen(Boolean(openCloseSnackbar));
+                              // setOpen(Boolean(openCloseSnackbar));
                             }}
                           >
                             {`${showValuesBasedOnType(row, item).displayValue}`}

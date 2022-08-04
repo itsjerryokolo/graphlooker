@@ -95,7 +95,7 @@ export default class Utility {
           addressFound = el;
         }
       });
-      if(!subgraphNetworkName){
+      if (!subgraphNetworkName) {
         return false;
       }
       if (addressFound !== '') {
@@ -325,17 +325,19 @@ export default class Utility {
   -If the ID is strict Alphanumeric and not a number.
   -If the ID starts with 0x.
   */
-  public static checkIfAddressIsValidTransaction=(id:string)=>{
-   if(id && regex.TXHASH_REGEX.test(id) && 
-   (!regex.CHECK_NUMBER_REGEX.test(id)) && 
-  (regex.CHECK_ONLY_APLHANUMERIC_REGEX.test(id)) && regex.TXHASH_STARTING_REGEX.test(id))
-   {
-    return true;
-   }
-   else{
-    return false;
-   }
-  }
+  public static checkIfAddressIsValidTransaction = (id: string) => {
+    if (
+      id &&
+      regex.TXHASH_REGEX.test(id) &&
+      !regex.CHECK_NUMBER_REGEX.test(id) &&
+      regex.CHECK_ONLY_APLHANUMERIC_REGEX.test(id) &&
+      regex.TXHASH_STARTING_REGEX.test(id)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   public static checkAddressValidity = (
     entity: string,
@@ -346,17 +348,14 @@ export default class Utility {
   ) => {
     const subgraphNetworkNameUrl = Utility.getNetworkDetails().get(subgraphNetworkName);
     let verifyAddress = ethers.utils.isAddress(id);
-    if (
-      verifyAddress &&
-      subgraphNetworkName 
-    ) {
+    if (verifyAddress && subgraphNetworkName) {
       window.open(
         `${subgraphNetworkNameUrl.addressBaseurl}${id}`,
         '_blank' // <- This is what makes it open in a new window.
       );
-    } 
+    }
     //else if ((id )  && regex.TXHASH_REGEX.test(id) && subgraphNetworkName) {
-      else if(Utility.checkIfAddressIsValidTransaction(id)){
+    else if (Utility.checkIfAddressIsValidTransaction(id)) {
       window.open(
         // `${urlLabels.TNX_URL}${id}`,
         `${subgraphNetworkNameUrl.transactionBaseurl}${id}`,
@@ -418,7 +417,11 @@ export default class Utility {
       let splitNumber = row[`${columnName}`].split('-');
 
       for (let i = 0; i < splitNumber.length; i++) {
-        if ((!regex.CHECK_NUMBER_REGEX.test(splitNumber[i])) && regex.CHECK_ONLY_APLHANUMERIC_REGEX.test(splitNumber[i]) && regex.TXHASH_STARTING_REGEX.test(splitNumber[i])) {
+        if (
+          !regex.CHECK_NUMBER_REGEX.test(splitNumber[i]) &&
+          regex.CHECK_ONLY_APLHANUMERIC_REGEX.test(splitNumber[i]) &&
+          regex.TXHASH_STARTING_REGEX.test(splitNumber[i])
+        ) {
           return true;
         }
       }
