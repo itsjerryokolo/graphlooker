@@ -20,7 +20,8 @@ const StringFilterMenu: React.FunctionComponent<
 
   let selectedEntity: string;
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
-  selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
+  selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity); //TO-DO
+  let efd = useSelector((state: EntityState) => state.selectedEntity.efd); //TO-DO
 
   const stringFilter = Constants.STRING_TYPE_MENU.stringFilter;
   const [selectStringMenu, setSelectStringMenu] = React.useState(label.IS); //For String
@@ -77,6 +78,7 @@ const StringFilterMenu: React.FunctionComponent<
             filterStringIs(
               endpoint,
               selectedEntity,
+              efd,
               attributeName,
               optionSelected,
               stringValue,

@@ -34,7 +34,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
 
   //<--------------- All use Selectors --------------->
 
-  let selectedEntity: string = useSelector((state: EntityState) => state.selectedEntity.entity);
+  let selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   const queryDataGlobalState = useSelector((state: QueryDataState) => state.queryState.query);
   const listOfattributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
 
@@ -54,11 +54,11 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       sortFilter = listOfFilters.filter((data) => data.filterName === 'sort');
     }
     if (parsed.id) {
-      return getGraphDataForID(listOfattributes, selectedEntity, `${parsed.id}`);
+      return getGraphDataForID(listOfattributes, `${parsed.efd}`, `${parsed.id}`);
     } else if (listOfFilters && listOfFilters.length === 1 && sortFilter && sortFilter.length) {
       return getSortedDataQuery(
         listOfattributes,
-        selectedEntity,
+        `${parsed.efd}`,
         sortFilter[0].inputValue,
         sortFilter[0].columnName,
         0,
@@ -69,7 +69,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     } else if (listOfFilters.length) {
       return getStringFilterGraphData(
         listOfattributes,
-        selectedEntity,
+        `${parsed.efd}`,
         0,
         1000,
         entityId.length > 0 ? entityId[entityId.length - 1] : '',
@@ -80,7 +80,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
 
     return getDataQuery(
       listOfattributes,
-      selectedEntity,
+      `${parsed.efd}`,
       1000,
       0,
       queryDataGlobalState,
@@ -162,7 +162,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     setErrorMsg('');
   }, [sortedDataState]);
 
-  let fileName = `${selectedEntity}_GraphLooker.csv`;
+  let fileName = `${parsed.efd}_GraphLooker.csv`;
 
   return (
     <>

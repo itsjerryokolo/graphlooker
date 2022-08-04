@@ -10,6 +10,7 @@ export default class Timestamp {
     unitsOfTime: string,
     endpoint: string,
     selectedEntity: string,
+    efd: string,
     theme: string,
     columnName: string,
     listOFFiltersInStringify: string
@@ -23,13 +24,14 @@ export default class Timestamp {
       generatedUnixTime.toString(),
       listOFFiltersInStringify
     );
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}&efd=${efd}`;
   };
 
   public static currentFilter = (
     unitsOfTime: any,
     endpoint: string,
     selectedEntity: string,
+    efd: string,
     theme: string,
     columnName: string,
     listOFFiltersInStringify: string
@@ -43,13 +45,14 @@ export default class Timestamp {
       generatedUnixTime.toString(),
       listOFFiltersInStringify
     );
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}`;
   };
 
   public static beforeFilter = (
     date: Date,
     endpoint: string,
     selectedEntity: string,
+    efd: string,
     theme: string,
     columnName: string,
     listOFFiltersInStringify: string
@@ -63,13 +66,14 @@ export default class Timestamp {
     );
     const URI = encodeURIComponent(endpoint);
     // const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}`;
   };
 
   public static afterFilter = (
     date: Date,
     endpoint: string,
     selectedEntity: string,
+    efd: string,
     theme: string,
     columnName: string,
     listOFFiltersInStringify: string
@@ -82,13 +86,14 @@ export default class Timestamp {
       listOFFiltersInStringify
     );
     const URI = encodeURIComponent(endpoint);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}`;
   };
 
   public static onFilter = (
     date: Date,
     endpoint: string,
     selectedEntity: string,
+    efd: string,
     theme: string,
     columnName: string,
     listOFFiltersInStringify: string
@@ -105,26 +110,28 @@ export default class Timestamp {
       listOFFiltersInStringify
     );
     const URI = encodeURIComponent(endpoint);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}`;
   };
 
   public static isEmptyNotEmptyFilter = (
     appliedFilter: string,
     endpoint: string,
     selectedEntity: string,
+    efd: string,
     theme: string,
     columnName: string,
     listOFFiltersInStringify: string
   ) => {
     const URI = encodeURIComponent(endpoint);
     let filtersInStringify = Utility.getAllFilters('', columnName, null, listOFFiltersInStringify);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}`;
   };
 
   public static betweenFilter = (
     date: any,
     endpoint: string,
     selectedEntity: string,
+    efd: string,
     theme: string,
     columnName: string,
     listOFFiltersInStringify: string
@@ -142,6 +149,6 @@ export default class Timestamp {
       generatedUnixTime,
       listOFFiltersInStringify
     );
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}`;
   };
 }

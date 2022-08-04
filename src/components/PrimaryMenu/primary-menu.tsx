@@ -26,7 +26,8 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
   const filterLabels = Constants.FILTERLABELS.dataTypeLabels;
   let selectedEntity: string;
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
-  selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
+  selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity); //TO-DO
+  let efd = useSelector((state: EntityState) => state.selectedEntity.efd); //TO-DO
 
   const [anchorFiterEl, setAnchorFiterEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorFiterEl);
@@ -46,7 +47,7 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
       columnName,
       sortType,
       parsed.filterObj
-    )}`);
+    )}&efd=${efd}`);
   };
 
   const getSortingMenu = () => {

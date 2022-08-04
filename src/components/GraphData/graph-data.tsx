@@ -24,6 +24,7 @@ import {
   setGraphEntity,
   setGraphEndpoint,
   setSubgraphName,
+  setAllEntity,
 } from '../../redux/actions/endpoint-action';
 import DataBoard from '../DataBoard/data-board';
 import Constants from '../../utility/constant';
@@ -71,7 +72,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
       const endpointEncoded = parsed.uri;
       const endpoint = decodeURIComponent(`${endpointEncoded}`);
       const entity = parsed.e;
-      dispatch(setGraphEntity(`${entity}`));
+      dispatch(setGraphEntity({ entity: `${entity}`, efd: `${parsed.efd}` }));
       dispatch(setGraphEndpoint(endpoint));
       return;
     }
@@ -132,7 +133,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
     }
   }, [dispatch, networkName]);
 
-  let allEntities = [];
+  let allEntities: { entity: string; efd: string }[];
   allEntities = [];
   if (loading) {
     if (error) {
@@ -148,12 +149,13 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
         if (index % 2 === 0) {
           allEntities.push({
             entity: element.type.name,
-            entityForDataQuery: queryData[index + 1]?.name,
+            efd: queryData[index + 1]?.name,
           });
         }
       }
       allEntities.pop();
     }
+    dispatch(setAllEntity(allEntities));
   }
   const drawer = (
     <div>

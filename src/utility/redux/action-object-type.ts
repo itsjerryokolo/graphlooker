@@ -12,7 +12,7 @@ export interface EndpointActionObjectTypes {
 }
 export interface EntityActionObjectTypes {
   type: string;
-  payload: string;
+  payload: { entity: string; efd: string };
 }
 export interface AttributesActionObjectTypes {
   type: string;
@@ -25,4 +25,9 @@ export interface LoadingActionObjectTypes {
 export interface QueryActionObjectTypes {
   type: string;
   payload: any;
+}
+
+export interface listOfEntityActionObjectTypes {
+  type: string;
+  payload: { entity: string; efd: string };
 }

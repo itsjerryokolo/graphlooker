@@ -21,7 +21,8 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
 
   let selectedEntity: string;
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
-  selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
+  selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity); //TO-DO
+  let efd = useSelector((state: EntityState) => state.selectedEntity.efd); //TO-DO
 
   const label = Constants.LABELS.commonLables;
 
@@ -78,6 +79,7 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
           timeMenu,
           endpoint,
           selectedEntity,
+          efd,
           theme,
           attributeName,
           listOfFilters
@@ -88,6 +90,7 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
           currentMenu,
           endpoint,
           selectedEntity,
+          efd,
           theme,
           attributeName,
           listOfFilters
@@ -98,6 +101,7 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
           calendarDate,
           endpoint,
           selectedEntity,
+          efd,
           theme,
           attributeName,
           listOfFilters
@@ -108,6 +112,7 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
           calendarDate,
           endpoint,
           selectedEntity,
+          efd,
           theme,
           attributeName,
           listOfFilters
@@ -118,6 +123,7 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
           calendarDate,
           endpoint,
           selectedEntity,
+          efd,
           theme,
           attributeName,
           listOfFilters
@@ -128,6 +134,7 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
           label.UNDERSCORE_IS,
           endpoint,
           selectedEntity,
+          efd,
           theme,
           attributeName,
           listOfFilters
@@ -138,6 +145,7 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
           label.UNDERSCORE_IS,
           endpoint,
           selectedEntity,
+          efd,
           theme,
           attributeName,
           listOfFilters
@@ -148,6 +156,7 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
           calendarDate,
           endpoint,
           selectedEntity,
+          efd,
           theme,
           attributeName,
           listOfFilters

@@ -7,6 +7,7 @@ const urlLabels = Constants.LABELS.commonUrls;
 export const filterNumberIs = (
   endpoint: string,
   selectedEntity: string,
+  efd: string,
   columnName: string,
   selectedFilter: string,
   firstInputNumber: string,
@@ -30,5 +31,5 @@ export const filterNumberIs = (
     userInputValue,
     listOFFiltersInStringify
   );
-  window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}`;
+  window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}`;
 };
