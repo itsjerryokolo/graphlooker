@@ -45,7 +45,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   drawerOpen,
   location,
 }) => {
-  let selectedEntity: string;
+  let selectedEntity: any;
   let rows: any[] = [];
   let pageNumber: number = 1;
   let isNextDisable: boolean = false;
@@ -200,17 +200,17 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     let filtersInStringify = Utility.getAllFilters(null, null, null, listOfFilters);
     if (isNextDisable) return;
     const URI = encodeURIComponent(endpoint);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&p=${
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity.entity}&p=${
       pageNumber + 1
-    }&filterObj=${filtersInStringify}&efd=${parsed.efd}`;
+    }&efd=${parsed.efd}&filterObj=${filtersInStringify}`;
   };
   const goToPrev = () => {
     if (isPrevDisable) return;
     let filtersInStringify = Utility.getAllFilters(null, null, null, listOfFilters);
     const URI = encodeURIComponent(endpoint);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&p=${
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity.entity}&p=${
       pageNumber - 1
-    }&filterObj=${filtersInStringify}&efd=${parsed.efd}`;
+    }&efd=${parsed.efd}&filterObj=${filtersInStringify}`;
   };
 
   //Get Table Data
