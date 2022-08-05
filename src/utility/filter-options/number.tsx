@@ -31,5 +31,5 @@ export const filterNumberIs = (
     userInputValue,
     listOFFiltersInStringify
   );
-  window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}`;
+  window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&efd=${efd}&filterObj=${filtersInStringify}`;
 };

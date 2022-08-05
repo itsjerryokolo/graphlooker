@@ -1,11 +1,9 @@
-import { listOfEntityState } from './redux/state';
 import { ethers } from 'ethers';
 import Constants from './constant';
 import pluralizer from 'pluralize';
 import moment from 'moment';
 import { Allfilters } from '../utility/interface/props';
 import { noCase } from 'change-case';
-import { useSelector } from 'react-redux';
 
 const urlLabels = Constants.LABELS.commonUrls;
 const dataTypeLabel = Constants.FILTERLABELS.dataTypeLabels;

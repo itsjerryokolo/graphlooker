@@ -24,7 +24,7 @@ export default class Timestamp {
       generatedUnixTime.toString(),
       listOFFiltersInStringify
     );
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}&efd=${efd}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&efd=${efd}&filterObj=${filtersInStringify}`;
   };
 
   public static currentFilter = (
@@ -45,7 +45,7 @@ export default class Timestamp {
       generatedUnixTime.toString(),
       listOFFiltersInStringify
     );
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&efd=${efd}&filterObj=${filtersInStringify}`;
   };
 
   public static beforeFilter = (
@@ -66,7 +66,7 @@ export default class Timestamp {
     );
     const URI = encodeURIComponent(endpoint);
     // const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&efd=${efd}&filterObj=${filtersInStringify}`;
   };
 
   public static afterFilter = (
@@ -86,7 +86,7 @@ export default class Timestamp {
       listOFFiltersInStringify
     );
     const URI = encodeURIComponent(endpoint);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&efd=${efd}&filterObj=${filtersInStringify}`;
   };
 
   public static onFilter = (
@@ -110,7 +110,7 @@ export default class Timestamp {
       listOFFiltersInStringify
     );
     const URI = encodeURIComponent(endpoint);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&efd=${efd}&filterObj=${filtersInStringify}`;
   };
 
   public static isEmptyNotEmptyFilter = (
@@ -124,7 +124,7 @@ export default class Timestamp {
   ) => {
     const URI = encodeURIComponent(endpoint);
     let filtersInStringify = Utility.getAllFilters('', columnName, null, listOFFiltersInStringify);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&efd=${efd}&filterObj=${filtersInStringify}`;
   };
 
   public static betweenFilter = (
@@ -149,6 +149,6 @@ export default class Timestamp {
       generatedUnixTime,
       listOFFiltersInStringify
     );
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&filterObj=${filtersInStringify}&efd=${efd}`;
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&efd=${efd}&filterObj=${filtersInStringify}`;
   };
 }
