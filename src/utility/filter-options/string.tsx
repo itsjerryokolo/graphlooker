@@ -5,6 +5,7 @@ const urlLabels = Constants.LABELS.commonUrls;
 export const filterStringIs = (
   endpoint: string,
   selectedEntity: string,
+  efd: string,
   columnName: string,
   selectedFilter: string,
   stringInputValue: string,
@@ -12,12 +13,11 @@ export const filterStringIs = (
   listOFFiltersInStringify: string
 ) => {
   const URI = encodeURIComponent(endpoint);
-  const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
   let filtersInStringify = Utility.getAllFilters(
     selectedFilter,
     columnName,
     stringInputValue,
     listOFFiltersInStringify
   );
-  window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&filterObj=${filtersInStringify}`;
+  window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&th=${theme}&efd=${efd}&filterObj=${filtersInStringify}`;
 };

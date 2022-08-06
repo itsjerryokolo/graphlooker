@@ -19,9 +19,9 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
   const theme = String(parsed.th);
   let listOfFilters = String(parsed.filterObj);
 
-  let selectedEntity: string;
+  let selectedEntity: any;
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
-  selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
+  selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity); //TO-DO
 
   const label = Constants.LABELS.commonLables;
 
@@ -77,7 +77,8 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
           inputValues,
           timeMenu,
           endpoint,
-          selectedEntity,
+          selectedEntity.entity,
+          selectedEntity.efd,
           theme,
           attributeName,
           listOfFilters
@@ -87,7 +88,8 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
         Timestamp.currentFilter(
           currentMenu,
           endpoint,
-          selectedEntity,
+          selectedEntity?.entity,
+          selectedEntity?.efd,
           theme,
           attributeName,
           listOfFilters
@@ -97,7 +99,8 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
         Timestamp.beforeFilter(
           calendarDate,
           endpoint,
-          selectedEntity,
+          selectedEntity?.entity,
+          selectedEntity?.efd,
           theme,
           attributeName,
           listOfFilters
@@ -107,7 +110,8 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
         Timestamp.afterFilter(
           calendarDate,
           endpoint,
-          selectedEntity,
+          selectedEntity?.entity,
+          selectedEntity?.efd,
           theme,
           attributeName,
           listOfFilters
@@ -117,7 +121,8 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
         Timestamp.onFilter(
           calendarDate,
           endpoint,
-          selectedEntity,
+          selectedEntity?.entity,
+          selectedEntity?.efd,
           theme,
           attributeName,
           listOfFilters
@@ -127,7 +132,8 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
         Timestamp.isEmptyNotEmptyFilter(
           label.UNDERSCORE_IS,
           endpoint,
-          selectedEntity,
+          selectedEntity?.entity,
+          selectedEntity?.efd,
           theme,
           attributeName,
           listOfFilters
@@ -137,7 +143,8 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
         Timestamp.isEmptyNotEmptyFilter(
           label.UNDERSCORE_IS,
           endpoint,
-          selectedEntity,
+          selectedEntity?.entity,
+          selectedEntity?.efd,
           theme,
           attributeName,
           listOfFilters
@@ -147,7 +154,8 @@ const TimeFilterMenu: React.FunctionComponent<TimeFilterMenuProps & RouteCompone
         Timestamp.betweenFilter(
           calendarDate,
           endpoint,
-          selectedEntity,
+          selectedEntity?.entity,
+          selectedEntity?.efd,
           theme,
           attributeName,
           listOfFilters

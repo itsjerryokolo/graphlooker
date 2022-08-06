@@ -1,5 +1,9 @@
 export default class Constants {
   public static URL = {
+    BASE_URL:
+      process.env.NODE_ENV === 'development'
+        ? `${process.env.REACT_APP_BASE_URL_DEVELOPMENT}explore?`
+        : `${process.env.REACT_APP_BASE_URL_PRODUCTION}explore?`,
     DEV: {},
     PROD: {},
     THEGRAPH: 'https://thegraph.com/',
@@ -10,7 +14,8 @@ export default class Constants {
     MEDIUM_BLOG: 'https://dapplooker.medium.com/',
     TWITTER: 'https://twitter.com/dapplooker',
     DAPPLOOKER: 'https://dapplooker.com',
-    GRAPHLOOKER: 'https://www.notion.so/dapplooker/GraphLooker-07bc3adf176b488ca23059ddbd41387f',
+    GRAPHLOOKER:
+      'https://dapplooker.notion.site/dapplooker/GraphLooker-07bc3adf176b488ca23059ddbd41387f',
   };
   public static FILTERLABELS = {
     dataTypeLabels: {
@@ -71,6 +76,7 @@ export default class Constants {
       'endTime',
       'registrationDate',
       'expiryDate',
+      'lastUpdateTimestamp',
     ],
   };
 
@@ -103,8 +109,8 @@ export default class Constants {
       DOWNLOAD: 'Download to CSV',
       SORT_ASC: 'Sort Ascending',
       SORT_DESC: 'Sort Descending',
-      DESC_TITLE: "Enables subgraph developers and TheGraph users to browse subgraph data, download data to CSV, sort and filter data in real-time with just a few clicks",
-      ENTITY_REFERENCE: 'This column is a reference of',
+      DESC_TITLE: 'Real-time Subgraph Explorer & Visualizer',
+      ENTITY_REFERENCE: 'This column is nested type of',
       NULL: 'null',
       DOUBLE_QUOTES: '"',
       SORT: 'sort',
@@ -122,6 +128,31 @@ export default class Constants {
       GRAPH_HEADING: 'SUBGRAPH STUDIO',
       MY_THEME: 'mytheme',
       BUTTON_TEXT_FOR_EMAIL: 'INFORM US',
+      DOCS: 'DOCS',
+      DOCS_INFO_REF_FIRST: 'First time using GraphLooker? Click',
+      DOCS_INFO_REF_SECOND: 'to learn how to export subgraph data',
+      recentSubgraphs: [
+        {
+          NAME: 'Uniswap V3',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Funiswap%2Funiswap-v2&e=UniswapFactory&efd=uniswapFactories`,
+        },
+        {
+          NAME: 'LIVEPEER',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Flivepeer%2Flivepeer&e=Protocol&efd=protocols`,
+        },
+        {
+          NAME: 'Decentraland',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fdecentraland%2Fmarketplace&e=Count&efd=counts`,
+        },
+        {
+          NAME: 'Aave Gotchi',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Faavegotchi%2Faavegotchi-lending&e=AavegotchiOption&efd=aavegotchiOptions`,
+        },
+        {
+          NAME: 'Compound V2',
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fgraphprotocol%2Fcompound-v2&e=Comptroller&efd=comptrollers`,
+        },
+      ],
     },
     commonUrls: {
       BASE_URL:
@@ -138,6 +169,8 @@ export default class Constants {
     },
     errorComponenet: {
       queryFailedMsg: 'Unexpected error encountered. Please try again after sometime.',
+      copyURL: 'Copy URL',
+      copiedURL: 'Copied!',
     },
     imagePaths: {
       FIREWORKS: '/images/firework-outline.gif',
@@ -239,15 +272,5 @@ export default class Constants {
 
   public static LENGTH_OF_STRING = {
     VALUE: 21,
-  };
-  public static CONTACT = {
-    EMAIL: 'help@dapplooker.com',
-  };
-  public static MAIL_FORMAT = {
-    MAIL_GREETING: 'Hi DappLooker Team,',
-    MAIL_BODY:
-      'There is an issue with following subgraph data with GraphLooker. Can you please help to resolve ?',
-    MAIL_SUBJECT: 'This Query has been failed !',
-    MAIL_ENDING_MESSAGE: 'Thanks !',
   };
 }

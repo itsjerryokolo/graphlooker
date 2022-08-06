@@ -32,21 +32,25 @@ export const getAllEntities = gql`
       queryType {
         fields {
           name
+          type {
+            name
+          }
         }
       }
     }
   }
 `;
 
-export const getAllAttributes = (entity: string) => {
-  entity = Utility.getProperEntity(entity);
+export const getAllAttributes = (entity: any) => {
+  // entity = Utility.getProperEntity(entity);
   return gql`
         query{
-          __type(name:"${entity}"){
+          __type(name:"${entity?.entity}"){
             name
           fields{
             name
             type{
+              name
               ofType{
                 name
                 kind
@@ -58,9 +62,8 @@ export const getAllAttributes = (entity: string) => {
     `;
 };
 
-export const getGraphDataForID = (columnNames: ColumnProps[], entity: string, filterID: string) => {
+export const getGraphDataForID = (columnNames: ColumnProps[], entity: any, filterID: string) => {
   let queryData = ` `;
-  const selectedEntity = Utility.makePluralChanges(entity);
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
     if (element.name === commonLables.ID) {
@@ -79,7 +82,7 @@ export const getGraphDataForID = (columnNames: ColumnProps[], entity: string, fi
 
   return gql`
       query {
-        entity: ${selectedEntity}(where:{id:"${filterID}"}){
+        entity: ${entity},(where:{id:"${filterID}"}){
           id      
           ${queryData}
           }
@@ -104,7 +107,7 @@ errorMsg = specific error msg
 
 export const getStringFilterGraphData = (
   columnNames: ColumnProps[],
-  entity: string,
+  efd: any,
   skip: number,
   count: number,
   whereId: string,
@@ -114,9 +117,6 @@ export const getStringFilterGraphData = (
   let attributeName: string = ``;
   let sortType: string = ``;
   let queryData = ` `;
-  const selectedEntity = Utility.makePluralChanges(entity);
-
-  // let columnNameWithFilter = attributeName.concat(filterOption);
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
     if (element.name === commonLables.ID) {
@@ -184,7 +184,7 @@ export const getStringFilterGraphData = (
 
   return gql`
       query {
-        entity: ${selectedEntity}(first:${count}, skip:${skip},${sortQuery},where: {${filterQuery}, id_gt:"${whereId}"}){
+        entity: ${efd}(first:${count}, skip:${skip},${sortQuery},where: {${filterQuery}, id_gt:"${whereId}"}){
           id      
           ${queryData}
           }
@@ -213,7 +213,8 @@ export const getDataQuery = (
   whereId: any,
   errorMsg: string
 ) => {
-  const selectedEntity = Utility.makePluralChanges(entity);
+  // let selectedEntity = entity && entity.charAt(0).toLowerCase() + entity.slice(1); To-D0: No need of this varible after adding entity ofr data(efd)
+  //selectedEntity = Utility.makePluralChanges(selectedEntity);
   let orderByColumnName = 'id';
   orderByColumnName = Utility.getColumnNameForOptimizeQuery(columnNames);
 
@@ -238,7 +239,7 @@ export const getDataQuery = (
 
   return gql`
     query {
-      entity: ${selectedEntity}(first:${count}, skip:${skip}, orderBy: ${orderByColumnName}, 
+      entity: ${entity}(first:${count}, skip:${skip}, orderBy: ${orderByColumnName}, 
         orderDirection: desc, where: {id_gt:"${whereId}" } ){
         id      
         ${queryData}
@@ -262,7 +263,7 @@ errorMsg = specific error msg
 
 export const getSortedDataQuery = (
   columnNames: ColumnProps[],
-  entity: string,
+  efd: any,
   sortType: string | (string | null)[] | null | number,
   attributeName: string | (string | null)[] | null | number,
   skip: number,
@@ -270,8 +271,6 @@ export const getSortedDataQuery = (
   whereId: string,
   errorMsg: string
 ) => {
-  const selectedEntity = Utility.makePluralChanges(entity);
-
   let queryData = ` `;
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
@@ -284,7 +283,6 @@ export const getSortedDataQuery = (
         element.type === label.NON_NULL) &&
       !errorMsg
     ) {
-      //element.name = column name
       queryData = queryData + `${element.name} { ${commonLables.ID} } `;
     } else {
       queryData = queryData + `${element.name} `;
@@ -293,7 +291,7 @@ export const getSortedDataQuery = (
 
   return gql`
     query {
-      entity: ${selectedEntity}(first:${count}, skip:${skip}, orderBy: ${attributeName}, orderDirection: ${sortType}, where: {id_gt:"${whereId}" }){
+      entity: ${efd}(first:${count}, skip:${skip}, orderBy: ${attributeName}, orderDirection: ${sortType}, where: {id_gt:"${whereId}" }){
         id
         ${queryData}
       }

@@ -4,6 +4,7 @@ import {
   AttributesActionObjectTypes,
   QueryActionObjectTypes,
   SubgraphNetworkActionObjectTypes,
+  listOfEntityActionObjectTypes,
 } from '../../utility/redux/action-object-type';
 import { EndpointActionTypes } from '../../utility/redux/action-types';
 
@@ -54,6 +55,18 @@ export const queryReducer = (state = {}, { type, payload }: QueryActionObjectTyp
   switch (type) {
     case EndpointActionTypes.SET_QUERY:
       return { ...state, query: payload };
+    default:
+      return state;
+  }
+};
+
+export const listOfEntityReducer = (
+  state = {},
+  { type, payload }: listOfEntityActionObjectTypes
+) => {
+  switch (type) {
+    case EndpointActionTypes.SET_ALL_ENTITY:
+      return { ...state, listOfEntity: payload };
     default:
       return state;
   }

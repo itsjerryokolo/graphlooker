@@ -24,9 +24,9 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
   const label = Constants.LABELS.commonLables;
   const urlLabels = Constants.LABELS.commonUrls;
   const filterLabels = Constants.FILTERLABELS.dataTypeLabels;
-  let selectedEntity: string;
+  let selectedEntity: any;
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
-  selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
+  selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity); //TO-DO
 
   const [anchorFiterEl, setAnchorFiterEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorFiterEl);
@@ -39,17 +39,15 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
   //Sort Data (Ascending /Descending) when Attribute Clicked
   const sortDataAscDesc = async (sortType: string, columnName: string) => {
     const URI = encodeURIComponent(endpoint);
-    const entity = selectedEntity.charAt(0).toLowerCase() + selectedEntity.slice(1);
-    return (window.location.href = `${
-      urlLabels.BASE_URL
-    }uri=${URI}&e=${entity}&th=${theme}&filterObj=${Utility.getAllFilters(
+    return (window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${
+      selectedEntity.entity
+    }&th=${theme}&efd=${selectedEntity.efd}&filterObj=${Utility.getAllFilters(
       Constants.LABELS.filterTypes.SORT,
       columnName,
       sortType,
       parsed.filterObj
     )}`);
   };
-
 
   const getSortingMenu = () => {
     if (
@@ -83,20 +81,39 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
     }
   };
 
+  const getStringMenu = () => {
+    if (!(attributeType === filterLabels.LIST)) {
+      return (
+        <>
+          <MenuItem>
+            <button
+              aria-controls="filter_menu"
+              onClick={handleFilterOpen}
+              className="filter-menu-button"
+            >
+              <FilterListIcon color="primary" className="filter-list-icon" />
+              <span className="filter-by-col-label">{label.FILTER_BY_COL}</span>
+            </button>
+          </MenuItem>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <MenuItem>
+            <button aria-controls="filter_menu" className="filter-menu-button">
+              <span className="filter-by-col-label">No Filter Applicable</span>
+            </button>
+          </MenuItem>
+        </>
+      );
+    }
+  };
+
   return (
     <>
       {getSortingMenu()}
-      <MenuItem>
-        <button
-          aria-controls="filter_menu"
-          onClick={handleFilterOpen}
-          className="filter-menu-button"
-        >
-          <FilterListIcon color="primary" className="filter-list-icon" />
-          <span className="filter-by-col-label">{label.FILTER_BY_COL}</span>
-        </button>
-      </MenuItem>
-
+      {getStringMenu()}
       <Menu
         id="filter_menu"
         onClose={handleCloseMenu}

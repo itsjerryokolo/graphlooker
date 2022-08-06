@@ -24,6 +24,7 @@ import {
   setGraphEntity,
   setGraphEndpoint,
   setSubgraphName,
+  setAllEntity,
 } from '../../redux/actions/endpoint-action';
 import DataBoard from '../DataBoard/data-board';
 import Constants from '../../utility/constant';
@@ -71,7 +72,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
       const endpointEncoded = parsed.uri;
       const endpoint = decodeURIComponent(`${endpointEncoded}`);
       const entity = parsed.e;
-      dispatch(setGraphEntity(`${entity}`));
+      dispatch(setGraphEntity({ entity: `${entity}`, efd: `${parsed.efd}` }));
       dispatch(setGraphEndpoint(endpoint));
       return;
     }
@@ -132,7 +133,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
     }
   }, [dispatch, networkName]);
 
-  let allEntities: string[];
+  let allEntities: { entity: string; efd: string }[];
   allEntities = [];
   if (loading) {
     if (error) {
@@ -144,12 +145,17 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
       const queryData = data.__schema.queryType.fields;
       for (let index = 0; index < queryData.length; ++index) {
         const element = queryData[index];
+
         if (index % 2 === 0) {
-          allEntities.push(element.name);
+          allEntities.push({
+            entity: element.type.name,
+            efd: queryData[index + 1]?.name,
+          });
         }
       }
       allEntities.pop();
     }
+    dispatch(setAllEntity(allEntities));
   }
   const drawer = (
     <div>
@@ -242,7 +248,15 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               {graphName}
               {subgraphNetworkName ? `(${subgraphNetworkName})` : ''}
             </h2>
-
+            <div className="doc-container">
+              <a href={Constants.URL.GRAPHLOOKER} target="_blank" rel="noreferrer">
+                <div>
+                  <button type="button" className="button">
+                    <span className="button__text">{label.DOCS}</span>
+                  </button>
+                </div>
+              </a>
+            </div>
             <Tooltip title={label.SWITCH_THEME}>
               <div className="theme-icon" onClick={changetheme}>
                 {theme === label.LIGHT_THEME_LABEL ? <DarkModeIcon /> : <LightModeIcon />}
