@@ -45,7 +45,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   }, [selectedEntity, queryDataGlobalState, listOfattributes]);
 
   //<------- functionality for dynamic query ------->
- 
+
   function getCsvDataResursively(error: string) {
     let listOfFilters: Allfilters[] = [];
     let sortFilter: Allfilters[] = [];
@@ -94,7 +94,6 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
 
   const exportClickHandler = async () => {
     let data: any;
-    
     try {
       data = await client.query({
         query: getCsvDataResursively(errorMsg),
@@ -102,7 +101,6 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     } catch (err) {
       setErrorMsg(err);
     }
-   
     let entityData: any = await data?.data;
     entityData = data?.data['entity'];
     rows = [...entityData];
@@ -147,9 +145,9 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     ) {
       exportClickHandler();
     } else if (downloadRef && !errorMsg) {
-     if(downloadOnce) {
-      CSV_LINK_REF?.current?.link.click();
-     }
+      if (downloadOnce) {
+        CSV_LINK_REF?.current?.link.click();
+      }
       setDownloadRef(false);
       setDownloadOnce(false);
     }

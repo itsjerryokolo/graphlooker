@@ -64,8 +64,6 @@ export const getAllAttributes = (entity: any) => {
 
 export const getGraphDataForID = (columnNames: ColumnProps[], entity: any, filterID: string) => {
   let queryData = ` `;
-  //let selectedEntity = entity && entity.charAt(0).toLowerCase() + entity.slice(1); To-D0: No need of this varible after adding entity ofr data(efd)
-  // selectedEntity = Utility.makePluralChanges(selectedEntity);
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
     if (element.name === commonLables.ID) {
@@ -119,9 +117,6 @@ export const getStringFilterGraphData = (
   let attributeName: string = ``;
   let sortType: string = ``;
   let queryData = ` `;
-  // let selectedEntity = entity && entity.charAt(0).toLowerCase() + entity.slice(1); //To-D0: No need of this varible after adding entity ofr data(efd)
-  // selectedEntity = Utility.makePluralChanges(selectedEntity);
-
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
     if (element.name === commonLables.ID) {
@@ -276,9 +271,6 @@ export const getSortedDataQuery = (
   whereId: string,
   errorMsg: string
 ) => {
-  //let selectedEntity = entity && entity.charAt(0).toLowerCase() + entity.slice(1); To-D0: No need of this varible after adding entity ofr data(efd)
-  // selectedEntity = Utility.makePluralChanges(selectedEntity);
-
   let queryData = ` `;
   for (let index = 0; index < columnNames.length; ++index) {
     const element = columnNames[index];
