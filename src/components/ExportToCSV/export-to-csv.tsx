@@ -45,7 +45,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
   }, [selectedEntity, queryDataGlobalState, listOfattributes]);
 
   //<------- functionality for dynamic query ------->
-
+ 
   function getCsvDataResursively(error: string) {
     let listOfFilters: Allfilters[] = [];
     let sortFilter: Allfilters[] = [];
@@ -89,11 +89,12 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     );
   }
 
-  //<--------------- Export Handler --------------->
+  //<------------------------- Export Handler ------------------------------>
   const [downloadOnce, setDownloadOnce] = useState(true);
 
   const exportClickHandler = async () => {
     let data: any;
+    
     try {
       data = await client.query({
         query: getCsvDataResursively(errorMsg),
@@ -101,11 +102,11 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     } catch (err) {
       setErrorMsg(err);
     }
-
+   
     let entityData: any = await data?.data;
     entityData = data?.data['entity'];
     rows = [...entityData];
-
+    console.log(entityData)
     let sortedData = rows.map((item) => {
       const { __typename, ...sortedRows } = item;
 
@@ -119,9 +120,10 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       setSortedDataState([...sortedDataState, ...sortedData]);
     }
 
-    // if (sortedData.length === 0) {
-    //   CSV_LINK_REF?.current?.link.click();
-    // }
+    if (sortedData.length === 0) {
+      CSV_LINK_REF?.current?.link.click();
+      setDownloadRef(false);
+    }
 
     if (downloadRef === null) {
       setDownloadRef(true);
@@ -145,8 +147,11 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       regex.test(sortedDataState.length / 1000)
     ) {
       exportClickHandler();
-    } else if (downloadRef && !errorMsg && downloadOnce) {
-      CSV_LINK_REF?.current?.link.click();
+    } else if (downloadRef && !errorMsg ) {
+     if(downloadOnce){
+        CSV_LINK_REF?.current?.link.click();
+      }
+     
       setDownloadRef(false);
       setDownloadOnce(false);
     }
