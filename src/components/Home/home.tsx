@@ -51,10 +51,10 @@ const Home: React.FunctionComponent<RouteComponentProps<any>> = ({ history }) =>
     if (error) {
     }
     if (data) {
-      const firstEntity = data.__schema.queryType.fields[0].type.name;
-      const entityForDataQuery = data.__schema.queryType.fields[1].name;
+      const firstEntity: string = data.__schema.queryType.fields[0].type.name;
+      const entityForDataQuery: string = data.__schema.queryType.fields[1].name;
       const url = encodeURIComponent(endpoint);
-      dispatch(setGraphEntity(firstEntity));
+      dispatch(setGraphEntity({ entity: firstEntity, efd: entityForDataQuery }));
       return <Redirect push to={`explore?uri=${url}&e=${firstEntity}&efd=${entityForDataQuery}`} />;
     }
   }

@@ -19,7 +19,7 @@ export default class Utility {
       const element = columnNames[index].name;
       const datatype = columnNames[index].typeName;
       //This condition to check verify attribute type allowed for sorting
-      if (!['OBJECT', 'LIST'].includes(columnNames[index].type)) {
+      if (!['OBJECT', 'LIST', 'NON_NULL'].includes(columnNames[index].type)) {
         if (element.includes('date')) {
           columnName = element;
           break;
@@ -78,14 +78,18 @@ export default class Utility {
     columnType: string,
     endpoint: string,
     subgraphNetworkName: string,
-    theme: string
+    theme: string,
+    listOfEntities?: any
   ) => {
     let inputValue = row[`${columnName}`];
     let address = ethers.utils.isAddress(inputValue);
     let verifyTxHash = Boolean(regex.TXHASH_REGEX.test(inputValue));
-
     if (columnType === dataTypeLabel.OBJECT) {
-      Utility.checkAttributeIsEntity(typename, entityForData, inputValue.id, endpoint, theme);
+      let entityType = listOfEntities.listOfEntity?.filter(
+        (entity: any) => entity.entity === typename
+      )[0].efd;
+
+      Utility.checkAttributeIsEntity(typename, entityType, inputValue.id, endpoint, theme);
     } else if (columnName === columnLabels.ID) {
       let splitNumber = inputValue.split('-');
       let addressFound = '';
@@ -239,6 +243,14 @@ export default class Utility {
           addressBaseurl: 'https://ropsten.etherscan.io/address/',
         },
       ],
+      [
+        'MATIC',
+        {
+          DISPLAY_VALUE: 'MATIC',
+          transactionBaseurl: 'https://polygonscan.com/tx',
+          addressBaseurl: 'https://polygonscan.com/address/',
+        },
+      ],
     ]);
     return mapOfNetworkNames;
   }
@@ -251,9 +263,9 @@ export default class Utility {
     theme: any
   ) => {
     const URI = encodeURIComponent(endpoint);
-    let selectedEntity = entity && entity.charAt(0).toLowerCase() + entity.slice(1); //To-D0: No need of this varible after adding entity ofr data(efd)
-    selectedEntity = Utility.makePluralChanges(selectedEntity);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&id=${id}&efd=${selectedEntity}`;
+    // let selectedEntity = entity && entity.charAt(0).toLowerCase() + entity.slice(1); To-D0: No need of this varible after adding entity ofr data(efd)
+    // selectedEntity = Utility.makePluralChanges(selectedEntity);
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${entity}&th=${theme}&id=${id}&efd=${entityForData}`;
   };
 
   /*
