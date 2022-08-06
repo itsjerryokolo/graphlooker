@@ -106,7 +106,7 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     let entityData: any = await data?.data;
     entityData = data?.data['entity'];
     rows = [...entityData];
-    console.log(entityData)
+
     let sortedData = rows.map((item) => {
       const { __typename, ...sortedRows } = item;
 
