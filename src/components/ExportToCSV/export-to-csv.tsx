@@ -121,10 +121,9 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
     }
 
     if (sortedData.length === 0) {
-      CSV_LINK_REF?.current?.link.click();
+      // CSV_LINK_REF?.current?.link.click();
       setDownloadRef(false);
     }
-
     if (downloadRef === null) {
       setDownloadRef(true);
     }
@@ -147,11 +146,10 @@ const ExportToCSV: React.FunctionComponent<any> = () => {
       regex.test(sortedDataState.length / 1000)
     ) {
       exportClickHandler();
-    } else if (downloadRef && !errorMsg ) {
-     if(downloadOnce){
-        CSV_LINK_REF?.current?.link.click();
-      }
-     
+    } else if (downloadRef && !errorMsg) {
+     if(downloadOnce) {
+      CSV_LINK_REF?.current?.link.click();
+     }
       setDownloadRef(false);
       setDownloadOnce(false);
     }
