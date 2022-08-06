@@ -14,10 +14,10 @@ export const setGraphEndpoint = (endpoint: string) => {
   };
 };
 
-export const setGraphEntity = (entity: string) => {
+export const setGraphEntity = (entityDetails: { entity: string; efd: string }) => {
   return {
     type: EndpointActionTypes.SET_ENTITY,
-    payload: entity,
+    payload: entityDetails,
   };
 };
 
@@ -32,5 +32,12 @@ export const setGraphQuery = (query: any) => {
   return {
     type: EndpointActionTypes.SET_QUERY,
     payload: query,
+  };
+};
+
+export const setAllEntity = (listOfEntities: { entity: string; efd: string }[]) => {
+  return {
+    type: EndpointActionTypes.SET_ALL_ENTITY,
+    payload: listOfEntities,
   };
 };

@@ -18,11 +18,8 @@ export interface GraphNameState {
   graphName: GraphName;
 }
 
-interface SelectedEntity {
-  entity: string;
-}
 export interface EntityState {
-  selectedEntity: SelectedEntity;
+  selectedEntity: { entity: string; efd: string };
 }
 interface AllAttributes {
   attributes: { name: string; type: string; typeName: string }[];
@@ -43,4 +40,8 @@ interface DataLoading {
 }
 export interface LoadingState {
   dataLoading: DataLoading;
+}
+
+export interface listOfEntityState {
+  listOfEntity: { entity: string; efd: string };
 }

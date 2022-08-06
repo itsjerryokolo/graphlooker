@@ -18,9 +18,9 @@ const NumberFilterMenu: React.FunctionComponent<
   const label = Constants.LABELS.commonLables;
   const filterOptionLabel = Constants.FILTERLABELS.filterOptionLabels;
 
-  let selectedEntity: string;
+  let selectedEntity: any;
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
-  selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
+  selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity); //TO-DO
 
   const intFilter = Constants.INT_TYPE_MENU.intFilter;
   const [selectMenu, setSelectMenu] = React.useState(filterOptionLabel.EQUAL_TO); //For Number
@@ -93,7 +93,8 @@ const NumberFilterMenu: React.FunctionComponent<
           onClick={() =>
             filterNumberIs(
               endpoint,
-              selectedEntity,
+              selectedEntity.entity,
+              selectedEntity.efd,
               attributeName,
               optionSelected,
               firstInputNumber,
