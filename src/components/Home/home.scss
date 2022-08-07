@@ -136,28 +136,28 @@
 }
 
 @media screen and (max-width: 900px) {
-  .search-box{
+  .search-box {
     margin: auto;
     width: 700px;
   }
-  .subgraph-link-container{
+  .subgraph-link-container {
     margin-left: 18px;
     width: 750px;
-    li{
+    li {
       min-width: 60px;
       font-size: 10px;
     }
   }
 }
 @media screen and (max-width: 800px) {
-  .search-box{
+  .search-box {
     margin: auto;
     width: 700px;
   }
-  .subgraph-link-container{
+  .subgraph-link-container {
     margin-left: -5px;
     width: 700px;
-    li{
+    li {
       min-width: 50px;
       font-size: 8px;
     }
@@ -168,7 +168,7 @@
   .search-box {
     width: 600px;
   }
-  .subgraph-link-container{
+  .subgraph-link-container {
     flex-wrap: wrap;
     width: 600px;
   }
@@ -178,11 +178,11 @@
   .search-box {
     width: 500px;
   }
-  .subgraph-link-container{
+  .subgraph-link-container {
     flex-wrap: wrap;
     width: 500px;
   }
-  .error-message span{
+  .error-message span {
     font-size: 15px;
   }
 }
@@ -190,28 +190,27 @@
   .search-box {
     width: 400px;
   }
-  .subgraph-link-container{
+  .subgraph-link-container {
     flex-wrap: wrap;
     width: 420px;
   }
-  .explore-msg{
+  .explore-msg {
     font-size: 15px !important;
   }
-  .error-message span{
+  .error-message span {
     font-size: 12px;
   }
 }
 @media screen and (max-width: 400px) {
-  
   .search-box {
     width: 360px;
-    .search-input{
+    .search-input {
     }
-    button{
+    button {
       padding-right: 10px;
     }
   }
-  .subgraph-link-container{
+  .subgraph-link-container {
     flex-wrap: wrap;
     width: 370px;
   }
@@ -219,22 +218,22 @@
     margin-left: -20px;
     width: 80px;
     margin: 10px 0px 10px -20px;
-    li{
+    li {
       font-size: 5px;
     }
   }
-  .explore-msg{
+  .explore-msg {
     font-size: 12px !important;
   }
-  .error-message span{
+  .error-message span {
     font-size: 10px;
   }
-  .search-input{
+  .search-input {
     height: 52px !important;
-    border-radius: 7px 0 0 7px !important; 
+    border-radius: 7px 0 0 7px !important;
   }
   .search-button {
     height: 52px !important;
-    border-radius: 0 5px 5px 0 !important; 
+    border-radius: 0 5px 5px 0 !important;
   }
 }
