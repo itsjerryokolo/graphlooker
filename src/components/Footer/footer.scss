@@ -40,7 +40,7 @@ footer {
       padding: 2px;
       background-color: #fff;
     }
-    svg{
+    svg {
       fill: $colorBlack;
     }
   }
@@ -51,5 +51,11 @@ footer {
       text-decoration: none;
       color: $colorCyan;
     }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .copyright-info {
+    display: none;
   }
 }
