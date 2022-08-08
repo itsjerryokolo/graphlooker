@@ -190,6 +190,8 @@ export default class Constants {
     URL: 'https://api.thegraph.com/index-node/graphql',
   };
   public static REGEX = {
+    TXHASH_STARTING_REGEX:/^0x[a-zA-Z]*/i,
+    CHECK_ONLY_APLHANUMERIC_REGEX: /^[A-Za-z0-9 ]+$/,
     TXHASH_REGEX: /[0-9A-Fa-f]{6}/g,
     CHECK_NUMBER_REGEX: /^\d*(\.\d+)?$/,
     urlRegex: /^(https:\/\/api\.|http:\/\/api\.)[a-zA-Z0-9\-_$]+\.[a-zA-Z]{2,5}/g,

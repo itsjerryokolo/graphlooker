@@ -28,7 +28,7 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import Tooltip from '@mui/material/Tooltip';
 import './graph-data-table.scss';
 import { KeyboardArrowDown } from '@mui/icons-material';
-import { Alert, Button, Menu, Snackbar, TableHead } from '@mui/material';
+import { Button, Menu, TableHead } from '@mui/material';
 import moment from 'moment';
 import PrimaryMenu from '../PrimaryMenu/primary-menu';
 import Constants from '../../utility/constant';
@@ -260,17 +260,22 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     setAnchorEl(null);
   };
 
-  //Snackbar(Toast) Open/Close handle
-  const [open, setOpen] = useState(false);
-  const handleCloseToast = () => {
-    setOpen(false);
-  };
   if (errorMsg) {
     listOfattributes = listOfattributes.filter((item) => item.type !== dataTypeLabel.OBJECT);
   }
   if (listOfattributes.length === 0) {
     dispatch(setDataLoading(false));
   }
+  const getClassNameBasedOnEntity = (row: any, itemName: any, itemType: any) => {
+    if (Utility.linkToAddressAndTxHash(row, itemName, itemType) && subgraphNetworkName) {
+      return 'tablerow-data-css address-data-css';
+    }
+    if (itemType === dataTypeLabel.OBJECT && row[`${itemName}`]) {
+      return 'tablerow-data-css address-data-css';
+    } else {
+      return 'tablerow-data-css';
+    }
+  };
   return (
     <>
       <div className={drawerOpen ? 'FilterData' : 'FilterData-drawer-open'}>
@@ -341,15 +346,9 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                         >
                           <TableCell
                             key={key}
-                            className={`${
-                              Utility.linkToAddressAndTxHash(row, item.name, item.type)
-                                ? endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH)
-                                  ? 'tablerow-data-css address-data-css '
-                                  : 'tablerow-data-css'
-                                : 'tablerow-data-css '
-                            }`}
+                            className={getClassNameBasedOnEntity(row, item.name, item.type)}
                             onClick={() => {
-                              let openCloseSnackbar = Utility.verifyAddress(
+                              Utility.verifyAddress(
                                 item.typeName,
                                 `${parsed.efd}`,
                                 row,
@@ -360,7 +359,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                                 String(theme),
                                 listOfEntity
                               );
-                              setOpen(Boolean(openCloseSnackbar));
                             }}
                           >
                             {`${showValuesBasedOnType(row, item).displayValue}`}
@@ -392,16 +390,6 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
               attributeDataType={attributeDataType}
             />
           </Menu>
-          <Snackbar
-            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            open={open}
-            autoHideDuration={3000}
-            onClose={handleCloseToast}
-          >
-            <Alert onClose={handleCloseToast} severity="error" sx={{ width: '100%' }}>
-              {label.INVALID}
-            </Alert>
-          </Snackbar>
         </div>
         {parsed.id === undefined && rows.length > 0 ? (
           <div

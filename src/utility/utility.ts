@@ -99,6 +99,9 @@ export default class Utility {
           addressFound = el;
         }
       });
+      if (!subgraphNetworkName) {
+        return false;
+      }
       if (addressFound !== '') {
         let isOpenSnackbar = Utility.checkAddressValidity(
           columnName,
@@ -328,6 +331,25 @@ export default class Utility {
 
     return JSON.stringify(listOfFilters);
   };
+  /*
+  This method receives an Address ID and Validates that if it is a Valid Transaction ID or Not.
+  The Regex checks that :
+  -If the ID is strict Alphanumeric and not a number.
+  -If the ID starts with 0x.
+  */
+  public static checkIfAddressIsValidTransaction = (id: string) => {
+    if (
+      id &&
+      regex.TXHASH_REGEX.test(id) &&
+      !regex.CHECK_NUMBER_REGEX.test(id) &&
+      regex.CHECK_ONLY_APLHANUMERIC_REGEX.test(id) &&
+      regex.TXHASH_STARTING_REGEX.test(id)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   public static checkAddressValidity = (
     entity: string,
@@ -338,16 +360,12 @@ export default class Utility {
   ) => {
     const subgraphNetworkNameUrl = Utility.getNetworkDetails().get(subgraphNetworkName);
     let verifyAddress = ethers.utils.isAddress(id);
-    if (
-      verifyAddress &&
-      endpoint.includes(Constants.VALID_ENDPOINT.SUBGRAPH) &&
-      subgraphNetworkName !== null
-    ) {
+    if (verifyAddress && subgraphNetworkName) {
       window.open(
         `${subgraphNetworkNameUrl.addressBaseurl}${id}`,
         '_blank' // <- This is what makes it open in a new window.
       );
-    } else if (id && id.length === 66 && regex.TXHASH_REGEX.test(id)) {
+    } else if (Utility.checkIfAddressIsValidTransaction(id)) {
       window.open(
         // `${urlLabels.TNX_URL}${id}`,
         `${subgraphNetworkNameUrl.transactionBaseurl}${id}`,
@@ -403,13 +421,17 @@ export default class Utility {
   };
 
   public static linkToAddressAndTxHash = (row: any, columnName: string, columnType: string) => {
-    if (columnType === dataTypeLabel.OBJECT) {
+    if (columnType === dataTypeLabel.OBJECT && row[`${columnName}`]) {
       return true;
     } else if (columnName === columnLabels.ID) {
       let splitNumber = row[`${columnName}`].split('-');
 
       for (let i = 0; i < splitNumber.length; i++) {
-        if (!regex.CHECK_NUMBER_REGEX.test(splitNumber[i])) {
+        if (
+          !regex.CHECK_NUMBER_REGEX.test(splitNumber[i]) &&
+          regex.CHECK_ONLY_APLHANUMERIC_REGEX.test(splitNumber[i]) &&
+          regex.TXHASH_STARTING_REGEX.test(splitNumber[i])
+        ) {
           return true;
         }
       }
