@@ -24,6 +24,7 @@ import {
   setGraphEntity,
   setGraphEndpoint,
   setSubgraphName,
+  setAllEntity,
 } from '../../redux/actions/endpoint-action';
 import DataBoard from '../DataBoard/data-board';
 import Constants from '../../utility/constant';
@@ -71,7 +72,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
       const endpointEncoded = parsed.uri;
       const endpoint = decodeURIComponent(`${endpointEncoded}`);
       const entity = parsed.e;
-      dispatch(setGraphEntity(`${entity}`));
+      dispatch(setGraphEntity({ entity: `${entity}`, efd: `${parsed.efd}` }));
       dispatch(setGraphEndpoint(endpoint));
       return;
     }
@@ -132,7 +133,7 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
     }
   }, [dispatch, networkName]);
 
-  let allEntities = [];
+  let allEntities: { entity: string; efd: string }[];
   allEntities = [];
   if (loading) {
     if (error) {
@@ -148,12 +149,13 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
         if (index % 2 === 0) {
           allEntities.push({
             entity: element.type.name,
-            entityForDataQuery: queryData[index + 1]?.name,
+            efd: queryData[index + 1]?.name,
           });
         }
       }
       allEntities.pop();
     }
+    dispatch(setAllEntity(allEntities));
   }
   const drawer = (
     <div>
@@ -198,13 +200,23 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                   display: { xs: 'none', sm: 'block' },
                 }}
               >
-                <a href={Constants.ROUTES.HOME_ROUTE}>
-                  <img
-                    src="/images/GraphLooker_white_text.png"
-                    height="50px"
-                    alt="GraphLooker-icon"
-                  ></img>
-                </a>
+                {theme === label.LIGHT_THEME_LABEL ? (
+                  <a href={Constants.ROUTES.HOME_ROUTE}>
+                    <img
+                      src="/images/GraphLooker_theme_color_text.png"
+                      height="50px"
+                      alt="GraphLooker-icon"
+                    ></img>
+                  </a>
+                ) : (
+                  <a href={Constants.ROUTES.HOME_ROUTE}>
+                    <img
+                      src="/images/GraphLooker_white_text.png"
+                      height="50px"
+                      alt="GraphLooker-icon"
+                    ></img>
+                  </a>
+                )}
               </Box>
 
               {drawerOpen ? (
@@ -278,20 +290,30 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
                 boxSizing: 'border-box',
                 width: drawerWidth,
                 backgroundColor: `${theme === label.LIGHT_THEME_LABEL ? label.WHITE : label.BLACK}`,
-                color: 'white',
+                color: '#757474',
                 paddingBottom: '8rem',
               },
             }}
           >
             <DrawerHeader>
               <Box>
-                <a href={Constants.ROUTES.HOME_ROUTE}>
-                  <img
-                    src="/images/GraphLooker_theme_color_text.png"
-                    height="33px"
-                    alt="GraphLooker-icon"
-                  ></img>
-                </a>
+                {theme === label.LIGHT_THEME_LABEL ? (
+                  <a href={Constants.ROUTES.HOME_ROUTE}>
+                    <img
+                      src="/images/GraphLooker_theme_color_text.png"
+                      height="50px"
+                      alt="GraphLooker-icon"
+                    ></img>
+                  </a>
+                ) : (
+                  <a href={Constants.ROUTES.HOME_ROUTE}>
+                    <img
+                      src="/images/GraphLooker_white_text.png"
+                      height="50px"
+                      alt="GraphLooker-icon"
+                    ></img>
+                  </a>
+                )}
               </Box>
             </DrawerHeader>
             {drawer}

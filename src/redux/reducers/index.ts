@@ -4,6 +4,7 @@ import {
   endpointReducer,
   entityReducer,
   graphNameReducer,
+  listOfEntityReducer,
   queryReducer,
 } from './endpoint-reducer';
 import { loadingReducer } from './loading-reducer';
@@ -16,5 +17,6 @@ export const reducers = combineReducers({
   allAttributes: attributesReducer,
   dataLoading: loadingReducer,
   queryState: queryReducer,
-  graphName:graphNameReducer,
+  graphName: graphNameReducer,
+  listOfEntity: listOfEntityReducer,
 });

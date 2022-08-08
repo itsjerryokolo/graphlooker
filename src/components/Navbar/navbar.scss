@@ -109,3 +109,24 @@
     font-weight: 700;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .menu-items {
+    img {
+      transform: scale(0.8);
+      margin-left: -40px;
+    }
+  }
+  .docs-container {
+    .button {
+      margin-left: 30px !important;
+      margin-top: -4px;
+    }
+    .button__text {
+      padding: 0px 12px !important;
+    }
+  }
+  .theme-icon {
+    margin-top: -4px;
+  }
+}
