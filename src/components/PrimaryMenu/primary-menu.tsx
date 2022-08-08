@@ -82,7 +82,13 @@ const PrimaryMenu: React.FunctionComponent<PrimaryMenuProps & RouteComponentProp
   };
 
   const getStringMenu = () => {
-    if (!(attributeType === filterLabels.LIST)) {
+    if (
+      !(
+        attributeType === filterLabels.LIST ||
+        attributeType === filterLabels.OBJECT ||
+        attributeType === filterLabels.NON_NULL
+      )
+    ) {
       return (
         <>
           <MenuItem>
