@@ -409,7 +409,7 @@ export default class Utility {
   };
 
   public static linkToAddressAndTxHash = (row: any, columnName: string, columnType: string) => {
-    if (columnType === dataTypeLabel.OBJECT) {
+    if (columnType === dataTypeLabel.OBJECT && row[`${columnName}`]) {
       return true;
     } else if (columnName === columnLabels.ID) {
       let splitNumber = row[`${columnName}`].split('-');
