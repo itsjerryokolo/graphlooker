@@ -202,21 +202,21 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               >
                 {theme === label.LIGHT_THEME_LABEL ? (
                   <a href={Constants.ROUTES.HOME_ROUTE}>
-                <img
-                  src="/images/GraphLooker_theme_color_text.png"
-                  height="50px"
-                  alt="GraphLooker-icon"
-                ></img>
-                </a>
-              ) : (
-                <a href={Constants.ROUTES.HOME_ROUTE}>
-                <img
-                  src="/images/GraphLooker_white_text.png"
-                  height="50px"
-                  alt="GraphLooker-icon"
-                ></img>
-                </a>
-              )}
+                    <img
+                      src="/images/GraphLooker_theme_color_text.png"
+                      height="50px"
+                      alt="GraphLooker-icon"
+                    ></img>
+                  </a>
+                ) : (
+                  <a href={Constants.ROUTES.HOME_ROUTE}>
+                    <img
+                      src="/images/GraphLooker_white_text.png"
+                      height="50px"
+                      alt="GraphLooker-icon"
+                    ></img>
+                  </a>
+                )}
               </Box>
 
               {drawerOpen ? (
@@ -299,21 +299,21 @@ const GraphData: React.FunctionComponent<RouteComponentProps<any>> = ({ location
               <Box>
                 {theme === label.LIGHT_THEME_LABEL ? (
                   <a href={Constants.ROUTES.HOME_ROUTE}>
-                <img
-                  src="/images/GraphLooker_theme_color_text.png"
-                  height="50px"
-                  alt="GraphLooker-icon"
-                ></img>
-                </a>
-              ) : (
-                <a href={Constants.ROUTES.HOME_ROUTE}>
-                <img
-                  src="/images/GraphLooker_white_text.png"
-                  height="50px"
-                  alt="GraphLooker-icon"
-                ></img>
-                </a>
-              )}
+                    <img
+                      src="/images/GraphLooker_theme_color_text.png"
+                      height="50px"
+                      alt="GraphLooker-icon"
+                    ></img>
+                  </a>
+                ) : (
+                  <a href={Constants.ROUTES.HOME_ROUTE}>
+                    <img
+                      src="/images/GraphLooker_white_text.png"
+                      height="50px"
+                      alt="GraphLooker-icon"
+                    ></img>
+                  </a>
+                )}
               </Box>
             </DrawerHeader>
             {drawer}
