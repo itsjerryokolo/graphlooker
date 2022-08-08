@@ -332,7 +332,7 @@ export default class Utility {
     return JSON.stringify(listOfFilters);
   };
   /*
-  This method receives an Address ID and Validates that if it Valid Transaction ID or Not.
+  This method receives an Address ID and Validates that if it is a Valid Transaction ID or Not.
   The Regex checks that :
   -If the ID is strict Alphanumeric and not a number.
   -If the ID starts with 0x.
