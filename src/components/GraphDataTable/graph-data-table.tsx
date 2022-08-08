@@ -7,6 +7,7 @@ import {
   QueryDataState,
   GraphNameState,
   ThemeState,
+  listOfEntityState,
 } from '../../utility/redux/state';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
@@ -44,7 +45,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   drawerOpen,
   location,
 }) => {
-  let selectedEntity: string;
+  let selectedEntity: any;
   let rows: any[] = [];
   let pageNumber: number = 1;
   let isNextDisable: boolean = false;
@@ -53,8 +54,11 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
   const subgraphNetworkName = useSelector((state: GraphNameState) => state.graphName.subgraphName);
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
+  let efd = useSelector((state: EntityState) => state.selectedEntity.efd);
+  efd = efd ? efd : `${parsed.efd}`;
   let listOfattributes = useSelector((state: AttributesState) => state.allAttributes.attributes);
   const theme = useSelector((state: ThemeState) => state.themeSelector.theme);
+  let listOfEntity = useSelector((state: listOfEntityState) => state.listOfEntity);
   let listOfFilters = String(parsed.filterObj);
   const dispatch = useDispatch();
 
@@ -71,14 +75,14 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
       sortFilter = listOfFilters.filter((data) => data.filterName === 'sort');
     }
     if (parsed.id) {
-      return getGraphDataForID(listOfattributes, selectedEntity, `${parsed.id}`);
+      return getGraphDataForID(listOfattributes, efd, `${parsed.id}`);
     }
     //if only sorting fiilter is available
     if (listOfFilters && listOfFilters.length === 1 && sortFilter && sortFilter.length) {
       const skip = checkForPagination();
       return getSortedDataQuery(
         listOfattributes,
-        selectedEntity,
+        `${parsed.efd}`,
         sortFilter[0].inputValue,
         sortFilter[0].columnName,
         skip,
@@ -90,7 +94,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
       const skip = checkForPagination();
       return getStringFilterGraphData(
         listOfattributes,
-        selectedEntity,
+        `${parsed.efd}`,
         skip,
         100,
         '',
@@ -107,7 +111,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
       const skip = 100 * (pageNumber - 1);
       return getDataQuery(
         listOfattributes,
-        selectedEntity,
+        `${parsed.efd}`,
         100,
         skip,
         queryDataGlobalState,
@@ -115,7 +119,7 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
         error
       );
     }
-    return getDataQuery(listOfattributes, selectedEntity, 100, 0, queryDataGlobalState, '', error);
+    return getDataQuery(listOfattributes, `${parsed.efd}`, 100, 0, queryDataGlobalState, '', error);
   };
   const checkForEllipsis = (data: any) => {
     if (data?.length > 60) {
@@ -196,17 +200,17 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
     let filtersInStringify = Utility.getAllFilters(null, null, null, listOfFilters);
     if (isNextDisable) return;
     const URI = encodeURIComponent(endpoint);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&p=${
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity.entity}&p=${
       pageNumber + 1
-    }&filterObj=${filtersInStringify}`;
+    }&efd=${parsed.efd}&filterObj=${filtersInStringify}`;
   };
   const goToPrev = () => {
     if (isPrevDisable) return;
     let filtersInStringify = Utility.getAllFilters(null, null, null, listOfFilters);
     const URI = encodeURIComponent(endpoint);
-    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity}&p=${
+    window.location.href = `${urlLabels.BASE_URL}uri=${URI}&e=${selectedEntity.entity}&p=${
       pageNumber - 1
-    }&filterObj=${filtersInStringify}`;
+    }&efd=${parsed.efd}&filterObj=${filtersInStringify}`;
   };
 
   //Get Table Data
@@ -352,7 +356,8 @@ const GraphDataTable: React.FunctionComponent<GraphDataTableProps & RouteCompone
                                 item.type,
                                 endpoint,
                                 subgraphNetworkName,
-                                String(theme)
+                                String(theme),
+                                listOfEntity
                               );
                             }}
                           >

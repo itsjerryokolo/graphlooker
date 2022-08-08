@@ -14,7 +14,7 @@ const ListItem: React.FunctionComponent<ListItemProps & RouteComponentProps<any>
   entity,
   location,
 }) => {
-  let selectedEntity: string;
+  let selectedEntity: any;
   selectedEntity = useSelector((state: EntityState) => state.selectedEntity.entity);
   const endpoint = useSelector((state: EndpointState) => state.graphEndpoint.endpoint);
   const urlLabels = Constants.LABELS.commonUrls;
@@ -27,11 +27,11 @@ const ListItem: React.FunctionComponent<ListItemProps & RouteComponentProps<any>
       <div style={{ textDecoration: 'none' }} className="links">
         <ListItemButton
           className={
-            selectedEntity === entity.entity
+            selectedEntity.entity === entity.entity
               ? `list-item-selected selected-background`
               : `list-item margin-halfrem`
           }
-          onClick={() => handleEntityChange(entity.entity, entity.entityForDataQuery)}
+          onClick={() => handleEntityChange(entity.entity, entity.efd)}
         >
           <TableChartIcon className="entity-logo"></TableChartIcon>
           <div style={{ display: 'flex', alignItems: 'center' }} className="entity-name">

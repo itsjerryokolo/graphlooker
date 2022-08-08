@@ -134,7 +134,7 @@ export default class Constants {
       recentSubgraphs: [
         {
           NAME: 'Uniswap V3',
-          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Funiswap%2Funiswap-v3&e=Factory`,
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Funiswap%2Funiswap-v2&e=UniswapFactory&efd=uniswapFactories`,
         },
         {
           NAME: 'LIVEPEER',
@@ -142,15 +142,15 @@ export default class Constants {
         },
         {
           NAME: 'Decentraland',
-          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fdecentraland%2Fmarketplace&e=Count`,
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fdecentraland%2Fmarketplace&e=Count&efd=counts`,
         },
         {
           NAME: 'Aave Gotchi',
-          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Faavegotchi%2Faavegotchi-lending&e=AavegotchiOption`,
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Faavegotchi%2Faavegotchi-lending&e=AavegotchiOption&efd=aavegotchiOptions`,
         },
         {
           NAME: 'Compound V2',
-          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fmessari%2Fcompound-ethereum-extended&e=Token`,
+          LINK: `${Constants.URL.BASE_URL}uri=https%3A%2F%2Fapi.thegraph.com%2Fsubgraphs%2Fname%2Fgraphprotocol%2Fcompound-v2&e=Comptroller&efd=comptrollers`,
         },
       ],
     },
